@@ -1,0 +1,9 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+sqlalchemy>=2.0
+pydantic>=2.9
+passlib>=1.7.4
+python-dotenv>=1.0
+google-genai>=1.20
+PyJWT>=2.8
+cryptography>=42

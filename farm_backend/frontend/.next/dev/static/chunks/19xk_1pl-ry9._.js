@@ -1,0 +1,18956 @@
+(globalThis["TURBOPACK"] || (globalThis["TURBOPACK"] = [])).push([typeof document === "object" ? document.currentScript : undefined,
+"[project]/frontend/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+// src/index.ts
+__turbopack_context__.s([
+    "ReducerType",
+    ()=>ReducerType,
+    "SHOULD_AUTOBATCH",
+    ()=>SHOULD_AUTOBATCH,
+    "TaskAbortError",
+    ()=>TaskAbortError,
+    "Tuple",
+    ()=>Tuple,
+    "addListener",
+    ()=>addListener,
+    "asyncThunkCreator",
+    ()=>asyncThunkCreator,
+    "autoBatchEnhancer",
+    ()=>autoBatchEnhancer,
+    "buildCreateSlice",
+    ()=>buildCreateSlice,
+    "clearAllListeners",
+    ()=>clearAllListeners,
+    "combineSlices",
+    ()=>combineSlices,
+    "configureStore",
+    ()=>configureStore,
+    "createAction",
+    ()=>createAction,
+    "createActionCreatorInvariantMiddleware",
+    ()=>createActionCreatorInvariantMiddleware,
+    "createAsyncThunk",
+    ()=>createAsyncThunk,
+    "createDraftSafeSelector",
+    ()=>createDraftSafeSelector,
+    "createDraftSafeSelectorCreator",
+    ()=>createDraftSafeSelectorCreator,
+    "createDynamicMiddleware",
+    ()=>createDynamicMiddleware,
+    "createEntityAdapter",
+    ()=>createEntityAdapter,
+    "createImmutableStateInvariantMiddleware",
+    ()=>createImmutableStateInvariantMiddleware,
+    "createListenerMiddleware",
+    ()=>createListenerMiddleware,
+    "createReducer",
+    ()=>createReducer,
+    "createSerializableStateInvariantMiddleware",
+    ()=>createSerializableStateInvariantMiddleware,
+    "createSlice",
+    ()=>createSlice,
+    "findNonSerializableValue",
+    ()=>findNonSerializableValue,
+    "formatProdErrorMessage",
+    ()=>formatProdErrorMessage,
+    "isActionCreator",
+    ()=>isActionCreator,
+    "isAllOf",
+    ()=>isAllOf,
+    "isAnyOf",
+    ()=>isAnyOf,
+    "isAsyncThunkAction",
+    ()=>isAsyncThunkAction,
+    "isFluxStandardAction",
+    ()=>isFSA,
+    "isFulfilled",
+    ()=>isFulfilled,
+    "isImmutableDefault",
+    ()=>isImmutableDefault,
+    "isPending",
+    ()=>isPending,
+    "isPlain",
+    ()=>isPlain,
+    "isRejected",
+    ()=>isRejected,
+    "isRejectedWithValue",
+    ()=>isRejectedWithValue,
+    "miniSerializeError",
+    ()=>miniSerializeError,
+    "nanoid",
+    ()=>nanoid,
+    "prepareAutoBatched",
+    ()=>prepareAutoBatched,
+    "removeListener",
+    ()=>removeListener,
+    "unwrapResult",
+    ()=>unwrapResult
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/immer/dist/immer.mjs [app-client] (ecmascript)");
+// src/index.ts
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$reselect$2f$dist$2f$reselect$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/reselect/dist/reselect.mjs [app-client] (ecmascript)");
+// src/reduxImports.ts
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/redux/dist/redux.mjs [app-client] (ecmascript)");
+// src/getDefaultMiddleware.ts
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2d$thunk$2f$dist$2f$redux$2d$thunk$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/redux-thunk/dist/redux-thunk.mjs [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+// src/createDraftSafeSelector.ts
+var createDraftSafeSelectorCreator = (...args)=>{
+    const createSelector2 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$reselect$2f$dist$2f$reselect$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createSelectorCreator"])(...args);
+    const createDraftSafeSelector2 = Object.assign((...args2)=>{
+        const selector = createSelector2(...args2);
+        const wrappedSelector = (value, ...rest)=>selector((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isDraft"])(value) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["current"])(value) : value, ...rest);
+        Object.assign(wrappedSelector, selector);
+        return wrappedSelector;
+    }, {
+        withTypes: ()=>createDraftSafeSelector2
+    });
+    return createDraftSafeSelector2;
+};
+var createDraftSafeSelector = /* @__PURE__ */ createDraftSafeSelectorCreator(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$reselect$2f$dist$2f$reselect$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["weakMapMemoize"]);
+;
+// src/devtoolsExtension.ts
+var composeWithDevTools = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
+    if (arguments.length === 0) return void 0;
+    if (typeof arguments[0] === "object") return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["compose"];
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["compose"].apply(null, arguments);
+};
+var devToolsEnhancer = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__ : function() {
+    return function(noop3) {
+        return noop3;
+    };
+};
+;
+// src/tsHelpers.ts
+var hasMatchFunction = (v)=>{
+    return v && typeof v.match === "function";
+};
+// src/createAction.ts
+function createAction(type, prepareAction) {
+    function actionCreator(...args) {
+        if (prepareAction) {
+            let prepared = prepareAction(...args);
+            if (!prepared) {
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "prepareAction did not return an object");
+            }
+            return {
+                type,
+                payload: prepared.payload,
+                ..."meta" in prepared && {
+                    meta: prepared.meta
+                },
+                ..."error" in prepared && {
+                    error: prepared.error
+                }
+            };
+        }
+        return {
+            type,
+            payload: args[0]
+        };
+    }
+    actionCreator.toString = ()=>`${type}`;
+    actionCreator.type = type;
+    actionCreator.match = (action)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isAction"])(action) && action.type === type;
+    return actionCreator;
+}
+function isActionCreator(action) {
+    return typeof action === "function" && "type" in action && // hasMatchFunction only wants Matchers but I don't see the point in rewriting it
+    hasMatchFunction(action);
+}
+function isFSA(action) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isAction"])(action) && Object.keys(action).every(isValidKey);
+}
+function isValidKey(key) {
+    return [
+        "type",
+        "payload",
+        "error",
+        "meta"
+    ].indexOf(key) > -1;
+}
+// src/actionCreatorInvariantMiddleware.ts
+function getMessage(type) {
+    const splitType = type ? `${type}`.split("/") : [];
+    const actionName = splitType[splitType.length - 1] || "actionCreator";
+    return `Detected an action creator with type "${type || "unknown"}" being dispatched.
+Make sure you're calling the action creator before dispatching, i.e. \`dispatch(${actionName}())\` instead of \`dispatch(${actionName})\`. This is necessary even if the action has no payload.`;
+}
+function createActionCreatorInvariantMiddleware(options = {}) {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    const { isActionCreator: isActionCreator2 = isActionCreator } = options;
+    return ()=>(next)=>(action)=>{
+                if (isActionCreator2(action)) {
+                    console.warn(getMessage(action.type));
+                }
+                return next(action);
+            };
+}
+// src/utils.ts
+function getTimeMeasureUtils(maxDelay, fnName) {
+    let elapsed = 0;
+    return {
+        measureTime (fn) {
+            const started = Date.now();
+            try {
+                return fn();
+            } finally{
+                const finished = Date.now();
+                elapsed += finished - started;
+            }
+        },
+        warnIfExceeded () {
+            if (elapsed > maxDelay) {
+                console.warn(`${fnName} took ${elapsed}ms, which is more than the warning threshold of ${maxDelay}ms. 
+If your state or actions are very large, you may want to disable the middleware as it might cause too much of a slowdown in development mode. See https://redux-toolkit.js.org/api/getDefaultMiddleware for instructions.
+It is disabled in production builds, so you don't need to worry about that.`);
+            }
+        }
+    };
+}
+var Tuple = class _Tuple extends Array {
+    constructor(...items){
+        super(...items);
+        Object.setPrototypeOf(this, _Tuple.prototype);
+    }
+    static get [Symbol.species]() {
+        return _Tuple;
+    }
+    concat(...arr) {
+        return super.concat.apply(this, arr);
+    }
+    prepend(...arr) {
+        if (arr.length === 1 && Array.isArray(arr[0])) {
+            return new _Tuple(...arr[0].concat(this));
+        }
+        return new _Tuple(...arr.concat(this));
+    }
+};
+function freezeDraftable(val) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isDraftable"])(val) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["produce"])(val, ()=>{}) : val;
+}
+function getOrInsertComputed(map, key, compute) {
+    if (map.has(key)) return map.get(key);
+    return map.set(key, compute(key)).get(key);
+}
+// src/immutableStateInvariantMiddleware.ts
+function isImmutableDefault(value) {
+    return typeof value !== "object" || value == null || Object.isFrozen(value);
+}
+function trackForMutations(isImmutable, ignoredPaths, obj) {
+    const trackedProperties = trackProperties(isImmutable, ignoredPaths, obj);
+    return {
+        detectMutations () {
+            return detectMutations(isImmutable, ignoredPaths, trackedProperties, obj);
+        }
+    };
+}
+function trackProperties(isImmutable, ignoredPaths = [], obj, path = "", checkedObjects = /* @__PURE__ */ new Set()) {
+    const tracked = {
+        value: obj
+    };
+    if (!isImmutable(obj) && !checkedObjects.has(obj)) {
+        checkedObjects.add(obj);
+        tracked.children = {};
+        const hasIgnoredPaths = ignoredPaths.length > 0;
+        for(const key in obj){
+            const nestedPath = path ? path + "." + key : key;
+            if (hasIgnoredPaths) {
+                const hasMatches = ignoredPaths.some((ignored)=>{
+                    if (ignored instanceof RegExp) {
+                        return ignored.test(nestedPath);
+                    }
+                    return nestedPath === ignored;
+                });
+                if (hasMatches) {
+                    continue;
+                }
+            }
+            tracked.children[key] = trackProperties(isImmutable, ignoredPaths, obj[key], nestedPath);
+        }
+    }
+    return tracked;
+}
+function detectMutations(isImmutable, ignoredPaths = [], trackedProperty, obj, sameParentRef = false, path = "") {
+    const prevObj = trackedProperty ? trackedProperty.value : void 0;
+    const sameRef = prevObj === obj;
+    if (sameParentRef && !sameRef && !Number.isNaN(obj)) {
+        return {
+            wasMutated: true,
+            path
+        };
+    }
+    if (isImmutable(prevObj) || isImmutable(obj)) {
+        return {
+            wasMutated: false
+        };
+    }
+    const keysToDetect = {};
+    for(let key in trackedProperty.children){
+        keysToDetect[key] = true;
+    }
+    for(let key in obj){
+        keysToDetect[key] = true;
+    }
+    const hasIgnoredPaths = ignoredPaths.length > 0;
+    for(let key in keysToDetect){
+        const nestedPath = path ? path + "." + key : key;
+        if (hasIgnoredPaths) {
+            const hasMatches = ignoredPaths.some((ignored)=>{
+                if (ignored instanceof RegExp) {
+                    return ignored.test(nestedPath);
+                }
+                return nestedPath === ignored;
+            });
+            if (hasMatches) {
+                continue;
+            }
+        }
+        const result = detectMutations(isImmutable, ignoredPaths, trackedProperty.children[key], obj[key], sameRef, nestedPath);
+        if (result.wasMutated) {
+            return result;
+        }
+    }
+    return {
+        wasMutated: false
+    };
+}
+function createImmutableStateInvariantMiddleware(options = {}) {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    else {
+        let stringify2 = function(obj, serializer, indent, decycler) {
+            return JSON.stringify(obj, getSerialize2(serializer, decycler), indent);
+        }, getSerialize2 = function(serializer, decycler) {
+            let stack = [], keys = [];
+            if (!decycler) decycler = function(_, value) {
+                if (stack[0] === value) return "[Circular ~]";
+                return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]";
+            };
+            return function(key, value) {
+                if (stack.length > 0) {
+                    var thisPos = stack.indexOf(this);
+                    ~thisPos ? stack.splice(thisPos + 1) : stack.push(this);
+                    ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key);
+                    if (~stack.indexOf(value)) value = decycler.call(this, key, value);
+                } else stack.push(value);
+                return serializer == null ? value : serializer.call(this, key, value);
+            };
+        };
+        var stringify = stringify2, getSerialize = getSerialize2;
+        let { isImmutable = isImmutableDefault, ignoredPaths, warnAfter = 32 } = options;
+        const track = trackForMutations.bind(null, isImmutable, ignoredPaths);
+        return ({ getState })=>{
+            let state = getState();
+            let tracker = track(state);
+            let result;
+            return (next)=>(action)=>{
+                    const measureUtils = getTimeMeasureUtils(warnAfter, "ImmutableStateInvariantMiddleware");
+                    measureUtils.measureTime(()=>{
+                        state = getState();
+                        result = tracker.detectMutations();
+                        tracker = track(state);
+                        if (result.wasMutated) {
+                            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `A state mutation was detected between dispatches, in the path '${result.path || ""}'.  This may cause incorrect behavior. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
+                        }
+                    });
+                    const dispatchedAction = next(action);
+                    measureUtils.measureTime(()=>{
+                        state = getState();
+                        result = tracker.detectMutations();
+                        tracker = track(state);
+                        if (result.wasMutated) {
+                            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `A state mutation was detected inside a dispatch, in the path: ${result.path || ""}. Take a look at the reducer(s) handling the action ${stringify2(action)}. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
+                        }
+                    });
+                    measureUtils.warnIfExceeded();
+                    return dispatchedAction;
+                };
+        };
+    }
+}
+// src/serializableStateInvariantMiddleware.ts
+function isPlain(val) {
+    const type = typeof val;
+    return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isPlainObject"])(val);
+}
+function findNonSerializableValue(value, path = "", isSerializable = isPlain, getEntries, ignoredPaths = [], cache) {
+    let foundNestedSerializable;
+    if (!isSerializable(value)) {
+        return {
+            keyPath: path || "<root>",
+            value
+        };
+    }
+    if (typeof value !== "object" || value === null) {
+        return false;
+    }
+    if (cache?.has(value)) return false;
+    const entries = getEntries != null ? getEntries(value) : Object.entries(value);
+    const hasIgnoredPaths = ignoredPaths.length > 0;
+    for (const [key, nestedValue] of entries){
+        const nestedPath = path ? path + "." + key : key;
+        if (hasIgnoredPaths) {
+            const hasMatches = ignoredPaths.some((ignored)=>{
+                if (ignored instanceof RegExp) {
+                    return ignored.test(nestedPath);
+                }
+                return nestedPath === ignored;
+            });
+            if (hasMatches) {
+                continue;
+            }
+        }
+        if (!isSerializable(nestedValue)) {
+            return {
+                keyPath: nestedPath,
+                value: nestedValue
+            };
+        }
+        if (typeof nestedValue === "object") {
+            foundNestedSerializable = findNonSerializableValue(nestedValue, nestedPath, isSerializable, getEntries, ignoredPaths, cache);
+            if (foundNestedSerializable) {
+                return foundNestedSerializable;
+            }
+        }
+    }
+    if (cache && isNestedFrozen(value)) cache.add(value);
+    return false;
+}
+function isNestedFrozen(value) {
+    if (!Object.isFrozen(value)) return false;
+    for (const nestedValue of Object.values(value)){
+        if (typeof nestedValue !== "object" || nestedValue === null) continue;
+        if (!isNestedFrozen(nestedValue)) return false;
+    }
+    return true;
+}
+function createSerializableStateInvariantMiddleware(options = {}) {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    else {
+        const { isSerializable = isPlain, getEntries, ignoredActions = [], ignoredActionPaths = [
+            "meta.arg",
+            "meta.baseQueryMeta"
+        ], ignoredPaths = [], warnAfter = 32, ignoreState = false, ignoreActions = false, disableCache = false } = options;
+        const cache = !disableCache && WeakSet ? /* @__PURE__ */ new WeakSet() : void 0;
+        return (storeAPI)=>(next)=>(action)=>{
+                    if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isAction"])(action)) {
+                        return next(action);
+                    }
+                    const result = next(action);
+                    const measureUtils = getTimeMeasureUtils(warnAfter, "SerializableStateInvariantMiddleware");
+                    if (!ignoreActions && !(ignoredActions.length && ignoredActions.indexOf(action.type) !== -1)) {
+                        measureUtils.measureTime(()=>{
+                            const foundActionNonSerializableValue = findNonSerializableValue(action, "", isSerializable, getEntries, ignoredActionPaths, cache);
+                            if (foundActionNonSerializableValue) {
+                                const { keyPath, value } = foundActionNonSerializableValue;
+                                console.error(`A non-serializable value was detected in an action, in the path: \`${keyPath}\`. Value:`, value, "\nTake a look at the logic that dispatched this action: ", action, "\n(See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants)", "\n(To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)");
+                            }
+                        });
+                    }
+                    if (!ignoreState) {
+                        measureUtils.measureTime(()=>{
+                            const state = storeAPI.getState();
+                            const foundStateNonSerializableValue = findNonSerializableValue(state, "", isSerializable, getEntries, ignoredPaths, cache);
+                            if (foundStateNonSerializableValue) {
+                                const { keyPath, value } = foundStateNonSerializableValue;
+                                console.error(`A non-serializable value was detected in the state, in the path: \`${keyPath}\`. Value:`, value, `
+Take a look at the reducer(s) handling this action type: ${action.type}.
+(See https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state)`);
+                            }
+                        });
+                        measureUtils.warnIfExceeded();
+                    }
+                    return result;
+                };
+    }
+}
+// src/getDefaultMiddleware.ts
+function isBoolean(x) {
+    return typeof x === "boolean";
+}
+var buildGetDefaultMiddleware = ()=>function getDefaultMiddleware(options) {
+        const { thunk = true, immutableCheck = true, serializableCheck = true, actionCreatorCheck = true } = options ?? {};
+        let middlewareArray = new Tuple();
+        if (thunk) {
+            if (isBoolean(thunk)) {
+                middlewareArray.push(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2d$thunk$2f$dist$2f$redux$2d$thunk$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["thunk"]);
+            } else {
+                middlewareArray.push((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2d$thunk$2f$dist$2f$redux$2d$thunk$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["withExtraArgument"])(thunk.extraArgument));
+            }
+        }
+        if ("TURBOPACK compile-time truthy", 1) {
+            if (immutableCheck) {
+                let immutableOptions = {};
+                if (!isBoolean(immutableCheck)) {
+                    immutableOptions = immutableCheck;
+                }
+                middlewareArray.unshift(createImmutableStateInvariantMiddleware(immutableOptions));
+            }
+            if (serializableCheck) {
+                let serializableOptions = {};
+                if (!isBoolean(serializableCheck)) {
+                    serializableOptions = serializableCheck;
+                }
+                middlewareArray.push(createSerializableStateInvariantMiddleware(serializableOptions));
+            }
+            if (actionCreatorCheck) {
+                let actionCreatorOptions = {};
+                if (!isBoolean(actionCreatorCheck)) {
+                    actionCreatorOptions = actionCreatorCheck;
+                }
+                middlewareArray.unshift(createActionCreatorInvariantMiddleware(actionCreatorOptions));
+            }
+        }
+        return middlewareArray;
+    };
+// src/autoBatchEnhancer.ts
+var SHOULD_AUTOBATCH = "RTK_autoBatch";
+var prepareAutoBatched = ()=>(payload)=>({
+            payload,
+            meta: {
+                [SHOULD_AUTOBATCH]: true
+            }
+        });
+var createQueueWithTimer = (timeout)=>{
+    return (notify)=>{
+        setTimeout(notify, timeout);
+    };
+};
+var createRafWithFallbackTimer = (raf, timeout)=>{
+    return (notify)=>{
+        let called = false;
+        const callback = ()=>{
+            if (called) return;
+            called = true;
+            cancelAnimationFrame(rafId);
+            clearTimeout(timerId);
+            notify();
+        };
+        const rafId = raf(callback);
+        const timerId = setTimeout(callback, timeout);
+    };
+};
+var autoBatchEnhancer = (options = {
+    type: "raf"
+})=>(next)=>(...args)=>{
+            const store = next(...args);
+            let notifying = true;
+            let shouldNotifyAtEndOfTick = false;
+            let notificationQueued = false;
+            const listeners = /* @__PURE__ */ new Set();
+            const queueCallback = options.type === "tick" ? queueMicrotask : options.type === "raf" ? // requestAnimationFrame won't exist in SSR environments. Fall back to a vague approximation just to keep from erroring.
+            typeof window !== "undefined" && window.requestAnimationFrame ? createRafWithFallbackTimer(window.requestAnimationFrame, 100) : createQueueWithTimer(10) : options.type === "callback" ? options.queueNotification : createQueueWithTimer(options.timeout);
+            const notifyListeners = ()=>{
+                notificationQueued = false;
+                if (shouldNotifyAtEndOfTick) {
+                    shouldNotifyAtEndOfTick = false;
+                    listeners.forEach((l)=>l());
+                }
+            };
+            return Object.assign({}, store, {
+                // Override the base `store.subscribe` method to keep original listeners
+                // from running if we're delaying notifications
+                subscribe (listener2) {
+                    const wrappedListener = ()=>notifying && listener2();
+                    const unsubscribe = store.subscribe(wrappedListener);
+                    listeners.add(listener2);
+                    return ()=>{
+                        unsubscribe();
+                        listeners.delete(listener2);
+                    };
+                },
+                // Override the base `store.dispatch` method so that we can check actions
+                // for the `shouldAutoBatch` flag and determine if batching is active
+                dispatch (action) {
+                    try {
+                        notifying = !action?.meta?.[SHOULD_AUTOBATCH];
+                        shouldNotifyAtEndOfTick = !notifying;
+                        if (shouldNotifyAtEndOfTick) {
+                            if (!notificationQueued) {
+                                notificationQueued = true;
+                                queueCallback(notifyListeners);
+                            }
+                        }
+                        return store.dispatch(action);
+                    } finally{
+                        notifying = true;
+                    }
+                }
+            });
+        };
+// src/getDefaultEnhancers.ts
+var buildGetDefaultEnhancers = (middlewareEnhancer)=>function getDefaultEnhancers(options) {
+        const { autoBatch = true } = options ?? {};
+        let enhancerArray = new Tuple(middlewareEnhancer);
+        if (autoBatch) {
+            enhancerArray.push(autoBatchEnhancer(typeof autoBatch === "object" ? autoBatch : void 0));
+        }
+        return enhancerArray;
+    };
+// src/configureStore.ts
+function configureStore(options) {
+    const getDefaultMiddleware = buildGetDefaultMiddleware();
+    const { reducer = void 0, middleware, devTools = true, duplicateMiddlewareCheck = true, preloadedState = void 0, enhancers = void 0 } = options || {};
+    let rootReducer;
+    if (typeof reducer === "function") {
+        rootReducer = reducer;
+    } else if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isPlainObject"])(reducer)) {
+        rootReducer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["combineReducers"])(reducer);
+    } else {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`reducer` is a required argument, and must be a function or an object of functions that can be passed to combineReducers");
+    }
+    if (("TURBOPACK compile-time value", "development") !== "production" && middleware && typeof middleware !== "function") {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`middleware` field must be a callback");
+    }
+    let finalMiddleware;
+    if (typeof middleware === "function") {
+        finalMiddleware = middleware(getDefaultMiddleware);
+        if (("TURBOPACK compile-time value", "development") !== "production" && !Array.isArray(finalMiddleware)) {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "when using a middleware builder function, an array of middleware must be returned");
+        }
+    } else {
+        finalMiddleware = getDefaultMiddleware();
+    }
+    if (("TURBOPACK compile-time value", "development") !== "production" && finalMiddleware.some((item)=>typeof item !== "function")) {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "each middleware provided to configureStore must be a function");
+    }
+    if (("TURBOPACK compile-time value", "development") !== "production" && duplicateMiddlewareCheck) {
+        let middlewareReferences = /* @__PURE__ */ new Set();
+        finalMiddleware.forEach((middleware2)=>{
+            if (middlewareReferences.has(middleware2)) {
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "Duplicate middleware references found when creating the store. Ensure that each middleware is only included once.");
+            }
+            middlewareReferences.add(middleware2);
+        });
+    }
+    let finalCompose = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["compose"];
+    if (devTools) {
+        finalCompose = composeWithDevTools({
+            // Enable capture of stack traces for dispatched Redux actions
+            trace: ("TURBOPACK compile-time value", "development") !== "production",
+            ...typeof devTools === "object" && devTools
+        });
+    }
+    const middlewareEnhancer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["applyMiddleware"])(...finalMiddleware);
+    const getDefaultEnhancers = buildGetDefaultEnhancers(middlewareEnhancer);
+    if (("TURBOPACK compile-time value", "development") !== "production" && enhancers && typeof enhancers !== "function") {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`enhancers` field must be a callback");
+    }
+    let storeEnhancers = typeof enhancers === "function" ? enhancers(getDefaultEnhancers) : getDefaultEnhancers();
+    if (("TURBOPACK compile-time value", "development") !== "production" && !Array.isArray(storeEnhancers)) {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`enhancers` callback must return an array");
+    }
+    if (("TURBOPACK compile-time value", "development") !== "production" && storeEnhancers.some((item)=>typeof item !== "function")) {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "each enhancer provided to configureStore must be a function");
+    }
+    if (("TURBOPACK compile-time value", "development") !== "production" && finalMiddleware.length && !storeEnhancers.includes(middlewareEnhancer)) {
+        console.error("middlewares were provided, but middleware enhancer was not included in final enhancers - make sure to call `getDefaultEnhancers`");
+    }
+    const composedEnhancer = finalCompose(...storeEnhancers);
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createStore"])(rootReducer, preloadedState, composedEnhancer);
+}
+// src/mapBuilders.ts
+function executeReducerBuilderCallback(builderCallback) {
+    const actionsMap = {};
+    const actionMatchers = [];
+    let defaultCaseReducer;
+    const builder = {
+        addCase (typeOrActionCreator, reducer) {
+            if ("TURBOPACK compile-time truthy", 1) {
+                if (actionMatchers.length > 0) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`builder.addCase` should only be called before calling `builder.addMatcher`");
+                }
+                if (defaultCaseReducer) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`builder.addCase` should only be called before calling `builder.addDefaultCase`");
+                }
+            }
+            const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
+            if (!type) {
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`builder.addCase` cannot be called with an empty action type");
+            }
+            if (type in actionsMap) {
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `\`builder.addCase\` cannot be called with two reducers for the same action type '${type}'`);
+            }
+            actionsMap[type] = reducer;
+            return builder;
+        },
+        addAsyncThunk (asyncThunk, reducers) {
+            if ("TURBOPACK compile-time truthy", 1) {
+                if (defaultCaseReducer) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`builder.addAsyncThunk` should only be called before calling `builder.addDefaultCase`");
+                }
+            }
+            if (reducers.pending) actionsMap[asyncThunk.pending.type] = reducers.pending;
+            if (reducers.rejected) actionsMap[asyncThunk.rejected.type] = reducers.rejected;
+            if (reducers.fulfilled) actionsMap[asyncThunk.fulfilled.type] = reducers.fulfilled;
+            if (reducers.settled) actionMatchers.push({
+                matcher: asyncThunk.settled,
+                reducer: reducers.settled
+            });
+            return builder;
+        },
+        addMatcher (matcher, reducer) {
+            if ("TURBOPACK compile-time truthy", 1) {
+                if (defaultCaseReducer) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`builder.addMatcher` should only be called before calling `builder.addDefaultCase`");
+                }
+            }
+            actionMatchers.push({
+                matcher,
+                reducer
+            });
+            return builder;
+        },
+        addDefaultCase (reducer) {
+            if ("TURBOPACK compile-time truthy", 1) {
+                if (defaultCaseReducer) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`builder.addDefaultCase` can only be called once");
+                }
+            }
+            defaultCaseReducer = reducer;
+            return builder;
+        }
+    };
+    builderCallback(builder);
+    return [
+        actionsMap,
+        actionMatchers,
+        defaultCaseReducer
+    ];
+}
+// src/createReducer.ts
+function isStateFunction(x) {
+    return typeof x === "function";
+}
+function createReducer(initialState, mapOrBuilderCallback) {
+    if ("TURBOPACK compile-time truthy", 1) {
+        if (typeof mapOrBuilderCallback === "object") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "The object notation for `createReducer` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createReducer");
+        }
+    }
+    let [actionsMap, finalActionMatchers, finalDefaultCaseReducer] = executeReducerBuilderCallback(mapOrBuilderCallback);
+    let getInitialState;
+    if (isStateFunction(initialState)) {
+        getInitialState = ()=>freezeDraftable(initialState());
+    } else {
+        const frozenInitialState = freezeDraftable(initialState);
+        getInitialState = ()=>frozenInitialState;
+    }
+    function reducer(state = getInitialState(), action) {
+        let caseReducers = [
+            actionsMap[action.type],
+            ...finalActionMatchers.filter(({ matcher })=>matcher(action)).map(({ reducer: reducer2 })=>reducer2)
+        ];
+        if (caseReducers.filter((cr)=>!!cr).length === 0) {
+            caseReducers = [
+                finalDefaultCaseReducer
+            ];
+        }
+        return caseReducers.reduce((previousState, caseReducer)=>{
+            if (caseReducer) {
+                if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isDraft"])(previousState)) {
+                    const draft = previousState;
+                    const result = caseReducer(draft, action);
+                    if (result === void 0) {
+                        return previousState;
+                    }
+                    return result;
+                } else if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isDraftable"])(previousState)) {
+                    const result = caseReducer(previousState, action);
+                    if (result === void 0) {
+                        if (previousState === null) {
+                            return previousState;
+                        }
+                        throw Error("A case reducer on a non-draftable value must not return undefined");
+                    }
+                    return result;
+                } else {
+                    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["produce"])(previousState, (draft)=>{
+                        return caseReducer(draft, action);
+                    });
+                }
+            }
+            return previousState;
+        }, state);
+    }
+    reducer.getInitialState = getInitialState;
+    return reducer;
+}
+// src/matchers.ts
+var matches = (matcher, action)=>{
+    if (hasMatchFunction(matcher)) {
+        return matcher.match(action);
+    } else {
+        return matcher(action);
+    }
+};
+function isAnyOf(...matchers) {
+    return (action)=>{
+        return matchers.some((matcher)=>matches(matcher, action));
+    };
+}
+function isAllOf(...matchers) {
+    return (action)=>{
+        return matchers.every((matcher)=>matches(matcher, action));
+    };
+}
+function hasExpectedRequestMetadata(action, validStatus) {
+    if (!action || !action.meta) return false;
+    const hasValidRequestId = typeof action.meta.requestId === "string";
+    const hasValidRequestStatus = validStatus.indexOf(action.meta.requestStatus) > -1;
+    return hasValidRequestId && hasValidRequestStatus;
+}
+function isAsyncThunkArray(a) {
+    return typeof a[0] === "function" && "pending" in a[0] && "fulfilled" in a[0] && "rejected" in a[0];
+}
+function isPending(...asyncThunks) {
+    if (asyncThunks.length === 0) {
+        return (action)=>hasExpectedRequestMetadata(action, [
+                "pending"
+            ]);
+    }
+    if (!isAsyncThunkArray(asyncThunks)) {
+        return isPending()(asyncThunks[0]);
+    }
+    return isAnyOf(...asyncThunks.map((asyncThunk)=>asyncThunk.pending));
+}
+function isRejected(...asyncThunks) {
+    if (asyncThunks.length === 0) {
+        return (action)=>hasExpectedRequestMetadata(action, [
+                "rejected"
+            ]);
+    }
+    if (!isAsyncThunkArray(asyncThunks)) {
+        return isRejected()(asyncThunks[0]);
+    }
+    return isAnyOf(...asyncThunks.map((asyncThunk)=>asyncThunk.rejected));
+}
+function isRejectedWithValue(...asyncThunks) {
+    const hasFlag = (action)=>{
+        return action && action.meta && action.meta.rejectedWithValue;
+    };
+    if (asyncThunks.length === 0) {
+        return isAllOf(isRejected(...asyncThunks), hasFlag);
+    }
+    if (!isAsyncThunkArray(asyncThunks)) {
+        return isRejectedWithValue()(asyncThunks[0]);
+    }
+    return isAllOf(isRejected(...asyncThunks), hasFlag);
+}
+function isFulfilled(...asyncThunks) {
+    if (asyncThunks.length === 0) {
+        return (action)=>hasExpectedRequestMetadata(action, [
+                "fulfilled"
+            ]);
+    }
+    if (!isAsyncThunkArray(asyncThunks)) {
+        return isFulfilled()(asyncThunks[0]);
+    }
+    return isAnyOf(...asyncThunks.map((asyncThunk)=>asyncThunk.fulfilled));
+}
+function isAsyncThunkAction(...asyncThunks) {
+    if (asyncThunks.length === 0) {
+        return (action)=>hasExpectedRequestMetadata(action, [
+                "pending",
+                "fulfilled",
+                "rejected"
+            ]);
+    }
+    if (!isAsyncThunkArray(asyncThunks)) {
+        return isAsyncThunkAction()(asyncThunks[0]);
+    }
+    return isAnyOf(...asyncThunks.flatMap((asyncThunk)=>[
+            asyncThunk.pending,
+            asyncThunk.rejected,
+            asyncThunk.fulfilled
+        ]));
+}
+// src/nanoid.ts
+var urlAlphabet = "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW";
+var nanoid = (size = 21)=>{
+    let id = "";
+    let i = size;
+    while(i--){
+        id += urlAlphabet[Math.random() * 64 | 0];
+    }
+    return id;
+};
+// src/createAsyncThunk.ts
+var commonProperties = [
+    "name",
+    "message",
+    "stack",
+    "code"
+];
+var RejectWithValue = class {
+    constructor(payload, meta){
+        this.payload = payload;
+        this.meta = meta;
+    }
+    payload;
+    meta;
+    /*
+  type-only property to distinguish between RejectWithValue and FulfillWithMeta
+  does not exist at runtime
+  */ _type;
+};
+var FulfillWithMeta = class {
+    constructor(payload, meta){
+        this.payload = payload;
+        this.meta = meta;
+    }
+    payload;
+    meta;
+    /*
+  type-only property to distinguish between RejectWithValue and FulfillWithMeta
+  does not exist at runtime
+  */ _type;
+};
+var miniSerializeError = (value)=>{
+    if (typeof value === "object" && value !== null) {
+        const simpleError = {};
+        for (const property of commonProperties){
+            if (typeof value[property] === "string") {
+                simpleError[property] = value[property];
+            }
+        }
+        return simpleError;
+    }
+    return {
+        message: String(value)
+    };
+};
+var externalAbortMessage = "External signal was aborted";
+var createAsyncThunk = /* @__PURE__ */ (()=>{
+    function createAsyncThunk2(typePrefix, payloadCreator, options) {
+        const fulfilled = createAction(typePrefix + "/fulfilled", (payload, requestId, arg, meta)=>({
+                payload,
+                meta: {
+                    ...meta || {},
+                    arg,
+                    requestId,
+                    requestStatus: "fulfilled"
+                }
+            }));
+        const pending = createAction(typePrefix + "/pending", (requestId, arg, meta)=>({
+                payload: void 0,
+                meta: {
+                    ...meta || {},
+                    arg,
+                    requestId,
+                    requestStatus: "pending"
+                }
+            }));
+        const rejected = createAction(typePrefix + "/rejected", (error, requestId, arg, payload, meta)=>({
+                payload,
+                error: (options && options.serializeError || miniSerializeError)(error || "Rejected"),
+                meta: {
+                    ...meta || {},
+                    arg,
+                    requestId,
+                    rejectedWithValue: !!payload,
+                    requestStatus: "rejected",
+                    aborted: error?.name === "AbortError",
+                    condition: error?.name === "ConditionError"
+                }
+            }));
+        function actionCreator(arg, { signal } = {}) {
+            return (dispatch, getState, extra)=>{
+                const requestId = options?.idGenerator ? options.idGenerator(arg) : nanoid();
+                const abortController = new AbortController();
+                let abortHandler;
+                let abortReason;
+                function abort(reason) {
+                    abortReason = reason;
+                    abortController.abort();
+                }
+                if (signal) {
+                    if (signal.aborted) {
+                        abort(externalAbortMessage);
+                    } else {
+                        signal.addEventListener("abort", ()=>abort(externalAbortMessage), {
+                            once: true
+                        });
+                    }
+                }
+                const promise = async function() {
+                    let finalAction;
+                    try {
+                        let conditionResult = options?.condition?.(arg, {
+                            getState,
+                            extra
+                        });
+                        if (isThenable(conditionResult)) {
+                            conditionResult = await conditionResult;
+                        }
+                        if (conditionResult === false || abortController.signal.aborted) {
+                            throw {
+                                name: "ConditionError",
+                                message: "Aborted due to condition callback returning false."
+                            };
+                        }
+                        const abortedPromise = new Promise((_, reject)=>{
+                            abortHandler = ()=>{
+                                reject({
+                                    name: "AbortError",
+                                    message: abortReason || "Aborted"
+                                });
+                            };
+                            abortController.signal.addEventListener("abort", abortHandler, {
+                                once: true
+                            });
+                        });
+                        dispatch(pending(requestId, arg, options?.getPendingMeta?.({
+                            requestId,
+                            arg
+                        }, {
+                            getState,
+                            extra
+                        })));
+                        finalAction = await Promise.race([
+                            abortedPromise,
+                            Promise.resolve(payloadCreator(arg, {
+                                dispatch,
+                                getState,
+                                extra,
+                                requestId,
+                                signal: abortController.signal,
+                                abort,
+                                rejectWithValue: (value, meta)=>{
+                                    return new RejectWithValue(value, meta);
+                                },
+                                fulfillWithValue: (value, meta)=>{
+                                    return new FulfillWithMeta(value, meta);
+                                }
+                            })).then((result)=>{
+                                if (result instanceof RejectWithValue) {
+                                    throw result;
+                                }
+                                if (result instanceof FulfillWithMeta) {
+                                    return fulfilled(result.payload, requestId, arg, result.meta);
+                                }
+                                return fulfilled(result, requestId, arg);
+                            })
+                        ]);
+                    } catch (err) {
+                        finalAction = err instanceof RejectWithValue ? rejected(null, requestId, arg, err.payload, err.meta) : rejected(err, requestId, arg);
+                    } finally{
+                        if (abortHandler) {
+                            abortController.signal.removeEventListener("abort", abortHandler);
+                        }
+                    }
+                    const skipDispatch = options && !options.dispatchConditionRejection && rejected.match(finalAction) && finalAction.meta.condition;
+                    if (!skipDispatch) {
+                        dispatch(finalAction);
+                    }
+                    return finalAction;
+                }();
+                return Object.assign(promise, {
+                    abort,
+                    requestId,
+                    arg,
+                    unwrap () {
+                        return promise.then(unwrapResult);
+                    }
+                });
+            };
+        }
+        return Object.assign(actionCreator, {
+            pending,
+            rejected,
+            fulfilled,
+            settled: isAnyOf(rejected, fulfilled),
+            typePrefix
+        });
+    }
+    createAsyncThunk2.withTypes = ()=>createAsyncThunk2;
+    return createAsyncThunk2;
+})();
+function unwrapResult(action) {
+    if (action.meta && action.meta.rejectedWithValue) {
+        throw action.payload;
+    }
+    if (action.error) {
+        throw action.error;
+    }
+    return action.payload;
+}
+function isThenable(value) {
+    return value !== null && typeof value === "object" && typeof value.then === "function";
+}
+// src/createSlice.ts
+var asyncThunkSymbol = /* @__PURE__ */ Symbol.for("rtk-slice-createasyncthunk");
+var asyncThunkCreator = {
+    [asyncThunkSymbol]: createAsyncThunk
+};
+var ReducerType = /* @__PURE__ */ ((ReducerType2)=>{
+    ReducerType2["reducer"] = "reducer";
+    ReducerType2["reducerWithPrepare"] = "reducerWithPrepare";
+    ReducerType2["asyncThunk"] = "asyncThunk";
+    return ReducerType2;
+})(ReducerType || {});
+function getType(slice, actionKey) {
+    return `${slice}/${actionKey}`;
+}
+function buildCreateSlice({ creators } = {}) {
+    const cAT = creators?.asyncThunk?.[asyncThunkSymbol];
+    return function createSlice2(options) {
+        const { name, reducerPath = name } = options;
+        if (!name) {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`name` is a required option for createSlice");
+        }
+        if (typeof __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] !== "undefined" && ("TURBOPACK compile-time value", "development") === "development") {
+            if (options.initialState === void 0) {
+                console.error("You must provide an `initialState` value that is not `undefined`. You may have misspelled `initialState`");
+            }
+        }
+        const reducers = (typeof options.reducers === "function" ? options.reducers(buildReducerCreators()) : options.reducers) || {};
+        const reducerNames = Object.keys(reducers);
+        const context = {
+            sliceCaseReducersByName: {},
+            sliceCaseReducersByType: {},
+            actionCreators: {},
+            sliceMatchers: []
+        };
+        const contextMethods = {
+            addCase (typeOrActionCreator, reducer2) {
+                const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
+                if (!type) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`context.addCase` cannot be called with an empty action type");
+                }
+                if (type in context.sliceCaseReducersByType) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "`context.addCase` cannot be called with two reducers for the same action type: " + type);
+                }
+                context.sliceCaseReducersByType[type] = reducer2;
+                return contextMethods;
+            },
+            addMatcher (matcher, reducer2) {
+                context.sliceMatchers.push({
+                    matcher,
+                    reducer: reducer2
+                });
+                return contextMethods;
+            },
+            exposeAction (name2, actionCreator) {
+                context.actionCreators[name2] = actionCreator;
+                return contextMethods;
+            },
+            exposeCaseReducer (name2, reducer2) {
+                context.sliceCaseReducersByName[name2] = reducer2;
+                return contextMethods;
+            }
+        };
+        reducerNames.forEach((reducerName)=>{
+            const reducerDefinition = reducers[reducerName];
+            const reducerDetails = {
+                reducerName,
+                type: getType(name, reducerName),
+                createNotation: typeof options.reducers === "function"
+            };
+            if (isAsyncThunkSliceReducerDefinition(reducerDefinition)) {
+                handleThunkCaseReducerDefinition(reducerDetails, reducerDefinition, contextMethods, cAT);
+            } else {
+                handleNormalReducerDefinition(reducerDetails, reducerDefinition, contextMethods);
+            }
+        });
+        function buildReducer() {
+            if ("TURBOPACK compile-time truthy", 1) {
+                if (typeof options.extraReducers === "object") {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "The object notation for `createSlice.extraReducers` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createSlice");
+                }
+            }
+            const [extraReducers = {}, actionMatchers = [], defaultCaseReducer = void 0] = typeof options.extraReducers === "function" ? executeReducerBuilderCallback(options.extraReducers) : [
+                options.extraReducers
+            ];
+            const finalCaseReducers = {
+                ...extraReducers,
+                ...context.sliceCaseReducersByType
+            };
+            return createReducer(options.initialState, (builder)=>{
+                for(let key in finalCaseReducers){
+                    builder.addCase(key, finalCaseReducers[key]);
+                }
+                for (let sM of context.sliceMatchers){
+                    builder.addMatcher(sM.matcher, sM.reducer);
+                }
+                for (let m of actionMatchers){
+                    builder.addMatcher(m.matcher, m.reducer);
+                }
+                if (defaultCaseReducer) {
+                    builder.addDefaultCase(defaultCaseReducer);
+                }
+            });
+        }
+        const selectSelf = (state)=>state;
+        const injectedSelectorCache = /* @__PURE__ */ new Map();
+        const injectedStateCache = /* @__PURE__ */ new WeakMap();
+        let _reducer;
+        function reducer(state, action) {
+            if (!_reducer) _reducer = buildReducer();
+            return _reducer(state, action);
+        }
+        function getInitialState() {
+            if (!_reducer) _reducer = buildReducer();
+            return _reducer.getInitialState();
+        }
+        function makeSelectorProps(reducerPath2, injected = false) {
+            function selectSlice(state) {
+                let sliceState = state[reducerPath2];
+                if (typeof sliceState === "undefined") {
+                    if (injected) {
+                        sliceState = getOrInsertComputed(injectedStateCache, selectSlice, getInitialState);
+                    } else if ("TURBOPACK compile-time truthy", 1) {
+                        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "selectSlice returned undefined for an uninjected slice reducer");
+                    }
+                }
+                return sliceState;
+            }
+            function getSelectors(selectState = selectSelf) {
+                const selectorCache = getOrInsertComputed(injectedSelectorCache, injected, ()=>/* @__PURE__ */ new WeakMap());
+                return getOrInsertComputed(selectorCache, selectState, ()=>{
+                    const map = {};
+                    for (const [name2, selector] of Object.entries(options.selectors ?? {})){
+                        map[name2] = wrapSelector(selector, selectState, ()=>getOrInsertComputed(injectedStateCache, selectState, getInitialState), injected);
+                    }
+                    return map;
+                });
+            }
+            return {
+                reducerPath: reducerPath2,
+                getSelectors,
+                get selectors () {
+                    return getSelectors(selectSlice);
+                },
+                selectSlice
+            };
+        }
+        const slice = {
+            name,
+            reducer,
+            actions: context.actionCreators,
+            caseReducers: context.sliceCaseReducersByName,
+            getInitialState,
+            ...makeSelectorProps(reducerPath),
+            injectInto (injectable, { reducerPath: pathOpt, ...config } = {}) {
+                const newReducerPath = pathOpt ?? reducerPath;
+                injectable.inject({
+                    reducerPath: newReducerPath,
+                    reducer
+                }, config);
+                return {
+                    ...slice,
+                    ...makeSelectorProps(newReducerPath, true)
+                };
+            }
+        };
+        return slice;
+    };
+}
+function wrapSelector(selector, selectState, getInitialState, injected) {
+    function wrapper(rootState, ...args) {
+        let sliceState = selectState(rootState);
+        if (typeof sliceState === "undefined") {
+            if (injected) {
+                sliceState = getInitialState();
+            } else if ("TURBOPACK compile-time truthy", 1) {
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "selectState returned undefined for an uninjected slice reducer");
+            }
+        }
+        return selector(sliceState, ...args);
+    }
+    wrapper.unwrapped = selector;
+    return wrapper;
+}
+var createSlice = /* @__PURE__ */ buildCreateSlice();
+function buildReducerCreators() {
+    function asyncThunk(payloadCreator, config) {
+        return {
+            _reducerDefinitionType: "asyncThunk" /* asyncThunk */ ,
+            payloadCreator,
+            ...config
+        };
+    }
+    asyncThunk.withTypes = ()=>asyncThunk;
+    return {
+        reducer (caseReducer) {
+            return Object.assign({
+                // hack so the wrapping function has the same name as the original
+                // we need to create a wrapper so the `reducerDefinitionType` is not assigned to the original
+                [caseReducer.name] (...args) {
+                    return caseReducer(...args);
+                }
+            }[caseReducer.name], {
+                _reducerDefinitionType: "reducer" /* reducer */ 
+            });
+        },
+        preparedReducer (prepare, reducer) {
+            return {
+                _reducerDefinitionType: "reducerWithPrepare" /* reducerWithPrepare */ ,
+                prepare,
+                reducer
+            };
+        },
+        asyncThunk
+    };
+}
+function handleNormalReducerDefinition({ type, reducerName, createNotation }, maybeReducerWithPrepare, context) {
+    let caseReducer;
+    let prepareCallback;
+    if ("reducer" in maybeReducerWithPrepare) {
+        if (createNotation && !isCaseReducerWithPrepareDefinition(maybeReducerWithPrepare)) {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "Please use the `create.preparedReducer` notation for prepared action creators with the `create` notation.");
+        }
+        caseReducer = maybeReducerWithPrepare.reducer;
+        prepareCallback = maybeReducerWithPrepare.prepare;
+    } else {
+        caseReducer = maybeReducerWithPrepare;
+    }
+    context.addCase(type, caseReducer).exposeCaseReducer(reducerName, caseReducer).exposeAction(reducerName, prepareCallback ? createAction(type, prepareCallback) : createAction(type));
+}
+function isAsyncThunkSliceReducerDefinition(reducerDefinition) {
+    return reducerDefinition._reducerDefinitionType === "asyncThunk" /* asyncThunk */ ;
+}
+function isCaseReducerWithPrepareDefinition(reducerDefinition) {
+    return reducerDefinition._reducerDefinitionType === "reducerWithPrepare" /* reducerWithPrepare */ ;
+}
+function handleThunkCaseReducerDefinition({ type, reducerName }, reducerDefinition, context, cAT) {
+    if (!cAT) {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "Cannot use `create.asyncThunk` in the built-in `createSlice`. Use `buildCreateSlice({ creators: { asyncThunk: asyncThunkCreator } })` to create a customised version of `createSlice`.");
+    }
+    const { payloadCreator, fulfilled, pending, rejected, settled, options } = reducerDefinition;
+    const thunk = cAT(type, payloadCreator, options);
+    context.exposeAction(reducerName, thunk);
+    if (fulfilled) {
+        context.addCase(thunk.fulfilled, fulfilled);
+    }
+    if (pending) {
+        context.addCase(thunk.pending, pending);
+    }
+    if (rejected) {
+        context.addCase(thunk.rejected, rejected);
+    }
+    if (settled) {
+        context.addMatcher(thunk.settled, settled);
+    }
+    context.exposeCaseReducer(reducerName, {
+        fulfilled: fulfilled || noop,
+        pending: pending || noop,
+        rejected: rejected || noop,
+        settled: settled || noop
+    });
+}
+function noop() {}
+// src/entities/entity_state.ts
+function getInitialEntityState() {
+    return {
+        ids: [],
+        entities: {}
+    };
+}
+function createInitialStateFactory(stateAdapter) {
+    function getInitialState(additionalState = {}, entities) {
+        const state = Object.assign(getInitialEntityState(), additionalState);
+        return entities ? stateAdapter.setAll(state, entities) : state;
+    }
+    return {
+        getInitialState
+    };
+}
+// src/entities/state_selectors.ts
+function createSelectorsFactory() {
+    function getSelectors(selectState, options = {}) {
+        const { createSelector: createSelector2 = createDraftSafeSelector } = options;
+        const selectIds = (state)=>state.ids;
+        const selectEntities = (state)=>state.entities;
+        const selectAll = createSelector2(selectIds, selectEntities, (ids, entities)=>ids.map((id)=>entities[id]));
+        const selectId = (_, id)=>id;
+        const selectById = (entities, id)=>entities[id];
+        const selectTotal = createSelector2(selectIds, (ids)=>ids.length);
+        if (!selectState) {
+            return {
+                selectIds,
+                selectEntities,
+                selectAll,
+                selectTotal,
+                selectById: createSelector2(selectEntities, selectId, selectById)
+            };
+        }
+        const selectGlobalizedEntities = createSelector2(selectState, selectEntities);
+        return {
+            selectIds: createSelector2(selectState, selectIds),
+            selectEntities: selectGlobalizedEntities,
+            selectAll: createSelector2(selectState, selectAll),
+            selectTotal: createSelector2(selectState, selectTotal),
+            selectById: createSelector2(selectGlobalizedEntities, selectId, selectById)
+        };
+    }
+    return {
+        getSelectors
+    };
+}
+// src/entities/state_adapter.ts
+var isDraftTyped = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isDraft"];
+function createSingleArgumentStateOperator(mutator) {
+    const operator = createStateOperator((_, state)=>mutator(state));
+    return function operation(state) {
+        return operator(state, void 0);
+    };
+}
+function createStateOperator(mutator) {
+    return function operation(state, arg) {
+        function isPayloadActionArgument(arg2) {
+            return isFSA(arg2);
+        }
+        const runMutator = (draft)=>{
+            if (isPayloadActionArgument(arg)) {
+                mutator(arg.payload, draft);
+            } else {
+                mutator(arg, draft);
+            }
+        };
+        if (isDraftTyped(state)) {
+            runMutator(state);
+            return state;
+        }
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["produce"])(state, runMutator);
+    };
+}
+// src/entities/utils.ts
+function selectIdValue(entity, selectId) {
+    const key = selectId(entity);
+    if (("TURBOPACK compile-time value", "development") !== "production" && key === void 0) {
+        console.warn("The entity passed to the `selectId` implementation returned undefined.", "You should probably provide your own `selectId` implementation.", "The entity that was passed:", entity, "The `selectId` implementation:", selectId.toString());
+    }
+    return key;
+}
+function ensureEntitiesArray(entities) {
+    if (!Array.isArray(entities)) {
+        entities = Object.values(entities);
+    }
+    return entities;
+}
+function getCurrent(value) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isDraft"])(value) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$immer$2f$dist$2f$immer$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["current"])(value) : value;
+}
+function splitAddedUpdatedEntities(newEntities, selectId, state) {
+    newEntities = ensureEntitiesArray(newEntities);
+    const existingIdsArray = getCurrent(state.ids);
+    const existingIds = new Set(existingIdsArray);
+    const added = [];
+    const addedIds = /* @__PURE__ */ new Set([]);
+    const updated = [];
+    for (const entity of newEntities){
+        const id = selectIdValue(entity, selectId);
+        if (existingIds.has(id) || addedIds.has(id)) {
+            updated.push({
+                id,
+                changes: entity
+            });
+        } else {
+            addedIds.add(id);
+            added.push(entity);
+        }
+    }
+    return [
+        added,
+        updated,
+        existingIdsArray
+    ];
+}
+// src/entities/unsorted_state_adapter.ts
+function createUnsortedStateAdapter(selectId) {
+    function addOneMutably(entity, state) {
+        const key = selectIdValue(entity, selectId);
+        if (key in state.entities) {
+            return;
+        }
+        state.ids.push(key);
+        state.entities[key] = entity;
+    }
+    function addManyMutably(newEntities, state) {
+        newEntities = ensureEntitiesArray(newEntities);
+        for (const entity of newEntities){
+            addOneMutably(entity, state);
+        }
+    }
+    function setOneMutably(entity, state) {
+        const key = selectIdValue(entity, selectId);
+        if (!(key in state.entities)) {
+            state.ids.push(key);
+        }
+        ;
+        state.entities[key] = entity;
+    }
+    function setManyMutably(newEntities, state) {
+        newEntities = ensureEntitiesArray(newEntities);
+        for (const entity of newEntities){
+            setOneMutably(entity, state);
+        }
+    }
+    function setAllMutably(newEntities, state) {
+        newEntities = ensureEntitiesArray(newEntities);
+        state.ids = [];
+        state.entities = {};
+        addManyMutably(newEntities, state);
+    }
+    function removeOneMutably(key, state) {
+        return removeManyMutably([
+            key
+        ], state);
+    }
+    function removeManyMutably(keys, state) {
+        let didMutate = false;
+        keys.forEach((key)=>{
+            if (key in state.entities) {
+                delete state.entities[key];
+                didMutate = true;
+            }
+        });
+        if (didMutate) {
+            state.ids = state.ids.filter((id)=>id in state.entities);
+        }
+    }
+    function removeAllMutably(state) {
+        Object.assign(state, {
+            ids: [],
+            entities: {}
+        });
+    }
+    function takeNewKey(keys, update, state) {
+        const original3 = state.entities[update.id];
+        if (original3 === void 0) {
+            return false;
+        }
+        const updated = Object.assign({}, original3, update.changes);
+        const newKey = selectIdValue(updated, selectId);
+        const hasNewKey = newKey !== update.id;
+        if (hasNewKey) {
+            keys[update.id] = newKey;
+            delete state.entities[update.id];
+        }
+        ;
+        state.entities[newKey] = updated;
+        return hasNewKey;
+    }
+    function updateOneMutably(update, state) {
+        return updateManyMutably([
+            update
+        ], state);
+    }
+    function updateManyMutably(updates, state) {
+        const newKeys = {};
+        const updatesPerEntity = {};
+        updates.forEach((update)=>{
+            if (update.id in state.entities) {
+                updatesPerEntity[update.id] = {
+                    id: update.id,
+                    // Spreads ignore falsy values, so this works even if there isn't
+                    // an existing update already at this key
+                    changes: {
+                        ...updatesPerEntity[update.id]?.changes,
+                        ...update.changes
+                    }
+                };
+            }
+        });
+        updates = Object.values(updatesPerEntity);
+        const didMutateEntities = updates.length > 0;
+        if (didMutateEntities) {
+            const didMutateIds = updates.filter((update)=>takeNewKey(newKeys, update, state)).length > 0;
+            if (didMutateIds) {
+                state.ids = Object.values(state.entities).map((e)=>selectIdValue(e, selectId));
+            }
+        }
+    }
+    function upsertOneMutably(entity, state) {
+        return upsertManyMutably([
+            entity
+        ], state);
+    }
+    function upsertManyMutably(newEntities, state) {
+        const [added, updated] = splitAddedUpdatedEntities(newEntities, selectId, state);
+        addManyMutably(added, state);
+        updateManyMutably(updated, state);
+    }
+    return {
+        removeAll: createSingleArgumentStateOperator(removeAllMutably),
+        addOne: createStateOperator(addOneMutably),
+        addMany: createStateOperator(addManyMutably),
+        setOne: createStateOperator(setOneMutably),
+        setMany: createStateOperator(setManyMutably),
+        setAll: createStateOperator(setAllMutably),
+        updateOne: createStateOperator(updateOneMutably),
+        updateMany: createStateOperator(updateManyMutably),
+        upsertOne: createStateOperator(upsertOneMutably),
+        upsertMany: createStateOperator(upsertManyMutably),
+        removeOne: createStateOperator(removeOneMutably),
+        removeMany: createStateOperator(removeManyMutably)
+    };
+}
+// src/entities/sorted_state_adapter.ts
+function findInsertIndex(sortedItems, item, comparisonFunction) {
+    let lowIndex = 0;
+    let highIndex = sortedItems.length;
+    while(lowIndex < highIndex){
+        let middleIndex = lowIndex + highIndex >>> 1;
+        const currentItem = sortedItems[middleIndex];
+        const res = comparisonFunction(item, currentItem);
+        if (res >= 0) {
+            lowIndex = middleIndex + 1;
+        } else {
+            highIndex = middleIndex;
+        }
+    }
+    return lowIndex;
+}
+function insert(sortedItems, item, comparisonFunction) {
+    const insertAtIndex = findInsertIndex(sortedItems, item, comparisonFunction);
+    sortedItems.splice(insertAtIndex, 0, item);
+    return sortedItems;
+}
+function createSortedStateAdapter(selectId, comparer) {
+    const { removeOne, removeMany, removeAll } = createUnsortedStateAdapter(selectId);
+    function addOneMutably(entity, state) {
+        return addManyMutably([
+            entity
+        ], state);
+    }
+    function addManyMutably(newEntities, state, existingIds) {
+        newEntities = ensureEntitiesArray(newEntities);
+        const existingKeys = new Set(existingIds ?? getCurrent(state.ids));
+        const addedKeys = /* @__PURE__ */ new Set();
+        const models = newEntities.filter((model)=>{
+            const modelId = selectIdValue(model, selectId);
+            const notAdded = !addedKeys.has(modelId);
+            if (notAdded) addedKeys.add(modelId);
+            return !existingKeys.has(modelId) && notAdded;
+        });
+        if (models.length !== 0) {
+            mergeFunction(state, models);
+        }
+    }
+    function setOneMutably(entity, state) {
+        return setManyMutably([
+            entity
+        ], state);
+    }
+    function setManyMutably(newEntities, state) {
+        let deduplicatedEntities = {};
+        newEntities = ensureEntitiesArray(newEntities);
+        if (newEntities.length !== 0) {
+            for (const item of newEntities){
+                const entityId = selectId(item);
+                deduplicatedEntities[entityId] = item;
+                delete state.entities[entityId];
+            }
+            newEntities = ensureEntitiesArray(deduplicatedEntities);
+            mergeFunction(state, newEntities);
+        }
+    }
+    function setAllMutably(newEntities, state) {
+        newEntities = ensureEntitiesArray(newEntities);
+        state.entities = {};
+        state.ids = [];
+        addManyMutably(newEntities, state, []);
+    }
+    function updateOneMutably(update, state) {
+        return updateManyMutably([
+            update
+        ], state);
+    }
+    function updateManyMutably(updates, state) {
+        let appliedUpdates = false;
+        let replacedIds = false;
+        for (let update of updates){
+            const entity = state.entities[update.id];
+            if (!entity) {
+                continue;
+            }
+            appliedUpdates = true;
+            Object.assign(entity, update.changes);
+            const newId = selectId(entity);
+            if (update.id !== newId) {
+                replacedIds = true;
+                delete state.entities[update.id];
+                const oldIndex = state.ids.indexOf(update.id);
+                state.ids[oldIndex] = newId;
+                state.entities[newId] = entity;
+            }
+        }
+        if (appliedUpdates) {
+            mergeFunction(state, [], appliedUpdates, replacedIds);
+        }
+    }
+    function upsertOneMutably(entity, state) {
+        return upsertManyMutably([
+            entity
+        ], state);
+    }
+    function upsertManyMutably(newEntities, state) {
+        const [added, updated, existingIdsArray] = splitAddedUpdatedEntities(newEntities, selectId, state);
+        if (added.length) {
+            addManyMutably(added, state, existingIdsArray);
+        }
+        if (updated.length) {
+            updateManyMutably(updated, state);
+        }
+    }
+    function areArraysEqual(a, b) {
+        if (a.length !== b.length) {
+            return false;
+        }
+        for(let i = 0; i < a.length; i++){
+            if (a[i] === b[i]) {
+                continue;
+            }
+            return false;
+        }
+        return true;
+    }
+    const mergeFunction = (state, addedItems, appliedUpdates, replacedIds)=>{
+        const currentEntities = getCurrent(state.entities);
+        const currentIds = getCurrent(state.ids);
+        const stateEntities = state.entities;
+        let ids = currentIds;
+        if (replacedIds) {
+            ids = new Set(currentIds);
+        }
+        let sortedEntities = [];
+        for (const id of ids){
+            const entity = currentEntities[id];
+            if (entity) {
+                sortedEntities.push(entity);
+            }
+        }
+        const wasPreviouslyEmpty = sortedEntities.length === 0;
+        for (const item of addedItems){
+            stateEntities[selectId(item)] = item;
+            if (!wasPreviouslyEmpty) {
+                insert(sortedEntities, item, comparer);
+            }
+        }
+        if (wasPreviouslyEmpty) {
+            sortedEntities = addedItems.slice().sort(comparer);
+        } else if (appliedUpdates) {
+            sortedEntities.sort(comparer);
+        }
+        const newSortedIds = sortedEntities.map(selectId);
+        if (!areArraysEqual(currentIds, newSortedIds)) {
+            state.ids = newSortedIds;
+        }
+    };
+    return {
+        removeOne,
+        removeMany,
+        removeAll,
+        addOne: createStateOperator(addOneMutably),
+        updateOne: createStateOperator(updateOneMutably),
+        upsertOne: createStateOperator(upsertOneMutably),
+        setOne: createStateOperator(setOneMutably),
+        setMany: createStateOperator(setManyMutably),
+        setAll: createStateOperator(setAllMutably),
+        addMany: createStateOperator(addManyMutably),
+        updateMany: createStateOperator(updateManyMutably),
+        upsertMany: createStateOperator(upsertManyMutably)
+    };
+}
+// src/entities/create_adapter.ts
+function createEntityAdapter(options = {}) {
+    const { selectId, sortComparer } = {
+        sortComparer: false,
+        selectId: (instance)=>instance.id,
+        ...options
+    };
+    const stateAdapter = sortComparer ? createSortedStateAdapter(selectId, sortComparer) : createUnsortedStateAdapter(selectId);
+    const stateFactory = createInitialStateFactory(stateAdapter);
+    const selectorsFactory = createSelectorsFactory();
+    return {
+        selectId,
+        sortComparer,
+        ...stateFactory,
+        ...selectorsFactory,
+        ...stateAdapter
+    };
+}
+// src/listenerMiddleware/exceptions.ts
+var task = "task";
+var listener = "listener";
+var completed = "completed";
+var cancelled = "cancelled";
+var taskCancelled = `task-${cancelled}`;
+var taskCompleted = `task-${completed}`;
+var listenerCancelled = `${listener}-${cancelled}`;
+var listenerCompleted = `${listener}-${completed}`;
+var TaskAbortError = class {
+    constructor(code){
+        this.code = code;
+        this.message = `${task} ${cancelled} (reason: ${code})`;
+    }
+    code;
+    name = "TaskAbortError";
+    message;
+};
+// src/listenerMiddleware/utils.ts
+var assertFunction = (func, expected)=>{
+    if (typeof func !== "function") {
+        throw new TypeError(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `${expected} is not a function`);
+    }
+};
+var noop2 = ()=>{};
+var catchRejection = (promise, onError = noop2)=>{
+    promise.catch(onError);
+    return promise;
+};
+var addAbortSignalListener = (abortSignal, callback)=>{
+    abortSignal.addEventListener("abort", callback, {
+        once: true
+    });
+    return ()=>abortSignal.removeEventListener("abort", callback);
+};
+// src/listenerMiddleware/task.ts
+var validateActive = (signal)=>{
+    if (signal.aborted) {
+        throw new TaskAbortError(signal.reason);
+    }
+};
+function raceWithSignal(signal, promise) {
+    let cleanup = noop2;
+    return new Promise((resolve, reject)=>{
+        const notifyRejection = ()=>reject(new TaskAbortError(signal.reason));
+        if (signal.aborted) {
+            notifyRejection();
+            return;
+        }
+        cleanup = addAbortSignalListener(signal, notifyRejection);
+        promise.finally(()=>cleanup()).then(resolve, reject);
+    }).finally(()=>{
+        cleanup = noop2;
+    });
+}
+var runTask = async (task2, cleanUp)=>{
+    try {
+        await Promise.resolve();
+        const value = await task2();
+        return {
+            status: "ok",
+            value
+        };
+    } catch (error) {
+        return {
+            status: error instanceof TaskAbortError ? "cancelled" : "rejected",
+            error
+        };
+    } finally{
+        cleanUp?.();
+    }
+};
+var createPause = (signal)=>{
+    return (promise)=>{
+        return catchRejection(raceWithSignal(signal, promise).then((output)=>{
+            validateActive(signal);
+            return output;
+        }));
+    };
+};
+var createDelay = (signal)=>{
+    const pause = createPause(signal);
+    return (timeoutMs)=>{
+        return pause(new Promise((resolve)=>setTimeout(resolve, timeoutMs)));
+    };
+};
+// src/listenerMiddleware/index.ts
+var { assign } = Object;
+var INTERNAL_NIL_TOKEN = {};
+var alm = "listenerMiddleware";
+var createFork = (parentAbortSignal, parentBlockingPromises)=>{
+    const linkControllers = (controller)=>addAbortSignalListener(parentAbortSignal, ()=>controller.abort(parentAbortSignal.reason));
+    return (taskExecutor, opts)=>{
+        assertFunction(taskExecutor, "taskExecutor");
+        const childAbortController = new AbortController();
+        linkControllers(childAbortController);
+        const result = runTask(async ()=>{
+            validateActive(parentAbortSignal);
+            validateActive(childAbortController.signal);
+            const result2 = await taskExecutor({
+                pause: createPause(childAbortController.signal),
+                delay: createDelay(childAbortController.signal),
+                signal: childAbortController.signal
+            });
+            validateActive(childAbortController.signal);
+            return result2;
+        }, ()=>childAbortController.abort(taskCompleted));
+        if (opts?.autoJoin) {
+            parentBlockingPromises.push(result.catch(noop2));
+        }
+        return {
+            result: createPause(parentAbortSignal)(result),
+            cancel () {
+                childAbortController.abort(taskCancelled);
+            }
+        };
+    };
+};
+var createTakePattern = (startListening, signal)=>{
+    const take = async (predicate, timeout)=>{
+        validateActive(signal);
+        let unsubscribe = ()=>{};
+        const tuplePromise = new Promise((resolve, reject)=>{
+            let stopListening = startListening({
+                predicate,
+                effect: (action, listenerApi)=>{
+                    listenerApi.unsubscribe();
+                    resolve([
+                        action,
+                        listenerApi.getState(),
+                        listenerApi.getOriginalState()
+                    ]);
+                }
+            });
+            unsubscribe = ()=>{
+                stopListening();
+                reject();
+            };
+        });
+        const promises = [
+            tuplePromise
+        ];
+        if (timeout != null) {
+            promises.push(new Promise((resolve)=>setTimeout(resolve, timeout, null)));
+        }
+        try {
+            const output = await raceWithSignal(signal, Promise.race(promises));
+            validateActive(signal);
+            return output;
+        } finally{
+            unsubscribe();
+        }
+    };
+    return (predicate, timeout)=>catchRejection(take(predicate, timeout));
+};
+var getListenerEntryPropsFrom = (options)=>{
+    let { type, actionCreator, matcher, predicate, effect } = options;
+    if (type) {
+        predicate = createAction(type).match;
+    } else if (actionCreator) {
+        type = actionCreator.type;
+        predicate = actionCreator.match;
+    } else if (matcher) {
+        predicate = matcher;
+    } else if (predicate) {} else {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "Creating or removing a listener requires one of the known fields for matching an action");
+    }
+    assertFunction(effect, "options.listener");
+    return {
+        predicate,
+        type,
+        effect
+    };
+};
+var createListenerEntry = /* @__PURE__ */ assign((options)=>{
+    const { type, predicate, effect } = getListenerEntryPropsFrom(options);
+    const entry = {
+        id: nanoid(),
+        effect,
+        type,
+        predicate,
+        pending: /* @__PURE__ */ new Set(),
+        unsubscribe: ()=>{
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "Unsubscribe not initialized");
+        }
+    };
+    return entry;
+}, {
+    withTypes: ()=>createListenerEntry
+});
+var findListenerEntry = (listenerMap, options)=>{
+    const { type, effect, predicate } = getListenerEntryPropsFrom(options);
+    return Array.from(listenerMap.values()).find((entry)=>{
+        const matchPredicateOrType = typeof type === "string" ? entry.type === type : entry.predicate === predicate;
+        return matchPredicateOrType && entry.effect === effect;
+    });
+};
+var cancelActiveListeners = (entry)=>{
+    entry.pending.forEach((controller)=>{
+        controller.abort(listenerCancelled);
+    });
+};
+var createClearListenerMiddleware = (listenerMap, executingListeners)=>{
+    return ()=>{
+        for (const listener2 of executingListeners.keys()){
+            cancelActiveListeners(listener2);
+        }
+        listenerMap.clear();
+    };
+};
+var safelyNotifyError = (errorHandler, errorToNotify, errorInfo)=>{
+    try {
+        errorHandler(errorToNotify, errorInfo);
+    } catch (errorHandlerError) {
+        setTimeout(()=>{
+            throw errorHandlerError;
+        }, 0);
+    }
+};
+var addListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/add`), {
+    withTypes: ()=>addListener
+});
+var clearAllListeners = /* @__PURE__ */ createAction(`${alm}/removeAll`);
+var removeListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/remove`), {
+    withTypes: ()=>removeListener
+});
+var defaultErrorHandler = (...args)=>{
+    console.error(`${alm}/error`, ...args);
+};
+var createListenerMiddleware = (middlewareOptions = {})=>{
+    const listenerMap = /* @__PURE__ */ new Map();
+    const executingListeners = /* @__PURE__ */ new Map();
+    const trackExecutingListener = (entry)=>{
+        const count = executingListeners.get(entry) ?? 0;
+        executingListeners.set(entry, count + 1);
+    };
+    const untrackExecutingListener = (entry)=>{
+        const count = executingListeners.get(entry) ?? 1;
+        if (count === 1) {
+            executingListeners.delete(entry);
+        } else {
+            executingListeners.set(entry, count - 1);
+        }
+    };
+    const { extra, onError = defaultErrorHandler } = middlewareOptions;
+    assertFunction(onError, "onError");
+    const insertEntry = (entry)=>{
+        entry.unsubscribe = ()=>listenerMap.delete(entry.id);
+        listenerMap.set(entry.id, entry);
+        return (cancelOptions)=>{
+            entry.unsubscribe();
+            if (cancelOptions?.cancelActive) {
+                cancelActiveListeners(entry);
+            }
+        };
+    };
+    const startListening = (options)=>{
+        const entry = findListenerEntry(listenerMap, options) ?? createListenerEntry(options);
+        return insertEntry(entry);
+    };
+    assign(startListening, {
+        withTypes: ()=>startListening
+    });
+    const stopListening = (options)=>{
+        const entry = findListenerEntry(listenerMap, options);
+        if (entry) {
+            entry.unsubscribe();
+            if (options.cancelActive) {
+                cancelActiveListeners(entry);
+            }
+        }
+        return !!entry;
+    };
+    assign(stopListening, {
+        withTypes: ()=>stopListening
+    });
+    const notifyListener = async (entry, action, api, getOriginalState)=>{
+        const internalTaskController = new AbortController();
+        const take = createTakePattern(startListening, internalTaskController.signal);
+        const autoJoinPromises = [];
+        try {
+            entry.pending.add(internalTaskController);
+            trackExecutingListener(entry);
+            await Promise.resolve(entry.effect(action, // Use assign() rather than ... to avoid extra helper functions added to bundle
+            assign({}, api, {
+                getOriginalState,
+                condition: (predicate, timeout)=>take(predicate, timeout).then(Boolean),
+                take,
+                delay: createDelay(internalTaskController.signal),
+                pause: createPause(internalTaskController.signal),
+                extra,
+                signal: internalTaskController.signal,
+                fork: createFork(internalTaskController.signal, autoJoinPromises),
+                unsubscribe: entry.unsubscribe,
+                subscribe: ()=>{
+                    listenerMap.set(entry.id, entry);
+                },
+                cancelActiveListeners: ()=>{
+                    entry.pending.forEach((controller, _, set)=>{
+                        if (controller !== internalTaskController) {
+                            controller.abort(listenerCancelled);
+                            set.delete(controller);
+                        }
+                    });
+                },
+                cancel: ()=>{
+                    internalTaskController.abort(listenerCancelled);
+                    entry.pending.delete(internalTaskController);
+                },
+                throwIfCancelled: ()=>{
+                    validateActive(internalTaskController.signal);
+                }
+            })));
+        } catch (listenerError) {
+            if (!(listenerError instanceof TaskAbortError)) {
+                safelyNotifyError(onError, listenerError, {
+                    raisedBy: "effect"
+                });
+            }
+        } finally{
+            await Promise.all(autoJoinPromises);
+            internalTaskController.abort(listenerCompleted);
+            untrackExecutingListener(entry);
+            entry.pending.delete(internalTaskController);
+        }
+    };
+    const clearListenerMiddleware = createClearListenerMiddleware(listenerMap, executingListeners);
+    const middleware = (api)=>(next)=>(action)=>{
+                if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isAction"])(action)) {
+                    return next(action);
+                }
+                if (addListener.match(action)) {
+                    return startListening(action.payload);
+                }
+                if (clearAllListeners.match(action)) {
+                    clearListenerMiddleware();
+                    return;
+                }
+                if (removeListener.match(action)) {
+                    return stopListening(action.payload);
+                }
+                let originalState = api.getState();
+                const getOriginalState = ()=>{
+                    if (originalState === INTERNAL_NIL_TOKEN) {
+                        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `${alm}: getOriginalState can only be called synchronously`);
+                    }
+                    return originalState;
+                };
+                let result;
+                try {
+                    result = next(action);
+                    if (listenerMap.size > 0) {
+                        const currentState = api.getState();
+                        const listenerEntries = Array.from(listenerMap.values());
+                        for (const entry of listenerEntries){
+                            let runListener = false;
+                            try {
+                                runListener = entry.predicate(action, currentState, originalState);
+                            } catch (predicateError) {
+                                runListener = false;
+                                safelyNotifyError(onError, predicateError, {
+                                    raisedBy: "predicate"
+                                });
+                            }
+                            if (!runListener) {
+                                continue;
+                            }
+                            notifyListener(entry, action, api, getOriginalState);
+                        }
+                    }
+                } finally{
+                    originalState = INTERNAL_NIL_TOKEN;
+                }
+                return result;
+            };
+    return {
+        middleware,
+        startListening,
+        stopListening,
+        clearListeners: clearListenerMiddleware
+    };
+};
+// src/dynamicMiddleware/index.ts
+var createMiddlewareEntry = (middleware)=>({
+        middleware,
+        applied: /* @__PURE__ */ new Map()
+    });
+var matchInstance = (instanceId)=>(action)=>action?.meta?.instanceId === instanceId;
+var createDynamicMiddleware = ()=>{
+    const instanceId = nanoid();
+    const middlewareMap = /* @__PURE__ */ new Map();
+    const withMiddleware = Object.assign(createAction("dynamicMiddleware/add", (...middlewares)=>({
+            payload: middlewares,
+            meta: {
+                instanceId
+            }
+        })), {
+        withTypes: ()=>withMiddleware
+    });
+    const addMiddleware = Object.assign(function addMiddleware2(...middlewares) {
+        middlewares.forEach((middleware2)=>{
+            getOrInsertComputed(middlewareMap, middleware2, createMiddlewareEntry);
+        });
+    }, {
+        withTypes: ()=>addMiddleware
+    });
+    const getFinalMiddleware = (api)=>{
+        const appliedMiddleware = Array.from(middlewareMap.values()).map((entry)=>getOrInsertComputed(entry.applied, api, entry.middleware));
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["compose"])(...appliedMiddleware);
+    };
+    const isWithMiddleware = isAllOf(withMiddleware, matchInstance(instanceId));
+    const middleware = (api)=>(next)=>(action)=>{
+                if (isWithMiddleware(action)) {
+                    addMiddleware(...action.payload);
+                    return api.dispatch;
+                }
+                return getFinalMiddleware(api)(next)(action);
+            };
+    return {
+        middleware,
+        addMiddleware,
+        withMiddleware,
+        instanceId
+    };
+};
+;
+var isSliceLike = (maybeSliceLike)=>"reducerPath" in maybeSliceLike && typeof maybeSliceLike.reducerPath === "string";
+var getReducers = (slices)=>slices.flatMap((sliceOrMap)=>isSliceLike(sliceOrMap) ? [
+            [
+                sliceOrMap.reducerPath,
+                sliceOrMap.reducer
+            ]
+        ] : Object.entries(sliceOrMap));
+var ORIGINAL_STATE = /* @__PURE__ */ Symbol.for("rtk-state-proxy-original");
+var isStateProxy = (value)=>!!value && !!value[ORIGINAL_STATE];
+var stateProxyMap = /* @__PURE__ */ new WeakMap();
+var createStateProxy = (state, reducerMap, initialStateCache)=>getOrInsertComputed(stateProxyMap, state, ()=>new Proxy(state, {
+            get: (target, prop, receiver)=>{
+                if (prop === ORIGINAL_STATE) return target;
+                const result = Reflect.get(target, prop, receiver);
+                if (typeof result === "undefined") {
+                    const cached = initialStateCache[prop];
+                    if (typeof cached !== "undefined") return cached;
+                    const reducer = reducerMap[prop];
+                    if (reducer) {
+                        const reducerResult = reducer(void 0, {
+                            type: nanoid()
+                        });
+                        if (typeof reducerResult === "undefined") {
+                            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `The slice reducer for key "${prop.toString()}" returned undefined when called for selector(). If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.`);
+                        }
+                        initialStateCache[prop] = reducerResult;
+                        return reducerResult;
+                    }
+                }
+                return result;
+            }
+        }));
+var original = (state)=>{
+    if (!isStateProxy(state)) {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "original must be used on state Proxy");
+    }
+    return state[ORIGINAL_STATE];
+};
+var emptyObject = {};
+var noopReducer = (state = emptyObject)=>state;
+function combineSlices(...slices) {
+    const reducerMap = Object.fromEntries(getReducers(slices));
+    const getReducer = ()=>Object.keys(reducerMap).length ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$redux$2f$dist$2f$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["combineReducers"])(reducerMap) : noopReducer;
+    let reducer = getReducer();
+    function combinedReducer(state, action) {
+        return reducer(state, action);
+    }
+    combinedReducer.withLazyLoadedSlices = ()=>combinedReducer;
+    const initialStateCache = {};
+    const inject = (slice, config = {})=>{
+        const { reducerPath, reducer: reducerToInject } = slice;
+        const currentReducer = reducerMap[reducerPath];
+        if (!config.overrideExisting && currentReducer && currentReducer !== reducerToInject) {
+            if (typeof __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] !== "undefined" && ("TURBOPACK compile-time value", "development") === "development") {
+                console.error(`called \`inject\` to override already-existing reducer ${reducerPath} without specifying \`overrideExisting: true\``);
+            }
+            return combinedReducer;
+        }
+        if (config.overrideExisting && currentReducer !== reducerToInject) {
+            delete initialStateCache[reducerPath];
+        }
+        reducerMap[reducerPath] = reducerToInject;
+        reducer = getReducer();
+        return combinedReducer;
+    };
+    const selector = Object.assign(function makeSelector(selectorFn, selectState) {
+        return function selector2(state, ...args) {
+            return selectorFn(createStateProxy(selectState ? selectState(state, ...args) : state, reducerMap, initialStateCache), ...args);
+        };
+    }, {
+        original
+    });
+    return Object.assign(combinedReducer, {
+        inject,
+        selector
+    });
+}
+// src/formatProdErrorMessage.ts
+function formatProdErrorMessage(code) {
+    return `Minified Redux Toolkit error #${code}; visit https://redux-toolkit.js.org/Errors?code=${code} for the full message or use the non-minified dev environment for full errors. `;
+}
+;
+}),
+"[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>ascending
+]);
+function ascending(a, b) {
+    return a == null || b == null ? NaN : a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript) <export default as ascending>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "ascending",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "bisectCenter",
+    ()=>bisectCenter,
+    "bisectLeft",
+    ()=>bisectLeft,
+    "bisectRight",
+    ()=>bisectRight,
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisector.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/number.js [app-client] (ecmascript)");
+;
+;
+;
+const ascendingBisect = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]);
+const bisectRight = ascendingBisect.right;
+const bisectLeft = ascendingBisect.left;
+const bisectCenter = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]).center;
+const __TURBOPACK__default__export__ = bisectRight;
+}),
+"[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript) <export default as bisect>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "bisect",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-array/src/bisector.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>bisector
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$descending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/descending.js [app-client] (ecmascript)");
+;
+;
+function bisector(f) {
+    let compare1, compare2, delta;
+    // If an accessor is specified, promote it to a comparator. In this case we
+    // can test whether the search value is (self-) comparable. We can’t do this
+    // for a comparator (except for specific, known comparators) because we can’t
+    // tell if the comparator is symmetric, and an asymmetric comparator can’t be
+    // used to test whether a single value is comparable.
+    if (f.length !== 2) {
+        compare1 = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"];
+        compare2 = (d, x)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(f(d), x);
+        delta = (d, x)=>f(d) - x;
+    } else {
+        compare1 = f === __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] || f === __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$descending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] ? f : zero;
+        compare2 = f;
+        delta = f;
+    }
+    function left(a, x, lo = 0, hi = a.length) {
+        if (lo < hi) {
+            if (compare1(x, x) !== 0) return hi;
+            do {
+                const mid = lo + hi >>> 1;
+                if (compare2(a[mid], x) < 0) lo = mid + 1;
+                else hi = mid;
+            }while (lo < hi)
+        }
+        return lo;
+    }
+    function right(a, x, lo = 0, hi = a.length) {
+        if (lo < hi) {
+            if (compare1(x, x) !== 0) return hi;
+            do {
+                const mid = lo + hi >>> 1;
+                if (compare2(a[mid], x) <= 0) lo = mid + 1;
+                else hi = mid;
+            }while (lo < hi)
+        }
+        return lo;
+    }
+    function center(a, x, lo = 0, hi = a.length) {
+        const i = left(a, x, lo, hi - 1);
+        return i > lo && delta(a[i - 1], x) > -delta(a[i], x) ? i - 1 : i;
+    }
+    return {
+        left,
+        center,
+        right
+    };
+}
+function zero() {
+    return 0;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/bisector.js [app-client] (ecmascript) <export default as bisector>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "bisector",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisector.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-array/src/descending.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>descending
+]);
+function descending(a, b) {
+    return a == null || b == null ? NaN : b < a ? -1 : b > a ? 1 : b >= a ? 0 : NaN;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/greatest.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>greatest
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript)");
+;
+function greatest(values, compare = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]) {
+    let max;
+    let defined = false;
+    if (compare.length === 1) {
+        let maxValue;
+        for (const element of values){
+            const value = compare(element);
+            if (defined ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(value, maxValue) > 0 : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(value, value) === 0) {
+                max = element;
+                maxValue = value;
+                defined = true;
+            }
+        }
+    } else {
+        for (const value of values){
+            if (defined ? compare(value, max) > 0 : compare(value, value) === 0) {
+                max = value;
+                defined = true;
+            }
+        }
+    }
+    return max;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/max.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>max
+]);
+function max(values, valueof) {
+    let max;
+    if (valueof === undefined) {
+        for (const value of values){
+            if (value != null && (max < value || max === undefined && value >= value)) {
+                max = value;
+            }
+        }
+    } else {
+        let index = -1;
+        for (let value of values){
+            if ((value = valueof(value, ++index, values)) != null && (max < value || max === undefined && value >= value)) {
+                max = value;
+            }
+        }
+    }
+    return max;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/maxIndex.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>maxIndex
+]);
+function maxIndex(values, valueof) {
+    let max;
+    let maxIndex = -1;
+    let index = -1;
+    if (valueof === undefined) {
+        for (const value of values){
+            ++index;
+            if (value != null && (max < value || max === undefined && value >= value)) {
+                max = value, maxIndex = index;
+            }
+        }
+    } else {
+        for (let value of values){
+            if ((value = valueof(value, ++index, values)) != null && (max < value || max === undefined && value >= value)) {
+                max = value, maxIndex = index;
+            }
+        }
+    }
+    return maxIndex;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/min.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>min
+]);
+function min(values, valueof) {
+    let min;
+    if (valueof === undefined) {
+        for (const value of values){
+            if (value != null && (min > value || min === undefined && value >= value)) {
+                min = value;
+            }
+        }
+    } else {
+        let index = -1;
+        for (let value of values){
+            if ((value = valueof(value, ++index, values)) != null && (min > value || min === undefined && value >= value)) {
+                min = value;
+            }
+        }
+    }
+    return min;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/minIndex.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>minIndex
+]);
+function minIndex(values, valueof) {
+    let min;
+    let minIndex = -1;
+    let index = -1;
+    if (valueof === undefined) {
+        for (const value of values){
+            ++index;
+            if (value != null && (min > value || min === undefined && value >= value)) {
+                min = value, minIndex = index;
+            }
+        }
+    } else {
+        for (let value of values){
+            if ((value = valueof(value, ++index, values)) != null && (min > value || min === undefined && value >= value)) {
+                min = value, minIndex = index;
+            }
+        }
+    }
+    return minIndex;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/number.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>number,
+    "numbers",
+    ()=>numbers
+]);
+function number(x) {
+    return x === null ? NaN : +x;
+}
+function* numbers(values, valueof) {
+    if (valueof === undefined) {
+        for (let value of values){
+            if (value != null && (value = +value) >= value) {
+                yield value;
+            }
+        }
+    } else {
+        let index = -1;
+        for (let value of values){
+            if ((value = valueof(value, ++index, values)) != null && (value = +value) >= value) {
+                yield value;
+            }
+        }
+    }
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/permute.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>permute
+]);
+function permute(source, keys) {
+    return Array.from(keys, (key)=>source[key]);
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/quantile.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>quantile,
+    "quantileIndex",
+    ()=>quantileIndex,
+    "quantileSorted",
+    ()=>quantileSorted
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$max$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/max.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$maxIndex$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/maxIndex.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$min$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/min.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$minIndex$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/minIndex.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quickselect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/quickselect.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/number.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$sort$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/sort.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$greatest$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/greatest.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+function quantile(values, p, valueof) {
+    values = Float64Array.from((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numbers"])(values, valueof));
+    if (!(n = values.length) || isNaN(p = +p)) return;
+    if (p <= 0 || n < 2) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$min$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(values);
+    if (p >= 1) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$max$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(values);
+    var n, i = (n - 1) * p, i0 = Math.floor(i), value0 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$max$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quickselect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(values, i0).subarray(0, i0 + 1)), value1 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$min$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(values.subarray(i0 + 1));
+    return value0 + (value1 - value0) * (i - i0);
+}
+function quantileSorted(values, p, valueof = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]) {
+    if (!(n = values.length) || isNaN(p = +p)) return;
+    if (p <= 0 || n < 2) return +valueof(values[0], 0, values);
+    if (p >= 1) return +valueof(values[n - 1], n - 1, values);
+    var n, i = (n - 1) * p, i0 = Math.floor(i), value0 = +valueof(values[i0], i0, values), value1 = +valueof(values[i0 + 1], i0 + 1, values);
+    return value0 + (value1 - value0) * (i - i0);
+}
+function quantileIndex(values, p, valueof = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]) {
+    if (isNaN(p = +p)) return;
+    numbers = Float64Array.from(values, (_, i)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(valueof(values[i], i, values)));
+    if (p <= 0) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$minIndex$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(numbers);
+    if (p >= 1) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$maxIndex$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(numbers);
+    var numbers, index = Uint32Array.from(values, (_, i)=>i), j = numbers.length - 1, i = Math.floor(j * p);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quickselect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(index, i, 0, j, (i, j)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$sort$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ascendingDefined"])(numbers[i], numbers[j]));
+    i = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$greatest$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(index.subarray(0, i + 1), (i)=>numbers[i]);
+    return i >= 0 ? i : -1;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/quantile.js [app-client] (ecmascript) <export default as quantile>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "quantile",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/quantile.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-array/src/quickselect.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>quickselect
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$sort$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/sort.js [app-client] (ecmascript)");
+;
+function quickselect(array, k, left = 0, right = Infinity, compare) {
+    k = Math.floor(k);
+    left = Math.floor(Math.max(0, left));
+    right = Math.floor(Math.min(array.length - 1, right));
+    if (!(left <= k && k <= right)) return array;
+    compare = compare === undefined ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$sort$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ascendingDefined"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$sort$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["compareDefined"])(compare);
+    while(right > left){
+        if (right - left > 600) {
+            const n = right - left + 1;
+            const m = k - left + 1;
+            const z = Math.log(n);
+            const s = 0.5 * Math.exp(2 * z / 3);
+            const sd = 0.5 * Math.sqrt(z * s * (n - s) / n) * (m - n / 2 < 0 ? -1 : 1);
+            const newLeft = Math.max(left, Math.floor(k - m * s / n + sd));
+            const newRight = Math.min(right, Math.floor(k + (n - m) * s / n + sd));
+            quickselect(array, k, newLeft, newRight, compare);
+        }
+        const t = array[k];
+        let i = left;
+        let j = right;
+        swap(array, left, k);
+        if (compare(array[right], t) > 0) swap(array, left, right);
+        while(i < j){
+            swap(array, i, j), ++i, --j;
+            while(compare(array[i], t) < 0)++i;
+            while(compare(array[j], t) > 0)--j;
+        }
+        if (compare(array[left], t) === 0) swap(array, left, j);
+        else ++j, swap(array, j, right);
+        if (j <= k) left = j + 1;
+        if (k <= j) right = j - 1;
+    }
+    return array;
+}
+function swap(array, i, j) {
+    const t = array[i];
+    array[i] = array[j];
+    array[j] = t;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/range.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>range
+]);
+function range(start, stop, step) {
+    start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+    var i = -1, n = Math.max(0, Math.ceil((stop - start) / step)) | 0, range = new Array(n);
+    while(++i < n){
+        range[i] = start + i * step;
+    }
+    return range;
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/range.js [app-client] (ecmascript) <export default as range>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "range",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$range$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$range$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/range.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-array/src/sort.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "ascendingDefined",
+    ()=>ascendingDefined,
+    "compareDefined",
+    ()=>compareDefined,
+    "default",
+    ()=>sort
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$permute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/permute.js [app-client] (ecmascript)");
+;
+;
+function sort(values, ...F) {
+    if (typeof values[Symbol.iterator] !== "function") throw new TypeError("values is not iterable");
+    values = Array.from(values);
+    let [f] = F;
+    if (f && f.length !== 2 || F.length > 1) {
+        const index = Uint32Array.from(values, (d, i)=>i);
+        if (F.length > 1) {
+            F = F.map((f)=>values.map(f));
+            index.sort((i, j)=>{
+                for (const f of F){
+                    const c = ascendingDefined(f[i], f[j]);
+                    if (c) return c;
+                }
+            });
+        } else {
+            f = values.map(f);
+            index.sort((i, j)=>ascendingDefined(f[i], f[j]));
+        }
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$permute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(values, index);
+    }
+    return values.sort(compareDefined(f));
+}
+function compareDefined(compare = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]) {
+    if (compare === __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]) return ascendingDefined;
+    if (typeof compare !== "function") throw new TypeError("compare is not a function");
+    return (a, b)=>{
+        const x = compare(a, b);
+        if (x || x === 0) return x;
+        return (compare(b, b) === 0) - (compare(a, a) === 0);
+    };
+}
+function ascendingDefined(a, b) {
+    return (a == null || !(a >= a)) - (b == null || !(b >= b)) || (a < b ? -1 : a > b ? 1 : 0);
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>ticks,
+    "tickIncrement",
+    ()=>tickIncrement,
+    "tickStep",
+    ()=>tickStep
+]);
+const e10 = Math.sqrt(50), e5 = Math.sqrt(10), e2 = Math.sqrt(2);
+function tickSpec(start, stop, count) {
+    const step = (stop - start) / Math.max(0, count), power = Math.floor(Math.log10(step)), error = step / Math.pow(10, power), factor = error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1;
+    let i1, i2, inc;
+    if (power < 0) {
+        inc = Math.pow(10, -power) / factor;
+        i1 = Math.round(start * inc);
+        i2 = Math.round(stop * inc);
+        if (i1 / inc < start) ++i1;
+        if (i2 / inc > stop) --i2;
+        inc = -inc;
+    } else {
+        inc = Math.pow(10, power) * factor;
+        i1 = Math.round(start / inc);
+        i2 = Math.round(stop / inc);
+        if (i1 * inc < start) ++i1;
+        if (i2 * inc > stop) --i2;
+    }
+    if (i2 < i1 && 0.5 <= count && count < 2) return tickSpec(start, stop, count * 2);
+    return [
+        i1,
+        i2,
+        inc
+    ];
+}
+function ticks(start, stop, count) {
+    stop = +stop, start = +start, count = +count;
+    if (!(count > 0)) return [];
+    if (start === stop) return [
+        start
+    ];
+    const reverse = stop < start, [i1, i2, inc] = reverse ? tickSpec(stop, start, count) : tickSpec(start, stop, count);
+    if (!(i2 >= i1)) return [];
+    const n = i2 - i1 + 1, ticks = new Array(n);
+    if (reverse) {
+        if (inc < 0) for(let i = 0; i < n; ++i)ticks[i] = (i2 - i) / -inc;
+        else for(let i = 0; i < n; ++i)ticks[i] = (i2 - i) * inc;
+    } else {
+        if (inc < 0) for(let i = 0; i < n; ++i)ticks[i] = (i1 + i) / -inc;
+        else for(let i = 0; i < n; ++i)ticks[i] = (i1 + i) * inc;
+    }
+    return ticks;
+}
+function tickIncrement(start, stop, count) {
+    stop = +stop, start = +start, count = +count;
+    return tickSpec(start, stop, count)[2];
+}
+function tickStep(start, stop, count) {
+    stop = +stop, start = +start, count = +count;
+    const reverse = stop < start, inc = reverse ? tickIncrement(stop, start, count) : tickIncrement(start, stop, count);
+    return (reverse ? -1 : 1) * (inc < 0 ? 1 / -inc : inc);
+}
+}),
+"[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript) <export default as ticks>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "ticks",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-color/src/color.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Color",
+    ()=>Color,
+    "Rgb",
+    ()=>Rgb,
+    "brighter",
+    ()=>brighter,
+    "darker",
+    ()=>darker,
+    "default",
+    ()=>color,
+    "hsl",
+    ()=>hsl,
+    "hslConvert",
+    ()=>hslConvert,
+    "rgb",
+    ()=>rgb,
+    "rgbConvert",
+    ()=>rgbConvert
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$define$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-color/src/define.js [app-client] (ecmascript)");
+;
+function Color() {}
+var darker = 0.7;
+var brighter = 1 / darker;
+var reI = "\\s*([+-]?\\d+)\\s*", reN = "\\s*([+-]?(?:\\d*\\.)?\\d+(?:[eE][+-]?\\d+)?)\\s*", reP = "\\s*([+-]?(?:\\d*\\.)?\\d+(?:[eE][+-]?\\d+)?)%\\s*", reHex = /^#([0-9a-f]{3,8})$/, reRgbInteger = new RegExp(`^rgb\\(${reI},${reI},${reI}\\)$`), reRgbPercent = new RegExp(`^rgb\\(${reP},${reP},${reP}\\)$`), reRgbaInteger = new RegExp(`^rgba\\(${reI},${reI},${reI},${reN}\\)$`), reRgbaPercent = new RegExp(`^rgba\\(${reP},${reP},${reP},${reN}\\)$`), reHslPercent = new RegExp(`^hsl\\(${reN},${reP},${reP}\\)$`), reHslaPercent = new RegExp(`^hsla\\(${reN},${reP},${reP},${reN}\\)$`);
+var named = {
+    aliceblue: 0xf0f8ff,
+    antiquewhite: 0xfaebd7,
+    aqua: 0x00ffff,
+    aquamarine: 0x7fffd4,
+    azure: 0xf0ffff,
+    beige: 0xf5f5dc,
+    bisque: 0xffe4c4,
+    black: 0x000000,
+    blanchedalmond: 0xffebcd,
+    blue: 0x0000ff,
+    blueviolet: 0x8a2be2,
+    brown: 0xa52a2a,
+    burlywood: 0xdeb887,
+    cadetblue: 0x5f9ea0,
+    chartreuse: 0x7fff00,
+    chocolate: 0xd2691e,
+    coral: 0xff7f50,
+    cornflowerblue: 0x6495ed,
+    cornsilk: 0xfff8dc,
+    crimson: 0xdc143c,
+    cyan: 0x00ffff,
+    darkblue: 0x00008b,
+    darkcyan: 0x008b8b,
+    darkgoldenrod: 0xb8860b,
+    darkgray: 0xa9a9a9,
+    darkgreen: 0x006400,
+    darkgrey: 0xa9a9a9,
+    darkkhaki: 0xbdb76b,
+    darkmagenta: 0x8b008b,
+    darkolivegreen: 0x556b2f,
+    darkorange: 0xff8c00,
+    darkorchid: 0x9932cc,
+    darkred: 0x8b0000,
+    darksalmon: 0xe9967a,
+    darkseagreen: 0x8fbc8f,
+    darkslateblue: 0x483d8b,
+    darkslategray: 0x2f4f4f,
+    darkslategrey: 0x2f4f4f,
+    darkturquoise: 0x00ced1,
+    darkviolet: 0x9400d3,
+    deeppink: 0xff1493,
+    deepskyblue: 0x00bfff,
+    dimgray: 0x696969,
+    dimgrey: 0x696969,
+    dodgerblue: 0x1e90ff,
+    firebrick: 0xb22222,
+    floralwhite: 0xfffaf0,
+    forestgreen: 0x228b22,
+    fuchsia: 0xff00ff,
+    gainsboro: 0xdcdcdc,
+    ghostwhite: 0xf8f8ff,
+    gold: 0xffd700,
+    goldenrod: 0xdaa520,
+    gray: 0x808080,
+    green: 0x008000,
+    greenyellow: 0xadff2f,
+    grey: 0x808080,
+    honeydew: 0xf0fff0,
+    hotpink: 0xff69b4,
+    indianred: 0xcd5c5c,
+    indigo: 0x4b0082,
+    ivory: 0xfffff0,
+    khaki: 0xf0e68c,
+    lavender: 0xe6e6fa,
+    lavenderblush: 0xfff0f5,
+    lawngreen: 0x7cfc00,
+    lemonchiffon: 0xfffacd,
+    lightblue: 0xadd8e6,
+    lightcoral: 0xf08080,
+    lightcyan: 0xe0ffff,
+    lightgoldenrodyellow: 0xfafad2,
+    lightgray: 0xd3d3d3,
+    lightgreen: 0x90ee90,
+    lightgrey: 0xd3d3d3,
+    lightpink: 0xffb6c1,
+    lightsalmon: 0xffa07a,
+    lightseagreen: 0x20b2aa,
+    lightskyblue: 0x87cefa,
+    lightslategray: 0x778899,
+    lightslategrey: 0x778899,
+    lightsteelblue: 0xb0c4de,
+    lightyellow: 0xffffe0,
+    lime: 0x00ff00,
+    limegreen: 0x32cd32,
+    linen: 0xfaf0e6,
+    magenta: 0xff00ff,
+    maroon: 0x800000,
+    mediumaquamarine: 0x66cdaa,
+    mediumblue: 0x0000cd,
+    mediumorchid: 0xba55d3,
+    mediumpurple: 0x9370db,
+    mediumseagreen: 0x3cb371,
+    mediumslateblue: 0x7b68ee,
+    mediumspringgreen: 0x00fa9a,
+    mediumturquoise: 0x48d1cc,
+    mediumvioletred: 0xc71585,
+    midnightblue: 0x191970,
+    mintcream: 0xf5fffa,
+    mistyrose: 0xffe4e1,
+    moccasin: 0xffe4b5,
+    navajowhite: 0xffdead,
+    navy: 0x000080,
+    oldlace: 0xfdf5e6,
+    olive: 0x808000,
+    olivedrab: 0x6b8e23,
+    orange: 0xffa500,
+    orangered: 0xff4500,
+    orchid: 0xda70d6,
+    palegoldenrod: 0xeee8aa,
+    palegreen: 0x98fb98,
+    paleturquoise: 0xafeeee,
+    palevioletred: 0xdb7093,
+    papayawhip: 0xffefd5,
+    peachpuff: 0xffdab9,
+    peru: 0xcd853f,
+    pink: 0xffc0cb,
+    plum: 0xdda0dd,
+    powderblue: 0xb0e0e6,
+    purple: 0x800080,
+    rebeccapurple: 0x663399,
+    red: 0xff0000,
+    rosybrown: 0xbc8f8f,
+    royalblue: 0x4169e1,
+    saddlebrown: 0x8b4513,
+    salmon: 0xfa8072,
+    sandybrown: 0xf4a460,
+    seagreen: 0x2e8b57,
+    seashell: 0xfff5ee,
+    sienna: 0xa0522d,
+    silver: 0xc0c0c0,
+    skyblue: 0x87ceeb,
+    slateblue: 0x6a5acd,
+    slategray: 0x708090,
+    slategrey: 0x708090,
+    snow: 0xfffafa,
+    springgreen: 0x00ff7f,
+    steelblue: 0x4682b4,
+    tan: 0xd2b48c,
+    teal: 0x008080,
+    thistle: 0xd8bfd8,
+    tomato: 0xff6347,
+    turquoise: 0x40e0d0,
+    violet: 0xee82ee,
+    wheat: 0xf5deb3,
+    white: 0xffffff,
+    whitesmoke: 0xf5f5f5,
+    yellow: 0xffff00,
+    yellowgreen: 0x9acd32
+};
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$define$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(Color, color, {
+    copy (channels) {
+        return Object.assign(new this.constructor, this, channels);
+    },
+    displayable () {
+        return this.rgb().displayable();
+    },
+    hex: color_formatHex,
+    formatHex: color_formatHex,
+    formatHex8: color_formatHex8,
+    formatHsl: color_formatHsl,
+    formatRgb: color_formatRgb,
+    toString: color_formatRgb
+});
+function color_formatHex() {
+    return this.rgb().formatHex();
+}
+function color_formatHex8() {
+    return this.rgb().formatHex8();
+}
+function color_formatHsl() {
+    return hslConvert(this).formatHsl();
+}
+function color_formatRgb() {
+    return this.rgb().formatRgb();
+}
+function color(format) {
+    var m, l;
+    format = (format + "").trim().toLowerCase();
+    return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
+     : l === 3 ? new Rgb(m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
+     : l === 8 ? rgba(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
+     : l === 4 ? rgba(m >> 12 & 0xf | m >> 8 & 0xf0, m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, ((m & 0xf) << 4 | m & 0xf) / 0xff) // #f000
+     : null) // invalid hex
+     : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
+     : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
+     : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
+     : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
+     : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
+     : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
+     : named.hasOwnProperty(format) ? rgbn(named[format]) // eslint-disable-line no-prototype-builtins
+     : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0) : null;
+}
+function rgbn(n) {
+    return new Rgb(n >> 16 & 0xff, n >> 8 & 0xff, n & 0xff, 1);
+}
+function rgba(r, g, b, a) {
+    if (a <= 0) r = g = b = NaN;
+    return new Rgb(r, g, b, a);
+}
+function rgbConvert(o) {
+    if (!(o instanceof Color)) o = color(o);
+    if (!o) return new Rgb;
+    o = o.rgb();
+    return new Rgb(o.r, o.g, o.b, o.opacity);
+}
+function rgb(r, g, b, opacity) {
+    return arguments.length === 1 ? rgbConvert(r) : new Rgb(r, g, b, opacity == null ? 1 : opacity);
+}
+function Rgb(r, g, b, opacity) {
+    this.r = +r;
+    this.g = +g;
+    this.b = +b;
+    this.opacity = +opacity;
+}
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$define$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(Rgb, rgb, (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$define$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["extend"])(Color, {
+    brighter (k) {
+        k = k == null ? brighter : Math.pow(brighter, k);
+        return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
+    },
+    darker (k) {
+        k = k == null ? darker : Math.pow(darker, k);
+        return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
+    },
+    rgb () {
+        return this;
+    },
+    clamp () {
+        return new Rgb(clampi(this.r), clampi(this.g), clampi(this.b), clampa(this.opacity));
+    },
+    displayable () {
+        return -0.5 <= this.r && this.r < 255.5 && -0.5 <= this.g && this.g < 255.5 && -0.5 <= this.b && this.b < 255.5 && 0 <= this.opacity && this.opacity <= 1;
+    },
+    hex: rgb_formatHex,
+    formatHex: rgb_formatHex,
+    formatHex8: rgb_formatHex8,
+    formatRgb: rgb_formatRgb,
+    toString: rgb_formatRgb
+}));
+function rgb_formatHex() {
+    return `#${hex(this.r)}${hex(this.g)}${hex(this.b)}`;
+}
+function rgb_formatHex8() {
+    return `#${hex(this.r)}${hex(this.g)}${hex(this.b)}${hex((isNaN(this.opacity) ? 1 : this.opacity) * 255)}`;
+}
+function rgb_formatRgb() {
+    const a = clampa(this.opacity);
+    return `${a === 1 ? "rgb(" : "rgba("}${clampi(this.r)}, ${clampi(this.g)}, ${clampi(this.b)}${a === 1 ? ")" : `, ${a})`}`;
+}
+function clampa(opacity) {
+    return isNaN(opacity) ? 1 : Math.max(0, Math.min(1, opacity));
+}
+function clampi(value) {
+    return Math.max(0, Math.min(255, Math.round(value) || 0));
+}
+function hex(value) {
+    value = clampi(value);
+    return (value < 16 ? "0" : "") + value.toString(16);
+}
+function hsla(h, s, l, a) {
+    if (a <= 0) h = s = l = NaN;
+    else if (l <= 0 || l >= 1) h = s = NaN;
+    else if (s <= 0) h = NaN;
+    return new Hsl(h, s, l, a);
+}
+function hslConvert(o) {
+    if (o instanceof Hsl) return new Hsl(o.h, o.s, o.l, o.opacity);
+    if (!(o instanceof Color)) o = color(o);
+    if (!o) return new Hsl;
+    if (o instanceof Hsl) return o;
+    o = o.rgb();
+    var r = o.r / 255, g = o.g / 255, b = o.b / 255, min = Math.min(r, g, b), max = Math.max(r, g, b), h = NaN, s = max - min, l = (max + min) / 2;
+    if (s) {
+        if (r === max) h = (g - b) / s + (g < b) * 6;
+        else if (g === max) h = (b - r) / s + 2;
+        else h = (r - g) / s + 4;
+        s /= l < 0.5 ? max + min : 2 - max - min;
+        h *= 60;
+    } else {
+        s = l > 0 && l < 1 ? 0 : h;
+    }
+    return new Hsl(h, s, l, o.opacity);
+}
+function hsl(h, s, l, opacity) {
+    return arguments.length === 1 ? hslConvert(h) : new Hsl(h, s, l, opacity == null ? 1 : opacity);
+}
+function Hsl(h, s, l, opacity) {
+    this.h = +h;
+    this.s = +s;
+    this.l = +l;
+    this.opacity = +opacity;
+}
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$define$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(Hsl, hsl, (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$define$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["extend"])(Color, {
+    brighter (k) {
+        k = k == null ? brighter : Math.pow(brighter, k);
+        return new Hsl(this.h, this.s, this.l * k, this.opacity);
+    },
+    darker (k) {
+        k = k == null ? darker : Math.pow(darker, k);
+        return new Hsl(this.h, this.s, this.l * k, this.opacity);
+    },
+    rgb () {
+        var h = this.h % 360 + (this.h < 0) * 360, s = isNaN(h) || isNaN(this.s) ? 0 : this.s, l = this.l, m2 = l + (l < 0.5 ? l : 1 - l) * s, m1 = 2 * l - m2;
+        return new Rgb(hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2), hsl2rgb(h, m1, m2), hsl2rgb(h < 120 ? h + 240 : h - 120, m1, m2), this.opacity);
+    },
+    clamp () {
+        return new Hsl(clamph(this.h), clampt(this.s), clampt(this.l), clampa(this.opacity));
+    },
+    displayable () {
+        return (0 <= this.s && this.s <= 1 || isNaN(this.s)) && 0 <= this.l && this.l <= 1 && 0 <= this.opacity && this.opacity <= 1;
+    },
+    formatHsl () {
+        const a = clampa(this.opacity);
+        return `${a === 1 ? "hsl(" : "hsla("}${clamph(this.h)}, ${clampt(this.s) * 100}%, ${clampt(this.l) * 100}%${a === 1 ? ")" : `, ${a})`}`;
+    }
+}));
+function clamph(value) {
+    value = (value || 0) % 360;
+    return value < 0 ? value + 360 : value;
+}
+function clampt(value) {
+    return Math.max(0, Math.min(1, value || 0));
+}
+/* From FvD 13.37, CSS Color Module Level 3 */ function hsl2rgb(h, m1, m2) {
+    return (h < 60 ? m1 + (m2 - m1) * h / 60 : h < 180 ? m2 : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60 : m1) * 255;
+}
+}),
+"[project]/frontend/node_modules/d3-color/src/color.js [app-client] (ecmascript) <export default as color>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "color",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-color/src/color.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-color/src/define.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "extend",
+    ()=>extend
+]);
+function __TURBOPACK__default__export__(constructor, factory, prototype) {
+    constructor.prototype = factory.prototype = prototype;
+    prototype.constructor = constructor;
+}
+function extend(parent, definition) {
+    var prototype = Object.create(parent.prototype);
+    for(var key in definition)prototype[key] = definition[key];
+    return prototype;
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/defaultLocale.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>defaultLocale,
+    "format",
+    ()=>format,
+    "formatPrefix",
+    ()=>formatPrefix
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$locale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/locale.js [app-client] (ecmascript)");
+;
+var locale;
+var format;
+var formatPrefix;
+defaultLocale({
+    thousands: ",",
+    grouping: [
+        3
+    ],
+    currency: [
+        "$",
+        ""
+    ]
+});
+function defaultLocale(definition) {
+    locale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$locale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(definition);
+    format = locale.format;
+    formatPrefix = locale.formatPrefix;
+    return locale;
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/exponent.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatDecimal.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(x) {
+    return x = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatDecimalParts"])(Math.abs(x)), x ? x[1] : NaN;
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/formatDecimal.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "formatDecimalParts",
+    ()=>formatDecimalParts
+]);
+function __TURBOPACK__default__export__(x) {
+    return Math.abs(x = Math.round(x)) >= 1e21 ? x.toLocaleString("en").replace(/,/g, "") : x.toString(10);
+}
+function formatDecimalParts(x, p) {
+    if (!isFinite(x) || x === 0) return null; // NaN, ±Infinity, ±0
+    var i = (x = p ? x.toExponential(p - 1) : x.toExponential()).indexOf("e"), coefficient = x.slice(0, i);
+    // The string returned by toExponential either has the form \d\.\d+e[-+]\d+
+    // (e.g., 1.2e+3) or the form \de[-+]\d+ (e.g., 1e+3).
+    return [
+        coefficient.length > 1 ? coefficient[0] + coefficient.slice(2) : coefficient,
+        +x.slice(i + 1)
+    ];
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/formatGroup.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(grouping, thousands) {
+    return function(value, width) {
+        var i = value.length, t = [], j = 0, g = grouping[0], length = 0;
+        while(i > 0 && g > 0){
+            if (length + g + 1 > width) g = Math.max(1, width - length);
+            t.push(value.substring(i -= g, i + g));
+            if ((length += g + 1) > width) break;
+            g = grouping[j = (j + 1) % grouping.length];
+        }
+        return t.reverse().join(thousands);
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/formatNumerals.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(numerals) {
+    return function(value) {
+        return value.replace(/[0-9]/g, function(i) {
+            return numerals[+i];
+        });
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/formatPrefixAuto.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "prefixExponent",
+    ()=>prefixExponent
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatDecimal.js [app-client] (ecmascript)");
+;
+var prefixExponent;
+function __TURBOPACK__default__export__(x, p) {
+    var d = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatDecimalParts"])(x, p);
+    if (!d) return prefixExponent = undefined, x.toPrecision(p);
+    var coefficient = d[0], exponent = d[1], i = exponent - (prefixExponent = Math.max(-8, Math.min(8, Math.floor(exponent / 3))) * 3) + 1, n = coefficient.length;
+    return i === n ? coefficient : i > n ? coefficient + new Array(i - n + 1).join("0") : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i) : "0." + new Array(1 - i).join("0") + (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatDecimalParts"])(x, Math.max(0, p + i - 1))[0]; // less than 1y!
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/formatRounded.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatDecimal.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(x, p) {
+    var d = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatDecimalParts"])(x, p);
+    if (!d) return x + "";
+    var coefficient = d[0], exponent = d[1];
+    return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1) : coefficient + new Array(exponent - coefficient.length + 2).join("0");
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/formatSpecifier.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "FormatSpecifier",
+    ()=>FormatSpecifier,
+    "default",
+    ()=>formatSpecifier
+]);
+// [[fill]align][sign][symbol][0][width][,][.precision][~][type]
+var re = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
+function formatSpecifier(specifier) {
+    if (!(match = re.exec(specifier))) throw new Error("invalid format: " + specifier);
+    var match;
+    return new FormatSpecifier({
+        fill: match[1],
+        align: match[2],
+        sign: match[3],
+        symbol: match[4],
+        zero: match[5],
+        width: match[6],
+        comma: match[7],
+        precision: match[8] && match[8].slice(1),
+        trim: match[9],
+        type: match[10]
+    });
+}
+formatSpecifier.prototype = FormatSpecifier.prototype; // instanceof
+function FormatSpecifier(specifier) {
+    this.fill = specifier.fill === undefined ? " " : specifier.fill + "";
+    this.align = specifier.align === undefined ? ">" : specifier.align + "";
+    this.sign = specifier.sign === undefined ? "-" : specifier.sign + "";
+    this.symbol = specifier.symbol === undefined ? "" : specifier.symbol + "";
+    this.zero = !!specifier.zero;
+    this.width = specifier.width === undefined ? undefined : +specifier.width;
+    this.comma = !!specifier.comma;
+    this.precision = specifier.precision === undefined ? undefined : +specifier.precision;
+    this.trim = !!specifier.trim;
+    this.type = specifier.type === undefined ? "" : specifier.type + "";
+}
+FormatSpecifier.prototype.toString = function() {
+    return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === undefined ? "" : Math.max(1, this.width | 0)) + (this.comma ? "," : "") + (this.precision === undefined ? "" : "." + Math.max(0, this.precision | 0)) + (this.trim ? "~" : "") + this.type;
+};
+}),
+"[project]/frontend/node_modules/d3-format/src/formatSpecifier.js [app-client] (ecmascript) <export default as formatSpecifier>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "formatSpecifier",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatSpecifier.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-format/src/formatTrim.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// Trims insignificant zeros, e.g., replaces 1.2000k with 1.2k.
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(s) {
+    out: for(var n = s.length, i = 1, i0 = -1, i1; i < n; ++i){
+        switch(s[i]){
+            case ".":
+                i0 = i1 = i;
+                break;
+            case "0":
+                if (i0 === 0) i0 = i;
+                i1 = i;
+                break;
+            default:
+                if (!+s[i]) break out;
+                if (i0 > 0) i0 = 0;
+                break;
+        }
+    }
+    return i0 > 0 ? s.slice(0, i0) + s.slice(i1 + 1) : s;
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/formatTypes.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatDecimal.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatPrefixAuto$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatPrefixAuto.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatRounded$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatRounded.js [app-client] (ecmascript)");
+;
+;
+;
+const __TURBOPACK__default__export__ = {
+    "%": (x, p)=>(x * 100).toFixed(p),
+    "b": (x)=>Math.round(x).toString(2),
+    "c": (x)=>x + "",
+    "d": __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatDecimal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "e": (x, p)=>x.toExponential(p),
+    "f": (x, p)=>x.toFixed(p),
+    "g": (x, p)=>x.toPrecision(p),
+    "o": (x)=>Math.round(x).toString(8),
+    "p": (x, p)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatRounded$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(x * 100, p),
+    "r": __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatRounded$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "s": __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatPrefixAuto$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "X": (x)=>Math.round(x).toString(16).toUpperCase(),
+    "x": (x)=>Math.round(x).toString(16)
+};
+}),
+"[project]/frontend/node_modules/d3-format/src/identity.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(x) {
+    return x;
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/locale.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/exponent.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatGroup$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatGroup.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatNumerals$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatNumerals.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatSpecifier.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatTrim$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatTrim.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatTypes$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatTypes.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatPrefixAuto$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatPrefixAuto.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$identity$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/identity.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+var map = Array.prototype.map, prefixes = [
+    "y",
+    "z",
+    "a",
+    "f",
+    "p",
+    "n",
+    "µ",
+    "m",
+    "",
+    "k",
+    "M",
+    "G",
+    "T",
+    "P",
+    "E",
+    "Z",
+    "Y"
+];
+function __TURBOPACK__default__export__(locale) {
+    var group = locale.grouping === undefined || locale.thousands === undefined ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$identity$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatGroup$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(map.call(locale.grouping, Number), locale.thousands + ""), currencyPrefix = locale.currency === undefined ? "" : locale.currency[0] + "", currencySuffix = locale.currency === undefined ? "" : locale.currency[1] + "", decimal = locale.decimal === undefined ? "." : locale.decimal + "", numerals = locale.numerals === undefined ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$identity$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatNumerals$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(map.call(locale.numerals, String)), percent = locale.percent === undefined ? "%" : locale.percent + "", minus = locale.minus === undefined ? "−" : locale.minus + "", nan = locale.nan === undefined ? "NaN" : locale.nan + "";
+    function newFormat(specifier, options) {
+        specifier = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(specifier);
+        var fill = specifier.fill, align = specifier.align, sign = specifier.sign, symbol = specifier.symbol, zero = specifier.zero, width = specifier.width, comma = specifier.comma, precision = specifier.precision, trim = specifier.trim, type = specifier.type;
+        // The "n" type is an alias for ",g".
+        if (type === "n") comma = true, type = "g";
+        else if (!__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatTypes$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"][type]) precision === undefined && (precision = 12), trim = true, type = "g";
+        // If zero fill is specified, padding goes after sign and before digits.
+        if (zero || fill === "0" && align === "=") zero = true, fill = "0", align = "=";
+        // Compute the prefix and suffix.
+        // For SI-prefix, the suffix is lazily computed.
+        var prefix = (options && options.prefix !== undefined ? options.prefix : "") + (symbol === "$" ? currencyPrefix : symbol === "#" && /[boxX]/.test(type) ? "0" + type.toLowerCase() : ""), suffix = (symbol === "$" ? currencySuffix : /[%p]/.test(type) ? percent : "") + (options && options.suffix !== undefined ? options.suffix : "");
+        // What format function should we use?
+        // Is this an integer type?
+        // Can this type generate exponential notation?
+        var formatType = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatTypes$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"][type], maybeSuffix = /[defgprs%]/.test(type);
+        // Set the default precision if not specified,
+        // or clamp the specified precision to the supported range.
+        // For significant precision, it must be in [1, 21].
+        // For fixed precision, it must be in [0, 20].
+        precision = precision === undefined ? 6 : /[gprs]/.test(type) ? Math.max(1, Math.min(21, precision)) : Math.max(0, Math.min(20, precision));
+        function format(value) {
+            var valuePrefix = prefix, valueSuffix = suffix, i, n, c;
+            if (type === "c") {
+                valueSuffix = formatType(value) + valueSuffix;
+                value = "";
+            } else {
+                value = +value;
+                // Determine the sign. -0 is not less than 0, but 1 / -0 is!
+                var valueNegative = value < 0 || 1 / value < 0;
+                // Perform the initial formatting.
+                value = isNaN(value) ? nan : formatType(Math.abs(value), precision);
+                // Trim insignificant zeros.
+                if (trim) value = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatTrim$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(value);
+                // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
+                if (valueNegative && +value === 0 && sign !== "+") valueNegative = false;
+                // Compute the prefix and suffix.
+                valuePrefix = (valueNegative ? sign === "(" ? sign : minus : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
+                valueSuffix = (type === "s" && !isNaN(value) && __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatPrefixAuto$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["prefixExponent"] !== undefined ? prefixes[8 + __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatPrefixAuto$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["prefixExponent"] / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : "");
+                // Break the formatted value into the integer “value” part that can be
+                // grouped, and fractional or exponential “suffix” part that is not.
+                if (maybeSuffix) {
+                    i = -1, n = value.length;
+                    while(++i < n){
+                        if (c = value.charCodeAt(i), 48 > c || c > 57) {
+                            valueSuffix = (c === 46 ? decimal + value.slice(i + 1) : value.slice(i)) + valueSuffix;
+                            value = value.slice(0, i);
+                            break;
+                        }
+                    }
+                }
+            }
+            // If the fill character is not "0", grouping is applied before padding.
+            if (comma && !zero) value = group(value, Infinity);
+            // Compute the padding.
+            var length = valuePrefix.length + value.length + valueSuffix.length, padding = length < width ? new Array(width - length + 1).join(fill) : "";
+            // If the fill character is "0", grouping is applied after padding.
+            if (comma && zero) value = group(padding + value, padding.length ? width - valueSuffix.length : Infinity), padding = "";
+            // Reconstruct the final output based on the desired alignment.
+            switch(align){
+                case "<":
+                    value = valuePrefix + value + valueSuffix + padding;
+                    break;
+                case "=":
+                    value = valuePrefix + padding + value + valueSuffix;
+                    break;
+                case "^":
+                    value = padding.slice(0, length = padding.length >> 1) + valuePrefix + value + valueSuffix + padding.slice(length);
+                    break;
+                default:
+                    value = padding + valuePrefix + value + valueSuffix;
+                    break;
+            }
+            return numerals(value);
+        }
+        format.toString = function() {
+            return specifier + "";
+        };
+        return format;
+    }
+    function formatPrefix(specifier, value) {
+        var e = Math.max(-8, Math.min(8, Math.floor((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(value) / 3))) * 3, k = Math.pow(10, -e), f = newFormat((specifier = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(specifier), specifier.type = "f", specifier), {
+            suffix: prefixes[8 + e / 3]
+        });
+        return function(value) {
+            return f(k * value);
+        };
+    }
+    return {
+        format: newFormat,
+        formatPrefix: formatPrefix
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/precisionFixed.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/exponent.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(step) {
+    return Math.max(0, -(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(Math.abs(step)));
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/precisionFixed.js [app-client] (ecmascript) <export default as precisionFixed>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "precisionFixed",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionFixed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionFixed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/precisionFixed.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-format/src/precisionPrefix.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/exponent.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(step, value) {
+    return Math.max(0, Math.max(-8, Math.min(8, Math.floor((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(value) / 3))) * 3 - (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(Math.abs(step)));
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/precisionPrefix.js [app-client] (ecmascript) <export default as precisionPrefix>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "precisionPrefix",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionPrefix$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionPrefix$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/precisionPrefix.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-format/src/precisionRound.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/exponent.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(step, max) {
+    step = Math.abs(step), max = Math.abs(max) - step;
+    return Math.max(0, (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(max) - (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$exponent$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(step)) + 1;
+}
+}),
+"[project]/frontend/node_modules/d3-format/src/precisionRound.js [app-client] (ecmascript) <export default as precisionRound>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "precisionRound",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionRound$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionRound$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/precisionRound.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/array.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "genericArray",
+    ()=>genericArray
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$numberArray$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/numberArray.js [app-client] (ecmascript)");
+;
+;
+function __TURBOPACK__default__export__(a, b) {
+    return ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$numberArray$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isNumberArray"])(b) ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$numberArray$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : genericArray)(a, b);
+}
+function genericArray(a, b) {
+    var nb = b ? b.length : 0, na = a ? Math.min(nb, a.length) : 0, x = new Array(na), c = new Array(nb), i;
+    for(i = 0; i < na; ++i)x[i] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(a[i], b[i]);
+    for(; i < nb; ++i)c[i] = b[i];
+    return function(t) {
+        for(i = 0; i < na; ++i)c[i] = x[i](t);
+        return c;
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/basis.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "basis",
+    ()=>basis,
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function basis(t1, v0, v1, v2, v3) {
+    var t2 = t1 * t1, t3 = t2 * t1;
+    return ((1 - 3 * t1 + 3 * t2 - t3) * v0 + (4 - 6 * t2 + 3 * t3) * v1 + (1 + 3 * t1 + 3 * t2 - 3 * t3) * v2 + t3 * v3) / 6;
+}
+function __TURBOPACK__default__export__(values) {
+    var n = values.length - 1;
+    return function(t) {
+        var i = t <= 0 ? t = 0 : t >= 1 ? (t = 1, n - 1) : Math.floor(t * n), v1 = values[i], v2 = values[i + 1], v0 = i > 0 ? values[i - 1] : 2 * v1 - v2, v3 = i < n - 1 ? values[i + 2] : 2 * v2 - v1;
+        return basis((t - i / n) * n, v0, v1, v2, v3);
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/basisClosed.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/basis.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(values) {
+    var n = values.length;
+    return function(t) {
+        var i = Math.floor(((t %= 1) < 0 ? ++t : t) * n), v0 = values[(i + n - 1) % n], v1 = values[i % n], v2 = values[(i + 1) % n], v3 = values[(i + 2) % n];
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["basis"])((t - i / n) * n, v0, v1, v2, v3);
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/color.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>nogamma,
+    "gamma",
+    ()=>gamma,
+    "hue",
+    ()=>hue
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/constant.js [app-client] (ecmascript)");
+;
+function linear(a, d) {
+    return function(t) {
+        return a + t * d;
+    };
+}
+function exponential(a, b, y) {
+    return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function(t) {
+        return Math.pow(a + t * b, y);
+    };
+}
+function hue(a, b) {
+    var d = b - a;
+    return d ? linear(a, d > 180 || d < -180 ? d - 360 * Math.round(d / 360) : d) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(isNaN(a) ? b : a);
+}
+function gamma(y) {
+    return (y = +y) === 1 ? nogamma : function(a, b) {
+        return b - a ? exponential(a, b, y) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(isNaN(a) ? b : a);
+    };
+}
+function nogamma(a, b) {
+    var d = b - a;
+    return d ? linear(a, d) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(isNaN(a) ? b : a);
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/constant.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const __TURBOPACK__default__export__ = (x)=>()=>x;
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/date.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(a, b) {
+    var d = new Date;
+    return a = +a, b = +b, function(t) {
+        return d.setTime(a * (1 - t) + b * t), d;
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/number.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(a, b) {
+    return a = +a, b = +b, function(t) {
+        return a * (1 - t) + b * t;
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/number.js [app-client] (ecmascript) <export default as interpolateNumber>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "interpolateNumber",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/number.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/numberArray.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "isNumberArray",
+    ()=>isNumberArray
+]);
+function __TURBOPACK__default__export__(a, b) {
+    if (!b) b = [];
+    var n = a ? Math.min(b.length, a.length) : 0, c = b.slice(), i;
+    return function(t) {
+        for(i = 0; i < n; ++i)c[i] = a[i] * (1 - t) + b[i] * t;
+        return c;
+    };
+}
+function isNumberArray(x) {
+    return ArrayBuffer.isView(x) && !(x instanceof DataView);
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/object.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(a, b) {
+    var i = {}, c = {}, k;
+    if (a === null || typeof a !== "object") a = {};
+    if (b === null || typeof b !== "object") b = {};
+    for(k in b){
+        if (k in a) {
+            i[k] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(a[k], b[k]);
+        } else {
+            c[k] = b[k];
+        }
+    }
+    return function(t) {
+        for(k in i)c[k] = i[k](t);
+        return c;
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/piecewise.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>piecewise
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript)");
+;
+function piecewise(interpolate, values) {
+    if (values === undefined) values = interpolate, interpolate = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"];
+    var i = 0, n = values.length - 1, v = values[0], I = new Array(n < 0 ? 0 : n);
+    while(i < n)I[i] = interpolate(v, v = values[++i]);
+    return function(t) {
+        var i = Math.max(0, Math.min(n - 1, Math.floor(t *= n)));
+        return I[i](t - i);
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/piecewise.js [app-client] (ecmascript) <export default as piecewise>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "piecewise",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$piecewise$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$piecewise$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/piecewise.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/rgb.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "rgbBasis",
+    ()=>rgbBasis,
+    "rgbBasisClosed",
+    ()=>rgbBasisClosed
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-color/src/color.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/basis.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$basisClosed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/basisClosed.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/color.js [app-client] (ecmascript)");
+;
+;
+;
+;
+const __TURBOPACK__default__export__ = function rgbGamma(y) {
+    var color = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["gamma"])(y);
+    function rgb(start, end) {
+        var r = color((start = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["rgb"])(start)).r, (end = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["rgb"])(end)).r), g = color(start.g, end.g), b = color(start.b, end.b), opacity = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(start.opacity, end.opacity);
+        return function(t) {
+            start.r = r(t);
+            start.g = g(t);
+            start.b = b(t);
+            start.opacity = opacity(t);
+            return start + "";
+        };
+    }
+    rgb.gamma = rgbGamma;
+    return rgb;
+}(1);
+function rgbSpline(spline) {
+    return function(colors) {
+        var n = colors.length, r = new Array(n), g = new Array(n), b = new Array(n), i, color;
+        for(i = 0; i < n; ++i){
+            color = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["rgb"])(colors[i]);
+            r[i] = color.r || 0;
+            g[i] = color.g || 0;
+            b[i] = color.b || 0;
+        }
+        r = spline(r);
+        g = spline(g);
+        b = spline(b);
+        color.opacity = 1;
+        return function(t) {
+            color.r = r(t);
+            color.g = g(t);
+            color.b = b(t);
+            return color + "";
+        };
+    };
+}
+var rgbBasis = rgbSpline(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]);
+var rgbBasisClosed = rgbSpline(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$basisClosed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]);
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/round.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(a, b) {
+    return a = +a, b = +b, function(t) {
+        return Math.round(a * (1 - t) + b * t);
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/round.js [app-client] (ecmascript) <export default as interpolateRound>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "interpolateRound",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/round.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/string.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/number.js [app-client] (ecmascript)");
+;
+var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g, reB = new RegExp(reA.source, "g");
+function zero(b) {
+    return function() {
+        return b;
+    };
+}
+function one(b) {
+    return function(t) {
+        return b(t) + "";
+    };
+}
+function __TURBOPACK__default__export__(a, b) {
+    var bi = reA.lastIndex = reB.lastIndex = 0, am, bm, bs, i = -1, s = [], q = []; // number interpolators
+    // Coerce inputs to strings.
+    a = a + "", b = b + "";
+    // Interpolate pairs of numbers in a & b.
+    while((am = reA.exec(a)) && (bm = reB.exec(b))){
+        if ((bs = bm.index) > bi) {
+            bs = b.slice(bi, bs);
+            if (s[i]) s[i] += bs; // coalesce with previous string
+            else s[++i] = bs;
+        }
+        if ((am = am[0]) === (bm = bm[0])) {
+            if (s[i]) s[i] += bm; // coalesce with previous string
+            else s[++i] = bm;
+        } else {
+            s[++i] = null;
+            q.push({
+                i: i,
+                x: (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(am, bm)
+            });
+        }
+        bi = reB.lastIndex;
+    }
+    // Add remains of b.
+    if (bi < b.length) {
+        bs = b.slice(bi);
+        if (s[i]) s[i] += bs; // coalesce with previous string
+        else s[++i] = bs;
+    }
+    // Special optimization for only a single match.
+    // Otherwise, interpolate each of the numbers and rejoin the string.
+    return s.length < 2 ? q[0] ? one(q[0].x) : zero(b) : (b = q.length, function(t) {
+        for(var i = 0, o; i < b; ++i)s[(o = q[i]).i] = o.x(t);
+        return s.join("");
+    });
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__color$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-color/src/color.js [app-client] (ecmascript) <export default as color>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$rgb$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/rgb.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/array.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$date$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/date.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/number.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$object$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/object.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$string$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/string.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/constant.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$numberArray$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/numberArray.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+;
+function __TURBOPACK__default__export__(a, b) {
+    var t = typeof b, c;
+    return b == null || t === "boolean" ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(b) : (t === "number" ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : t === "string" ? (c = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__color$3e$__["color"])(b)) ? (b = c, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$rgb$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]) : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$string$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : b instanceof __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$color$2f$src$2f$color$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__color$3e$__["color"] ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$rgb$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : b instanceof Date ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$date$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$numberArray$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isNumberArray"])(b) ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$numberArray$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : Array.isArray(b) ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["genericArray"] : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$object$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(a, b);
+}
+}),
+"[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript) <export default as interpolate>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "interpolate",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-path/src/path.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Path",
+    ()=>Path,
+    "path",
+    ()=>path,
+    "pathRound",
+    ()=>pathRound
+]);
+const pi = Math.PI, tau = 2 * pi, epsilon = 1e-6, tauEpsilon = tau - epsilon;
+function append(strings) {
+    this._ += strings[0];
+    for(let i = 1, n = strings.length; i < n; ++i){
+        this._ += arguments[i] + strings[i];
+    }
+}
+function appendRound(digits) {
+    let d = Math.floor(digits);
+    if (!(d >= 0)) throw new Error(`invalid digits: ${digits}`);
+    if (d > 15) return append;
+    const k = 10 ** d;
+    return function(strings) {
+        this._ += strings[0];
+        for(let i = 1, n = strings.length; i < n; ++i){
+            this._ += Math.round(arguments[i] * k) / k + strings[i];
+        }
+    };
+}
+class Path {
+    constructor(digits){
+        this._x0 = this._y0 = this._x1 = this._y1 = null; // end of current subpath
+        this._ = "";
+        this._append = digits == null ? append : appendRound(digits);
+    }
+    moveTo(x, y) {
+        this._append`M${this._x0 = this._x1 = +x},${this._y0 = this._y1 = +y}`;
+    }
+    closePath() {
+        if (this._x1 !== null) {
+            this._x1 = this._x0, this._y1 = this._y0;
+            this._append`Z`;
+        }
+    }
+    lineTo(x, y) {
+        this._append`L${this._x1 = +x},${this._y1 = +y}`;
+    }
+    quadraticCurveTo(x1, y1, x, y) {
+        this._append`Q${+x1},${+y1},${this._x1 = +x},${this._y1 = +y}`;
+    }
+    bezierCurveTo(x1, y1, x2, y2, x, y) {
+        this._append`C${+x1},${+y1},${+x2},${+y2},${this._x1 = +x},${this._y1 = +y}`;
+    }
+    arcTo(x1, y1, x2, y2, r) {
+        x1 = +x1, y1 = +y1, x2 = +x2, y2 = +y2, r = +r;
+        // Is the radius negative? Error.
+        if (r < 0) throw new Error(`negative radius: ${r}`);
+        let x0 = this._x1, y0 = this._y1, x21 = x2 - x1, y21 = y2 - y1, x01 = x0 - x1, y01 = y0 - y1, l01_2 = x01 * x01 + y01 * y01;
+        // Is this path empty? Move to (x1,y1).
+        if (this._x1 === null) {
+            this._append`M${this._x1 = x1},${this._y1 = y1}`;
+        } else if (!(l01_2 > epsilon)) ;
+        else if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon) || !r) {
+            this._append`L${this._x1 = x1},${this._y1 = y1}`;
+        } else {
+            let x20 = x2 - x0, y20 = y2 - y0, l21_2 = x21 * x21 + y21 * y21, l20_2 = x20 * x20 + y20 * y20, l21 = Math.sqrt(l21_2), l01 = Math.sqrt(l01_2), l = r * Math.tan((pi - Math.acos((l21_2 + l01_2 - l20_2) / (2 * l21 * l01))) / 2), t01 = l / l01, t21 = l / l21;
+            // If the start tangent is not coincident with (x0,y0), line to.
+            if (Math.abs(t01 - 1) > epsilon) {
+                this._append`L${x1 + t01 * x01},${y1 + t01 * y01}`;
+            }
+            this._append`A${r},${r},0,0,${+(y01 * x20 > x01 * y20)},${this._x1 = x1 + t21 * x21},${this._y1 = y1 + t21 * y21}`;
+        }
+    }
+    arc(x, y, r, a0, a1, ccw) {
+        x = +x, y = +y, r = +r, ccw = !!ccw;
+        // Is the radius negative? Error.
+        if (r < 0) throw new Error(`negative radius: ${r}`);
+        let dx = r * Math.cos(a0), dy = r * Math.sin(a0), x0 = x + dx, y0 = y + dy, cw = 1 ^ ccw, da = ccw ? a0 - a1 : a1 - a0;
+        // Is this path empty? Move to (x0,y0).
+        if (this._x1 === null) {
+            this._append`M${x0},${y0}`;
+        } else if (Math.abs(this._x1 - x0) > epsilon || Math.abs(this._y1 - y0) > epsilon) {
+            this._append`L${x0},${y0}`;
+        }
+        // Is this arc empty? We’re done.
+        if (!r) return;
+        // Does the angle go the wrong way? Flip the direction.
+        if (da < 0) da = da % tau + tau;
+        // Is this a complete circle? Draw two arcs to complete the circle.
+        if (da > tauEpsilon) {
+            this._append`A${r},${r},0,1,${cw},${x - dx},${y - dy}A${r},${r},0,1,${cw},${this._x1 = x0},${this._y1 = y0}`;
+        } else if (da > epsilon) {
+            this._append`A${r},${r},0,${+(da >= pi)},${cw},${this._x1 = x + r * Math.cos(a1)},${this._y1 = y + r * Math.sin(a1)}`;
+        }
+    }
+    rect(x, y, w, h) {
+        this._append`M${this._x0 = this._x1 = +x},${this._y0 = this._y1 = +y}h${w = +w}v${+h}h${-w}Z`;
+    }
+    toString() {
+        return this._;
+    }
+}
+function path() {
+    return new Path;
+}
+// Allow instanceof d3.path
+path.prototype = Path.prototype;
+function pathRound(digits = 3) {
+    return new Path(+digits);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/band.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>band,
+    "point",
+    ()=>point
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$range$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__range$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/range.js [app-client] (ecmascript) <export default as range>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$ordinal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/ordinal.js [app-client] (ecmascript)");
+;
+;
+;
+function band() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$ordinal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])().unknown(undefined), domain = scale.domain, ordinalRange = scale.range, r0 = 0, r1 = 1, step, bandwidth, round = false, paddingInner = 0, paddingOuter = 0, align = 0.5;
+    delete scale.unknown;
+    function rescale() {
+        var n = domain().length, reverse = r1 < r0, start = reverse ? r1 : r0, stop = reverse ? r0 : r1;
+        step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
+        if (round) step = Math.floor(step);
+        start += (stop - start - step * (n - paddingInner)) * align;
+        bandwidth = step * (1 - paddingInner);
+        if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
+        var values = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$range$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__range$3e$__["range"])(n).map(function(i) {
+            return start + step * i;
+        });
+        return ordinalRange(reverse ? values.reverse() : values);
+    }
+    scale.domain = function(_) {
+        return arguments.length ? (domain(_), rescale()) : domain();
+    };
+    scale.range = function(_) {
+        return arguments.length ? ([r0, r1] = _, r0 = +r0, r1 = +r1, rescale()) : [
+            r0,
+            r1
+        ];
+    };
+    scale.rangeRound = function(_) {
+        return [r0, r1] = _, r0 = +r0, r1 = +r1, round = true, rescale();
+    };
+    scale.bandwidth = function() {
+        return bandwidth;
+    };
+    scale.step = function() {
+        return step;
+    };
+    scale.round = function(_) {
+        return arguments.length ? (round = !!_, rescale()) : round;
+    };
+    scale.padding = function(_) {
+        return arguments.length ? (paddingInner = Math.min(1, paddingOuter = +_), rescale()) : paddingInner;
+    };
+    scale.paddingInner = function(_) {
+        return arguments.length ? (paddingInner = Math.min(1, _), rescale()) : paddingInner;
+    };
+    scale.paddingOuter = function(_) {
+        return arguments.length ? (paddingOuter = +_, rescale()) : paddingOuter;
+    };
+    scale.align = function(_) {
+        return arguments.length ? (align = Math.max(0, Math.min(1, _)), rescale()) : align;
+    };
+    scale.copy = function() {
+        return band(domain(), [
+            r0,
+            r1
+        ]).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(rescale(), arguments);
+}
+function pointish(scale) {
+    var copy = scale.copy;
+    scale.padding = scale.paddingOuter;
+    delete scale.paddingInner;
+    delete scale.paddingOuter;
+    scale.copy = function() {
+        return pointish(copy());
+    };
+    return scale;
+}
+function point() {
+    return pointish(band.apply(null, arguments).paddingInner(1));
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/constant.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>constants
+]);
+function constants(x) {
+    return function() {
+        return x;
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "copy",
+    ()=>copy,
+    "default",
+    ()=>continuous,
+    "identity",
+    ()=>identity,
+    "transformer",
+    ()=>transformer
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript) <export default as bisect>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolate$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript) <export default as interpolate>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateNumber$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/number.js [app-client] (ecmascript) <export default as interpolateNumber>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateRound$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/round.js [app-client] (ecmascript) <export default as interpolateRound>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/constant.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/number.js [app-client] (ecmascript)");
+;
+;
+;
+;
+var unit = [
+    0,
+    1
+];
+function identity(x) {
+    return x;
+}
+function normalize(a, b) {
+    return (b -= a = +a) ? function(x) {
+        return (x - a) / b;
+    } : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(isNaN(b) ? NaN : 0.5);
+}
+function clamper(a, b) {
+    var t;
+    if (a > b) t = a, a = b, b = t;
+    return function(x) {
+        return Math.max(a, Math.min(b, x));
+    };
+}
+// normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
+// interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
+function bimap(domain, range, interpolate) {
+    var d0 = domain[0], d1 = domain[1], r0 = range[0], r1 = range[1];
+    if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);
+    else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
+    return function(x) {
+        return r0(d0(x));
+    };
+}
+function polymap(domain, range, interpolate) {
+    var j = Math.min(domain.length, range.length) - 1, d = new Array(j), r = new Array(j), i = -1;
+    // Reverse descending domains.
+    if (domain[j] < domain[0]) {
+        domain = domain.slice().reverse();
+        range = range.slice().reverse();
+    }
+    while(++i < j){
+        d[i] = normalize(domain[i], domain[i + 1]);
+        r[i] = interpolate(range[i], range[i + 1]);
+    }
+    return function(x) {
+        var i = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__["bisect"])(domain, x, 1, j) - 1;
+        return r[i](d[i](x));
+    };
+}
+function copy(source, target) {
+    return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp()).unknown(source.unknown());
+}
+function transformer() {
+    var domain = unit, range = unit, interpolate = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolate$3e$__["interpolate"], transform, untransform, unknown, clamp = identity, piecewise, output, input;
+    function rescale() {
+        var n = Math.min(domain.length, range.length);
+        if (clamp !== identity) clamp = clamper(domain[0], domain[n - 1]);
+        piecewise = n > 2 ? polymap : bimap;
+        output = input = null;
+        return scale;
+    }
+    function scale(x) {
+        return x == null || isNaN(x = +x) ? unknown : (output || (output = piecewise(domain.map(transform), range, interpolate)))(transform(clamp(x)));
+    }
+    scale.invert = function(y) {
+        return clamp(untransform((input || (input = piecewise(range, domain.map(transform), __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateNumber$3e$__["interpolateNumber"])))(y)));
+    };
+    scale.domain = function(_) {
+        return arguments.length ? (domain = Array.from(_, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]), rescale()) : domain.slice();
+    };
+    scale.range = function(_) {
+        return arguments.length ? (range = Array.from(_), rescale()) : range.slice();
+    };
+    scale.rangeRound = function(_) {
+        return range = Array.from(_), interpolate = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateRound$3e$__["interpolateRound"], rescale();
+    };
+    scale.clamp = function(_) {
+        return arguments.length ? (clamp = _ ? true : identity, rescale()) : clamp !== identity;
+    };
+    scale.interpolate = function(_) {
+        return arguments.length ? (interpolate = _, rescale()) : interpolate;
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    return function(t, u) {
+        transform = t, untransform = u;
+        return rescale();
+    };
+}
+function continuous() {
+    return transformer()(identity, identity);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/diverging.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>diverging,
+    "divergingLog",
+    ()=>divergingLog,
+    "divergingPow",
+    ()=>divergingPow,
+    "divergingSqrt",
+    ()=>divergingSqrt,
+    "divergingSymlog",
+    ()=>divergingSymlog
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolate$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript) <export default as interpolate>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateRound$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/round.js [app-client] (ecmascript) <export default as interpolateRound>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$piecewise$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__piecewise$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/piecewise.js [app-client] (ecmascript) <export default as piecewise>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$log$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/log.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/sequential.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$symlog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/symlog.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$pow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/pow.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+function transformer() {
+    var x0 = 0, x1 = 0.5, x2 = 1, s = 1, t0, t1, t2, k10, k21, interpolator = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"], transform, clamp = false, unknown;
+    function scale(x) {
+        return isNaN(x = +x) ? unknown : (x = 0.5 + ((x = +transform(x)) - t1) * (s * x < s * t1 ? k10 : k21), interpolator(clamp ? Math.max(0, Math.min(1, x)) : x));
+    }
+    scale.domain = function(_) {
+        return arguments.length ? ([x0, x1, x2] = _, t0 = transform(x0 = +x0), t1 = transform(x1 = +x1), t2 = transform(x2 = +x2), k10 = t0 === t1 ? 0 : 0.5 / (t1 - t0), k21 = t1 === t2 ? 0 : 0.5 / (t2 - t1), s = t1 < t0 ? -1 : 1, scale) : [
+            x0,
+            x1,
+            x2
+        ];
+    };
+    scale.clamp = function(_) {
+        return arguments.length ? (clamp = !!_, scale) : clamp;
+    };
+    scale.interpolator = function(_) {
+        return arguments.length ? (interpolator = _, scale) : interpolator;
+    };
+    function range(interpolate) {
+        return function(_) {
+            var r0, r1, r2;
+            return arguments.length ? ([r0, r1, r2] = _, interpolator = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$piecewise$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__piecewise$3e$__["piecewise"])(interpolate, [
+                r0,
+                r1,
+                r2
+            ]), scale) : [
+                interpolator(0),
+                interpolator(0.5),
+                interpolator(1)
+            ];
+        };
+    }
+    scale.range = range(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolate$3e$__["interpolate"]);
+    scale.rangeRound = range(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateRound$3e$__["interpolateRound"]);
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    return function(t) {
+        transform = t, t0 = t(x0), t1 = t(x1), t2 = t(x2), k10 = t0 === t1 ? 0 : 0.5 / (t1 - t0), k21 = t1 === t2 ? 0 : 0.5 / (t2 - t1), s = t1 < t0 ? -1 : 1;
+        return scale;
+    };
+}
+function diverging() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["linearish"])(transformer()(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"]));
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, diverging());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function divergingLog() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$log$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loggish"])(transformer()).domain([
+        0.1,
+        1,
+        10
+    ]);
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, divergingLog()).base(scale.base());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function divergingSymlog() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$symlog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["symlogish"])(transformer());
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, divergingSymlog()).constant(scale.constant());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function divergingPow() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$pow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["powish"])(transformer());
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, divergingPow()).exponent(scale.exponent());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function divergingSqrt() {
+    return divergingPow.apply(null, arguments).exponent(0.5);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/identity.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>identity
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/number.js [app-client] (ecmascript)");
+;
+;
+function identity(domain) {
+    var unknown;
+    function scale(x) {
+        return x == null || isNaN(x = +x) ? unknown : x;
+    }
+    scale.invert = scale;
+    scale.domain = scale.range = function(_) {
+        return arguments.length ? (domain = Array.from(_, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]), scale) : domain.slice();
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    scale.copy = function() {
+        return identity(domain).unknown(unknown);
+    };
+    domain = arguments.length ? Array.from(domain, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]) : [
+        0,
+        1
+    ];
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["linearish"])(scale);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/index.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "scaleBand",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$band$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleDiverging",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$diverging$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleDivergingLog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$diverging$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["divergingLog"],
+    "scaleDivergingPow",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$diverging$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["divergingPow"],
+    "scaleDivergingSqrt",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$diverging$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["divergingSqrt"],
+    "scaleDivergingSymlog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$diverging$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["divergingSymlog"],
+    "scaleIdentity",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$identity$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleImplicit",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$ordinal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["implicit"],
+    "scaleLinear",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleLog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$log$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleOrdinal",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$ordinal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scalePoint",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$band$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["point"],
+    "scalePow",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$pow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleQuantile",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleQuantize",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$quantize$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleRadial",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$radial$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleSequential",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleSequentialLog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sequentialLog"],
+    "scaleSequentialPow",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sequentialPow"],
+    "scaleSequentialQuantile",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequentialQuantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleSequentialSqrt",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sequentialSqrt"],
+    "scaleSequentialSymlog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sequentialSymlog"],
+    "scaleSqrt",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$pow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"],
+    "scaleSymlog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$symlog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleThreshold",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$threshold$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleTime",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$time$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "scaleUtc",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$utcTime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    "tickFormat",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$tickFormat$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/index.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$band$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/band.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$identity$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/identity.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$log$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/log.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$symlog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/symlog.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$ordinal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/ordinal.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$pow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/pow.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$radial$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/radial.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/quantile.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$quantize$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/quantize.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$threshold$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/threshold.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$time$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/time.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$utcTime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/utcTime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequential$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/sequential.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$sequentialQuantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/sequentialQuantile.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$diverging$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/diverging.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$tickFormat$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/tickFormat.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-scale/src/index.js [app-client] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([]);
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+}),
+"[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "initInterpolator",
+    ()=>initInterpolator,
+    "initRange",
+    ()=>initRange
+]);
+function initRange(domain, range) {
+    switch(arguments.length){
+        case 0:
+            break;
+        case 1:
+            this.range(domain);
+            break;
+        default:
+            this.range(range).domain(domain);
+            break;
+    }
+    return this;
+}
+function initInterpolator(domain, interpolator) {
+    switch(arguments.length){
+        case 0:
+            break;
+        case 1:
+            {
+                if (typeof domain === "function") this.interpolator(domain);
+                else this.range(domain);
+                break;
+            }
+        default:
+            {
+                this.domain(domain);
+                if (typeof interpolator === "function") this.interpolator(interpolator);
+                else this.range(interpolator);
+                break;
+            }
+    }
+    return this;
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>linear,
+    "linearish",
+    ()=>linearish
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ticks$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript) <export default as ticks>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$tickFormat$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/tickFormat.js [app-client] (ecmascript)");
+;
+;
+;
+;
+function linearish(scale) {
+    var domain = scale.domain;
+    scale.ticks = function(count) {
+        var d = domain();
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ticks$3e$__["ticks"])(d[0], d[d.length - 1], count == null ? 10 : count);
+    };
+    scale.tickFormat = function(count, specifier) {
+        var d = domain();
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$tickFormat$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(d[0], d[d.length - 1], count == null ? 10 : count, specifier);
+    };
+    scale.nice = function(count) {
+        if (count == null) count = 10;
+        var d = domain();
+        var i0 = 0;
+        var i1 = d.length - 1;
+        var start = d[i0];
+        var stop = d[i1];
+        var prestep;
+        var step;
+        var maxIter = 10;
+        if (stop < start) {
+            step = start, start = stop, stop = step;
+            step = i0, i0 = i1, i1 = step;
+        }
+        while(maxIter-- > 0){
+            step = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tickIncrement"])(start, stop, count);
+            if (step === prestep) {
+                d[i0] = start;
+                d[i1] = stop;
+                return domain(d);
+            } else if (step > 0) {
+                start = Math.floor(start / step) * step;
+                stop = Math.ceil(stop / step) * step;
+            } else if (step < 0) {
+                start = Math.ceil(start * step) / step;
+                stop = Math.floor(stop * step) / step;
+            } else {
+                break;
+            }
+            prestep = step;
+        }
+        return scale;
+    };
+    return scale;
+}
+function linear() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])();
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, linear());
+    };
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+    return linearish(scale);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/log.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>log,
+    "loggish",
+    ()=>loggish
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ticks$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript) <export default as ticks>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/defaultLocale.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__formatSpecifier$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatSpecifier.js [app-client] (ecmascript) <export default as formatSpecifier>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$nice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/nice.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+function transformLog(x) {
+    return Math.log(x);
+}
+function transformExp(x) {
+    return Math.exp(x);
+}
+function transformLogn(x) {
+    return -Math.log(-x);
+}
+function transformExpn(x) {
+    return -Math.exp(-x);
+}
+function pow10(x) {
+    return isFinite(x) ? +("1e" + x) : x < 0 ? 0 : x;
+}
+function powp(base) {
+    return base === 10 ? pow10 : base === Math.E ? Math.exp : (x)=>Math.pow(base, x);
+}
+function logp(base) {
+    return base === Math.E ? Math.log : base === 10 && Math.log10 || base === 2 && Math.log2 || (base = Math.log(base), (x)=>Math.log(x) / base);
+}
+function reflect(f) {
+    return (x, k)=>-f(-x, k);
+}
+function loggish(transform) {
+    const scale = transform(transformLog, transformExp);
+    const domain = scale.domain;
+    let base = 10;
+    let logs;
+    let pows;
+    function rescale() {
+        logs = logp(base), pows = powp(base);
+        if (domain()[0] < 0) {
+            logs = reflect(logs), pows = reflect(pows);
+            transform(transformLogn, transformExpn);
+        } else {
+            transform(transformLog, transformExp);
+        }
+        return scale;
+    }
+    scale.base = function(_) {
+        return arguments.length ? (base = +_, rescale()) : base;
+    };
+    scale.domain = function(_) {
+        return arguments.length ? (domain(_), rescale()) : domain();
+    };
+    scale.ticks = (count)=>{
+        const d = domain();
+        let u = d[0];
+        let v = d[d.length - 1];
+        const r = v < u;
+        if (r) [u, v] = [
+            v,
+            u
+        ];
+        let i = logs(u);
+        let j = logs(v);
+        let k;
+        let t;
+        const n = count == null ? 10 : +count;
+        let z = [];
+        if (!(base % 1) && j - i < n) {
+            i = Math.floor(i), j = Math.ceil(j);
+            if (u > 0) for(; i <= j; ++i){
+                for(k = 1; k < base; ++k){
+                    t = i < 0 ? k / pows(-i) : k * pows(i);
+                    if (t < u) continue;
+                    if (t > v) break;
+                    z.push(t);
+                }
+            }
+            else for(; i <= j; ++i){
+                for(k = base - 1; k >= 1; --k){
+                    t = i > 0 ? k / pows(-i) : k * pows(i);
+                    if (t < u) continue;
+                    if (t > v) break;
+                    z.push(t);
+                }
+            }
+            if (z.length * 2 < n) z = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ticks$3e$__["ticks"])(u, v, n);
+        } else {
+            z = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ticks$3e$__["ticks"])(i, j, Math.min(j - i, n)).map(pows);
+        }
+        return r ? z.reverse() : z;
+    };
+    scale.tickFormat = (count, specifier)=>{
+        if (count == null) count = 10;
+        if (specifier == null) specifier = base === 10 ? "s" : ",";
+        if (typeof specifier !== "function") {
+            if (!(base % 1) && (specifier = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__formatSpecifier$3e$__["formatSpecifier"])(specifier)).precision == null) specifier.trim = true;
+            specifier = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["format"])(specifier);
+        }
+        if (count === Infinity) return specifier;
+        const k = Math.max(1, base * count / scale.ticks().length); // TODO fast estimate?
+        return (d)=>{
+            let i = d / pows(Math.round(logs(d)));
+            if (i * base < base - 0.5) i *= base;
+            return i <= k ? specifier(d) : "";
+        };
+    };
+    scale.nice = ()=>{
+        return domain((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$nice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(domain(), {
+            floor: (x)=>pows(Math.floor(logs(x))),
+            ceil: (x)=>pows(Math.ceil(logs(x)))
+        }));
+    };
+    return scale;
+}
+function log() {
+    const scale = loggish((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["transformer"])()).domain([
+        1,
+        10
+    ]);
+    scale.copy = ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, log()).base(scale.base());
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+    return scale;
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/nice.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>nice
+]);
+function nice(domain, interval) {
+    domain = domain.slice();
+    var i0 = 0, i1 = domain.length - 1, x0 = domain[i0], x1 = domain[i1], t;
+    if (x1 < x0) {
+        t = i0, i0 = i1, i1 = t;
+        t = x0, x0 = x1, x1 = t;
+    }
+    domain[i0] = interval.floor(x0);
+    domain[i1] = interval.ceil(x1);
+    return domain;
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/number.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>number
+]);
+function number(x) {
+    return +x;
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/ordinal.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>ordinal,
+    "implicit",
+    ()=>implicit
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$internmap$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/internmap/src/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+const implicit = Symbol("implicit");
+function ordinal() {
+    var index = new __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$internmap$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["InternMap"](), domain = [], range = [], unknown = implicit;
+    function scale(d) {
+        let i = index.get(d);
+        if (i === undefined) {
+            if (unknown !== implicit) return unknown;
+            index.set(d, i = domain.push(d) - 1);
+        }
+        return range[i % range.length];
+    }
+    scale.domain = function(_) {
+        if (!arguments.length) return domain.slice();
+        domain = [], index = new __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$internmap$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["InternMap"]();
+        for (const value of _){
+            if (index.has(value)) continue;
+            index.set(value, domain.push(value) - 1);
+        }
+        return scale;
+    };
+    scale.range = function(_) {
+        return arguments.length ? (range = Array.from(_), scale) : range.slice();
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    scale.copy = function() {
+        return ordinal(domain, range).unknown(unknown);
+    };
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+    return scale;
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/pow.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>pow,
+    "powish",
+    ()=>powish,
+    "sqrt",
+    ()=>sqrt
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+;
+function transformPow(exponent) {
+    return function(x) {
+        return x < 0 ? -Math.pow(-x, exponent) : Math.pow(x, exponent);
+    };
+}
+function transformSqrt(x) {
+    return x < 0 ? -Math.sqrt(-x) : Math.sqrt(x);
+}
+function transformSquare(x) {
+    return x < 0 ? -x * x : x * x;
+}
+function powish(transform) {
+    var scale = transform(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"]), exponent = 1;
+    function rescale() {
+        return exponent === 1 ? transform(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"]) : exponent === 0.5 ? transform(transformSqrt, transformSquare) : transform(transformPow(exponent), transformPow(1 / exponent));
+    }
+    scale.exponent = function(_) {
+        return arguments.length ? (exponent = +_, rescale()) : exponent;
+    };
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["linearish"])(scale);
+}
+function pow() {
+    var scale = powish((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["transformer"])());
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, pow()).exponent(scale.exponent());
+    };
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+    return scale;
+}
+function sqrt() {
+    return pow.apply(null, arguments).exponent(0.5);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/quantile.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>quantile
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ascending$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript) <export default as ascending>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript) <export default as bisect>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/quantile.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+function quantile() {
+    var domain = [], range = [], thresholds = [], unknown;
+    function rescale() {
+        var i = 0, n = Math.max(1, range.length);
+        thresholds = new Array(n - 1);
+        while(++i < n)thresholds[i - 1] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["quantileSorted"])(domain, i / n);
+        return scale;
+    }
+    function scale(x) {
+        return x == null || isNaN(x = +x) ? unknown : range[(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__["bisect"])(thresholds, x)];
+    }
+    scale.invertExtent = function(y) {
+        var i = range.indexOf(y);
+        return i < 0 ? [
+            NaN,
+            NaN
+        ] : [
+            i > 0 ? thresholds[i - 1] : domain[0],
+            i < thresholds.length ? thresholds[i] : domain[domain.length - 1]
+        ];
+    };
+    scale.domain = function(_) {
+        if (!arguments.length) return domain.slice();
+        domain = [];
+        for (let d of _)if (d != null && !isNaN(d = +d)) domain.push(d);
+        domain.sort(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ascending$3e$__["ascending"]);
+        return rescale();
+    };
+    scale.range = function(_) {
+        return arguments.length ? (range = Array.from(_), rescale()) : range.slice();
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    scale.quantiles = function() {
+        return thresholds.slice();
+    };
+    scale.copy = function() {
+        return quantile().domain(domain).range(range).unknown(unknown);
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/quantize.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>quantize
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript) <export default as bisect>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+;
+function quantize() {
+    var x0 = 0, x1 = 1, n = 1, domain = [
+        0.5
+    ], range = [
+        0,
+        1
+    ], unknown;
+    function scale(x) {
+        return x != null && x <= x ? range[(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__["bisect"])(domain, x, 0, n)] : unknown;
+    }
+    function rescale() {
+        var i = -1;
+        domain = new Array(n);
+        while(++i < n)domain[i] = ((i + 1) * x1 - (i - n) * x0) / (n + 1);
+        return scale;
+    }
+    scale.domain = function(_) {
+        return arguments.length ? ([x0, x1] = _, x0 = +x0, x1 = +x1, rescale()) : [
+            x0,
+            x1
+        ];
+    };
+    scale.range = function(_) {
+        return arguments.length ? (n = (range = Array.from(_)).length - 1, rescale()) : range.slice();
+    };
+    scale.invertExtent = function(y) {
+        var i = range.indexOf(y);
+        return i < 0 ? [
+            NaN,
+            NaN
+        ] : i < 1 ? [
+            x0,
+            domain[0]
+        ] : i >= n ? [
+            domain[n - 1],
+            x1
+        ] : [
+            domain[i - 1],
+            domain[i]
+        ];
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : scale;
+    };
+    scale.thresholds = function() {
+        return domain.slice();
+    };
+    scale.copy = function() {
+        return quantize().domain([
+            x0,
+            x1
+        ]).range(range).unknown(unknown);
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["linearish"])(scale), arguments);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/radial.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>radial
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/number.js [app-client] (ecmascript)");
+;
+;
+;
+;
+function square(x) {
+    return Math.sign(x) * x * x;
+}
+function unsquare(x) {
+    return Math.sign(x) * Math.sqrt(Math.abs(x));
+}
+function radial() {
+    var squared = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(), range = [
+        0,
+        1
+    ], round = false, unknown;
+    function scale(x) {
+        var y = unsquare(squared(x));
+        return isNaN(y) ? unknown : round ? Math.round(y) : y;
+    }
+    scale.invert = function(y) {
+        return squared.invert(square(y));
+    };
+    scale.domain = function(_) {
+        return arguments.length ? (squared.domain(_), scale) : squared.domain();
+    };
+    scale.range = function(_) {
+        return arguments.length ? (squared.range((range = Array.from(_, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$number$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])).map(square)), scale) : range.slice();
+    };
+    scale.rangeRound = function(_) {
+        return scale.range(_).round(true);
+    };
+    scale.round = function(_) {
+        return arguments.length ? (round = !!_, scale) : round;
+    };
+    scale.clamp = function(_) {
+        return arguments.length ? (squared.clamp(_), scale) : squared.clamp();
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    scale.copy = function() {
+        return radial(squared.domain(), range).round(round).clamp(squared.clamp()).unknown(unknown);
+    };
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["linearish"])(scale);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/sequential.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "copy",
+    ()=>copy,
+    "default",
+    ()=>sequential,
+    "sequentialLog",
+    ()=>sequentialLog,
+    "sequentialPow",
+    ()=>sequentialPow,
+    "sequentialSqrt",
+    ()=>sequentialSqrt,
+    "sequentialSymlog",
+    ()=>sequentialSymlog
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolate$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/value.js [app-client] (ecmascript) <export default as interpolate>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateRound$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-interpolate/src/round.js [app-client] (ecmascript) <export default as interpolateRound>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$log$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/log.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$symlog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/symlog.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$pow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/pow.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+function transformer() {
+    var x0 = 0, x1 = 1, t0, t1, k10, transform, interpolator = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"], clamp = false, unknown;
+    function scale(x) {
+        return x == null || isNaN(x = +x) ? unknown : interpolator(k10 === 0 ? 0.5 : (x = (transform(x) - t0) * k10, clamp ? Math.max(0, Math.min(1, x)) : x));
+    }
+    scale.domain = function(_) {
+        return arguments.length ? ([x0, x1] = _, t0 = transform(x0 = +x0), t1 = transform(x1 = +x1), k10 = t0 === t1 ? 0 : 1 / (t1 - t0), scale) : [
+            x0,
+            x1
+        ];
+    };
+    scale.clamp = function(_) {
+        return arguments.length ? (clamp = !!_, scale) : clamp;
+    };
+    scale.interpolator = function(_) {
+        return arguments.length ? (interpolator = _, scale) : interpolator;
+    };
+    function range(interpolate) {
+        return function(_) {
+            var r0, r1;
+            return arguments.length ? ([r0, r1] = _, interpolator = interpolate(r0, r1), scale) : [
+                interpolator(0),
+                interpolator(1)
+            ];
+        };
+    }
+    scale.range = range(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$value$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolate$3e$__["interpolate"]);
+    scale.rangeRound = range(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$interpolate$2f$src$2f$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__interpolateRound$3e$__["interpolateRound"]);
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    return function(t) {
+        transform = t, t0 = t(x0), t1 = t(x1), k10 = t0 === t1 ? 0 : 1 / (t1 - t0);
+        return scale;
+    };
+}
+function copy(source, target) {
+    return target.domain(source.domain()).interpolator(source.interpolator()).clamp(source.clamp()).unknown(source.unknown());
+}
+function sequential() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["linearish"])(transformer()(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"]));
+    scale.copy = function() {
+        return copy(scale, sequential());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function sequentialLog() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$log$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loggish"])(transformer()).domain([
+        1,
+        10
+    ]);
+    scale.copy = function() {
+        return copy(scale, sequentialLog()).base(scale.base());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function sequentialSymlog() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$symlog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["symlogish"])(transformer());
+    scale.copy = function() {
+        return copy(scale, sequentialSymlog()).constant(scale.constant());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function sequentialPow() {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$pow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["powish"])(transformer());
+    scale.copy = function() {
+        return copy(scale, sequentialPow()).exponent(scale.exponent());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+function sequentialSqrt() {
+    return sequentialPow.apply(null, arguments).exponent(0.5);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/sequentialQuantile.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>sequentialQuantile
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ascending$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ascending.js [app-client] (ecmascript) <export default as ascending>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript) <export default as bisect>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__quantile$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/quantile.js [app-client] (ecmascript) <export default as quantile>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+;
+function sequentialQuantile() {
+    var domain = [], interpolator = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["identity"];
+    function scale(x) {
+        if (x != null && !isNaN(x = +x)) return interpolator(((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__["bisect"])(domain, x, 1) - 1) / (domain.length - 1));
+    }
+    scale.domain = function(_) {
+        if (!arguments.length) return domain.slice();
+        domain = [];
+        for (let d of _)if (d != null && !isNaN(d = +d)) domain.push(d);
+        domain.sort(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ascending$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ascending$3e$__["ascending"]);
+        return scale;
+    };
+    scale.interpolator = function(_) {
+        return arguments.length ? (interpolator = _, scale) : interpolator;
+    };
+    scale.range = function() {
+        return domain.map((d, i)=>interpolator(i / (domain.length - 1)));
+    };
+    scale.quantiles = function(n) {
+        return Array.from({
+            length: n + 1
+        }, (_, i)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$quantile$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__quantile$3e$__["quantile"])(domain, i / n));
+    };
+    scale.copy = function() {
+        return sequentialQuantile(interpolator).domain(domain);
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initInterpolator"].apply(scale, arguments);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/symlog.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>symlog,
+    "symlogish",
+    ()=>symlogish
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+;
+function transformSymlog(c) {
+    return function(x) {
+        return Math.sign(x) * Math.log1p(Math.abs(x / c));
+    };
+}
+function transformSymexp(c) {
+    return function(x) {
+        return Math.sign(x) * Math.expm1(Math.abs(x)) * c;
+    };
+}
+function symlogish(transform) {
+    var c = 1, scale = transform(transformSymlog(c), transformSymexp(c));
+    scale.constant = function(_) {
+        return arguments.length ? transform(transformSymlog(c = +_), transformSymexp(c)) : c;
+    };
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["linearish"])(scale);
+}
+function symlog() {
+    var scale = symlogish((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["transformer"])());
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, symlog()).constant(scale.constant());
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/threshold.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>threshold
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisect.js [app-client] (ecmascript) <export default as bisect>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+function threshold() {
+    var domain = [
+        0.5
+    ], range = [
+        0,
+        1
+    ], unknown, n = 1;
+    function scale(x) {
+        return x != null && x <= x ? range[(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisect$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisect$3e$__["bisect"])(domain, x, 0, n)] : unknown;
+    }
+    scale.domain = function(_) {
+        return arguments.length ? (domain = Array.from(_), n = Math.min(domain.length, range.length - 1), scale) : domain.slice();
+    };
+    scale.range = function(_) {
+        return arguments.length ? (range = Array.from(_), n = Math.min(domain.length, range.length - 1), scale) : range.slice();
+    };
+    scale.invertExtent = function(y) {
+        var i = range.indexOf(y);
+        return [
+            domain[i - 1],
+            domain[i]
+        ];
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    scale.copy = function() {
+        return threshold().domain(domain).range(range).unknown(unknown);
+    };
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(scale, arguments);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/tickFormat.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>tickFormat
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/defaultLocale.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__formatSpecifier$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/formatSpecifier.js [app-client] (ecmascript) <export default as formatSpecifier>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionFixed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__precisionFixed$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/precisionFixed.js [app-client] (ecmascript) <export default as precisionFixed>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionPrefix$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__precisionPrefix$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/precisionPrefix.js [app-client] (ecmascript) <export default as precisionPrefix>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionRound$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__precisionRound$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-format/src/precisionRound.js [app-client] (ecmascript) <export default as precisionRound>");
+;
+;
+function tickFormat(start, stop, count, specifier) {
+    var step = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tickStep"])(start, stop, count), precision;
+    specifier = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$formatSpecifier$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__formatSpecifier$3e$__["formatSpecifier"])(specifier == null ? ",f" : specifier);
+    switch(specifier.type){
+        case "s":
+            {
+                var value = Math.max(Math.abs(start), Math.abs(stop));
+                if (specifier.precision == null && !isNaN(precision = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionPrefix$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__precisionPrefix$3e$__["precisionPrefix"])(step, value))) specifier.precision = precision;
+                return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrefix"])(specifier, value);
+            }
+        case "":
+        case "e":
+        case "g":
+        case "p":
+        case "r":
+            {
+                if (specifier.precision == null && !isNaN(precision = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionRound$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__precisionRound$3e$__["precisionRound"])(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
+                break;
+            }
+        case "f":
+        case "%":
+            {
+                if (specifier.precision == null && !isNaN(precision = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$precisionFixed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__precisionFixed$3e$__["precisionFixed"])(step))) specifier.precision = precision - (specifier.type === "%") * 2;
+                break;
+            }
+    }
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["format"])(specifier);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/time.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "calendar",
+    ()=>calendar,
+    "default",
+    ()=>time
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/year.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$month$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/month.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__timeSunday__as__timeWeek$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript) <export timeSunday as timeWeek>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/day.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$hour$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/hour.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$minute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/minute.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__second__as__timeSecond$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript) <export second as timeSecond>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/ticks.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time-format/src/defaultLocale.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/continuous.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$nice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/nice.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+function date(t) {
+    return new Date(t);
+}
+function number(t) {
+    return t instanceof Date ? +t : +new Date(+t);
+}
+function calendar(ticks, tickInterval, year, month, week, day, hour, minute, second, format) {
+    var scale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(), invert = scale.invert, domain = scale.domain;
+    var formatMillisecond = format(".%L"), formatSecond = format(":%S"), formatMinute = format("%I:%M"), formatHour = format("%I %p"), formatDay = format("%a %d"), formatWeek = format("%b %d"), formatMonth = format("%B"), formatYear = format("%Y");
+    function tickFormat(date) {
+        return (second(date) < date ? formatMillisecond : minute(date) < date ? formatSecond : hour(date) < date ? formatMinute : day(date) < date ? formatHour : month(date) < date ? week(date) < date ? formatDay : formatWeek : year(date) < date ? formatMonth : formatYear)(date);
+    }
+    scale.invert = function(y) {
+        return new Date(invert(y));
+    };
+    scale.domain = function(_) {
+        return arguments.length ? domain(Array.from(_, number)) : domain().map(date);
+    };
+    scale.ticks = function(interval) {
+        var d = domain();
+        return ticks(d[0], d[d.length - 1], interval == null ? 10 : interval);
+    };
+    scale.tickFormat = function(count, specifier) {
+        return specifier == null ? tickFormat : format(specifier);
+    };
+    scale.nice = function(interval) {
+        var d = domain();
+        if (!interval || typeof interval.range !== "function") interval = tickInterval(d[0], d[d.length - 1], interval == null ? 10 : interval);
+        return interval ? domain((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$nice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(d, interval)) : scale;
+    };
+    scale.copy = function() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$continuous$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copy"])(scale, calendar(ticks, tickInterval, year, month, week, day, hour, minute, second, format));
+    };
+    return scale;
+}
+function time() {
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply(calendar(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeTicks"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeTickInterval"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeYear"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$month$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeMonth"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__timeSunday__as__timeWeek$3e$__["timeWeek"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeDay"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$hour$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeHour"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$minute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeMinute"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__second__as__timeSecond$3e$__["timeSecond"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeFormat"]).domain([
+        new Date(2000, 0, 1),
+        new Date(2000, 0, 2)
+    ]), arguments);
+}
+}),
+"[project]/frontend/node_modules/d3-scale/src/utcTime.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>utcTime
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/year.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$month$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/month.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__utcSunday__as__utcWeek$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript) <export utcSunday as utcWeek>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/day.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$hour$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/hour.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$minute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/minute.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__second__as__utcSecond$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript) <export second as utcSecond>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/ticks.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time-format/src/defaultLocale.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$time$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/time.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/init.js [app-client] (ecmascript)");
+;
+;
+;
+;
+function utcTime() {
+    return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$init$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initRange"].apply((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$time$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["calendar"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcTicks"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcTickInterval"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcYear"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$month$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcMonth"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__utcSunday__as__utcWeek$3e$__["utcWeek"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcDay"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$hour$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcHour"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$minute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcMinute"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__second__as__utcSecond$3e$__["utcSecond"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2d$format$2f$src$2f$defaultLocale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcFormat"]).domain([
+        Date.UTC(2000, 0, 1),
+        Date.UTC(2000, 0, 2)
+    ]), arguments);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/area.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/array.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/constant.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/line.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/path.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$point$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/point.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+function __TURBOPACK__default__export__(x0, y0, y1) {
+    var x1 = null, defined = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(true), context = null, curve = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], output = null, path = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["withPath"])(area);
+    x0 = typeof x0 === "function" ? x0 : x0 === undefined ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$point$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["x"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+x0);
+    y0 = typeof y0 === "function" ? y0 : y0 === undefined ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(0) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+y0);
+    y1 = typeof y1 === "function" ? y1 : y1 === undefined ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$point$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["y"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+y1);
+    function area(data) {
+        var i, j, k, n = (data = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(data)).length, d, defined0 = false, buffer, x0z = new Array(n), y0z = new Array(n);
+        if (context == null) output = curve(buffer = path());
+        for(i = 0; i <= n; ++i){
+            if (!(i < n && defined(d = data[i], i, data)) === defined0) {
+                if (defined0 = !defined0) {
+                    j = i;
+                    output.areaStart();
+                    output.lineStart();
+                } else {
+                    output.lineEnd();
+                    output.lineStart();
+                    for(k = i - 1; k >= j; --k){
+                        output.point(x0z[k], y0z[k]);
+                    }
+                    output.lineEnd();
+                    output.areaEnd();
+                }
+            }
+            if (defined0) {
+                x0z[i] = +x0(d, i, data), y0z[i] = +y0(d, i, data);
+                output.point(x1 ? +x1(d, i, data) : x0z[i], y1 ? +y1(d, i, data) : y0z[i]);
+            }
+        }
+        if (buffer) return output = null, buffer + "" || null;
+    }
+    function arealine() {
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])().defined(defined).curve(curve).context(context);
+    }
+    area.x = function(_) {
+        return arguments.length ? (x0 = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), x1 = null, area) : x0;
+    };
+    area.x0 = function(_) {
+        return arguments.length ? (x0 = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), area) : x0;
+    };
+    area.x1 = function(_) {
+        return arguments.length ? (x1 = _ == null ? null : typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), area) : x1;
+    };
+    area.y = function(_) {
+        return arguments.length ? (y0 = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), y1 = null, area) : y0;
+    };
+    area.y0 = function(_) {
+        return arguments.length ? (y0 = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), area) : y0;
+    };
+    area.y1 = function(_) {
+        return arguments.length ? (y1 = _ == null ? null : typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), area) : y1;
+    };
+    area.lineX0 = area.lineY0 = function() {
+        return arealine().x(x0).y(y0);
+    };
+    area.lineY1 = function() {
+        return arealine().x(x0).y(y1);
+    };
+    area.lineX1 = function() {
+        return arealine().x(x1).y(y0);
+    };
+    area.defined = function(_) {
+        return arguments.length ? (defined = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(!!_), area) : defined;
+    };
+    area.curve = function(_) {
+        return arguments.length ? (curve = _, context != null && (output = curve(context)), area) : curve;
+    };
+    area.context = function(_) {
+        return arguments.length ? (_ == null ? context = output = null : output = curve(context = _), area) : context;
+    };
+    return area;
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/area.js [app-client] (ecmascript) <export default as area>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "area",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$area$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$area$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/area.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/array.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "slice",
+    ()=>slice
+]);
+var slice = Array.prototype.slice;
+function __TURBOPACK__default__export__(x) {
+    return typeof x === "object" && "length" in x ? x // Array, TypedArray, NodeList, array-like
+     : Array.from(x); // Map, Set, iterable, string, or anything else
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/constant.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(x) {
+    return function constant() {
+        return x;
+    };
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/basis.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Basis",
+    ()=>Basis,
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "point",
+    ()=>point
+]);
+function point(that, x, y) {
+    that._context.bezierCurveTo((2 * that._x0 + that._x1) / 3, (2 * that._y0 + that._y1) / 3, (that._x0 + 2 * that._x1) / 3, (that._y0 + 2 * that._y1) / 3, (that._x0 + 4 * that._x1 + x) / 6, (that._y0 + 4 * that._y1 + y) / 6);
+}
+function Basis(context) {
+    this._context = context;
+}
+Basis.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x0 = this._x1 = this._y0 = this._y1 = NaN;
+        this._point = 0;
+    },
+    lineEnd: function() {
+        switch(this._point){
+            case 3:
+                point(this, this._x1, this._y1); // falls through
+            case 2:
+                this._context.lineTo(this._x1, this._y1);
+                break;
+        }
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y);
+                break;
+            case 1:
+                this._point = 2;
+                break;
+            case 2:
+                this._point = 3;
+                this._context.lineTo((5 * this._x0 + this._x1) / 6, (5 * this._y0 + this._y1) / 6); // falls through
+            default:
+                point(this, x, y);
+                break;
+        }
+        this._x0 = this._x1, this._x1 = x;
+        this._y0 = this._y1, this._y1 = y;
+    }
+};
+function __TURBOPACK__default__export__(context) {
+    return new Basis(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/basis.js [app-client] (ecmascript) <export default as curveBasis>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveBasis",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/basis.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/basisClosed.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$noop$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/noop.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/basis.js [app-client] (ecmascript)");
+;
+;
+function BasisClosed(context) {
+    this._context = context;
+}
+BasisClosed.prototype = {
+    areaStart: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$noop$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    areaEnd: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$noop$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    lineStart: function() {
+        this._x0 = this._x1 = this._x2 = this._x3 = this._x4 = this._y0 = this._y1 = this._y2 = this._y3 = this._y4 = NaN;
+        this._point = 0;
+    },
+    lineEnd: function() {
+        switch(this._point){
+            case 1:
+                {
+                    this._context.moveTo(this._x2, this._y2);
+                    this._context.closePath();
+                    break;
+                }
+            case 2:
+                {
+                    this._context.moveTo((this._x2 + 2 * this._x3) / 3, (this._y2 + 2 * this._y3) / 3);
+                    this._context.lineTo((this._x3 + 2 * this._x2) / 3, (this._y3 + 2 * this._y2) / 3);
+                    this._context.closePath();
+                    break;
+                }
+            case 3:
+                {
+                    this.point(this._x2, this._y2);
+                    this.point(this._x3, this._y3);
+                    this.point(this._x4, this._y4);
+                    break;
+                }
+        }
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                this._x2 = x, this._y2 = y;
+                break;
+            case 1:
+                this._point = 2;
+                this._x3 = x, this._y3 = y;
+                break;
+            case 2:
+                this._point = 3;
+                this._x4 = x, this._y4 = y;
+                this._context.moveTo((this._x0 + 4 * this._x1 + x) / 6, (this._y0 + 4 * this._y1 + y) / 6);
+                break;
+            default:
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["point"])(this, x, y);
+                break;
+        }
+        this._x0 = this._x1, this._x1 = x;
+        this._y0 = this._y1, this._y1 = y;
+    }
+};
+function __TURBOPACK__default__export__(context) {
+    return new BasisClosed(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/basisClosed.js [app-client] (ecmascript) <export default as curveBasisClosed>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveBasisClosed",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basisClosed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basisClosed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/basisClosed.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/basisOpen.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/basis.js [app-client] (ecmascript)");
+;
+function BasisOpen(context) {
+    this._context = context;
+}
+BasisOpen.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x0 = this._x1 = this._y0 = this._y1 = NaN;
+        this._point = 0;
+    },
+    lineEnd: function() {
+        if (this._line || this._line !== 0 && this._point === 3) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                break;
+            case 1:
+                this._point = 2;
+                break;
+            case 2:
+                this._point = 3;
+                var x0 = (this._x0 + 4 * this._x1 + x) / 6, y0 = (this._y0 + 4 * this._y1 + y) / 6;
+                this._line ? this._context.lineTo(x0, y0) : this._context.moveTo(x0, y0);
+                break;
+            case 3:
+                this._point = 4; // falls through
+            default:
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["point"])(this, x, y);
+                break;
+        }
+        this._x0 = this._x1, this._x1 = x;
+        this._y0 = this._y1, this._y1 = y;
+    }
+};
+function __TURBOPACK__default__export__(context) {
+    return new BasisOpen(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/basisOpen.js [app-client] (ecmascript) <export default as curveBasisOpen>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveBasisOpen",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basisOpen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$basisOpen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/basisOpen.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/bump.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "bumpRadial",
+    ()=>bumpRadial,
+    "bumpX",
+    ()=>bumpX,
+    "bumpY",
+    ()=>bumpY
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$pointRadial$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/pointRadial.js [app-client] (ecmascript)");
+;
+class Bump {
+    constructor(context, x){
+        this._context = context;
+        this._x = x;
+    }
+    areaStart() {
+        this._line = 0;
+    }
+    areaEnd() {
+        this._line = NaN;
+    }
+    lineStart() {
+        this._point = 0;
+    }
+    lineEnd() {
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        this._line = 1 - this._line;
+    }
+    point(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                {
+                    this._point = 1;
+                    if (this._line) this._context.lineTo(x, y);
+                    else this._context.moveTo(x, y);
+                    break;
+                }
+            case 1:
+                this._point = 2; // falls through
+            default:
+                {
+                    if (this._x) this._context.bezierCurveTo(this._x0 = (this._x0 + x) / 2, this._y0, this._x0, y, x, y);
+                    else this._context.bezierCurveTo(this._x0, this._y0 = (this._y0 + y) / 2, x, this._y0, x, y);
+                    break;
+                }
+        }
+        this._x0 = x, this._y0 = y;
+    }
+}
+class BumpRadial {
+    constructor(context){
+        this._context = context;
+    }
+    lineStart() {
+        this._point = 0;
+    }
+    lineEnd() {}
+    point(x, y) {
+        x = +x, y = +y;
+        if (this._point === 0) {
+            this._point = 1;
+        } else {
+            const p0 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$pointRadial$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(this._x0, this._y0);
+            const p1 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$pointRadial$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(this._x0, this._y0 = (this._y0 + y) / 2);
+            const p2 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$pointRadial$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(x, this._y0);
+            const p3 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$pointRadial$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(x, y);
+            this._context.moveTo(...p0);
+            this._context.bezierCurveTo(...p1, ...p2, ...p3);
+        }
+        this._x0 = x, this._y0 = y;
+    }
+}
+function bumpX(context) {
+    return new Bump(context, true);
+}
+function bumpY(context) {
+    return new Bump(context, false);
+}
+function bumpRadial(context) {
+    return new BumpRadial(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/bump.js [app-client] (ecmascript) <export bumpX as curveBumpX>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveBumpX",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$bump$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["bumpX"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$bump$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/bump.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/bump.js [app-client] (ecmascript) <export bumpY as curveBumpY>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveBumpY",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$bump$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["bumpY"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$bump$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/bump.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/linear.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function Linear(context) {
+    this._context = context;
+}
+Linear.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._point = 0;
+    },
+    lineEnd: function() {
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y);
+                break;
+            case 1:
+                this._point = 2; // falls through
+            default:
+                this._context.lineTo(x, y);
+                break;
+        }
+    }
+};
+function __TURBOPACK__default__export__(context) {
+    return new Linear(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/linear.js [app-client] (ecmascript) <export default as curveLinear>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveLinear",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/linear.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/linearClosed.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$noop$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/noop.js [app-client] (ecmascript)");
+;
+function LinearClosed(context) {
+    this._context = context;
+}
+LinearClosed.prototype = {
+    areaStart: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$noop$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    areaEnd: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$noop$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    lineStart: function() {
+        this._point = 0;
+    },
+    lineEnd: function() {
+        if (this._point) this._context.closePath();
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        if (this._point) this._context.lineTo(x, y);
+        else this._point = 1, this._context.moveTo(x, y);
+    }
+};
+function __TURBOPACK__default__export__(context) {
+    return new LinearClosed(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/linearClosed.js [app-client] (ecmascript) <export default as curveLinearClosed>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveLinearClosed",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linearClosed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linearClosed$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/linearClosed.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/monotone.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "monotoneX",
+    ()=>monotoneX,
+    "monotoneY",
+    ()=>monotoneY
+]);
+function sign(x) {
+    return x < 0 ? -1 : 1;
+}
+// Calculate the slopes of the tangents (Hermite-type interpolation) based on
+// the following paper: Steffen, M. 1990. A Simple Method for Monotonic
+// Interpolation in One Dimension. Astronomy and Astrophysics, Vol. 239, NO.
+// NOV(II), P. 443, 1990.
+function slope3(that, x2, y2) {
+    var h0 = that._x1 - that._x0, h1 = x2 - that._x1, s0 = (that._y1 - that._y0) / (h0 || h1 < 0 && -0), s1 = (y2 - that._y1) / (h1 || h0 < 0 && -0), p = (s0 * h1 + s1 * h0) / (h0 + h1);
+    return (sign(s0) + sign(s1)) * Math.min(Math.abs(s0), Math.abs(s1), 0.5 * Math.abs(p)) || 0;
+}
+// Calculate a one-sided slope.
+function slope2(that, t) {
+    var h = that._x1 - that._x0;
+    return h ? (3 * (that._y1 - that._y0) / h - t) / 2 : t;
+}
+// According to https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Representations
+// "you can express cubic Hermite interpolation in terms of cubic Bézier curves
+// with respect to the four values p0, p0 + m0 / 3, p1 - m1 / 3, p1".
+function point(that, t0, t1) {
+    var x0 = that._x0, y0 = that._y0, x1 = that._x1, y1 = that._y1, dx = (x1 - x0) / 3;
+    that._context.bezierCurveTo(x0 + dx, y0 + dx * t0, x1 - dx, y1 - dx * t1, x1, y1);
+}
+function MonotoneX(context) {
+    this._context = context;
+}
+MonotoneX.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x0 = this._x1 = this._y0 = this._y1 = this._t0 = NaN;
+        this._point = 0;
+    },
+    lineEnd: function() {
+        switch(this._point){
+            case 2:
+                this._context.lineTo(this._x1, this._y1);
+                break;
+            case 3:
+                point(this, this._t0, slope2(this, this._t0));
+                break;
+        }
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        var t1 = NaN;
+        x = +x, y = +y;
+        if (x === this._x1 && y === this._y1) return; // Ignore coincident points.
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y);
+                break;
+            case 1:
+                this._point = 2;
+                break;
+            case 2:
+                this._point = 3;
+                point(this, slope2(this, t1 = slope3(this, x, y)), t1);
+                break;
+            default:
+                point(this, this._t0, t1 = slope3(this, x, y));
+                break;
+        }
+        this._x0 = this._x1, this._x1 = x;
+        this._y0 = this._y1, this._y1 = y;
+        this._t0 = t1;
+    }
+};
+function MonotoneY(context) {
+    this._context = new ReflectContext(context);
+}
+(MonotoneY.prototype = Object.create(MonotoneX.prototype)).point = function(x, y) {
+    MonotoneX.prototype.point.call(this, y, x);
+};
+function ReflectContext(context) {
+    this._context = context;
+}
+ReflectContext.prototype = {
+    moveTo: function(x, y) {
+        this._context.moveTo(y, x);
+    },
+    closePath: function() {
+        this._context.closePath();
+    },
+    lineTo: function(x, y) {
+        this._context.lineTo(y, x);
+    },
+    bezierCurveTo: function(x1, y1, x2, y2, x, y) {
+        this._context.bezierCurveTo(y1, x1, y2, x2, y, x);
+    }
+};
+function monotoneX(context) {
+    return new MonotoneX(context);
+}
+function monotoneY(context) {
+    return new MonotoneY(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/monotone.js [app-client] (ecmascript) <export monotoneX as curveMonotoneX>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveMonotoneX",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$monotone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["monotoneX"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$monotone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/monotone.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/monotone.js [app-client] (ecmascript) <export monotoneY as curveMonotoneY>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveMonotoneY",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$monotone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["monotoneY"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$monotone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/monotone.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/natural.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function Natural(context) {
+    this._context = context;
+}
+Natural.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x = [];
+        this._y = [];
+    },
+    lineEnd: function() {
+        var x = this._x, y = this._y, n = x.length;
+        if (n) {
+            this._line ? this._context.lineTo(x[0], y[0]) : this._context.moveTo(x[0], y[0]);
+            if (n === 2) {
+                this._context.lineTo(x[1], y[1]);
+            } else {
+                var px = controlPoints(x), py = controlPoints(y);
+                for(var i0 = 0, i1 = 1; i1 < n; ++i0, ++i1){
+                    this._context.bezierCurveTo(px[0][i0], py[0][i0], px[1][i0], py[1][i0], x[i1], y[i1]);
+                }
+            }
+        }
+        if (this._line || this._line !== 0 && n === 1) this._context.closePath();
+        this._line = 1 - this._line;
+        this._x = this._y = null;
+    },
+    point: function(x, y) {
+        this._x.push(+x);
+        this._y.push(+y);
+    }
+};
+// See https://www.particleincell.com/2012/bezier-splines/ for derivation.
+function controlPoints(x) {
+    var i, n = x.length - 1, m, a = new Array(n), b = new Array(n), r = new Array(n);
+    a[0] = 0, b[0] = 2, r[0] = x[0] + 2 * x[1];
+    for(i = 1; i < n - 1; ++i)a[i] = 1, b[i] = 4, r[i] = 4 * x[i] + 2 * x[i + 1];
+    a[n - 1] = 2, b[n - 1] = 7, r[n - 1] = 8 * x[n - 1] + x[n];
+    for(i = 1; i < n; ++i)m = a[i] / b[i - 1], b[i] -= m, r[i] -= m * r[i - 1];
+    a[n - 1] = r[n - 1] / b[n - 1];
+    for(i = n - 2; i >= 0; --i)a[i] = (r[i] - a[i + 1]) / b[i];
+    b[n - 1] = (x[n] + a[n - 1]) / 2;
+    for(i = 0; i < n - 1; ++i)b[i] = 2 * x[i + 1] - a[i + 1];
+    return [
+        a,
+        b
+    ];
+}
+function __TURBOPACK__default__export__(context) {
+    return new Natural(context);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/natural.js [app-client] (ecmascript) <export default as curveNatural>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveNatural",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$natural$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$natural$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/natural.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/step.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "stepAfter",
+    ()=>stepAfter,
+    "stepBefore",
+    ()=>stepBefore
+]);
+function Step(context, t) {
+    this._context = context;
+    this._t = t;
+}
+Step.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x = this._y = NaN;
+        this._point = 0;
+    },
+    lineEnd: function() {
+        if (0 < this._t && this._t < 1 && this._point === 2) this._context.lineTo(this._x, this._y);
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        if (this._line >= 0) this._t = 1 - this._t, this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y);
+                break;
+            case 1:
+                this._point = 2; // falls through
+            default:
+                {
+                    if (this._t <= 0) {
+                        this._context.lineTo(this._x, y);
+                        this._context.lineTo(x, y);
+                    } else {
+                        var x1 = this._x * (1 - this._t) + x * this._t;
+                        this._context.lineTo(x1, this._y);
+                        this._context.lineTo(x1, y);
+                    }
+                    break;
+                }
+        }
+        this._x = x, this._y = y;
+    }
+};
+function __TURBOPACK__default__export__(context) {
+    return new Step(context, 0.5);
+}
+function stepBefore(context) {
+    return new Step(context, 0);
+}
+function stepAfter(context) {
+    return new Step(context, 1);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/step.js [app-client] (ecmascript) <export default as curveStep>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveStep",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$step$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$step$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/step.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/step.js [app-client] (ecmascript) <export stepAfter as curveStepAfter>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveStepAfter",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$step$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["stepAfter"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$step$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/step.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/curve/step.js [app-client] (ecmascript) <export stepBefore as curveStepBefore>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "curveStepBefore",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$step$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["stepBefore"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$step$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/step.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/line.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/array.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/constant.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/curve/linear.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/path.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$point$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/point.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+function __TURBOPACK__default__export__(x, y) {
+    var defined = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(true), context = null, curve = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$curve$2f$linear$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], output = null, path = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["withPath"])(line);
+    x = typeof x === "function" ? x : x === undefined ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$point$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["x"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(x);
+    y = typeof y === "function" ? y : y === undefined ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$point$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["y"] : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(y);
+    function line(data) {
+        var i, n = (data = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(data)).length, d, defined0 = false, buffer;
+        if (context == null) output = curve(buffer = path());
+        for(i = 0; i <= n; ++i){
+            if (!(i < n && defined(d = data[i], i, data)) === defined0) {
+                if (defined0 = !defined0) output.lineStart();
+                else output.lineEnd();
+            }
+            if (defined0) output.point(+x(d, i, data), +y(d, i, data));
+        }
+        if (buffer) return output = null, buffer + "" || null;
+    }
+    line.x = function(_) {
+        return arguments.length ? (x = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), line) : x;
+    };
+    line.y = function(_) {
+        return arguments.length ? (y = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), line) : y;
+    };
+    line.defined = function(_) {
+        return arguments.length ? (defined = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(!!_), line) : defined;
+    };
+    line.curve = function(_) {
+        return arguments.length ? (curve = _, context != null && (output = curve(context)), line) : curve;
+    };
+    line.context = function(_) {
+        return arguments.length ? (_ == null ? context = output = null : output = curve(context = _), line) : context;
+    };
+    return line;
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/line.js [app-client] (ecmascript) <export default as line>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "line",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$line$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/line.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "abs",
+    ()=>abs,
+    "acos",
+    ()=>acos,
+    "asin",
+    ()=>asin,
+    "atan2",
+    ()=>atan2,
+    "cos",
+    ()=>cos,
+    "epsilon",
+    ()=>epsilon,
+    "halfPi",
+    ()=>halfPi,
+    "max",
+    ()=>max,
+    "min",
+    ()=>min,
+    "pi",
+    ()=>pi,
+    "sin",
+    ()=>sin,
+    "sqrt",
+    ()=>sqrt,
+    "tau",
+    ()=>tau
+]);
+const abs = Math.abs;
+const atan2 = Math.atan2;
+const cos = Math.cos;
+const max = Math.max;
+const min = Math.min;
+const sin = Math.sin;
+const sqrt = Math.sqrt;
+const epsilon = 1e-12;
+const pi = Math.PI;
+const halfPi = pi / 2;
+const tau = 2 * pi;
+function acos(x) {
+    return x > 1 ? 0 : x < -1 ? pi : Math.acos(x);
+}
+function asin(x) {
+    return x >= 1 ? halfPi : x <= -1 ? -halfPi : Math.asin(x);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/noop.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__() {}
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/expand.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/none.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(series, order) {
+    if (!((n = series.length) > 0)) return;
+    for(var i, n, j = 0, m = series[0].length, y; j < m; ++j){
+        for(y = i = 0; i < n; ++i)y += series[i][j][1] || 0;
+        if (y) for(i = 0; i < n; ++i)series[i][j][1] /= y;
+    }
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(series, order);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/expand.js [app-client] (ecmascript) <export default as stackOffsetExpand>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "stackOffsetExpand",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$expand$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$expand$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/expand.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/none.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(series, order) {
+    if (!((n = series.length) > 1)) return;
+    for(var i = 1, j, s0, s1 = series[order[0]], n, m = s1.length; i < n; ++i){
+        s0 = s1, s1 = series[order[i]];
+        for(j = 0; j < m; ++j){
+            s1[j][1] += s1[j][0] = isNaN(s0[j][1]) ? s0[j][0] : s0[j][1];
+        }
+    }
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/none.js [app-client] (ecmascript) <export default as stackOffsetNone>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "stackOffsetNone",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/none.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/silhouette.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/none.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(series, order) {
+    if (!((n = series.length) > 0)) return;
+    for(var j = 0, s0 = series[order[0]], n, m = s0.length; j < m; ++j){
+        for(var i = 0, y = 0; i < n; ++i)y += series[i][j][1] || 0;
+        s0[j][1] += s0[j][0] = -y / 2;
+    }
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(series, order);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/silhouette.js [app-client] (ecmascript) <export default as stackOffsetSilhouette>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "stackOffsetSilhouette",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$silhouette$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$silhouette$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/silhouette.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/wiggle.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/none.js [app-client] (ecmascript)");
+;
+function __TURBOPACK__default__export__(series, order) {
+    if (!((n = series.length) > 0) || !((m = (s0 = series[order[0]]).length) > 0)) return;
+    for(var y = 0, j = 1, s0, m, n; j < m; ++j){
+        for(var i = 0, s1 = 0, s2 = 0; i < n; ++i){
+            var si = series[order[i]], sij0 = si[j][1] || 0, sij1 = si[j - 1][1] || 0, s3 = (sij0 - sij1) / 2;
+            for(var k = 0; k < i; ++k){
+                var sk = series[order[k]], skj0 = sk[j][1] || 0, skj1 = sk[j - 1][1] || 0;
+                s3 += skj0 - skj1;
+            }
+            s1 += sij0, s2 += s3 * sij0;
+        }
+        s0[j - 1][1] += s0[j - 1][0] = y;
+        if (s1) y -= s2 / s1;
+    }
+    s0[j - 1][1] += s0[j - 1][0] = y;
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(series, order);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/offset/wiggle.js [app-client] (ecmascript) <export default as stackOffsetWiggle>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "stackOffsetWiggle",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$wiggle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$wiggle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/wiggle.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/order/none.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(series) {
+    var n = series.length, o = new Array(n);
+    while(--n >= 0)o[n] = n;
+    return o;
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/order/none.js [app-client] (ecmascript) <export default as stackOrderNone>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "stackOrderNone",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$order$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$order$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/order/none.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/path.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "withPath",
+    ()=>withPath
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$path$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-path/src/path.js [app-client] (ecmascript)");
+;
+function withPath(shape) {
+    let digits = 3;
+    shape.digits = function(_) {
+        if (!arguments.length) return digits;
+        if (_ == null) {
+            digits = null;
+        } else {
+            const d = Math.floor(_);
+            if (!(d >= 0)) throw new RangeError(`invalid digits: ${_}`);
+            digits = d;
+        }
+        return shape;
+    };
+    return ()=>new __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$path$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Path"](digits);
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/point.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "x",
+    ()=>x,
+    "y",
+    ()=>y
+]);
+function x(p) {
+    return p[0];
+}
+function y(p) {
+    return p[1];
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/pointRadial.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+function __TURBOPACK__default__export__(x, y) {
+    return [
+        (y = +y) * Math.cos(x -= Math.PI / 2),
+        y * Math.sin(x)
+    ];
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/stack.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/array.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/constant.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/offset/none.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$order$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/order/none.js [app-client] (ecmascript)");
+;
+;
+;
+;
+function stackValue(d, key) {
+    return d[key];
+}
+function stackSeries(key) {
+    const series = [];
+    series.key = key;
+    return series;
+}
+function __TURBOPACK__default__export__() {
+    var keys = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])([]), order = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$order$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], offset = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], value = stackValue;
+    function stack(data) {
+        var sz = Array.from(keys.apply(this, arguments), stackSeries), i, n = sz.length, j = -1, oz;
+        for (const d of data){
+            for(i = 0, ++j; i < n; ++i){
+                (sz[i][j] = [
+                    0,
+                    +value(d, sz[i].key, j, data)
+                ]).data = d;
+            }
+        }
+        for(i = 0, oz = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$array$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(order(sz)); i < n; ++i){
+            sz[oz[i]].index = i;
+        }
+        offset(sz, oz);
+        return sz;
+    }
+    stack.keys = function(_) {
+        return arguments.length ? (keys = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(Array.from(_)), stack) : keys;
+    };
+    stack.value = function(_) {
+        return arguments.length ? (value = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), stack) : value;
+    };
+    stack.order = function(_) {
+        return arguments.length ? (order = _ == null ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$order$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(Array.from(_)), stack) : order;
+    };
+    stack.offset = function(_) {
+        return arguments.length ? (offset = _ == null ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$offset$2f$none$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"] : _, stack) : offset;
+    };
+    return stack;
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/stack.js [app-client] (ecmascript) <export default as stack>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "stack",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$stack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$stack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/stack.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Symbol,
+    "symbolsFill",
+    ()=>symbolsFill,
+    "symbolsStroke",
+    ()=>symbolsStroke
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/constant.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/path.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$asterisk$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/asterisk.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/circle.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$cross$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/cross.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$diamond$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/diamond.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$diamond2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/diamond2.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/plus.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/square.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$square2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/square2.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/star.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$triangle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/triangle.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$triangle2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/triangle2.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$wye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/wye.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$times$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/times.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+const symbolsFill = [
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$cross$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$diamond$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$triangle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$wye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+];
+const symbolsStroke = [
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$times$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$triangle2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$asterisk$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$square2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$diamond2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+];
+function Symbol(type, size) {
+    let context = null, path = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$path$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["withPath"])(symbol);
+    type = typeof type === "function" ? type : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(type || __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]);
+    size = typeof size === "function" ? size : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(size === undefined ? 64 : +size);
+    function symbol() {
+        let buffer;
+        if (!context) context = buffer = path();
+        type.apply(this, arguments).draw(context, +size.apply(this, arguments));
+        if (buffer) return context = null, buffer + "" || null;
+    }
+    symbol.type = function(_) {
+        return arguments.length ? (type = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(_), symbol) : type;
+    };
+    symbol.size = function(_) {
+        return arguments.length ? (size = typeof _ === "function" ? _ : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$constant$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(+_), symbol) : size;
+    };
+    symbol.context = function(_) {
+        return arguments.length ? (context = _ == null ? null : _, symbol) : context;
+    };
+    return symbol;
+}
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol.js [app-client] (ecmascript) <export default as symbol>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbol",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/asterisk.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const sqrt3 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(3);
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size + (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["min"])(size / 28, 0.75)) * 0.59436;
+        const t = r / 2;
+        const u = t * sqrt3;
+        context.moveTo(0, r);
+        context.lineTo(0, -r);
+        context.moveTo(-u, -t);
+        context.lineTo(u, t);
+        context.moveTo(-u, t);
+        context.lineTo(u, -t);
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/circle.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["pi"]);
+        context.moveTo(r, 0);
+        context.arc(0, 0, r, 0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tau"]);
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/circle.js [app-client] (ecmascript) <export default as symbolCircle>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbolCircle",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/circle.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/cross.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size / 5) / 2;
+        context.moveTo(-3 * r, -r);
+        context.lineTo(-r, -r);
+        context.lineTo(-r, -3 * r);
+        context.lineTo(r, -3 * r);
+        context.lineTo(r, -r);
+        context.lineTo(3 * r, -r);
+        context.lineTo(3 * r, r);
+        context.lineTo(r, r);
+        context.lineTo(r, 3 * r);
+        context.lineTo(-r, 3 * r);
+        context.lineTo(-r, r);
+        context.lineTo(-3 * r, r);
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/cross.js [app-client] (ecmascript) <export default as symbolCross>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbolCross",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$cross$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$cross$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/cross.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/diamond.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const tan30 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(1 / 3);
+const tan30_2 = tan30 * 2;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const y = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size / tan30_2);
+        const x = y * tan30;
+        context.moveTo(0, -y);
+        context.lineTo(x, 0);
+        context.lineTo(0, y);
+        context.lineTo(-x, 0);
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/diamond.js [app-client] (ecmascript) <export default as symbolDiamond>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbolDiamond",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$diamond$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$diamond$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/diamond.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/diamond2.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size) * 0.62625;
+        context.moveTo(0, -r);
+        context.lineTo(r, 0);
+        context.lineTo(0, r);
+        context.lineTo(-r, 0);
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/plus.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size - (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["min"])(size / 7, 2)) * 0.87559;
+        context.moveTo(-r, 0);
+        context.lineTo(r, 0);
+        context.moveTo(0, r);
+        context.lineTo(0, -r);
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/square.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const w = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size);
+        const x = -w / 2;
+        context.rect(x, x, w, w);
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/square.js [app-client] (ecmascript) <export default as symbolSquare>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbolSquare",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/square.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/square2.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size) * 0.4431;
+        context.moveTo(r, r);
+        context.lineTo(r, -r);
+        context.lineTo(-r, -r);
+        context.lineTo(-r, r);
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/star.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const ka = 0.89081309152928522810;
+const kr = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sin"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["pi"] / 10) / (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sin"])(7 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["pi"] / 10);
+const kx = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sin"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tau"] / 10) * kr;
+const ky = -(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cos"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tau"] / 10) * kr;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size * ka);
+        const x = kx * r;
+        const y = ky * r;
+        context.moveTo(0, -r);
+        context.lineTo(x, y);
+        for(let i = 1; i < 5; ++i){
+            const a = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tau"] * i / 5;
+            const c = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cos"])(a);
+            const s = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sin"])(a);
+            context.lineTo(s * r, -c * r);
+            context.lineTo(c * x - s * y, s * x + c * y);
+        }
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/star.js [app-client] (ecmascript) <export default as symbolStar>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbolStar",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$star$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/star.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/times.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size - (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["min"])(size / 6, 1.7)) * 0.6189;
+        context.moveTo(-r, -r);
+        context.lineTo(r, r);
+        context.moveTo(-r, r);
+        context.lineTo(r, -r);
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/triangle.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const sqrt3 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(3);
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const y = -(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size / (sqrt3 * 3));
+        context.moveTo(0, y * 2);
+        context.lineTo(-sqrt3 * y, -y);
+        context.lineTo(sqrt3 * y, -y);
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/triangle.js [app-client] (ecmascript) <export default as symbolTriangle>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbolTriangle",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$triangle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$triangle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/triangle.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/triangle2.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const sqrt3 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(3);
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const s = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size) * 0.6824;
+        const t = s / 2;
+        const u = s * sqrt3 / 2; // cos(Math.PI / 6)
+        context.moveTo(0, -s);
+        context.lineTo(u, t);
+        context.lineTo(-u, t);
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/wye.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/math.js [app-client] (ecmascript)");
+;
+const c = -0.5;
+const s = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(3) / 2;
+const k = 1 / (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(12);
+const a = (k / 2 + 1) * 3;
+const __TURBOPACK__default__export__ = {
+    draw (context, size) {
+        const r = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$math$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["sqrt"])(size / a);
+        const x0 = r / 2, y0 = r * k;
+        const x1 = x0, y1 = r * k + r;
+        const x2 = -x1, y2 = y1;
+        context.moveTo(x0, y0);
+        context.lineTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.lineTo(c * x0 - s * y0, s * x0 + c * y0);
+        context.lineTo(c * x1 - s * y1, s * x1 + c * y1);
+        context.lineTo(c * x2 - s * y2, s * x2 + c * y2);
+        context.lineTo(c * x0 + s * y0, c * y0 - s * x0);
+        context.lineTo(c * x1 + s * y1, c * y1 - s * x1);
+        context.lineTo(c * x2 + s * y2, c * y2 - s * x2);
+        context.closePath();
+    }
+};
+}),
+"[project]/frontend/node_modules/d3-shape/src/symbol/wye.js [app-client] (ecmascript) <export default as symbolWye>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "symbolWye",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$wye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$shape$2f$src$2f$symbol$2f$wye$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-shape/src/symbol/wye.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-time-format/src/defaultLocale.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>defaultLocale,
+    "timeFormat",
+    ()=>timeFormat,
+    "timeParse",
+    ()=>timeParse,
+    "utcFormat",
+    ()=>utcFormat,
+    "utcParse",
+    ()=>utcParse
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2d$format$2f$src$2f$locale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time-format/src/locale.js [app-client] (ecmascript)");
+;
+var locale;
+var timeFormat;
+var timeParse;
+var utcFormat;
+var utcParse;
+defaultLocale({
+    dateTime: "%x, %X",
+    date: "%-m/%-d/%Y",
+    time: "%-I:%M:%S %p",
+    periods: [
+        "AM",
+        "PM"
+    ],
+    days: [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ],
+    shortDays: [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+    ],
+    months: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ],
+    shortMonths: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+    ]
+});
+function defaultLocale(definition) {
+    locale = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2d$format$2f$src$2f$locale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(definition);
+    timeFormat = locale.format;
+    timeParse = locale.parse;
+    utcFormat = locale.utcFormat;
+    utcParse = locale.utcParse;
+    return locale;
+}
+}),
+"[project]/frontend/node_modules/d3-time-format/src/locale.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>formatLocale
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/day.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/year.js [app-client] (ecmascript)");
+;
+function localDate(d) {
+    if (0 <= d.y && d.y < 100) {
+        var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+        date.setFullYear(d.y);
+        return date;
+    }
+    return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+}
+function utcDate(d) {
+    if (0 <= d.y && d.y < 100) {
+        var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+        date.setUTCFullYear(d.y);
+        return date;
+    }
+    return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+}
+function newDate(y, m, d) {
+    return {
+        y: y,
+        m: m,
+        d: d,
+        H: 0,
+        M: 0,
+        S: 0,
+        L: 0
+    };
+}
+function formatLocale(locale) {
+    var locale_dateTime = locale.dateTime, locale_date = locale.date, locale_time = locale.time, locale_periods = locale.periods, locale_weekdays = locale.days, locale_shortWeekdays = locale.shortDays, locale_months = locale.months, locale_shortMonths = locale.shortMonths;
+    var periodRe = formatRe(locale_periods), periodLookup = formatLookup(locale_periods), weekdayRe = formatRe(locale_weekdays), weekdayLookup = formatLookup(locale_weekdays), shortWeekdayRe = formatRe(locale_shortWeekdays), shortWeekdayLookup = formatLookup(locale_shortWeekdays), monthRe = formatRe(locale_months), monthLookup = formatLookup(locale_months), shortMonthRe = formatRe(locale_shortMonths), shortMonthLookup = formatLookup(locale_shortMonths);
+    var formats = {
+        "a": formatShortWeekday,
+        "A": formatWeekday,
+        "b": formatShortMonth,
+        "B": formatMonth,
+        "c": null,
+        "d": formatDayOfMonth,
+        "e": formatDayOfMonth,
+        "f": formatMicroseconds,
+        "g": formatYearISO,
+        "G": formatFullYearISO,
+        "H": formatHour24,
+        "I": formatHour12,
+        "j": formatDayOfYear,
+        "L": formatMilliseconds,
+        "m": formatMonthNumber,
+        "M": formatMinutes,
+        "p": formatPeriod,
+        "q": formatQuarter,
+        "Q": formatUnixTimestamp,
+        "s": formatUnixTimestampSeconds,
+        "S": formatSeconds,
+        "u": formatWeekdayNumberMonday,
+        "U": formatWeekNumberSunday,
+        "V": formatWeekNumberISO,
+        "w": formatWeekdayNumberSunday,
+        "W": formatWeekNumberMonday,
+        "x": null,
+        "X": null,
+        "y": formatYear,
+        "Y": formatFullYear,
+        "Z": formatZone,
+        "%": formatLiteralPercent
+    };
+    var utcFormats = {
+        "a": formatUTCShortWeekday,
+        "A": formatUTCWeekday,
+        "b": formatUTCShortMonth,
+        "B": formatUTCMonth,
+        "c": null,
+        "d": formatUTCDayOfMonth,
+        "e": formatUTCDayOfMonth,
+        "f": formatUTCMicroseconds,
+        "g": formatUTCYearISO,
+        "G": formatUTCFullYearISO,
+        "H": formatUTCHour24,
+        "I": formatUTCHour12,
+        "j": formatUTCDayOfYear,
+        "L": formatUTCMilliseconds,
+        "m": formatUTCMonthNumber,
+        "M": formatUTCMinutes,
+        "p": formatUTCPeriod,
+        "q": formatUTCQuarter,
+        "Q": formatUnixTimestamp,
+        "s": formatUnixTimestampSeconds,
+        "S": formatUTCSeconds,
+        "u": formatUTCWeekdayNumberMonday,
+        "U": formatUTCWeekNumberSunday,
+        "V": formatUTCWeekNumberISO,
+        "w": formatUTCWeekdayNumberSunday,
+        "W": formatUTCWeekNumberMonday,
+        "x": null,
+        "X": null,
+        "y": formatUTCYear,
+        "Y": formatUTCFullYear,
+        "Z": formatUTCZone,
+        "%": formatLiteralPercent
+    };
+    var parses = {
+        "a": parseShortWeekday,
+        "A": parseWeekday,
+        "b": parseShortMonth,
+        "B": parseMonth,
+        "c": parseLocaleDateTime,
+        "d": parseDayOfMonth,
+        "e": parseDayOfMonth,
+        "f": parseMicroseconds,
+        "g": parseYear,
+        "G": parseFullYear,
+        "H": parseHour24,
+        "I": parseHour24,
+        "j": parseDayOfYear,
+        "L": parseMilliseconds,
+        "m": parseMonthNumber,
+        "M": parseMinutes,
+        "p": parsePeriod,
+        "q": parseQuarter,
+        "Q": parseUnixTimestamp,
+        "s": parseUnixTimestampSeconds,
+        "S": parseSeconds,
+        "u": parseWeekdayNumberMonday,
+        "U": parseWeekNumberSunday,
+        "V": parseWeekNumberISO,
+        "w": parseWeekdayNumberSunday,
+        "W": parseWeekNumberMonday,
+        "x": parseLocaleDate,
+        "X": parseLocaleTime,
+        "y": parseYear,
+        "Y": parseFullYear,
+        "Z": parseZone,
+        "%": parseLiteralPercent
+    };
+    // These recursive directive definitions must be deferred.
+    formats.x = newFormat(locale_date, formats);
+    formats.X = newFormat(locale_time, formats);
+    formats.c = newFormat(locale_dateTime, formats);
+    utcFormats.x = newFormat(locale_date, utcFormats);
+    utcFormats.X = newFormat(locale_time, utcFormats);
+    utcFormats.c = newFormat(locale_dateTime, utcFormats);
+    function newFormat(specifier, formats) {
+        return function(date) {
+            var string = [], i = -1, j = 0, n = specifier.length, c, pad, format;
+            if (!(date instanceof Date)) date = new Date(+date);
+            while(++i < n){
+                if (specifier.charCodeAt(i) === 37) {
+                    string.push(specifier.slice(j, i));
+                    if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
+                    else pad = c === "e" ? " " : "0";
+                    if (format = formats[c]) c = format(date, pad);
+                    string.push(c);
+                    j = i + 1;
+                }
+            }
+            string.push(specifier.slice(j, i));
+            return string.join("");
+        };
+    }
+    function newParse(specifier, Z) {
+        return function(string) {
+            var d = newDate(1900, undefined, 1), i = parseSpecifier(d, specifier, string += "", 0), week, day;
+            if (i != string.length) return null;
+            // If a UNIX timestamp is specified, return it.
+            if ("Q" in d) return new Date(d.Q);
+            if ("s" in d) return new Date(d.s * 1000 + ("L" in d ? d.L : 0));
+            // If this is utcParse, never use the local timezone.
+            if (Z && !("Z" in d)) d.Z = 0;
+            // The am-pm flag is 0 for AM, and 1 for PM.
+            if ("p" in d) d.H = d.H % 12 + d.p * 12;
+            // If the month was not specified, inherit from the quarter.
+            if (d.m === undefined) d.m = "q" in d ? d.q : 0;
+            // Convert day-of-week and week-of-year to day-of-year.
+            if ("V" in d) {
+                if (d.V < 1 || d.V > 53) return null;
+                if (!("w" in d)) d.w = 1;
+                if ("Z" in d) {
+                    week = utcDate(newDate(d.y, 0, 1)), day = week.getUTCDay();
+                    week = day > 4 || day === 0 ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcMonday"].ceil(week) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcMonday"])(week);
+                    week = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcDay"].offset(week, (d.V - 1) * 7);
+                    d.y = week.getUTCFullYear();
+                    d.m = week.getUTCMonth();
+                    d.d = week.getUTCDate() + (d.w + 6) % 7;
+                } else {
+                    week = localDate(newDate(d.y, 0, 1)), day = week.getDay();
+                    week = day > 4 || day === 0 ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeMonday"].ceil(week) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeMonday"])(week);
+                    week = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeDay"].offset(week, (d.V - 1) * 7);
+                    d.y = week.getFullYear();
+                    d.m = week.getMonth();
+                    d.d = week.getDate() + (d.w + 6) % 7;
+                }
+            } else if ("W" in d || "U" in d) {
+                if (!("w" in d)) d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
+                day = "Z" in d ? utcDate(newDate(d.y, 0, 1)).getUTCDay() : localDate(newDate(d.y, 0, 1)).getDay();
+                d.m = 0;
+                d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
+            }
+            // If a time zone is specified, all fields are interpreted as UTC and then
+            // offset according to the specified time zone.
+            if ("Z" in d) {
+                d.H += d.Z / 100 | 0;
+                d.M += d.Z % 100;
+                return utcDate(d);
+            }
+            // Otherwise, all fields are in local time.
+            return localDate(d);
+        };
+    }
+    function parseSpecifier(d, specifier, string, j) {
+        var i = 0, n = specifier.length, m = string.length, c, parse;
+        while(i < n){
+            if (j >= m) return -1;
+            c = specifier.charCodeAt(i++);
+            if (c === 37) {
+                c = specifier.charAt(i++);
+                parse = parses[c in pads ? specifier.charAt(i++) : c];
+                if (!parse || (j = parse(d, string, j)) < 0) return -1;
+            } else if (c != string.charCodeAt(j++)) {
+                return -1;
+            }
+        }
+        return j;
+    }
+    function parsePeriod(d, string, i) {
+        var n = periodRe.exec(string.slice(i));
+        return n ? (d.p = periodLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseShortWeekday(d, string, i) {
+        var n = shortWeekdayRe.exec(string.slice(i));
+        return n ? (d.w = shortWeekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseWeekday(d, string, i) {
+        var n = weekdayRe.exec(string.slice(i));
+        return n ? (d.w = weekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseShortMonth(d, string, i) {
+        var n = shortMonthRe.exec(string.slice(i));
+        return n ? (d.m = shortMonthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseMonth(d, string, i) {
+        var n = monthRe.exec(string.slice(i));
+        return n ? (d.m = monthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseLocaleDateTime(d, string, i) {
+        return parseSpecifier(d, locale_dateTime, string, i);
+    }
+    function parseLocaleDate(d, string, i) {
+        return parseSpecifier(d, locale_date, string, i);
+    }
+    function parseLocaleTime(d, string, i) {
+        return parseSpecifier(d, locale_time, string, i);
+    }
+    function formatShortWeekday(d) {
+        return locale_shortWeekdays[d.getDay()];
+    }
+    function formatWeekday(d) {
+        return locale_weekdays[d.getDay()];
+    }
+    function formatShortMonth(d) {
+        return locale_shortMonths[d.getMonth()];
+    }
+    function formatMonth(d) {
+        return locale_months[d.getMonth()];
+    }
+    function formatPeriod(d) {
+        return locale_periods[+(d.getHours() >= 12)];
+    }
+    function formatQuarter(d) {
+        return 1 + ~~(d.getMonth() / 3);
+    }
+    function formatUTCShortWeekday(d) {
+        return locale_shortWeekdays[d.getUTCDay()];
+    }
+    function formatUTCWeekday(d) {
+        return locale_weekdays[d.getUTCDay()];
+    }
+    function formatUTCShortMonth(d) {
+        return locale_shortMonths[d.getUTCMonth()];
+    }
+    function formatUTCMonth(d) {
+        return locale_months[d.getUTCMonth()];
+    }
+    function formatUTCPeriod(d) {
+        return locale_periods[+(d.getUTCHours() >= 12)];
+    }
+    function formatUTCQuarter(d) {
+        return 1 + ~~(d.getUTCMonth() / 3);
+    }
+    return {
+        format: function(specifier) {
+            var f = newFormat(specifier += "", formats);
+            f.toString = function() {
+                return specifier;
+            };
+            return f;
+        },
+        parse: function(specifier) {
+            var p = newParse(specifier += "", false);
+            p.toString = function() {
+                return specifier;
+            };
+            return p;
+        },
+        utcFormat: function(specifier) {
+            var f = newFormat(specifier += "", utcFormats);
+            f.toString = function() {
+                return specifier;
+            };
+            return f;
+        },
+        utcParse: function(specifier) {
+            var p = newParse(specifier += "", true);
+            p.toString = function() {
+                return specifier;
+            };
+            return p;
+        }
+    };
+}
+var pads = {
+    "-": "",
+    "_": " ",
+    "0": "0"
+}, numberRe = /^\s*\d+/, percentRe = /^%/, requoteRe = /[\\^$*+?|[\]().{}]/g;
+function pad(value, fill, width) {
+    var sign = value < 0 ? "-" : "", string = (sign ? -value : value) + "", length = string.length;
+    return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
+}
+function requote(s) {
+    return s.replace(requoteRe, "\\$&");
+}
+function formatRe(names) {
+    return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+}
+function formatLookup(names) {
+    return new Map(names.map((name, i)=>[
+            name.toLowerCase(),
+            i
+        ]));
+}
+function parseWeekdayNumberSunday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 1));
+    return n ? (d.w = +n[0], i + n[0].length) : -1;
+}
+function parseWeekdayNumberMonday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 1));
+    return n ? (d.u = +n[0], i + n[0].length) : -1;
+}
+function parseWeekNumberSunday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.U = +n[0], i + n[0].length) : -1;
+}
+function parseWeekNumberISO(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.V = +n[0], i + n[0].length) : -1;
+}
+function parseWeekNumberMonday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.W = +n[0], i + n[0].length) : -1;
+}
+function parseFullYear(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 4));
+    return n ? (d.y = +n[0], i + n[0].length) : -1;
+}
+function parseYear(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+}
+function parseZone(d, string, i) {
+    var n = /^(Z)|([+-]\d\d)(?::?(\d\d))?/.exec(string.slice(i, i + 6));
+    return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+}
+function parseQuarter(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 1));
+    return n ? (d.q = n[0] * 3 - 3, i + n[0].length) : -1;
+}
+function parseMonthNumber(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+}
+function parseDayOfMonth(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.d = +n[0], i + n[0].length) : -1;
+}
+function parseDayOfYear(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 3));
+    return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+}
+function parseHour24(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.H = +n[0], i + n[0].length) : -1;
+}
+function parseMinutes(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.M = +n[0], i + n[0].length) : -1;
+}
+function parseSeconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.S = +n[0], i + n[0].length) : -1;
+}
+function parseMilliseconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 3));
+    return n ? (d.L = +n[0], i + n[0].length) : -1;
+}
+function parseMicroseconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 6));
+    return n ? (d.L = Math.floor(n[0] / 1000), i + n[0].length) : -1;
+}
+function parseLiteralPercent(d, string, i) {
+    var n = percentRe.exec(string.slice(i, i + 1));
+    return n ? i + n[0].length : -1;
+}
+function parseUnixTimestamp(d, string, i) {
+    var n = numberRe.exec(string.slice(i));
+    return n ? (d.Q = +n[0], i + n[0].length) : -1;
+}
+function parseUnixTimestampSeconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i));
+    return n ? (d.s = +n[0], i + n[0].length) : -1;
+}
+function formatDayOfMonth(d, p) {
+    return pad(d.getDate(), p, 2);
+}
+function formatHour24(d, p) {
+    return pad(d.getHours(), p, 2);
+}
+function formatHour12(d, p) {
+    return pad(d.getHours() % 12 || 12, p, 2);
+}
+function formatDayOfYear(d, p) {
+    return pad(1 + __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeDay"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeYear"])(d), d), p, 3);
+}
+function formatMilliseconds(d, p) {
+    return pad(d.getMilliseconds(), p, 3);
+}
+function formatMicroseconds(d, p) {
+    return formatMilliseconds(d, p) + "000";
+}
+function formatMonthNumber(d, p) {
+    return pad(d.getMonth() + 1, p, 2);
+}
+function formatMinutes(d, p) {
+    return pad(d.getMinutes(), p, 2);
+}
+function formatSeconds(d, p) {
+    return pad(d.getSeconds(), p, 2);
+}
+function formatWeekdayNumberMonday(d) {
+    var day = d.getDay();
+    return day === 0 ? 7 : day;
+}
+function formatWeekNumberSunday(d, p) {
+    return pad(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeSunday"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeYear"])(d) - 1, d), p, 2);
+}
+function dISO(d) {
+    var day = d.getDay();
+    return day >= 4 || day === 0 ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeThursday"])(d) : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeThursday"].ceil(d);
+}
+function formatWeekNumberISO(d, p) {
+    d = dISO(d);
+    return pad(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeThursday"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeYear"])(d), d) + ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeYear"])(d).getDay() === 4), p, 2);
+}
+function formatWeekdayNumberSunday(d) {
+    return d.getDay();
+}
+function formatWeekNumberMonday(d, p) {
+    return pad(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeMonday"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeYear"])(d) - 1, d), p, 2);
+}
+function formatYear(d, p) {
+    return pad(d.getFullYear() % 100, p, 2);
+}
+function formatYearISO(d, p) {
+    d = dISO(d);
+    return pad(d.getFullYear() % 100, p, 2);
+}
+function formatFullYear(d, p) {
+    return pad(d.getFullYear() % 10000, p, 4);
+}
+function formatFullYearISO(d, p) {
+    var day = d.getDay();
+    d = day >= 4 || day === 0 ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeThursday"])(d) : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeThursday"].ceil(d);
+    return pad(d.getFullYear() % 10000, p, 4);
+}
+function formatZone(d) {
+    var z = d.getTimezoneOffset();
+    return (z > 0 ? "-" : (z *= -1, "+")) + pad(z / 60 | 0, "0", 2) + pad(z % 60, "0", 2);
+}
+function formatUTCDayOfMonth(d, p) {
+    return pad(d.getUTCDate(), p, 2);
+}
+function formatUTCHour24(d, p) {
+    return pad(d.getUTCHours(), p, 2);
+}
+function formatUTCHour12(d, p) {
+    return pad(d.getUTCHours() % 12 || 12, p, 2);
+}
+function formatUTCDayOfYear(d, p) {
+    return pad(1 + __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcDay"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcYear"])(d), d), p, 3);
+}
+function formatUTCMilliseconds(d, p) {
+    return pad(d.getUTCMilliseconds(), p, 3);
+}
+function formatUTCMicroseconds(d, p) {
+    return formatUTCMilliseconds(d, p) + "000";
+}
+function formatUTCMonthNumber(d, p) {
+    return pad(d.getUTCMonth() + 1, p, 2);
+}
+function formatUTCMinutes(d, p) {
+    return pad(d.getUTCMinutes(), p, 2);
+}
+function formatUTCSeconds(d, p) {
+    return pad(d.getUTCSeconds(), p, 2);
+}
+function formatUTCWeekdayNumberMonday(d) {
+    var dow = d.getUTCDay();
+    return dow === 0 ? 7 : dow;
+}
+function formatUTCWeekNumberSunday(d, p) {
+    return pad(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcSunday"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcYear"])(d) - 1, d), p, 2);
+}
+function UTCdISO(d) {
+    var day = d.getUTCDay();
+    return day >= 4 || day === 0 ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcThursday"])(d) : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcThursday"].ceil(d);
+}
+function formatUTCWeekNumberISO(d, p) {
+    d = UTCdISO(d);
+    return pad(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcThursday"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcYear"])(d), d) + ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcYear"])(d).getUTCDay() === 4), p, 2);
+}
+function formatUTCWeekdayNumberSunday(d) {
+    return d.getUTCDay();
+}
+function formatUTCWeekNumberMonday(d, p) {
+    return pad(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcMonday"].count((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcYear"])(d) - 1, d), p, 2);
+}
+function formatUTCYear(d, p) {
+    return pad(d.getUTCFullYear() % 100, p, 2);
+}
+function formatUTCYearISO(d, p) {
+    d = UTCdISO(d);
+    return pad(d.getUTCFullYear() % 100, p, 2);
+}
+function formatUTCFullYear(d, p) {
+    return pad(d.getUTCFullYear() % 10000, p, 4);
+}
+function formatUTCFullYearISO(d, p) {
+    var day = d.getUTCDay();
+    d = day >= 4 || day === 0 ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcThursday"])(d) : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcThursday"].ceil(d);
+    return pad(d.getUTCFullYear() % 10000, p, 4);
+}
+function formatUTCZone() {
+    return "+0000";
+}
+function formatLiteralPercent() {
+    return "%";
+}
+function formatUnixTimestamp(d) {
+    return +d;
+}
+function formatUnixTimestampSeconds(d) {
+    return Math.floor(+d / 1000);
+}
+}),
+"[project]/frontend/node_modules/d3-time/src/day.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeDay",
+    ()=>timeDay,
+    "timeDays",
+    ()=>timeDays,
+    "unixDay",
+    ()=>unixDay,
+    "unixDays",
+    ()=>unixDays,
+    "utcDay",
+    ()=>utcDay,
+    "utcDays",
+    ()=>utcDays
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/duration.js [app-client] (ecmascript)");
+;
+;
+const timeDay = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>date.setHours(0, 0, 0, 0), (date, step)=>date.setDate(date.getDate() + step), (start, end)=>(end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationDay"], (date)=>date.getDate() - 1);
+const timeDays = timeDay.range;
+const utcDay = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setUTCHours(0, 0, 0, 0);
+}, (date, step)=>{
+    date.setUTCDate(date.getUTCDate() + step);
+}, (start, end)=>{
+    return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationDay"];
+}, (date)=>{
+    return date.getUTCDate() - 1;
+});
+const utcDays = utcDay.range;
+const unixDay = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setUTCHours(0, 0, 0, 0);
+}, (date, step)=>{
+    date.setUTCDate(date.getUTCDate() + step);
+}, (start, end)=>{
+    return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationDay"];
+}, (date)=>{
+    return Math.floor(date / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationDay"]);
+});
+const unixDays = unixDay.range;
+}),
+"[project]/frontend/node_modules/d3-time/src/duration.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "durationDay",
+    ()=>durationDay,
+    "durationHour",
+    ()=>durationHour,
+    "durationMinute",
+    ()=>durationMinute,
+    "durationMonth",
+    ()=>durationMonth,
+    "durationSecond",
+    ()=>durationSecond,
+    "durationWeek",
+    ()=>durationWeek,
+    "durationYear",
+    ()=>durationYear
+]);
+const durationSecond = 1000;
+const durationMinute = durationSecond * 60;
+const durationHour = durationMinute * 60;
+const durationDay = durationHour * 24;
+const durationWeek = durationDay * 7;
+const durationMonth = durationDay * 30;
+const durationYear = durationDay * 365;
+}),
+"[project]/frontend/node_modules/d3-time/src/hour.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeHour",
+    ()=>timeHour,
+    "timeHours",
+    ()=>timeHours,
+    "utcHour",
+    ()=>utcHour,
+    "utcHours",
+    ()=>utcHours
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/duration.js [app-client] (ecmascript)");
+;
+;
+const timeHour = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setTime(date - date.getMilliseconds() - date.getSeconds() * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"] - date.getMinutes() * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]);
+}, (date, step)=>{
+    date.setTime(+date + step * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"]);
+}, (start, end)=>{
+    return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"];
+}, (date)=>{
+    return date.getHours();
+});
+const timeHours = timeHour.range;
+const utcHour = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setUTCMinutes(0, 0, 0);
+}, (date, step)=>{
+    date.setTime(+date + step * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"]);
+}, (start, end)=>{
+    return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"];
+}, (date)=>{
+    return date.getUTCHours();
+});
+const utcHours = utcHour.range;
+}),
+"[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeInterval",
+    ()=>timeInterval
+]);
+const t0 = new Date, t1 = new Date;
+function timeInterval(floori, offseti, count, field) {
+    function interval(date) {
+        return floori(date = arguments.length === 0 ? new Date : new Date(+date)), date;
+    }
+    interval.floor = (date)=>{
+        return floori(date = new Date(+date)), date;
+    };
+    interval.ceil = (date)=>{
+        return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+    };
+    interval.round = (date)=>{
+        const d0 = interval(date), d1 = interval.ceil(date);
+        return date - d0 < d1 - date ? d0 : d1;
+    };
+    interval.offset = (date, step)=>{
+        return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+    };
+    interval.range = (start, stop, step)=>{
+        const range = [];
+        start = interval.ceil(start);
+        step = step == null ? 1 : Math.floor(step);
+        if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+        let previous;
+        do range.push(previous = new Date(+start)), offseti(start, step), floori(start);
+        while (previous < start && start < stop)
+        return range;
+    };
+    interval.filter = (test)=>{
+        return timeInterval((date)=>{
+            if (date >= date) while(floori(date), !test(date))date.setTime(date - 1);
+        }, (date, step)=>{
+            if (date >= date) {
+                if (step < 0) while(++step <= 0){
+                    while(offseti(date, -1), !test(date)){} // eslint-disable-line no-empty
+                }
+                else while(--step >= 0){
+                    while(offseti(date, +1), !test(date)){} // eslint-disable-line no-empty
+                }
+            }
+        });
+    };
+    if (count) {
+        interval.count = (start, end)=>{
+            t0.setTime(+start), t1.setTime(+end);
+            floori(t0), floori(t1);
+            return Math.floor(count(t0, t1));
+        };
+        interval.every = (step)=>{
+            step = Math.floor(step);
+            return !isFinite(step) || !(step > 0) ? null : !(step > 1) ? interval : interval.filter(field ? (d)=>field(d) % step === 0 : (d)=>interval.count(0, d) % step === 0);
+        };
+    }
+    return interval;
+}
+}),
+"[project]/frontend/node_modules/d3-time/src/millisecond.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "millisecond",
+    ()=>millisecond,
+    "milliseconds",
+    ()=>milliseconds
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+;
+const millisecond = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])(()=>{
+// noop
+}, (date, step)=>{
+    date.setTime(+date + step);
+}, (start, end)=>{
+    return end - start;
+});
+// An optimized implementation for this simple case.
+millisecond.every = (k)=>{
+    k = Math.floor(k);
+    if (!isFinite(k) || !(k > 0)) return null;
+    if (!(k > 1)) return millisecond;
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+        date.setTime(Math.floor(date / k) * k);
+    }, (date, step)=>{
+        date.setTime(+date + step * k);
+    }, (start, end)=>{
+        return (end - start) / k;
+    });
+};
+const milliseconds = millisecond.range;
+}),
+"[project]/frontend/node_modules/d3-time/src/minute.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeMinute",
+    ()=>timeMinute,
+    "timeMinutes",
+    ()=>timeMinutes,
+    "utcMinute",
+    ()=>utcMinute,
+    "utcMinutes",
+    ()=>utcMinutes
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/duration.js [app-client] (ecmascript)");
+;
+;
+const timeMinute = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setTime(date - date.getMilliseconds() - date.getSeconds() * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"]);
+}, (date, step)=>{
+    date.setTime(+date + step * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]);
+}, (start, end)=>{
+    return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"];
+}, (date)=>{
+    return date.getMinutes();
+});
+const timeMinutes = timeMinute.range;
+const utcMinute = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setUTCSeconds(0, 0);
+}, (date, step)=>{
+    date.setTime(+date + step * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]);
+}, (start, end)=>{
+    return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"];
+}, (date)=>{
+    return date.getUTCMinutes();
+});
+const utcMinutes = utcMinute.range;
+}),
+"[project]/frontend/node_modules/d3-time/src/month.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeMonth",
+    ()=>timeMonth,
+    "timeMonths",
+    ()=>timeMonths,
+    "utcMonth",
+    ()=>utcMonth,
+    "utcMonths",
+    ()=>utcMonths
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+;
+const timeMonth = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setDate(1);
+    date.setHours(0, 0, 0, 0);
+}, (date, step)=>{
+    date.setMonth(date.getMonth() + step);
+}, (start, end)=>{
+    return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
+}, (date)=>{
+    return date.getMonth();
+});
+const timeMonths = timeMonth.range;
+const utcMonth = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setUTCDate(1);
+    date.setUTCHours(0, 0, 0, 0);
+}, (date, step)=>{
+    date.setUTCMonth(date.getUTCMonth() + step);
+}, (start, end)=>{
+    return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
+}, (date)=>{
+    return date.getUTCMonth();
+});
+const utcMonths = utcMonth.range;
+}),
+"[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "second",
+    ()=>second,
+    "seconds",
+    ()=>seconds
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/duration.js [app-client] (ecmascript)");
+;
+;
+const second = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setTime(date - date.getMilliseconds());
+}, (date, step)=>{
+    date.setTime(+date + step * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"]);
+}, (start, end)=>{
+    return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"];
+}, (date)=>{
+    return date.getUTCSeconds();
+});
+const seconds = second.range;
+}),
+"[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript) <export second as timeSecond>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeSecond",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["second"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript) <export second as utcSecond>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "utcSecond",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["second"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-time/src/ticks.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeTickInterval",
+    ()=>timeTickInterval,
+    "timeTicks",
+    ()=>timeTicks,
+    "utcTickInterval",
+    ()=>utcTickInterval,
+    "utcTicks",
+    ()=>utcTicks
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisector$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/bisector.js [app-client] (ecmascript) <export default as bisector>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-array/src/ticks.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/duration.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$millisecond$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/millisecond.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/second.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$minute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/minute.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$hour$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/hour.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/day.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$month$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/month.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/year.js [app-client] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+function ticker(year, month, week, day, hour, minute) {
+    const tickIntervals = [
+        [
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["second"],
+            1,
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"]
+        ],
+        [
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["second"],
+            5,
+            5 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"]
+        ],
+        [
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["second"],
+            15,
+            15 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"]
+        ],
+        [
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$second$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["second"],
+            30,
+            30 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationSecond"]
+        ],
+        [
+            minute,
+            1,
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]
+        ],
+        [
+            minute,
+            5,
+            5 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]
+        ],
+        [
+            minute,
+            15,
+            15 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]
+        ],
+        [
+            minute,
+            30,
+            30 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]
+        ],
+        [
+            hour,
+            1,
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"]
+        ],
+        [
+            hour,
+            3,
+            3 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"]
+        ],
+        [
+            hour,
+            6,
+            6 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"]
+        ],
+        [
+            hour,
+            12,
+            12 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationHour"]
+        ],
+        [
+            day,
+            1,
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationDay"]
+        ],
+        [
+            day,
+            2,
+            2 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationDay"]
+        ],
+        [
+            week,
+            1,
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationWeek"]
+        ],
+        [
+            month,
+            1,
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMonth"]
+        ],
+        [
+            month,
+            3,
+            3 * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMonth"]
+        ],
+        [
+            year,
+            1,
+            __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationYear"]
+        ]
+    ];
+    function ticks(start, stop, count) {
+        const reverse = stop < start;
+        if (reverse) [start, stop] = [
+            stop,
+            start
+        ];
+        const interval = count && typeof count.range === "function" ? count : tickInterval(start, stop, count);
+        const ticks = interval ? interval.range(start, +stop + 1) : []; // inclusive stop
+        return reverse ? ticks.reverse() : ticks;
+    }
+    function tickInterval(start, stop, count) {
+        const target = Math.abs(stop - start) / count;
+        const i = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$bisector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__bisector$3e$__["bisector"])(([, , step])=>step).right(tickIntervals, target);
+        if (i === tickIntervals.length) return year.every((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tickStep"])(start / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationYear"], stop / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationYear"], count));
+        if (i === 0) return __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$millisecond$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["millisecond"].every(Math.max((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$array$2f$src$2f$ticks$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tickStep"])(start, stop, count), 1));
+        const [t, step] = tickIntervals[target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target ? i - 1 : i];
+        return t.every(step);
+    }
+    return [
+        ticks,
+        tickInterval
+    ];
+}
+const [utcTicks, utcTickInterval] = ticker(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcYear"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$month$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcMonth"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcSunday"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["unixDay"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$hour$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcHour"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$minute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcMinute"]);
+const [timeTicks, timeTickInterval] = ticker(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$year$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeYear"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$month$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeMonth"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeSunday"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$day$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeDay"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$hour$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeHour"], __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$minute$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeMinute"]);
+;
+}),
+"[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeFriday",
+    ()=>timeFriday,
+    "timeFridays",
+    ()=>timeFridays,
+    "timeMonday",
+    ()=>timeMonday,
+    "timeMondays",
+    ()=>timeMondays,
+    "timeSaturday",
+    ()=>timeSaturday,
+    "timeSaturdays",
+    ()=>timeSaturdays,
+    "timeSunday",
+    ()=>timeSunday,
+    "timeSundays",
+    ()=>timeSundays,
+    "timeThursday",
+    ()=>timeThursday,
+    "timeThursdays",
+    ()=>timeThursdays,
+    "timeTuesday",
+    ()=>timeTuesday,
+    "timeTuesdays",
+    ()=>timeTuesdays,
+    "timeWednesday",
+    ()=>timeWednesday,
+    "timeWednesdays",
+    ()=>timeWednesdays,
+    "utcFriday",
+    ()=>utcFriday,
+    "utcFridays",
+    ()=>utcFridays,
+    "utcMonday",
+    ()=>utcMonday,
+    "utcMondays",
+    ()=>utcMondays,
+    "utcSaturday",
+    ()=>utcSaturday,
+    "utcSaturdays",
+    ()=>utcSaturdays,
+    "utcSunday",
+    ()=>utcSunday,
+    "utcSundays",
+    ()=>utcSundays,
+    "utcThursday",
+    ()=>utcThursday,
+    "utcThursdays",
+    ()=>utcThursdays,
+    "utcTuesday",
+    ()=>utcTuesday,
+    "utcTuesdays",
+    ()=>utcTuesdays,
+    "utcWednesday",
+    ()=>utcWednesday,
+    "utcWednesdays",
+    ()=>utcWednesdays
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/duration.js [app-client] (ecmascript)");
+;
+;
+function timeWeekday(i) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+        date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+        date.setHours(0, 0, 0, 0);
+    }, (date, step)=>{
+        date.setDate(date.getDate() + step * 7);
+    }, (start, end)=>{
+        return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationMinute"]) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationWeek"];
+    });
+}
+const timeSunday = timeWeekday(0);
+const timeMonday = timeWeekday(1);
+const timeTuesday = timeWeekday(2);
+const timeWednesday = timeWeekday(3);
+const timeThursday = timeWeekday(4);
+const timeFriday = timeWeekday(5);
+const timeSaturday = timeWeekday(6);
+const timeSundays = timeSunday.range;
+const timeMondays = timeMonday.range;
+const timeTuesdays = timeTuesday.range;
+const timeWednesdays = timeWednesday.range;
+const timeThursdays = timeThursday.range;
+const timeFridays = timeFriday.range;
+const timeSaturdays = timeSaturday.range;
+function utcWeekday(i) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+        date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+        date.setUTCHours(0, 0, 0, 0);
+    }, (date, step)=>{
+        date.setUTCDate(date.getUTCDate() + step * 7);
+    }, (start, end)=>{
+        return (end - start) / __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$duration$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["durationWeek"];
+    });
+}
+const utcSunday = utcWeekday(0);
+const utcMonday = utcWeekday(1);
+const utcTuesday = utcWeekday(2);
+const utcWednesday = utcWeekday(3);
+const utcThursday = utcWeekday(4);
+const utcFriday = utcWeekday(5);
+const utcSaturday = utcWeekday(6);
+const utcSundays = utcSunday.range;
+const utcMondays = utcMonday.range;
+const utcTuesdays = utcTuesday.range;
+const utcWednesdays = utcWednesday.range;
+const utcThursdays = utcThursday.range;
+const utcFridays = utcFriday.range;
+const utcSaturdays = utcSaturday.range;
+}),
+"[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript) <export timeSunday as timeWeek>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeWeek",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeSunday"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript) <export utcSunday as utcWeek>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "utcWeek",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["utcSunday"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$week$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/week.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/d3-time/src/year.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "timeYear",
+    ()=>timeYear,
+    "timeYears",
+    ()=>timeYears,
+    "utcYear",
+    ()=>utcYear,
+    "utcYears",
+    ()=>utcYears
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-time/src/interval.js [app-client] (ecmascript)");
+;
+const timeYear = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+}, (date, step)=>{
+    date.setFullYear(date.getFullYear() + step);
+}, (start, end)=>{
+    return end.getFullYear() - start.getFullYear();
+}, (date)=>{
+    return date.getFullYear();
+});
+// An optimized implementation for this simple case.
+timeYear.every = (k)=>{
+    return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+        date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+        date.setMonth(0, 1);
+        date.setHours(0, 0, 0, 0);
+    }, (date, step)=>{
+        date.setFullYear(date.getFullYear() + step * k);
+    });
+};
+const timeYears = timeYear.range;
+const utcYear = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+}, (date, step)=>{
+    date.setUTCFullYear(date.getUTCFullYear() + step);
+}, (start, end)=>{
+    return end.getUTCFullYear() - start.getUTCFullYear();
+}, (date)=>{
+    return date.getUTCFullYear();
+});
+// An optimized implementation for this simple case.
+utcYear.every = (k)=>{
+    return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$time$2f$src$2f$interval$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["timeInterval"])((date)=>{
+        date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+        date.setUTCMonth(0, 1);
+        date.setUTCHours(0, 0, 0, 0);
+    }, (date, step)=>{
+        date.setUTCFullYear(date.getUTCFullYear() + step * k);
+    });
+};
+const utcYears = utcYear.range;
+}),
+"[project]/frontend/node_modules/decimal.js-light/decimal.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+/*! decimal.js-light v2.5.1 https://github.com/MikeMcl/decimal.js-light/LICENCE */ ;
+(function(globalScope) {
+    'use strict';
+    /*
+   *  decimal.js-light v2.5.1
+   *  An arbitrary-precision Decimal type for JavaScript.
+   *  https://github.com/MikeMcl/decimal.js-light
+   *  Copyright (c) 2020 Michael Mclaughlin <M8ch88l@gmail.com>
+   *  MIT Expat Licence
+   */ // -----------------------------------  EDITABLE DEFAULTS  ------------------------------------ //
+    // The limit on the value of `precision`, and on the value of the first argument to
+    // `toDecimalPlaces`, `toExponential`, `toFixed`, `toPrecision` and `toSignificantDigits`.
+    var MAX_DIGITS = 1e9, // The initial configuration properties of the Decimal constructor.
+    Decimal = {
+        // These values must be integers within the stated ranges (inclusive).
+        // Most of these values can be changed during run-time using `Decimal.config`.
+        // The maximum number of significant digits of the result of a calculation or base conversion.
+        // E.g. `Decimal.config({ precision: 20 });`
+        precision: 20,
+        // The rounding mode used by default by `toInteger`, `toDecimalPlaces`, `toExponential`,
+        // `toFixed`, `toPrecision` and `toSignificantDigits`.
+        //
+        // ROUND_UP         0 Away from zero.
+        // ROUND_DOWN       1 Towards zero.
+        // ROUND_CEIL       2 Towards +Infinity.
+        // ROUND_FLOOR      3 Towards -Infinity.
+        // ROUND_HALF_UP    4 Towards nearest neighbour. If equidistant, up.
+        // ROUND_HALF_DOWN  5 Towards nearest neighbour. If equidistant, down.
+        // ROUND_HALF_EVEN  6 Towards nearest neighbour. If equidistant, towards even neighbour.
+        // ROUND_HALF_CEIL  7 Towards nearest neighbour. If equidistant, towards +Infinity.
+        // ROUND_HALF_FLOOR 8 Towards nearest neighbour. If equidistant, towards -Infinity.
+        //
+        // E.g.
+        // `Decimal.rounding = 4;`
+        // `Decimal.rounding = Decimal.ROUND_HALF_UP;`
+        rounding: 4,
+        // The exponent value at and beneath which `toString` returns exponential notation.
+        // JavaScript numbers: -7
+        toExpNeg: -7,
+        // The exponent value at and above which `toString` returns exponential notation.
+        // JavaScript numbers: 21
+        toExpPos: 21,
+        // The natural logarithm of 10.
+        // 115 digits
+        LN10: '2.302585092994045684017991454684364207601101488628772976033327900967572609677352480235997205089598298341967784042286'
+    }, // ----------------------------------- END OF EDITABLE DEFAULTS ------------------------------- //
+    external = true, decimalError = '[DecimalError] ', invalidArgument = decimalError + 'Invalid argument: ', exponentOutOfRange = decimalError + 'Exponent out of range: ', mathfloor = Math.floor, mathpow = Math.pow, isDecimal = /^(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i, ONE, BASE = 1e7, LOG_BASE = 7, MAX_SAFE_INTEGER = 9007199254740991, MAX_E = mathfloor(MAX_SAFE_INTEGER / LOG_BASE), // Decimal.prototype object
+    P = {};
+    // Decimal prototype methods
+    /*
+   *  absoluteValue                       abs
+   *  comparedTo                          cmp
+   *  decimalPlaces                       dp
+   *  dividedBy                           div
+   *  dividedToIntegerBy                  idiv
+   *  equals                              eq
+   *  exponent
+   *  greaterThan                         gt
+   *  greaterThanOrEqualTo                gte
+   *  isInteger                           isint
+   *  isNegative                          isneg
+   *  isPositive                          ispos
+   *  isZero
+   *  lessThan                            lt
+   *  lessThanOrEqualTo                   lte
+   *  logarithm                           log
+   *  minus                               sub
+   *  modulo                              mod
+   *  naturalExponential                  exp
+   *  naturalLogarithm                    ln
+   *  negated                             neg
+   *  plus                                add
+   *  precision                           sd
+   *  squareRoot                          sqrt
+   *  times                               mul
+   *  toDecimalPlaces                     todp
+   *  toExponential
+   *  toFixed
+   *  toInteger                           toint
+   *  toNumber
+   *  toPower                             pow
+   *  toPrecision
+   *  toSignificantDigits                 tosd
+   *  toString
+   *  valueOf                             val
+   */ /*
+   * Return a new Decimal whose value is the absolute value of this Decimal.
+   *
+   */ P.absoluteValue = P.abs = function() {
+        var x = new this.constructor(this);
+        if (x.s) x.s = 1;
+        return x;
+    };
+    /*
+   * Return
+   *   1    if the value of this Decimal is greater than the value of `y`,
+   *  -1    if the value of this Decimal is less than the value of `y`,
+   *   0    if they have the same value
+   *
+   */ P.comparedTo = P.cmp = function(y) {
+        var i, j, xdL, ydL, x = this;
+        y = new x.constructor(y);
+        // Signs differ?
+        if (x.s !== y.s) return x.s || -y.s;
+        // Compare exponents.
+        if (x.e !== y.e) return x.e > y.e ^ x.s < 0 ? 1 : -1;
+        xdL = x.d.length;
+        ydL = y.d.length;
+        // Compare digit by digit.
+        for(i = 0, j = xdL < ydL ? xdL : ydL; i < j; ++i){
+            if (x.d[i] !== y.d[i]) return x.d[i] > y.d[i] ^ x.s < 0 ? 1 : -1;
+        }
+        // Compare lengths.
+        return xdL === ydL ? 0 : xdL > ydL ^ x.s < 0 ? 1 : -1;
+    };
+    /*
+   * Return the number of decimal places of the value of this Decimal.
+   *
+   */ P.decimalPlaces = P.dp = function() {
+        var x = this, w = x.d.length - 1, dp = (w - x.e) * LOG_BASE;
+        // Subtract the number of trailing zeros of the last word.
+        w = x.d[w];
+        if (w) for(; w % 10 == 0; w /= 10)dp--;
+        return dp < 0 ? 0 : dp;
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal divided by `y`, truncated to
+   * `precision` significant digits.
+   *
+   */ P.dividedBy = P.div = function(y) {
+        return divide(this, new this.constructor(y));
+    };
+    /*
+   * Return a new Decimal whose value is the integer part of dividing the value of this Decimal
+   * by the value of `y`, truncated to `precision` significant digits.
+   *
+   */ P.dividedToIntegerBy = P.idiv = function(y) {
+        var x = this, Ctor = x.constructor;
+        return round(divide(x, new Ctor(y), 0, 1), Ctor.precision);
+    };
+    /*
+   * Return true if the value of this Decimal is equal to the value of `y`, otherwise return false.
+   *
+   */ P.equals = P.eq = function(y) {
+        return !this.cmp(y);
+    };
+    /*
+   * Return the (base 10) exponent value of this Decimal (this.e is the base 10000000 exponent).
+   *
+   */ P.exponent = function() {
+        return getBase10Exponent(this);
+    };
+    /*
+   * Return true if the value of this Decimal is greater than the value of `y`, otherwise return
+   * false.
+   *
+   */ P.greaterThan = P.gt = function(y) {
+        return this.cmp(y) > 0;
+    };
+    /*
+   * Return true if the value of this Decimal is greater than or equal to the value of `y`,
+   * otherwise return false.
+   *
+   */ P.greaterThanOrEqualTo = P.gte = function(y) {
+        return this.cmp(y) >= 0;
+    };
+    /*
+   * Return true if the value of this Decimal is an integer, otherwise return false.
+   *
+   */ P.isInteger = P.isint = function() {
+        return this.e > this.d.length - 2;
+    };
+    /*
+   * Return true if the value of this Decimal is negative, otherwise return false.
+   *
+   */ P.isNegative = P.isneg = function() {
+        return this.s < 0;
+    };
+    /*
+   * Return true if the value of this Decimal is positive, otherwise return false.
+   *
+   */ P.isPositive = P.ispos = function() {
+        return this.s > 0;
+    };
+    /*
+   * Return true if the value of this Decimal is 0, otherwise return false.
+   *
+   */ P.isZero = function() {
+        return this.s === 0;
+    };
+    /*
+   * Return true if the value of this Decimal is less than `y`, otherwise return false.
+   *
+   */ P.lessThan = P.lt = function(y) {
+        return this.cmp(y) < 0;
+    };
+    /*
+   * Return true if the value of this Decimal is less than or equal to `y`, otherwise return false.
+   *
+   */ P.lessThanOrEqualTo = P.lte = function(y) {
+        return this.cmp(y) < 1;
+    };
+    /*
+   * Return the logarithm of the value of this Decimal to the specified base, truncated to
+   * `precision` significant digits.
+   *
+   * If no base is specified, return log[10](x).
+   *
+   * log[base](x) = ln(x) / ln(base)
+   *
+   * The maximum error of the result is 1 ulp (unit in the last place).
+   *
+   * [base] {number|string|Decimal} The base of the logarithm.
+   *
+   */ P.logarithm = P.log = function(base) {
+        var r, x = this, Ctor = x.constructor, pr = Ctor.precision, wpr = pr + 5;
+        // Default base is 10.
+        if (base === void 0) {
+            base = new Ctor(10);
+        } else {
+            base = new Ctor(base);
+            // log[-b](x) = NaN
+            // log[0](x)  = NaN
+            // log[1](x)  = NaN
+            if (base.s < 1 || base.eq(ONE)) throw Error(decimalError + 'NaN');
+        }
+        // log[b](-x) = NaN
+        // log[b](0) = -Infinity
+        if (x.s < 1) throw Error(decimalError + (x.s ? 'NaN' : '-Infinity'));
+        // log[b](1) = 0
+        if (x.eq(ONE)) return new Ctor(0);
+        external = false;
+        r = divide(ln(x, wpr), ln(base, wpr), wpr);
+        external = true;
+        return round(r, pr);
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal minus `y`, truncated to
+   * `precision` significant digits.
+   *
+   */ P.minus = P.sub = function(y) {
+        var x = this;
+        y = new x.constructor(y);
+        return x.s == y.s ? subtract(x, y) : add(x, (y.s = -y.s, y));
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal modulo `y`, truncated to
+   * `precision` significant digits.
+   *
+   */ P.modulo = P.mod = function(y) {
+        var q, x = this, Ctor = x.constructor, pr = Ctor.precision;
+        y = new Ctor(y);
+        // x % 0 = NaN
+        if (!y.s) throw Error(decimalError + 'NaN');
+        // Return x if x is 0.
+        if (!x.s) return round(new Ctor(x), pr);
+        // Prevent rounding of intermediate calculations.
+        external = false;
+        q = divide(x, y, 0, 1).times(y);
+        external = true;
+        return x.minus(q);
+    };
+    /*
+   * Return a new Decimal whose value is the natural exponential of the value of this Decimal,
+   * i.e. the base e raised to the power the value of this Decimal, truncated to `precision`
+   * significant digits.
+   *
+   */ P.naturalExponential = P.exp = function() {
+        return exp(this);
+    };
+    /*
+   * Return a new Decimal whose value is the natural logarithm of the value of this Decimal,
+   * truncated to `precision` significant digits.
+   *
+   */ P.naturalLogarithm = P.ln = function() {
+        return ln(this);
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal negated, i.e. as if multiplied by
+   * -1.
+   *
+   */ P.negated = P.neg = function() {
+        var x = new this.constructor(this);
+        x.s = -x.s || 0;
+        return x;
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal plus `y`, truncated to
+   * `precision` significant digits.
+   *
+   */ P.plus = P.add = function(y) {
+        var x = this;
+        y = new x.constructor(y);
+        return x.s == y.s ? add(x, y) : subtract(x, (y.s = -y.s, y));
+    };
+    /*
+   * Return the number of significant digits of the value of this Decimal.
+   *
+   * [z] {boolean|number} Whether to count integer-part trailing zeros: true, false, 1 or 0.
+   *
+   */ P.precision = P.sd = function(z) {
+        var e, sd, w, x = this;
+        if (z !== void 0 && z !== !!z && z !== 1 && z !== 0) throw Error(invalidArgument + z);
+        e = getBase10Exponent(x) + 1;
+        w = x.d.length - 1;
+        sd = w * LOG_BASE + 1;
+        w = x.d[w];
+        // If non-zero...
+        if (w) {
+            // Subtract the number of trailing zeros of the last word.
+            for(; w % 10 == 0; w /= 10)sd--;
+            // Add the number of digits of the first word.
+            for(w = x.d[0]; w >= 10; w /= 10)sd++;
+        }
+        return z && e > sd ? e : sd;
+    };
+    /*
+   * Return a new Decimal whose value is the square root of this Decimal, truncated to `precision`
+   * significant digits.
+   *
+   */ P.squareRoot = P.sqrt = function() {
+        var e, n, pr, r, s, t, wpr, x = this, Ctor = x.constructor;
+        // Negative or zero?
+        if (x.s < 1) {
+            if (!x.s) return new Ctor(0);
+            // sqrt(-x) = NaN
+            throw Error(decimalError + 'NaN');
+        }
+        e = getBase10Exponent(x);
+        external = false;
+        // Initial estimate.
+        s = Math.sqrt(+x);
+        // Math.sqrt underflow/overflow?
+        // Pass x to Math.sqrt as integer, then adjust the exponent of the result.
+        if (s == 0 || s == 1 / 0) {
+            n = digitsToString(x.d);
+            if ((n.length + e) % 2 == 0) n += '0';
+            s = Math.sqrt(n);
+            e = mathfloor((e + 1) / 2) - (e < 0 || e % 2);
+            if (s == 1 / 0) {
+                n = '5e' + e;
+            } else {
+                n = s.toExponential();
+                n = n.slice(0, n.indexOf('e') + 1) + e;
+            }
+            r = new Ctor(n);
+        } else {
+            r = new Ctor(s.toString());
+        }
+        pr = Ctor.precision;
+        s = wpr = pr + 3;
+        // Newton-Raphson iteration.
+        for(;;){
+            t = r;
+            r = t.plus(divide(x, t, wpr + 2)).times(0.5);
+            if (digitsToString(t.d).slice(0, wpr) === (n = digitsToString(r.d)).slice(0, wpr)) {
+                n = n.slice(wpr - 3, wpr + 1);
+                // The 4th rounding digit may be in error by -1 so if the 4 rounding digits are 9999 or
+                // 4999, i.e. approaching a rounding boundary, continue the iteration.
+                if (s == wpr && n == '4999') {
+                    // On the first iteration only, check to see if rounding up gives the exact result as the
+                    // nines may infinitely repeat.
+                    round(t, pr + 1, 0);
+                    if (t.times(t).eq(x)) {
+                        r = t;
+                        break;
+                    }
+                } else if (n != '9999') {
+                    break;
+                }
+                wpr += 4;
+            }
+        }
+        external = true;
+        return round(r, pr);
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal times `y`, truncated to
+   * `precision` significant digits.
+   *
+   */ P.times = P.mul = function(y) {
+        var carry, e, i, k, r, rL, t, xdL, ydL, x = this, Ctor = x.constructor, xd = x.d, yd = (y = new Ctor(y)).d;
+        // Return 0 if either is 0.
+        if (!x.s || !y.s) return new Ctor(0);
+        y.s *= x.s;
+        e = x.e + y.e;
+        xdL = xd.length;
+        ydL = yd.length;
+        // Ensure xd points to the longer array.
+        if (xdL < ydL) {
+            r = xd;
+            xd = yd;
+            yd = r;
+            rL = xdL;
+            xdL = ydL;
+            ydL = rL;
+        }
+        // Initialise the result array with zeros.
+        r = [];
+        rL = xdL + ydL;
+        for(i = rL; i--;)r.push(0);
+        // Multiply!
+        for(i = ydL; --i >= 0;){
+            carry = 0;
+            for(k = xdL + i; k > i;){
+                t = r[k] + yd[i] * xd[k - i - 1] + carry;
+                r[k--] = t % BASE | 0;
+                carry = t / BASE | 0;
+            }
+            r[k] = (r[k] + carry) % BASE | 0;
+        }
+        // Remove trailing zeros.
+        for(; !r[--rL];)r.pop();
+        if (carry) ++e;
+        else r.shift();
+        y.d = r;
+        y.e = e;
+        return external ? round(y, Ctor.precision) : y;
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal rounded to a maximum of `dp`
+   * decimal places using rounding mode `rm` or `rounding` if `rm` is omitted.
+   *
+   * If `dp` is omitted, return a new Decimal whose value is the value of this Decimal.
+   *
+   * [dp] {number} Decimal places. Integer, 0 to MAX_DIGITS inclusive.
+   * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+   *
+   */ P.toDecimalPlaces = P.todp = function(dp, rm) {
+        var x = this, Ctor = x.constructor;
+        x = new Ctor(x);
+        if (dp === void 0) return x;
+        checkInt32(dp, 0, MAX_DIGITS);
+        if (rm === void 0) rm = Ctor.rounding;
+        else checkInt32(rm, 0, 8);
+        return round(x, dp + getBase10Exponent(x) + 1, rm);
+    };
+    /*
+   * Return a string representing the value of this Decimal in exponential notation rounded to
+   * `dp` fixed decimal places using rounding mode `rounding`.
+   *
+   * [dp] {number} Decimal places. Integer, 0 to MAX_DIGITS inclusive.
+   * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+   *
+   */ P.toExponential = function(dp, rm) {
+        var str, x = this, Ctor = x.constructor;
+        if (dp === void 0) {
+            str = toString(x, true);
+        } else {
+            checkInt32(dp, 0, MAX_DIGITS);
+            if (rm === void 0) rm = Ctor.rounding;
+            else checkInt32(rm, 0, 8);
+            x = round(new Ctor(x), dp + 1, rm);
+            str = toString(x, true, dp + 1);
+        }
+        return str;
+    };
+    /*
+   * Return a string representing the value of this Decimal in normal (fixed-point) notation to
+   * `dp` fixed decimal places and rounded using rounding mode `rm` or `rounding` if `rm` is
+   * omitted.
+   *
+   * As with JavaScript numbers, (-0).toFixed(0) is '0', but e.g. (-0.00001).toFixed(0) is '-0'.
+   *
+   * [dp] {number} Decimal places. Integer, 0 to MAX_DIGITS inclusive.
+   * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+   *
+   * (-0).toFixed(0) is '0', but (-0.1).toFixed(0) is '-0'.
+   * (-0).toFixed(1) is '0.0', but (-0.01).toFixed(1) is '-0.0'.
+   * (-0).toFixed(3) is '0.000'.
+   * (-0.5).toFixed(0) is '-0'.
+   *
+   */ P.toFixed = function(dp, rm) {
+        var str, y, x = this, Ctor = x.constructor;
+        if (dp === void 0) return toString(x);
+        checkInt32(dp, 0, MAX_DIGITS);
+        if (rm === void 0) rm = Ctor.rounding;
+        else checkInt32(rm, 0, 8);
+        y = round(new Ctor(x), dp + getBase10Exponent(x) + 1, rm);
+        str = toString(y.abs(), false, dp + getBase10Exponent(y) + 1);
+        // To determine whether to add the minus sign look at the value before it was rounded,
+        // i.e. look at `x` rather than `y`.
+        return x.isneg() && !x.isZero() ? '-' + str : str;
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal rounded to a whole number using
+   * rounding mode `rounding`.
+   *
+   */ P.toInteger = P.toint = function() {
+        var x = this, Ctor = x.constructor;
+        return round(new Ctor(x), getBase10Exponent(x) + 1, Ctor.rounding);
+    };
+    /*
+   * Return the value of this Decimal converted to a number primitive.
+   *
+   */ P.toNumber = function() {
+        return +this;
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal raised to the power `y`,
+   * truncated to `precision` significant digits.
+   *
+   * For non-integer or very large exponents pow(x, y) is calculated using
+   *
+   *   x^y = exp(y*ln(x))
+   *
+   * The maximum error is 1 ulp (unit in last place).
+   *
+   * y {number|string|Decimal} The power to which to raise this Decimal.
+   *
+   */ P.toPower = P.pow = function(y) {
+        var e, k, pr, r, sign, yIsInt, x = this, Ctor = x.constructor, guard = 12, yn = +(y = new Ctor(y));
+        // pow(x, 0) = 1
+        if (!y.s) return new Ctor(ONE);
+        x = new Ctor(x);
+        // pow(0, y > 0) = 0
+        // pow(0, y < 0) = Infinity
+        if (!x.s) {
+            if (y.s < 1) throw Error(decimalError + 'Infinity');
+            return x;
+        }
+        // pow(1, y) = 1
+        if (x.eq(ONE)) return x;
+        pr = Ctor.precision;
+        // pow(x, 1) = x
+        if (y.eq(ONE)) return round(x, pr);
+        e = y.e;
+        k = y.d.length - 1;
+        yIsInt = e >= k;
+        sign = x.s;
+        if (!yIsInt) {
+            // pow(x < 0, y non-integer) = NaN
+            if (sign < 0) throw Error(decimalError + 'NaN');
+        // If y is a small integer use the 'exponentiation by squaring' algorithm.
+        } else if ((k = yn < 0 ? -yn : yn) <= MAX_SAFE_INTEGER) {
+            r = new Ctor(ONE);
+            // Max k of 9007199254740991 takes 53 loop iterations.
+            // Maximum digits array length; leaves [28, 34] guard digits.
+            e = Math.ceil(pr / LOG_BASE + 4);
+            external = false;
+            for(;;){
+                if (k % 2) {
+                    r = r.times(x);
+                    truncate(r.d, e);
+                }
+                k = mathfloor(k / 2);
+                if (k === 0) break;
+                x = x.times(x);
+                truncate(x.d, e);
+            }
+            external = true;
+            return y.s < 0 ? new Ctor(ONE).div(r) : round(r, pr);
+        }
+        // Result is negative if x is negative and the last digit of integer y is odd.
+        sign = sign < 0 && y.d[Math.max(e, k)] & 1 ? -1 : 1;
+        x.s = 1;
+        external = false;
+        r = y.times(ln(x, pr + guard));
+        external = true;
+        r = exp(r);
+        r.s = sign;
+        return r;
+    };
+    /*
+   * Return a string representing the value of this Decimal rounded to `sd` significant digits
+   * using rounding mode `rounding`.
+   *
+   * Return exponential notation if `sd` is less than the number of digits necessary to represent
+   * the integer part of the value in normal notation.
+   *
+   * [sd] {number} Significant digits. Integer, 1 to MAX_DIGITS inclusive.
+   * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+   *
+   */ P.toPrecision = function(sd, rm) {
+        var e, str, x = this, Ctor = x.constructor;
+        if (sd === void 0) {
+            e = getBase10Exponent(x);
+            str = toString(x, e <= Ctor.toExpNeg || e >= Ctor.toExpPos);
+        } else {
+            checkInt32(sd, 1, MAX_DIGITS);
+            if (rm === void 0) rm = Ctor.rounding;
+            else checkInt32(rm, 0, 8);
+            x = round(new Ctor(x), sd, rm);
+            e = getBase10Exponent(x);
+            str = toString(x, sd <= e || e <= Ctor.toExpNeg, sd);
+        }
+        return str;
+    };
+    /*
+   * Return a new Decimal whose value is the value of this Decimal rounded to a maximum of `sd`
+   * significant digits using rounding mode `rm`, or to `precision` and `rounding` respectively if
+   * omitted.
+   *
+   * [sd] {number} Significant digits. Integer, 1 to MAX_DIGITS inclusive.
+   * [rm] {number} Rounding mode. Integer, 0 to 8 inclusive.
+   *
+   */ P.toSignificantDigits = P.tosd = function(sd, rm) {
+        var x = this, Ctor = x.constructor;
+        if (sd === void 0) {
+            sd = Ctor.precision;
+            rm = Ctor.rounding;
+        } else {
+            checkInt32(sd, 1, MAX_DIGITS);
+            if (rm === void 0) rm = Ctor.rounding;
+            else checkInt32(rm, 0, 8);
+        }
+        return round(new Ctor(x), sd, rm);
+    };
+    /*
+   * Return a string representing the value of this Decimal.
+   *
+   * Return exponential notation if this Decimal has a positive exponent equal to or greater than
+   * `toExpPos`, or a negative exponent equal to or less than `toExpNeg`.
+   *
+   */ P.toString = P.valueOf = P.val = P.toJSON = function() {
+        var x = this, e = getBase10Exponent(x), Ctor = x.constructor;
+        return toString(x, e <= Ctor.toExpNeg || e >= Ctor.toExpPos);
+    };
+    // Helper functions for Decimal.prototype (P) and/or Decimal methods, and their callers.
+    /*
+   *  add                 P.minus, P.plus
+   *  checkInt32          P.todp, P.toExponential, P.toFixed, P.toPrecision, P.tosd
+   *  digitsToString      P.log, P.sqrt, P.pow, toString, exp, ln
+   *  divide              P.div, P.idiv, P.log, P.mod, P.sqrt, exp, ln
+   *  exp                 P.exp, P.pow
+   *  getBase10Exponent   P.exponent, P.sd, P.toint, P.sqrt, P.todp, P.toFixed, P.toPrecision,
+   *                      P.toString, divide, round, toString, exp, ln
+   *  getLn10             P.log, ln
+   *  getZeroString       digitsToString, toString
+   *  ln                  P.log, P.ln, P.pow, exp
+   *  parseDecimal        Decimal
+   *  round               P.abs, P.idiv, P.log, P.minus, P.mod, P.neg, P.plus, P.toint, P.sqrt,
+   *                      P.times, P.todp, P.toExponential, P.toFixed, P.pow, P.toPrecision, P.tosd,
+   *                      divide, getLn10, exp, ln
+   *  subtract            P.minus, P.plus
+   *  toString            P.toExponential, P.toFixed, P.toPrecision, P.toString, P.valueOf
+   *  truncate            P.pow
+   *
+   *  Throws:             P.log, P.mod, P.sd, P.sqrt, P.pow,  checkInt32, divide, round,
+   *                      getLn10, exp, ln, parseDecimal, Decimal, config
+   */ function add(x, y) {
+        var carry, d, e, i, k, len, xd, yd, Ctor = x.constructor, pr = Ctor.precision;
+        // If either is zero...
+        if (!x.s || !y.s) {
+            // Return x if y is zero.
+            // Return y if y is non-zero.
+            if (!y.s) y = new Ctor(x);
+            return external ? round(y, pr) : y;
+        }
+        xd = x.d;
+        yd = y.d;
+        // x and y are finite, non-zero numbers with the same sign.
+        k = x.e;
+        e = y.e;
+        xd = xd.slice();
+        i = k - e;
+        // If base 1e7 exponents differ...
+        if (i) {
+            if (i < 0) {
+                d = xd;
+                i = -i;
+                len = yd.length;
+            } else {
+                d = yd;
+                e = k;
+                len = xd.length;
+            }
+            // Limit number of zeros prepended to max(ceil(pr / LOG_BASE), len) + 1.
+            k = Math.ceil(pr / LOG_BASE);
+            len = k > len ? k + 1 : len + 1;
+            if (i > len) {
+                i = len;
+                d.length = 1;
+            }
+            // Prepend zeros to equalise exponents. Note: Faster to use reverse then do unshifts.
+            d.reverse();
+            for(; i--;)d.push(0);
+            d.reverse();
+        }
+        len = xd.length;
+        i = yd.length;
+        // If yd is longer than xd, swap xd and yd so xd points to the longer array.
+        if (len - i < 0) {
+            i = len;
+            d = yd;
+            yd = xd;
+            xd = d;
+        }
+        // Only start adding at yd.length - 1 as the further digits of xd can be left as they are.
+        for(carry = 0; i;){
+            carry = (xd[--i] = xd[i] + yd[i] + carry) / BASE | 0;
+            xd[i] %= BASE;
+        }
+        if (carry) {
+            xd.unshift(carry);
+            ++e;
+        }
+        // Remove trailing zeros.
+        // No need to check for zero, as +x + +y != 0 && -x + -y != 0
+        for(len = xd.length; xd[--len] == 0;)xd.pop();
+        y.d = xd;
+        y.e = e;
+        return external ? round(y, pr) : y;
+    }
+    function checkInt32(i, min, max) {
+        if (i !== ~~i || i < min || i > max) {
+            throw Error(invalidArgument + i);
+        }
+    }
+    function digitsToString(d) {
+        var i, k, ws, indexOfLastWord = d.length - 1, str = '', w = d[0];
+        if (indexOfLastWord > 0) {
+            str += w;
+            for(i = 1; i < indexOfLastWord; i++){
+                ws = d[i] + '';
+                k = LOG_BASE - ws.length;
+                if (k) str += getZeroString(k);
+                str += ws;
+            }
+            w = d[i];
+            ws = w + '';
+            k = LOG_BASE - ws.length;
+            if (k) str += getZeroString(k);
+        } else if (w === 0) {
+            return '0';
+        }
+        // Remove trailing zeros of last w.
+        for(; w % 10 === 0;)w /= 10;
+        return str + w;
+    }
+    var divide = function() {
+        // Assumes non-zero x and k, and hence non-zero result.
+        function multiplyInteger(x, k) {
+            var temp, carry = 0, i = x.length;
+            for(x = x.slice(); i--;){
+                temp = x[i] * k + carry;
+                x[i] = temp % BASE | 0;
+                carry = temp / BASE | 0;
+            }
+            if (carry) x.unshift(carry);
+            return x;
+        }
+        function compare(a, b, aL, bL) {
+            var i, r;
+            if (aL != bL) {
+                r = aL > bL ? 1 : -1;
+            } else {
+                for(i = r = 0; i < aL; i++){
+                    if (a[i] != b[i]) {
+                        r = a[i] > b[i] ? 1 : -1;
+                        break;
+                    }
+                }
+            }
+            return r;
+        }
+        function subtract(a, b, aL) {
+            var i = 0;
+            // Subtract b from a.
+            for(; aL--;){
+                a[aL] -= i;
+                i = a[aL] < b[aL] ? 1 : 0;
+                a[aL] = i * BASE + a[aL] - b[aL];
+            }
+            // Remove leading zeros.
+            for(; !a[0] && a.length > 1;)a.shift();
+        }
+        return function(x, y, pr, dp) {
+            var cmp, e, i, k, prod, prodL, q, qd, rem, remL, rem0, sd, t, xi, xL, yd0, yL, yz, Ctor = x.constructor, sign = x.s == y.s ? 1 : -1, xd = x.d, yd = y.d;
+            // Either 0?
+            if (!x.s) return new Ctor(x);
+            if (!y.s) throw Error(decimalError + 'Division by zero');
+            e = x.e - y.e;
+            yL = yd.length;
+            xL = xd.length;
+            q = new Ctor(sign);
+            qd = q.d = [];
+            // Result exponent may be one less than e.
+            for(i = 0; yd[i] == (xd[i] || 0);)++i;
+            if (yd[i] > (xd[i] || 0)) --e;
+            if (pr == null) {
+                sd = pr = Ctor.precision;
+            } else if (dp) {
+                sd = pr + (getBase10Exponent(x) - getBase10Exponent(y)) + 1;
+            } else {
+                sd = pr;
+            }
+            if (sd < 0) return new Ctor(0);
+            // Convert precision in number of base 10 digits to base 1e7 digits.
+            sd = sd / LOG_BASE + 2 | 0;
+            i = 0;
+            // divisor < 1e7
+            if (yL == 1) {
+                k = 0;
+                yd = yd[0];
+                sd++;
+                // k is the carry.
+                for(; (i < xL || k) && sd--; i++){
+                    t = k * BASE + (xd[i] || 0);
+                    qd[i] = t / yd | 0;
+                    k = t % yd | 0;
+                }
+            // divisor >= 1e7
+            } else {
+                // Normalise xd and yd so highest order digit of yd is >= BASE/2
+                k = BASE / (yd[0] + 1) | 0;
+                if (k > 1) {
+                    yd = multiplyInteger(yd, k);
+                    xd = multiplyInteger(xd, k);
+                    yL = yd.length;
+                    xL = xd.length;
+                }
+                xi = yL;
+                rem = xd.slice(0, yL);
+                remL = rem.length;
+                // Add zeros to make remainder as long as divisor.
+                for(; remL < yL;)rem[remL++] = 0;
+                yz = yd.slice();
+                yz.unshift(0);
+                yd0 = yd[0];
+                if (yd[1] >= BASE / 2) ++yd0;
+                do {
+                    k = 0;
+                    // Compare divisor and remainder.
+                    cmp = compare(yd, rem, yL, remL);
+                    // If divisor < remainder.
+                    if (cmp < 0) {
+                        // Calculate trial digit, k.
+                        rem0 = rem[0];
+                        if (yL != remL) rem0 = rem0 * BASE + (rem[1] || 0);
+                        // k will be how many times the divisor goes into the current remainder.
+                        k = rem0 / yd0 | 0;
+                        //  Algorithm:
+                        //  1. product = divisor * trial digit (k)
+                        //  2. if product > remainder: product -= divisor, k--
+                        //  3. remainder -= product
+                        //  4. if product was < remainder at 2:
+                        //    5. compare new remainder and divisor
+                        //    6. If remainder > divisor: remainder -= divisor, k++
+                        if (k > 1) {
+                            if (k >= BASE) k = BASE - 1;
+                            // product = divisor * trial digit.
+                            prod = multiplyInteger(yd, k);
+                            prodL = prod.length;
+                            remL = rem.length;
+                            // Compare product and remainder.
+                            cmp = compare(prod, rem, prodL, remL);
+                            // product > remainder.
+                            if (cmp == 1) {
+                                k--;
+                                // Subtract divisor from product.
+                                subtract(prod, yL < prodL ? yz : yd, prodL);
+                            }
+                        } else {
+                            // cmp is -1.
+                            // If k is 0, there is no need to compare yd and rem again below, so change cmp to 1
+                            // to avoid it. If k is 1 there is a need to compare yd and rem again below.
+                            if (k == 0) cmp = k = 1;
+                            prod = yd.slice();
+                        }
+                        prodL = prod.length;
+                        if (prodL < remL) prod.unshift(0);
+                        // Subtract product from remainder.
+                        subtract(rem, prod, remL);
+                        // If product was < previous remainder.
+                        if (cmp == -1) {
+                            remL = rem.length;
+                            // Compare divisor and new remainder.
+                            cmp = compare(yd, rem, yL, remL);
+                            // If divisor < new remainder, subtract divisor from remainder.
+                            if (cmp < 1) {
+                                k++;
+                                // Subtract divisor from remainder.
+                                subtract(rem, yL < remL ? yz : yd, remL);
+                            }
+                        }
+                        remL = rem.length;
+                    } else if (cmp === 0) {
+                        k++;
+                        rem = [
+                            0
+                        ];
+                    } // if cmp === 1, k will be 0
+                    // Add the next digit, k, to the result array.
+                    qd[i++] = k;
+                    // Update the remainder.
+                    if (cmp && rem[0]) {
+                        rem[remL++] = xd[xi] || 0;
+                    } else {
+                        rem = [
+                            xd[xi]
+                        ];
+                        remL = 1;
+                    }
+                }while ((xi++ < xL || rem[0] !== void 0) && sd--)
+            }
+            // Leading zero?
+            if (!qd[0]) qd.shift();
+            q.e = e;
+            return round(q, dp ? pr + getBase10Exponent(q) + 1 : pr);
+        };
+    }();
+    /*
+   * Return a new Decimal whose value is the natural exponential of `x` truncated to `sd`
+   * significant digits.
+   *
+   * Taylor/Maclaurin series.
+   *
+   * exp(x) = x^0/0! + x^1/1! + x^2/2! + x^3/3! + ...
+   *
+   * Argument reduction:
+   *   Repeat x = x / 32, k += 5, until |x| < 0.1
+   *   exp(x) = exp(x / 2^k)^(2^k)
+   *
+   * Previously, the argument was initially reduced by
+   * exp(x) = exp(r) * 10^k  where r = x - k * ln10, k = floor(x / ln10)
+   * to first put r in the range [0, ln10], before dividing by 32 until |x| < 0.1, but this was
+   * found to be slower than just dividing repeatedly by 32 as above.
+   *
+   * (Math object integer min/max: Math.exp(709) = 8.2e+307, Math.exp(-745) = 5e-324)
+   *
+   *  exp(x) is non-terminating for any finite, non-zero x.
+   *
+   */ function exp(x, sd) {
+        var denominator, guard, pow, sum, t, wpr, i = 0, k = 0, Ctor = x.constructor, pr = Ctor.precision;
+        if (getBase10Exponent(x) > 16) throw Error(exponentOutOfRange + getBase10Exponent(x));
+        // exp(0) = 1
+        if (!x.s) return new Ctor(ONE);
+        if (sd == null) {
+            external = false;
+            wpr = pr;
+        } else {
+            wpr = sd;
+        }
+        t = new Ctor(0.03125);
+        while(x.abs().gte(0.1)){
+            x = x.times(t); // x = x / 2^5
+            k += 5;
+        }
+        // Estimate the precision increase necessary to ensure the first 4 rounding digits are correct.
+        guard = Math.log(mathpow(2, k)) / Math.LN10 * 2 + 5 | 0;
+        wpr += guard;
+        denominator = pow = sum = new Ctor(ONE);
+        Ctor.precision = wpr;
+        for(;;){
+            pow = round(pow.times(x), wpr);
+            denominator = denominator.times(++i);
+            t = sum.plus(divide(pow, denominator, wpr));
+            if (digitsToString(t.d).slice(0, wpr) === digitsToString(sum.d).slice(0, wpr)) {
+                while(k--)sum = round(sum.times(sum), wpr);
+                Ctor.precision = pr;
+                return sd == null ? (external = true, round(sum, pr)) : sum;
+            }
+            sum = t;
+        }
+    }
+    // Calculate the base 10 exponent from the base 1e7 exponent.
+    function getBase10Exponent(x) {
+        var e = x.e * LOG_BASE, w = x.d[0];
+        // Add the number of digits of the first word of the digits array.
+        for(; w >= 10; w /= 10)e++;
+        return e;
+    }
+    function getLn10(Ctor, sd, pr) {
+        if (sd > Ctor.LN10.sd()) {
+            // Reset global state in case the exception is caught.
+            external = true;
+            if (pr) Ctor.precision = pr;
+            throw Error(decimalError + 'LN10 precision limit exceeded');
+        }
+        return round(new Ctor(Ctor.LN10), sd);
+    }
+    function getZeroString(k) {
+        var zs = '';
+        for(; k--;)zs += '0';
+        return zs;
+    }
+    /*
+   * Return a new Decimal whose value is the natural logarithm of `x` truncated to `sd` significant
+   * digits.
+   *
+   *  ln(n) is non-terminating (n != 1)
+   *
+   */ function ln(y, sd) {
+        var c, c0, denominator, e, numerator, sum, t, wpr, x2, n = 1, guard = 10, x = y, xd = x.d, Ctor = x.constructor, pr = Ctor.precision;
+        // ln(-x) = NaN
+        // ln(0) = -Infinity
+        if (x.s < 1) throw Error(decimalError + (x.s ? 'NaN' : '-Infinity'));
+        // ln(1) = 0
+        if (x.eq(ONE)) return new Ctor(0);
+        if (sd == null) {
+            external = false;
+            wpr = pr;
+        } else {
+            wpr = sd;
+        }
+        if (x.eq(10)) {
+            if (sd == null) external = true;
+            return getLn10(Ctor, wpr);
+        }
+        wpr += guard;
+        Ctor.precision = wpr;
+        c = digitsToString(xd);
+        c0 = c.charAt(0);
+        e = getBase10Exponent(x);
+        if (Math.abs(e) < 1.5e15) {
+            // Argument reduction.
+            // The series converges faster the closer the argument is to 1, so using
+            // ln(a^b) = b * ln(a),   ln(a) = ln(a^b) / b
+            // multiply the argument by itself until the leading digits of the significand are 7, 8, 9,
+            // 10, 11, 12 or 13, recording the number of multiplications so the sum of the series can
+            // later be divided by this number, then separate out the power of 10 using
+            // ln(a*10^b) = ln(a) + b*ln(10).
+            // max n is 21 (gives 0.9, 1.0 or 1.1) (9e15 / 21 = 4.2e14).
+            //while (c0 < 9 && c0 != 1 || c0 == 1 && c.charAt(1) > 1) {
+            // max n is 6 (gives 0.7 - 1.3)
+            while(c0 < 7 && c0 != 1 || c0 == 1 && c.charAt(1) > 3){
+                x = x.times(y);
+                c = digitsToString(x.d);
+                c0 = c.charAt(0);
+                n++;
+            }
+            e = getBase10Exponent(x);
+            if (c0 > 1) {
+                x = new Ctor('0.' + c);
+                e++;
+            } else {
+                x = new Ctor(c0 + '.' + c.slice(1));
+            }
+        } else {
+            // The argument reduction method above may result in overflow if the argument y is a massive
+            // number with exponent >= 1500000000000000 (9e15 / 6 = 1.5e15), so instead recall this
+            // function using ln(x*10^e) = ln(x) + e*ln(10).
+            t = getLn10(Ctor, wpr + 2, pr).times(e + '');
+            x = ln(new Ctor(c0 + '.' + c.slice(1)), wpr - guard).plus(t);
+            Ctor.precision = pr;
+            return sd == null ? (external = true, round(x, pr)) : x;
+        }
+        // x is reduced to a value near 1.
+        // Taylor series.
+        // ln(y) = ln((1 + x)/(1 - x)) = 2(x + x^3/3 + x^5/5 + x^7/7 + ...)
+        // where x = (y - 1)/(y + 1)    (|x| < 1)
+        sum = numerator = x = divide(x.minus(ONE), x.plus(ONE), wpr);
+        x2 = round(x.times(x), wpr);
+        denominator = 3;
+        for(;;){
+            numerator = round(numerator.times(x2), wpr);
+            t = sum.plus(divide(numerator, new Ctor(denominator), wpr));
+            if (digitsToString(t.d).slice(0, wpr) === digitsToString(sum.d).slice(0, wpr)) {
+                sum = sum.times(2);
+                // Reverse the argument reduction.
+                if (e !== 0) sum = sum.plus(getLn10(Ctor, wpr + 2, pr).times(e + ''));
+                sum = divide(sum, new Ctor(n), wpr);
+                Ctor.precision = pr;
+                return sd == null ? (external = true, round(sum, pr)) : sum;
+            }
+            sum = t;
+            denominator += 2;
+        }
+    }
+    /*
+   * Parse the value of a new Decimal `x` from string `str`.
+   */ function parseDecimal(x, str) {
+        var e, i, len;
+        // Decimal point?
+        if ((e = str.indexOf('.')) > -1) str = str.replace('.', '');
+        // Exponential form?
+        if ((i = str.search(/e/i)) > 0) {
+            // Determine exponent.
+            if (e < 0) e = i;
+            e += +str.slice(i + 1);
+            str = str.substring(0, i);
+        } else if (e < 0) {
+            // Integer.
+            e = str.length;
+        }
+        // Determine leading zeros.
+        for(i = 0; str.charCodeAt(i) === 48;)++i;
+        // Determine trailing zeros.
+        for(len = str.length; str.charCodeAt(len - 1) === 48;)--len;
+        str = str.slice(i, len);
+        if (str) {
+            len -= i;
+            e = e - i - 1;
+            x.e = mathfloor(e / LOG_BASE);
+            x.d = [];
+            // Transform base
+            // e is the base 10 exponent.
+            // i is where to slice str to get the first word of the digits array.
+            i = (e + 1) % LOG_BASE;
+            if (e < 0) i += LOG_BASE;
+            if (i < len) {
+                if (i) x.d.push(+str.slice(0, i));
+                for(len -= LOG_BASE; i < len;)x.d.push(+str.slice(i, i += LOG_BASE));
+                str = str.slice(i);
+                i = LOG_BASE - str.length;
+            } else {
+                i -= len;
+            }
+            for(; i--;)str += '0';
+            x.d.push(+str);
+            if (external && (x.e > MAX_E || x.e < -MAX_E)) throw Error(exponentOutOfRange + e);
+        } else {
+            // Zero.
+            x.s = 0;
+            x.e = 0;
+            x.d = [
+                0
+            ];
+        }
+        return x;
+    }
+    /*
+   * Round `x` to `sd` significant digits, using rounding mode `rm` if present (truncate otherwise).
+   */ function round(x, sd, rm) {
+        var i, j, k, n, rd, doRound, w, xdi, xd = x.d;
+        // rd: the rounding digit, i.e. the digit after the digit that may be rounded up.
+        // w: the word of xd which contains the rounding digit, a base 1e7 number.
+        // xdi: the index of w within xd.
+        // n: the number of digits of w.
+        // i: what would be the index of rd within w if all the numbers were 7 digits long (i.e. if
+        // they had leading zeros)
+        // j: if > 0, the actual index of rd within w (if < 0, rd is a leading zero).
+        // Get the length of the first word of the digits array xd.
+        for(n = 1, k = xd[0]; k >= 10; k /= 10)n++;
+        i = sd - n;
+        // Is the rounding digit in the first word of xd?
+        if (i < 0) {
+            i += LOG_BASE;
+            j = sd;
+            w = xd[xdi = 0];
+        } else {
+            xdi = Math.ceil((i + 1) / LOG_BASE);
+            k = xd.length;
+            if (xdi >= k) return x;
+            w = k = xd[xdi];
+            // Get the number of digits of w.
+            for(n = 1; k >= 10; k /= 10)n++;
+            // Get the index of rd within w.
+            i %= LOG_BASE;
+            // Get the index of rd within w, adjusted for leading zeros.
+            // The number of leading zeros of w is given by LOG_BASE - n.
+            j = i - LOG_BASE + n;
+        }
+        if (rm !== void 0) {
+            k = mathpow(10, n - j - 1);
+            // Get the rounding digit at index j of w.
+            rd = w / k % 10 | 0;
+            // Are there any non-zero digits after the rounding digit?
+            doRound = sd < 0 || xd[xdi + 1] !== void 0 || w % k;
+            // The expression `w % mathpow(10, n - j - 1)` returns all the digits of w to the right of the
+            // digit at (left-to-right) index j, e.g. if w is 908714 and j is 2, the expression will give
+            // 714.
+            doRound = rm < 4 ? (rd || doRound) && (rm == 0 || rm == (x.s < 0 ? 3 : 2)) : rd > 5 || rd == 5 && (rm == 4 || doRound || rm == 6 && // Check whether the digit to the left of the rounding digit is odd.
+            (i > 0 ? j > 0 ? w / mathpow(10, n - j) : 0 : xd[xdi - 1]) % 10 & 1 || rm == (x.s < 0 ? 8 : 7));
+        }
+        if (sd < 1 || !xd[0]) {
+            if (doRound) {
+                k = getBase10Exponent(x);
+                xd.length = 1;
+                // Convert sd to decimal places.
+                sd = sd - k - 1;
+                // 1, 0.1, 0.01, 0.001, 0.0001 etc.
+                xd[0] = mathpow(10, (LOG_BASE - sd % LOG_BASE) % LOG_BASE);
+                x.e = mathfloor(-sd / LOG_BASE) || 0;
+            } else {
+                xd.length = 1;
+                // Zero.
+                xd[0] = x.e = x.s = 0;
+            }
+            return x;
+        }
+        // Remove excess digits.
+        if (i == 0) {
+            xd.length = xdi;
+            k = 1;
+            xdi--;
+        } else {
+            xd.length = xdi + 1;
+            k = mathpow(10, LOG_BASE - i);
+            // E.g. 56700 becomes 56000 if 7 is the rounding digit.
+            // j > 0 means i > number of leading zeros of w.
+            xd[xdi] = j > 0 ? (w / mathpow(10, n - j) % mathpow(10, j) | 0) * k : 0;
+        }
+        if (doRound) {
+            for(;;){
+                // Is the digit to be rounded up in the first word of xd?
+                if (xdi == 0) {
+                    if ((xd[0] += k) == BASE) {
+                        xd[0] = 1;
+                        ++x.e;
+                    }
+                    break;
+                } else {
+                    xd[xdi] += k;
+                    if (xd[xdi] != BASE) break;
+                    xd[xdi--] = 0;
+                    k = 1;
+                }
+            }
+        }
+        // Remove trailing zeros.
+        for(i = xd.length; xd[--i] === 0;)xd.pop();
+        if (external && (x.e > MAX_E || x.e < -MAX_E)) {
+            throw Error(exponentOutOfRange + getBase10Exponent(x));
+        }
+        return x;
+    }
+    function subtract(x, y) {
+        var d, e, i, j, k, len, xd, xe, xLTy, yd, Ctor = x.constructor, pr = Ctor.precision;
+        // Return y negated if x is zero.
+        // Return x if y is zero and x is non-zero.
+        if (!x.s || !y.s) {
+            if (y.s) y.s = -y.s;
+            else y = new Ctor(x);
+            return external ? round(y, pr) : y;
+        }
+        xd = x.d;
+        yd = y.d;
+        // x and y are non-zero numbers with the same sign.
+        e = y.e;
+        xe = x.e;
+        xd = xd.slice();
+        k = xe - e;
+        // If exponents differ...
+        if (k) {
+            xLTy = k < 0;
+            if (xLTy) {
+                d = xd;
+                k = -k;
+                len = yd.length;
+            } else {
+                d = yd;
+                e = xe;
+                len = xd.length;
+            }
+            // Numbers with massively different exponents would result in a very high number of zeros
+            // needing to be prepended, but this can be avoided while still ensuring correct rounding by
+            // limiting the number of zeros to `Math.ceil(pr / LOG_BASE) + 2`.
+            i = Math.max(Math.ceil(pr / LOG_BASE), len) + 2;
+            if (k > i) {
+                k = i;
+                d.length = 1;
+            }
+            // Prepend zeros to equalise exponents.
+            d.reverse();
+            for(i = k; i--;)d.push(0);
+            d.reverse();
+        // Base 1e7 exponents equal.
+        } else {
+            // Check digits to determine which is the bigger number.
+            i = xd.length;
+            len = yd.length;
+            xLTy = i < len;
+            if (xLTy) len = i;
+            for(i = 0; i < len; i++){
+                if (xd[i] != yd[i]) {
+                    xLTy = xd[i] < yd[i];
+                    break;
+                }
+            }
+            k = 0;
+        }
+        if (xLTy) {
+            d = xd;
+            xd = yd;
+            yd = d;
+            y.s = -y.s;
+        }
+        len = xd.length;
+        // Append zeros to xd if shorter.
+        // Don't add zeros to yd if shorter as subtraction only needs to start at yd length.
+        for(i = yd.length - len; i > 0; --i)xd[len++] = 0;
+        // Subtract yd from xd.
+        for(i = yd.length; i > k;){
+            if (xd[--i] < yd[i]) {
+                for(j = i; j && xd[--j] === 0;)xd[j] = BASE - 1;
+                --xd[j];
+                xd[i] += BASE;
+            }
+            xd[i] -= yd[i];
+        }
+        // Remove trailing zeros.
+        for(; xd[--len] === 0;)xd.pop();
+        // Remove leading zeros and adjust exponent accordingly.
+        for(; xd[0] === 0; xd.shift())--e;
+        // Zero?
+        if (!xd[0]) return new Ctor(0);
+        y.d = xd;
+        y.e = e;
+        //return external && xd.length >= pr / LOG_BASE ? round(y, pr) : y;
+        return external ? round(y, pr) : y;
+    }
+    function toString(x, isExp, sd) {
+        var k, e = getBase10Exponent(x), str = digitsToString(x.d), len = str.length;
+        if (isExp) {
+            if (sd && (k = sd - len) > 0) {
+                str = str.charAt(0) + '.' + str.slice(1) + getZeroString(k);
+            } else if (len > 1) {
+                str = str.charAt(0) + '.' + str.slice(1);
+            }
+            str = str + (e < 0 ? 'e' : 'e+') + e;
+        } else if (e < 0) {
+            str = '0.' + getZeroString(-e - 1) + str;
+            if (sd && (k = sd - len) > 0) str += getZeroString(k);
+        } else if (e >= len) {
+            str += getZeroString(e + 1 - len);
+            if (sd && (k = sd - e - 1) > 0) str = str + '.' + getZeroString(k);
+        } else {
+            if ((k = e + 1) < len) str = str.slice(0, k) + '.' + str.slice(k);
+            if (sd && (k = sd - len) > 0) {
+                if (e + 1 === len) str += '.';
+                str += getZeroString(k);
+            }
+        }
+        return x.s < 0 ? '-' + str : str;
+    }
+    // Does not strip trailing zeros.
+    function truncate(arr, len) {
+        if (arr.length > len) {
+            arr.length = len;
+            return true;
+        }
+    }
+    // Decimal methods
+    /*
+   *  clone
+   *  config/set
+   */ /*
+   * Create and return a Decimal constructor with the same configuration properties as this Decimal
+   * constructor.
+   *
+   */ function clone(obj) {
+        var i, p, ps;
+        /*
+     * The Decimal constructor and exported function.
+     * Return a new Decimal instance.
+     *
+     * value {number|string|Decimal} A numeric value.
+     *
+     */ function Decimal(value) {
+            var x = this;
+            // Decimal called without new.
+            if (!(x instanceof Decimal)) return new Decimal(value);
+            // Retain a reference to this Decimal constructor, and shadow Decimal.prototype.constructor
+            // which points to Object.
+            x.constructor = Decimal;
+            // Duplicate.
+            if (value instanceof Decimal) {
+                x.s = value.s;
+                x.e = value.e;
+                x.d = (value = value.d) ? value.slice() : value;
+                return;
+            }
+            if (typeof value === 'number') {
+                // Reject Infinity/NaN.
+                if (value * 0 !== 0) {
+                    throw Error(invalidArgument + value);
+                }
+                if (value > 0) {
+                    x.s = 1;
+                } else if (value < 0) {
+                    value = -value;
+                    x.s = -1;
+                } else {
+                    x.s = 0;
+                    x.e = 0;
+                    x.d = [
+                        0
+                    ];
+                    return;
+                }
+                // Fast path for small integers.
+                if (value === ~~value && value < 1e7) {
+                    x.e = 0;
+                    x.d = [
+                        value
+                    ];
+                    return;
+                }
+                return parseDecimal(x, value.toString());
+            } else if (typeof value !== 'string') {
+                throw Error(invalidArgument + value);
+            }
+            // Minus sign?
+            if (value.charCodeAt(0) === 45) {
+                value = value.slice(1);
+                x.s = -1;
+            } else {
+                x.s = 1;
+            }
+            if (isDecimal.test(value)) parseDecimal(x, value);
+            else throw Error(invalidArgument + value);
+        }
+        Decimal.prototype = P;
+        Decimal.ROUND_UP = 0;
+        Decimal.ROUND_DOWN = 1;
+        Decimal.ROUND_CEIL = 2;
+        Decimal.ROUND_FLOOR = 3;
+        Decimal.ROUND_HALF_UP = 4;
+        Decimal.ROUND_HALF_DOWN = 5;
+        Decimal.ROUND_HALF_EVEN = 6;
+        Decimal.ROUND_HALF_CEIL = 7;
+        Decimal.ROUND_HALF_FLOOR = 8;
+        Decimal.clone = clone;
+        Decimal.config = Decimal.set = config;
+        if (obj === void 0) obj = {};
+        if (obj) {
+            ps = [
+                'precision',
+                'rounding',
+                'toExpNeg',
+                'toExpPos',
+                'LN10'
+            ];
+            for(i = 0; i < ps.length;)if (!obj.hasOwnProperty(p = ps[i++])) obj[p] = this[p];
+        }
+        Decimal.config(obj);
+        return Decimal;
+    }
+    /*
+   * Configure global settings for a Decimal constructor.
+   *
+   * `obj` is an object with one or more of the following properties,
+   *
+   *   precision  {number}
+   *   rounding   {number}
+   *   toExpNeg   {number}
+   *   toExpPos   {number}
+   *
+   * E.g. Decimal.config({ precision: 20, rounding: 4 })
+   *
+   */ function config(obj) {
+        if (!obj || typeof obj !== 'object') {
+            throw Error(decimalError + 'Object expected');
+        }
+        var i, p, v, ps = [
+            'precision',
+            1,
+            MAX_DIGITS,
+            'rounding',
+            0,
+            8,
+            'toExpNeg',
+            -1 / 0,
+            0,
+            'toExpPos',
+            0,
+            1 / 0
+        ];
+        for(i = 0; i < ps.length; i += 3){
+            if ((v = obj[p = ps[i]]) !== void 0) {
+                if (mathfloor(v) === v && v >= ps[i + 1] && v <= ps[i + 2]) this[p] = v;
+                else throw Error(invalidArgument + p + ': ' + v);
+            }
+        }
+        if ((v = obj[p = 'LN10']) !== void 0) {
+            if (v == Math.LN10) this[p] = new this(v);
+            else throw Error(invalidArgument + p + ': ' + v);
+        }
+        return this;
+    }
+    // Create and configure initial Decimal constructor.
+    Decimal = clone(Decimal);
+    Decimal['default'] = Decimal.Decimal = Decimal;
+    // Internal constant.
+    ONE = new Decimal(1);
+    // Export.
+    // AMD.
+    if (typeof define == 'function' && define.amd) {
+        ((r)=>r !== undefined && __turbopack_context__.v(r))(function() {
+            return Decimal;
+        }(__turbopack_context__.r, exports, module));
+    // Node and other environments that support module.exports.
+    } else if (("TURBOPACK compile-time value", "object") != 'undefined' && module.exports) {
+        module.exports = Decimal;
+    // Browser.
+    } else {
+        if (!globalScope) {
+            globalScope = typeof self != 'undefined' && self && self.self == self ? self : Function('return this')();
+        }
+        globalScope.Decimal = Decimal;
+    }
+})(/*TURBOPACK member replacement*/ __turbopack_context__.e);
+}),
+"[project]/frontend/node_modules/dequal/lite/index.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "dequal",
+    ()=>dequal
+]);
+var has = Object.prototype.hasOwnProperty;
+function dequal(foo, bar) {
+    var ctor, len;
+    if (foo === bar) return true;
+    if (foo && bar && (ctor = foo.constructor) === bar.constructor) {
+        if (ctor === Date) return foo.getTime() === bar.getTime();
+        if (ctor === RegExp) return foo.toString() === bar.toString();
+        if (ctor === Array) {
+            if ((len = foo.length) === bar.length) {
+                while(len-- && dequal(foo[len], bar[len]));
+            }
+            return len === -1;
+        }
+        if (!ctor || typeof foo === 'object') {
+            len = 0;
+            for(ctor in foo){
+                if (has.call(foo, ctor) && ++len && !has.call(bar, ctor)) return false;
+                if (!(ctor in bar) || !dequal(foo[ctor], bar[ctor])) return false;
+            }
+            return Object.keys(bar).length === len;
+        }
+    }
+    return foo !== foo && bar !== bar;
+}
+}),
+"[project]/frontend/node_modules/es-toolkit/compat/get.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/object/get.js [app-client] (ecmascript)").get;
+}),
+"[project]/frontend/node_modules/es-toolkit/compat/isEqual.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/predicate/isEqual.js [app-client] (ecmascript)").isEqual;
+}),
+"[project]/frontend/node_modules/es-toolkit/compat/range.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/math/range.js [app-client] (ecmascript)").range;
+}),
+"[project]/frontend/node_modules/es-toolkit/compat/sortBy.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/array/sortBy.js [app-client] (ecmascript)").sortBy;
+}),
+"[project]/frontend/node_modules/es-toolkit/compat/throttle.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/function/throttle.js [app-client] (ecmascript)").throttle;
+}),
+"[project]/frontend/node_modules/es-toolkit/compat/uniqBy.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+module.exports = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/array/uniqBy.js [app-client] (ecmascript)").uniqBy;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/_internal/globalThis.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/_internal/globalThis.ts
+const globalThis_ = typeof globalThis === "object" && globalThis || typeof window === "object" && window || typeof self === "object" && self || ("TURBOPACK compile-time value", "object") === "object" && /*TURBOPACK member replacement*/ __turbopack_context__.g || function() {
+    return this;
+}();
+//#endregion
+exports.globalThis_ = globalThis_;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/_internal/isUnsafeProperty.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/_internal/isUnsafeProperty.ts
+/**
+* Checks if a property key is unsafe to access or copy directly.
+*
+* This function is used in functions like `get`, `unset`, and `merge` to prevent
+* prototype pollution attacks by identifying `__proto__`, which modifies the object's
+* prototype chain. `constructor` and `prototype` stay accessible here because lodash
+* keeps reads of them unrestricted; write paths use `isUnsafeToWriteProperty` instead,
+* which also blocks those keys.
+*
+* @param key - The property key to check
+* @returns `true` if the property is unsafe to access directly, `false` otherwise
+* @internal
+*/ function isUnsafeProperty(key) {
+    return key === "__proto__";
+}
+//#endregion
+exports.isUnsafeProperty = isUnsafeProperty;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/array/flatten.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/array/flatten.ts
+/**
+* Flattens an array up to the specified depth.
+*
+* @template T - The type of elements within the array.
+* @template D - The depth to which the array should be flattened.
+* @param arr - The array to flatten.
+* @param depth - The depth level specifying how deep a nested array structure should be flattened. Defaults to 1.
+* @returns A new array that has been flattened.
+*
+* @example
+* const arr = flatten([1, [2, 3], [4, [5, 6]]], 1);
+* // Returns: [1, 2, 3, 4, [5, 6]]
+*
+* const arr = flatten([1, [2, 3], [4, [5, 6]]], 2);
+* // Returns: [1, 2, 3, 4, 5, 6]
+*/ function flatten(arr, depth = 1) {
+    const result = [];
+    const flooredDepth = Math.floor(depth);
+    const recursive = (arr, currentDepth)=>{
+        for(let i = 0; i < arr.length; i++){
+            const item = arr[i];
+            if (Array.isArray(item) && currentDepth < flooredDepth) recursive(item, currentDepth + 1);
+            else result.push(item);
+        }
+    };
+    recursive(arr, 0);
+    return result;
+}
+//#endregion
+exports.flatten = flatten;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/array/uniqBy.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/array/uniqBy.ts
+/**
+* Returns a new array containing only the unique elements from the original array,
+* based on the values returned by the mapper function.
+*
+* When duplicates are found, the first occurrence is kept and the rest are discarded.
+*
+* @template T - The type of elements in the array.
+* @template U - The type of mapped elements.
+* @param arr - The array to process.
+* @param mapper - The function used to convert the array elements.
+* @returns A new array containing only the unique elements from the original array, based on the values returned by the mapper function.
+*
+* @example
+* ```ts
+* uniqBy([1.2, 1.5, 2.1, 3.2, 5.7, 5.3, 7.19], Math.floor);
+* // [1.2, 2.1, 3.2, 5.7, 7.19]
+* ```
+*
+* @example
+* const array = [
+*   { category: 'fruit', name: 'apple' },
+*   { category: 'fruit', name: 'banana' },
+*   { category: 'vegetable', name: 'carrot' },
+* ];
+* uniqBy(array, item => item.category).length
+* // 2
+* ```
+*/ function uniqBy(arr, mapper) {
+    const map = /* @__PURE__ */ new Map();
+    for(let i = 0; i < arr.length; i++){
+        const item = arr[i];
+        const key = mapper(item, i, arr);
+        if (!map.has(key)) map.set(key, item);
+    }
+    return Array.from(map.values());
+}
+//#endregion
+exports.uniqBy = uniqBy;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/compareValues.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/compareValues.ts
+function getPriority(a) {
+    if (typeof a === "symbol") return 1;
+    if (a === null) return 2;
+    if (a === void 0) return 3;
+    if (a !== a) return 4;
+    return 0;
+}
+const compareValues = (a, b, order)=>{
+    if (a !== b) {
+        const aPriority = getPriority(a);
+        const bPriority = getPriority(b);
+        if (aPriority === bPriority && aPriority === 0) {
+            if (a < b) return order === "desc" ? 1 : -1;
+            if (a > b) return order === "desc" ? -1 : 1;
+        }
+        return order === "desc" ? bPriority - aPriority : aPriority - bPriority;
+    }
+    return 0;
+};
+//#endregion
+exports.compareValues = compareValues;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getSymbols.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/getSymbols.ts
+function getSymbols(object) {
+    return Object.getOwnPropertySymbols(object).filter((symbol)=>Object.prototype.propertyIsEnumerable.call(object, symbol));
+}
+//#endregion
+exports.getSymbols = getSymbols;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getTag.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/getTag.ts
+/**
+* Gets the `toStringTag` of `value`.
+*
+* @private
+* @param {T} value The value to query.
+* @returns {string} Returns the `Object.prototype.toString.call` result.
+*/ function getTag(value) {
+    if (value == null) return value === void 0 ? "[object Undefined]" : "[object Null]";
+    return Object.prototype.toString.call(value);
+}
+//#endregion
+exports.getTag = getTag;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isDeepKey.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/isDeepKey.ts
+/** Matches any deep property path. Examples: `a.b`, `a[0]`, `a["b"]` */ const regexIsDeepProp = /\.|(\[(?:[^[\]]*|(["'])(?:(?!\2)[^\\]|\\.)*?\2)\])/;
+/**
+* Checks if a given key is a deep key.
+*
+* A deep key is a string that contains a dot (.) or square brackets with a property accessor.
+*
+* @param {PropertyKey} key - The key to check.
+* @returns {boolean} - Returns true if the key is a deep key, otherwise false.
+*
+* Examples:
+*
+* isDeepKey('a.b') // true
+* isDeepKey('a[b]') // true
+* isDeepKey('a') // false
+* isDeepKey(123) // false
+* isDeepKey('a.b.c') // true
+* isDeepKey('a[b][c]') // true
+* isDeepKey('a.') // false
+* isDeepKey('.a') // false
+* isDeepKey('a[b') // false
+* isDeepKey('a]b]') // false
+* isDeepKey('a][b') // false
+* isDeepKey('') // false
+* isDeepKey('a[0]') // true
+*
+*/ function isDeepKey(key) {
+    switch(typeof key){
+        case "number":
+        case "symbol":
+            return false;
+        case "string":
+            if (key === "" || key.startsWith(".") || key.endsWith(".")) return false;
+            return regexIsDeepProp.test(key);
+        default:
+            return false;
+    }
+}
+//#endregion
+exports.isDeepKey = isDeepKey;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isIndex.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/isIndex.ts
+const IS_UNSIGNED_INTEGER = /^(?:0|[1-9]\d*)$/;
+function isIndex(value, length = Number.MAX_SAFE_INTEGER) {
+    switch(typeof value){
+        case "number":
+            return Number.isInteger(value) && value >= 0 && value < length;
+        case "symbol":
+            return false;
+        case "string":
+            return IS_UNSIGNED_INTEGER.test(value);
+    }
+}
+//#endregion
+exports.isIndex = isIndex;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isIterateeCall.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_eq = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/eq.js [app-client] (ecmascript)");
+const require_isArrayLike = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js [app-client] (ecmascript)");
+const require_isObject = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isObject.js [app-client] (ecmascript)");
+const require_isIndex = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isIndex.js [app-client] (ecmascript)");
+//#region src/compat/_internal/isIterateeCall.ts
+function isIterateeCall(value, index, object) {
+    if (!require_isObject.isObject(object)) return false;
+    if (typeof index === "number" && require_isArrayLike.isArrayLike(object) && require_isIndex.isIndex(index) && index < object.length || typeof index === "string" && index in object) return require_eq.eq(object[index], value);
+    return false;
+}
+//#endregion
+exports.isIterateeCall = isIterateeCall;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isKey.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isSymbol = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isSymbol.js [app-client] (ecmascript)");
+//#region src/compat/_internal/isKey.ts
+/**  Matches any deep property path. (e.g. `a.b[0].c`)*/ const regexIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
+/**  Matches any word character (alphanumeric & underscore).*/ const regexIsPlainProp = /^\w*$/;
+/**
+* Checks if `value` is a property name and not a property path. (It's ok that the `value` is not in the keys of the `object`)
+* @param {unknown} value The value to check.
+* @param {unknown} object The object to query.
+* @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+*
+* @example
+* isKey('a', { a: 1 });
+* // => true
+*
+* isKey('a.b', { a: { b: 2 } });
+* // => false
+*/ function isKey(value, object) {
+    if (Array.isArray(value)) return false;
+    if (typeof value === "number" || typeof value === "boolean" || value == null || require_isSymbol.isSymbol(value)) return true;
+    return typeof value === "string" && (regexIsPlainProp.test(value) || !regexIsDeepProp.test(value)) || object != null && Object.hasOwn(object, value);
+}
+//#endregion
+exports.isKey = isKey;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/normalizeZero.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/normalizeZero.ts
+/**
+* Normalizes `-0` to `0` to match Lodash, which normalizes `-0` to `+0` in the
+* results of functions like `uniq`, `union`, and `difference`.
+*
+* @param value - The value to normalize.
+* @returns The value with `-0` normalized to `0`.
+*/ function normalizeZero(value) {
+    return value === 0 ? 0 : value;
+}
+//#endregion
+exports.normalizeZero = normalizeZero;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/tags.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/tags.ts
+const regexpTag = "[object RegExp]";
+const stringTag = "[object String]";
+const numberTag = "[object Number]";
+const booleanTag = "[object Boolean]";
+const argumentsTag = "[object Arguments]";
+const symbolTag = "[object Symbol]";
+const dateTag = "[object Date]";
+const mapTag = "[object Map]";
+const setTag = "[object Set]";
+const arrayTag = "[object Array]";
+const functionTag = "[object Function]";
+const arrayBufferTag = "[object ArrayBuffer]";
+const objectTag = "[object Object]";
+const errorTag = "[object Error]";
+const dataViewTag = "[object DataView]";
+const uint8ArrayTag = "[object Uint8Array]";
+const uint8ClampedArrayTag = "[object Uint8ClampedArray]";
+const uint16ArrayTag = "[object Uint16Array]";
+const uint32ArrayTag = "[object Uint32Array]";
+const bigUint64ArrayTag = "[object BigUint64Array]";
+const int8ArrayTag = "[object Int8Array]";
+const int16ArrayTag = "[object Int16Array]";
+const int32ArrayTag = "[object Int32Array]";
+const bigInt64ArrayTag = "[object BigInt64Array]";
+const float32ArrayTag = "[object Float32Array]";
+const float64ArrayTag = "[object Float64Array]";
+//#endregion
+exports.argumentsTag = argumentsTag;
+exports.arrayBufferTag = arrayBufferTag;
+exports.arrayTag = arrayTag;
+exports.bigInt64ArrayTag = bigInt64ArrayTag;
+exports.bigUint64ArrayTag = bigUint64ArrayTag;
+exports.booleanTag = booleanTag;
+exports.dataViewTag = dataViewTag;
+exports.dateTag = dateTag;
+exports.errorTag = errorTag;
+exports.float32ArrayTag = float32ArrayTag;
+exports.float64ArrayTag = float64ArrayTag;
+exports.functionTag = functionTag;
+exports.int16ArrayTag = int16ArrayTag;
+exports.int32ArrayTag = int32ArrayTag;
+exports.int8ArrayTag = int8ArrayTag;
+exports.mapTag = mapTag;
+exports.numberTag = numberTag;
+exports.objectTag = objectTag;
+exports.regexpTag = regexpTag;
+exports.setTag = setTag;
+exports.stringTag = stringTag;
+exports.symbolTag = symbolTag;
+exports.uint16ArrayTag = uint16ArrayTag;
+exports.uint32ArrayTag = uint32ArrayTag;
+exports.uint8ArrayTag = uint8ArrayTag;
+exports.uint8ClampedArrayTag = uint8ClampedArrayTag;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/toKey.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/_internal/toKey.ts
+/**
+* Converts `value` to a string key if it's not a string or symbol.
+*
+* @private
+* @param {unknown} value The value to inspect.
+* @returns {string|symbol} Returns the key.
+*/ function toKey(value) {
+    if (typeof value === "string" || typeof value === "symbol") return value;
+    if (Object.is(value?.valueOf?.(), -0)) return "-0";
+    return String(value);
+}
+//#endregion
+exports.toKey = toKey;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/array/orderBy.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isArrayLike = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js [app-client] (ecmascript)");
+const require_toPath = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/toPath.js [app-client] (ecmascript)");
+const require_compareValues = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/compareValues.js [app-client] (ecmascript)");
+const require_isKey = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isKey.js [app-client] (ecmascript)");
+//#region src/compat/array/orderBy.ts
+/**
+* Sorts an array of objects based on multiple properties and their corresponding order directions.
+*
+* This function takes an array of objects, an array of criteria to sort by, and an array of order directions.
+* It returns the sorted array, ordering by each key according to its corresponding direction ('asc' for ascending or 'desc' for descending).
+* If values for a key are equal, it moves to the next key to determine the order.
+*
+* @template T - The type of elements in the array.
+* @param collection - The array of objects to be sorted.
+* @param criteria - An array of criteria (property names or property paths or custom key functions) to sort by.
+* @param orders - An array of order directions ('asc' for ascending or 'desc' for descending).
+* @param [guard] Enables use as an iteratee for methods like `_.reduce`.
+* @returns The sorted array.
+*
+* @example
+* // Sort an array of objects by 'user' in ascending order and 'age' in descending order.
+* const users = [
+*   { user: 'fred', age: 48 },
+*   { user: 'barney', age: 34 },
+*   { user: 'fred', age: 40 },
+*   { user: 'barney', age: 36 },
+* ];
+* const result = orderBy(users, ['user', (item) => item.age], ['asc', 'desc']);
+* // result will be:
+* // [
+* //   { user: 'barney', age: 36 },
+* //   { user: 'barney', age: 34 },
+* //   { user: 'fred', age: 48 },
+* //   { user: 'fred', age: 40 },
+* // ]
+*/ function orderBy(collection, criteria, orders, guard) {
+    if (collection == null) return [];
+    orders = guard ? void 0 : orders;
+    if (!Array.isArray(collection)) collection = require_isArrayLike.isArrayLike(collection) ? Array.from(collection) : Object.values(collection);
+    if (!Array.isArray(criteria)) criteria = criteria == null ? [
+        null
+    ] : [
+        criteria
+    ];
+    if (criteria.length === 0) criteria = [
+        null
+    ];
+    if (!Array.isArray(orders)) orders = orders == null ? [] : [
+        orders
+    ];
+    orders = orders.map((order)=>String(order));
+    const getValueByNestedPath = (object, path)=>{
+        let target = object;
+        let index = 0;
+        for(; index < path.length && target != null; ++index)target = target[path[index]];
+        return index > 0 && index === path.length ? target : void 0;
+    };
+    const getValueByCriterion = (criterion, object)=>{
+        if (criterion == null) return object;
+        if (object == null) return;
+        if (typeof criterion === "object" && "key" in criterion) {
+            if (Object.hasOwn(object, criterion.key)) return object[criterion.key];
+            return getValueByNestedPath(object, criterion.path);
+        }
+        if (typeof criterion === "function") return criterion(object);
+        if (Array.isArray(criterion)) return getValueByNestedPath(object, criterion);
+        return object[criterion];
+    };
+    const preparedCriteria = criteria.map((criterion)=>{
+        if (Array.isArray(criterion) && criterion.length === 1) criterion = criterion[0];
+        if (criterion == null || typeof criterion === "function" || Array.isArray(criterion) || require_isKey.isKey(criterion)) return criterion;
+        return {
+            key: criterion,
+            path: require_toPath.toPath(criterion)
+        };
+    });
+    return collection.map((item)=>({
+            original: item,
+            criteria: preparedCriteria.map((criterion)=>getValueByCriterion(criterion, item))
+        })).slice().sort((a, b)=>{
+        for(let i = 0; i < preparedCriteria.length; i++){
+            const comparedResult = require_compareValues.compareValues(a.criteria[i], b.criteria[i], orders[i]);
+            if (comparedResult !== 0) return comparedResult;
+        }
+        return 0;
+    }).map((item)=>item.original);
+}
+//#endregion
+exports.orderBy = orderBy;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/array/sortBy.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_flatten = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/array/flatten.js [app-client] (ecmascript)");
+const require_isIterateeCall = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isIterateeCall.js [app-client] (ecmascript)");
+const require_orderBy = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/array/orderBy.js [app-client] (ecmascript)");
+//#region src/compat/array/sortBy.ts
+function sortBy(collection, ...criteria) {
+    const length = criteria.length;
+    if (length > 1 && require_isIterateeCall.isIterateeCall(collection, criteria[0], criteria[1])) criteria = [];
+    else if (length > 2 && require_isIterateeCall.isIterateeCall(criteria[0], criteria[1], criteria[2])) criteria = [
+        criteria[0]
+    ];
+    return require_orderBy.orderBy(collection, require_flatten.flatten(criteria), [
+        "asc"
+    ]);
+}
+//#endregion
+exports.sortBy = sortBy;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/array/uniqBy.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_uniqBy = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/array/uniqBy.js [app-client] (ecmascript)");
+const require_ary = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/function/ary.js [app-client] (ecmascript)");
+const require_identity = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/function/identity.js [app-client] (ecmascript)");
+const require_isArrayLike = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js [app-client] (ecmascript)");
+const require_iteratee = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/iteratee.js [app-client] (ecmascript)");
+const require_normalizeZero = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/normalizeZero.js [app-client] (ecmascript)");
+//#region src/compat/array/uniqBy.ts
+function uniqBy(array, iteratee$1 = require_identity.identity) {
+    if (!require_isArrayLike.isArrayLike(array)) return [];
+    return require_uniqBy.uniqBy(Array.from(array), require_ary.ary(require_iteratee.iteratee(iteratee$1), 1)).map(require_normalizeZero.normalizeZero);
+}
+//#endregion
+exports.uniqBy = uniqBy;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/function/debounce.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_debounce = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/function/debounce.js [app-client] (ecmascript)");
+//#region src/compat/function/debounce.ts
+function debounce(func, debounceMs = 0, options = {}) {
+    if (typeof options !== "object") options = {};
+    const { leading = false, trailing = true, maxWait } = options;
+    const edges = Array(2);
+    if (leading) edges[0] = "leading";
+    if (trailing) edges[1] = "trailing";
+    let result = void 0;
+    let pendingAt = null;
+    const _debounced = require_debounce.debounce(function(...args) {
+        result = func.apply(this, args);
+        pendingAt = null;
+    }, debounceMs, {
+        edges
+    });
+    const debounced = function(...args) {
+        if (maxWait != null) {
+            if (pendingAt === null) pendingAt = Date.now();
+            if (Date.now() - pendingAt >= maxWait) {
+                if (leading || trailing) result = func.apply(this, args);
+                pendingAt = Date.now();
+                _debounced.cancel();
+                _debounced.schedule();
+                return result;
+            }
+        }
+        _debounced.apply(this, args);
+        return result;
+    };
+    const flush = ()=>{
+        _debounced.flush();
+        return result;
+    };
+    debounced.cancel = _debounced.cancel;
+    debounced.flush = flush;
+    return debounced;
+}
+//#endregion
+exports.debounce = debounce;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/function/throttle.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_debounce = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/function/debounce.js [app-client] (ecmascript)");
+//#region src/compat/function/throttle.ts
+/**
+* Creates a throttled function that only invokes the provided function at most once
+* per every `throttleMs` milliseconds. Subsequent calls to the throttled function
+* within the wait time will not trigger the execution of the original function.
+*
+* @template F - The type of function.
+* @param func - The function to throttle.
+* @param throttleMs - The number of milliseconds to throttle executions to.
+* @param options - The options object
+* @param options.signal - An optional AbortSignal to cancel the throttled function.
+* @param options.leading - If `true`, the function will be invoked on the leading edge of the timeout.
+* @param options.trailing - If `true`, the function will be invoked on the trailing edge of the timeout.
+* @returns A new throttled function that accepts the same parameters as the original function.
+*
+* @example
+* const throttledFunction = throttle(() => {
+*   console.log('Function executed');
+* }, 1000);
+*
+* // Will log 'Function executed' immediately
+* throttledFunction();
+*
+* // Will not log anything as it is within the throttle time
+* throttledFunction();
+*
+* // After 1 second
+* setTimeout(() => {
+*   throttledFunction(); // Will log 'Function executed'
+* }, 1000);
+*/ function throttle(func, throttleMs = 0, options = {}) {
+    const { leading = true, trailing = true } = options;
+    return require_debounce.debounce(func, throttleMs, {
+        leading,
+        maxWait: throttleMs,
+        trailing
+    });
+}
+//#endregion
+exports.throttle = throttle;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/math/range.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_toFinite = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/toFinite.js [app-client] (ecmascript)");
+const require_isIterateeCall = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isIterateeCall.js [app-client] (ecmascript)");
+//#region src/compat/math/range.ts
+/**
+* Returns an array of numbers from `start` (inclusive) to `end` (exclusive), incrementing by `step`.
+*
+* @param start - The starting number of the range (inclusive).
+* @param end - The end number of the range (exclusive).
+* @param step - The step value for the range.
+* @returns An array of numbers from `start` (inclusive) to `end` (exclusive) with the specified `step`.
+*
+* @example
+* // Returns [0, 1, 2, 3]
+* range(4);
+*
+* @example
+* // Returns [0, -1, -2, -3]
+* range(0, -4, -1);
+*/ function range(start, end, step) {
+    if (step && typeof step !== "number" && require_isIterateeCall.isIterateeCall(start, end, step)) end = step = void 0;
+    start = require_toFinite.toFinite(start);
+    if (end === void 0) {
+        end = start;
+        start = 0;
+    } else end = require_toFinite.toFinite(end);
+    step = step === void 0 ? start < end ? 1 : -1 : require_toFinite.toFinite(step);
+    const length = Math.max(Math.ceil((end - start) / (step || 1)), 0);
+    const result = new Array(length);
+    for(let index = 0; index < length; index++){
+        result[index] = start;
+        start += step;
+    }
+    return result;
+}
+//#endregion
+exports.range = range;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/object/cloneDeep.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_cloneDeepWith = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/object/cloneDeepWith.js [app-client] (ecmascript)");
+//#region src/compat/object/cloneDeep.ts
+/**
+* Creates a deep clone of the given object.
+*
+* @template T - The type of the object.
+* @param obj - The object to clone.
+* @returns A deep clone of the given object.
+*
+* @example
+* // Clone a primitive value
+* const num = 29;
+* const clonedNum = clone(num);
+* console.log(clonedNum); // 29
+* console.log(clonedNum === num); // true
+*
+* @example
+* // Clone an array
+* const arr = [1, 2, 3];
+* const clonedArr = cloneDeep(arr);
+* console.log(clonedArr); // [1, 2, 3]
+* console.log(clonedArr === arr); // false
+*
+* @example
+* // Clone an array with nested objects
+* const arr = [1, { a: 1 }, [1, 2, 3]];
+* const clonedArr = cloneDeep(arr);
+* arr[1].a = 2;
+* console.log(arr); // [1, { a: 2 }, [1, 2, 3]]
+* console.log(clonedArr); // [1, { a: 1 }, [1, 2, 3]]
+* console.log(clonedArr === arr); // false
+*
+* @example
+* // Clone an object
+* const obj = { a: 1, b: 'es-toolkit', c: [1, 2, 3] };
+* const clonedObj = cloneDeep(obj);
+* console.log(clonedObj); // { a: 1, b: 'es-toolkit', c: [1, 2, 3] }
+* console.log(clonedObj === obj); // false
+*
+* @example
+* // Clone an object with nested objects
+* const obj = { a: 1, b: { c: 1 } };
+* const clonedObj = cloneDeep(obj);
+* obj.b.c = 2;
+* console.log(obj); // { a: 1, b: { c: 2 } }
+* console.log(clonedObj); // { a: 1, b: { c: 1 } }
+* console.log(clonedObj === obj); // false
+*/ function cloneDeep(obj) {
+    return require_cloneDeepWith.cloneDeepWith(obj);
+}
+//#endregion
+exports.cloneDeep = cloneDeep;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/object/cloneDeepWith.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_getTag = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getTag.js [app-client] (ecmascript)");
+const require_tags = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/tags.js [app-client] (ecmascript)");
+const require_cloneDeepWith = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/object/cloneDeepWith.js [app-client] (ecmascript)");
+//#region src/compat/object/cloneDeepWith.ts
+/**
+* Creates a deep clone of the given object using a customizer function.
+*
+* @template T - The type of the object.
+* @param obj - The object to clone.
+* @param [cloneValue] - A function to customize the cloning process.
+* @returns A deep clone of the given object.
+*
+* @example
+* // Clone a primitive value
+* const num = 29;
+* const clonedNum = cloneDeepWith(num);
+* console.log(clonedNum); // 29
+* console.log(clonedNum === num); // true
+*
+* @example
+* // Clone an object with a customizer
+* const obj = { a: 1, b: 2 };
+* const clonedObj = cloneDeepWith(obj, (value) => {
+*   if (typeof value === 'number') {
+*     return value * 2; // Double the number
+*   }
+* });
+* console.log(clonedObj); // { a: 2, b: 4 }
+* console.log(clonedObj === obj); // false
+*
+* @example
+* // Clone an array with a customizer
+* const arr = [1, 2, 3];
+* const clonedArr = cloneDeepWith(arr, (value) => {
+*   if (typeof value === 'number') {
+*     return value + 1; // Increment each number
+*   }
+* });
+* console.log(clonedArr); // [2, 3, 4]
+* console.log(clonedArr === arr); // false
+*/ function cloneDeepWith(obj, customizer) {
+    return require_cloneDeepWith.cloneDeepWith(obj, (value, key, object, stack)=>{
+        const cloned = customizer?.(value, key, object, stack);
+        if (cloned !== void 0) return cloned;
+        if (typeof obj !== "object") return;
+        if (require_getTag.getTag(obj) === "[object Object]" && typeof obj.constructor !== "function") {
+            const result = {};
+            stack.set(obj, result);
+            require_cloneDeepWith.copyProperties(result, obj, object, stack);
+            return result;
+        }
+        switch(Object.prototype.toString.call(obj)){
+            case require_tags.numberTag:
+            case require_tags.stringTag:
+            case require_tags.booleanTag:
+                {
+                    const result = new obj.constructor(obj?.valueOf());
+                    require_cloneDeepWith.copyProperties(result, obj);
+                    return result;
+                }
+            case require_tags.argumentsTag:
+                {
+                    const result = {};
+                    require_cloneDeepWith.copyProperties(result, obj);
+                    result.length = obj.length;
+                    result[Symbol.iterator] = obj[Symbol.iterator];
+                    return result;
+                }
+            default:
+                return;
+        }
+    });
+}
+//#endregion
+exports.cloneDeepWith = cloneDeepWith;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/object/get.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isUnsafeProperty = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/_internal/isUnsafeProperty.js [app-client] (ecmascript)");
+const require_isDeepKey = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isDeepKey.js [app-client] (ecmascript)");
+const require_toKey = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/toKey.js [app-client] (ecmascript)");
+const require_toPath = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/toPath.js [app-client] (ecmascript)");
+//#region src/compat/object/get.ts
+/**
+* Retrieves the value at a given path from an object. If the resolved value is undefined, the defaultValue is returned instead.
+*
+* @param object - The object to query.
+* @param path - The path of the property to get.
+* @param [defaultValue] - The value returned if the resolved value is undefined.
+* @returns Returns the resolved value.
+*
+* @example
+* const object = { a: { b: { c: 1 } } };
+* get(object, 'a.b.c');
+* // => 1
+*
+* get(object, ['a', 'b', 'c']);
+* // => 1
+*
+* get(object, 'a.b.d', 'default');
+* // => 'default'
+*/ function get(object, path, defaultValue) {
+    if (object == null) return defaultValue;
+    switch(typeof path){
+        case "string":
+            {
+                if (require_isUnsafeProperty.isUnsafeProperty(path)) return defaultValue;
+                const result = object[path];
+                if (result === void 0) if (require_isDeepKey.isDeepKey(path) && !Object.hasOwn(object, path)) return get(object, require_toPath.toPath(path), defaultValue);
+                else return defaultValue;
+                return result;
+            }
+        case "number":
+        case "symbol":
+            {
+                if (typeof path === "number") path = require_toKey.toKey(path);
+                const result = object[path];
+                if (result === void 0) return defaultValue;
+                return result;
+            }
+        default:
+            {
+                if (Array.isArray(path)) return getWithPath(object, path, defaultValue);
+                if (Object.is(path?.valueOf(), -0)) path = "-0";
+                else path = String(path);
+                if (require_isUnsafeProperty.isUnsafeProperty(path)) return defaultValue;
+                const result = object[path];
+                if (result === void 0) return defaultValue;
+                return result;
+            }
+    }
+}
+function getWithPath(object, path, defaultValue) {
+    if (path.length === 0) return defaultValue;
+    let current = object;
+    for(let index = 0; index < path.length; index++){
+        if (current == null) return defaultValue;
+        if (require_isUnsafeProperty.isUnsafeProperty(path[index])) return defaultValue;
+        current = current[path[index]];
+    }
+    if (current === void 0) return defaultValue;
+    return current;
+}
+//#endregion
+exports.get = get;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/object/has.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isDeepKey = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isDeepKey.js [app-client] (ecmascript)");
+const require_toKey = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/toKey.js [app-client] (ecmascript)");
+const require_toPath = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/toPath.js [app-client] (ecmascript)");
+const require_isIndex = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/isIndex.js [app-client] (ecmascript)");
+const require_isArguments = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isArguments.js [app-client] (ecmascript)");
+//#region src/compat/object/has.ts
+/**
+* Checks if a given path exists within an object.
+*
+* You can provide the path as a single property key, an array of property keys,
+* or a string representing a deep path.
+*
+* If the path is an index and the object is an array or an arguments object, the function will verify
+* if the index is valid and within the bounds of the array or arguments object, even if the array or
+* arguments object is sparse (i.e., not all indexes are defined).
+*
+* @param object - The object to query.
+* @param path - The path to check. This can be a single property key,
+*        an array of property keys, or a string representing a deep path.
+* @returns Returns `true` if the path exists in the object, `false` otherwise.
+*
+* @example
+*
+* const obj = { a: { b: { c: 3 } } };
+*
+* has(obj, 'a'); // true
+* has(obj, ['a', 'b']); // true
+* has(obj, ['a', 'b', 'c']); // true
+* has(obj, 'a.b.c'); // true
+* has(obj, 'a.b.d'); // false
+* has(obj, ['a', 'b', 'c', 'd']); // false
+* has([], 0); // false
+* has([1, 2, 3], 2); // true
+* has([1, 2, 3], 5); // false
+*/ function has(object, path) {
+    let resolvedPath;
+    if (Array.isArray(path)) resolvedPath = path;
+    else if (typeof path === "string" && require_isDeepKey.isDeepKey(path) && !(path in Object(object))) resolvedPath = require_toPath.toPath(path);
+    else resolvedPath = [
+        path
+    ];
+    if (resolvedPath.length === 0) return false;
+    let current = object;
+    for(let i = 0; i < resolvedPath.length; i++){
+        const key = require_toKey.toKey(resolvedPath[i]);
+        if (current == null || !Object.hasOwn(current, key)) {
+            if (!((Array.isArray(current) || require_isArguments.isArguments(current)) && require_isIndex.isIndex(key) && Number(key) < current.length)) return false;
+        }
+        current = current[key];
+    }
+    return true;
+}
+//#endregion
+exports.has = has;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/object/property.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_get = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/object/get.js [app-client] (ecmascript)");
+//#region src/compat/object/property.ts
+/**
+* Creates a function that returns the value at a given path of an object.
+*
+* @template T - The type of object.
+* @template R - The type of the value to return.
+* @param path - The path of the property to get.
+* @returns Returns a new function that takes an object and returns the value at the specified path.
+*
+* @example
+* const getObjectValue = property('a.b.c');
+* const result = getObjectValue({ a: { b: { c: 3 } } });
+* console.log(result); // => 3
+*
+* @example
+* const getObjectValue = property(['a', 'b', 'c']);
+* const result = getObjectValue({ a: { b: { c: 3 } } });
+* console.log(result); // => 3
+*/ function property(path) {
+    return function(object) {
+        return require_get.get(object, path);
+    };
+}
+//#endregion
+exports.property = property;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isArguments.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_getTag = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getTag.js [app-client] (ecmascript)");
+//#region src/compat/predicate/isArguments.ts
+/**
+* Checks if the given value is an arguments object.
+*
+* This function tests whether the provided value is an arguments object or not.
+* It returns `true` if the value is an arguments object, and `false` otherwise.
+*
+* This function can also serve as a type predicate in TypeScript, narrowing the type of the argument to an arguments object.
+*
+* @param value - The value to test if it is an arguments object.
+* @returns `true` if the value is an arguments, `false` otherwise.
+*
+* @example
+* const args = (function() { return arguments; })();
+* const strictArgs = (function() { 'use strict'; return arguments; })();
+* const value = [1, 2, 3];
+*
+* console.log(isArguments(args)); // true
+* console.log(isArguments(strictArgs)); // true
+* console.log(isArguments(value)); // false
+*/ function isArguments(value) {
+    return value !== null && typeof value === "object" && require_getTag.getTag(value) === "[object Arguments]";
+}
+//#endregion
+exports.isArguments = isArguments;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isArrayLike.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isLength = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/predicate/isLength.js [app-client] (ecmascript)");
+//#region src/compat/predicate/isArrayLike.ts
+/**
+* Checks if `value` is array-like.
+*
+* @param value The value to check.
+* @returns Returns `true` if `value` is array-like, else `false`.
+*
+* @example
+* isArrayLike([1, 2, 3]); // true
+* isArrayLike('abc'); // true
+* isArrayLike({ 0: 'a', length: 1 }); // true
+* isArrayLike({}); // false
+* isArrayLike(null); // false
+* isArrayLike(undefined); // false
+*/ function isArrayLike(value) {
+    return value != null && typeof value !== "function" && require_isLength.isLength(value.length);
+}
+//#endregion
+exports.isArrayLike = isArrayLike;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isMatch.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isMatchWith = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isMatchWith.js [app-client] (ecmascript)");
+//#region src/compat/predicate/isMatch.ts
+/**
+* Checks if the target matches the source by comparing their structures and values.
+* This function supports deep comparison for objects, arrays, maps, and sets.
+*
+* @param target - The target value to match against.
+* @param source - The source value to match with.
+* @returns Returns `true` if the target matches the source, otherwise `false`.
+*
+* @example
+* // Basic usage
+* isMatch({ a: 1, b: 2 }, { a: 1 }); // true
+*
+* @example
+* // Matching arrays
+* isMatch([1, 2, 3], [1, 2, 3]); // true
+*
+* @example
+* // Matching maps
+* const targetMap = new Map([['key1', 'value1'], ['key2', 'value2']]);
+* const sourceMap = new Map([['key1', 'value1']]);
+* isMatch(targetMap, sourceMap); // true
+*
+* @example
+* // Matching sets
+* const targetSet = new Set([1, 2, 3]);
+* const sourceSet = new Set([1, 2]);
+* isMatch(targetSet, sourceSet); // true
+*/ function isMatch(target, source) {
+    return require_isMatchWith.isMatchWith(target, source, ()=>void 0);
+}
+//#endregion
+exports.isMatch = isMatch;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isMatchWith.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isPrimitive = (()=>{
+    const e = new Error("Cannot find module '../../predicate/isPrimitive.js'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+const require_getTag = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getTag.js [app-client] (ecmascript)");
+__turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/tags.js [app-client] (ecmascript)");
+const require_eq = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/eq.js [app-client] (ecmascript)");
+const require_isObject = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isObject.js [app-client] (ecmascript)");
+//#region src/compat/predicate/isMatchWith.ts
+/**
+* Performs a deep comparison between a target value and a source pattern to determine if they match,
+* using a custom comparison function for fine-grained control over the matching logic.
+*
+* This function recursively traverses both values, calling the custom compare function for each
+* property/element pair. If the compare function returns a boolean, that result is used directly.
+* If it returns undefined, the default matching behavior continues recursively.
+*
+* The matching behavior varies by data type:
+* - **Objects**: Matches if all properties in the source exist in the target and match
+* - **Arrays**: Matches if all elements in the source array can be found in the target array (order-independent)
+* - **Maps**: Matches if all key-value pairs in the source Map exist and match in the target Map
+* - **Sets**: Matches if all elements in the source Set can be found in the target Set
+* - **Functions**: Matches using strict equality, or object comparison if the function has properties
+* - **Primitives**: Matches using strict equality
+*
+* Special cases:
+* - Empty arrays, Maps, and Sets always match any target
+* - An empty object matches any target at the top level, but at nested levels it only matches object targets
+* - `null` and `undefined` source values have specific matching rules
+* - Circular references are handled using an internal stack to prevent infinite recursion
+*
+* @param target - The value to be tested for matching
+* @param source - The pattern/template to match against
+* @param [compare] - Optional custom comparison function that receives:
+*   - `objValue` - The value from the target at the current path
+*   - `srcValue` - The value from the source at the current path
+*   - `key` - The property key or array index being compared
+*   - `object` - The parent object/array from the target
+*   - `source` - The parent object/array from the source
+*   - `stack` - Internal Map used for circular reference detection
+*   Should return `true` for a match, `false` for no match, or `undefined` to continue with default behavior
+*
+* @returns `true` if the target matches the source pattern, `false` otherwise
+*
+* @example
+* // Basic matching without custom comparator
+* isMatchWith({ a: 1, b: 2 }, { a: 1 }); // true
+* isMatchWith([1, 2, 3], [1, 3]); // true
+*
+* @example
+* // Custom comparison for case-insensitive string matching
+* const caseInsensitiveCompare = (objVal, srcVal) => {
+*   if (typeof objVal === 'string' && typeof srcVal === 'string') {
+*     return objVal.toLowerCase() === srcVal.toLowerCase();
+*   }
+*   return undefined; // Use default behavior for non-strings
+* };
+*
+* isMatchWith(
+*   { name: 'JOHN', age: 30 },
+*   { name: 'john' },
+*   caseInsensitiveCompare
+* ); // true
+*
+* @example
+* // Custom comparison for range matching
+* const rangeCompare = (objVal, srcVal, key) => {
+*   if (key === 'age' && typeof srcVal === 'object' && srcVal.min !== undefined) {
+*     return objVal >= srcVal.min && objVal <= srcVal.max;
+*   }
+*   return undefined;
+* };
+*
+* isMatchWith(
+*   { name: 'John', age: 25 },
+*   { age: { min: 18, max: 30 } },
+*   rangeCompare
+* ); // true
+*/ function isMatchWith(target, source, compare) {
+    if (typeof compare !== "function") return isMatchWith(target, source, ()=>void 0);
+    return isMatchWithInternal(target, source, function doesMatch(objValue, srcValue, key, object, source, stack) {
+        const isEqual = compare(objValue, srcValue, key, object, source, stack);
+        if (isEqual !== void 0) return Boolean(isEqual);
+        return isMatchWithInternal(objValue, srcValue, doesMatch, stack, false);
+    }, /* @__PURE__ */ new Map(), true);
+}
+function isMatchWithInternal(target, source, compare, stack, isRoot = false) {
+    if (source === target) return true;
+    switch(typeof source){
+        case "object":
+            return isObjectMatch(target, source, compare, stack, isRoot);
+        case "function":
+            if (Object.keys(source).length > 0) return isMatchWithInternal(target, {
+                ...source
+            }, compare, stack, isRoot);
+            return require_eq.eq(target, source);
+        default:
+            if (!require_isObject.isObject(target)) return require_eq.eq(target, source);
+            if (isRoot) {
+                if (typeof source === "string") return source === "";
+                return true;
+            }
+            return require_eq.eq(target, source);
+    }
+}
+function isObjectMatch(target, source, compare, stack, isRoot = false) {
+    if (source == null) return true;
+    if (Array.isArray(source)) return isArrayMatch(target, source, compare, stack);
+    if (source instanceof Map) return isMapMatch(target, source, compare, stack);
+    if (source instanceof Set) return isSetMatch(target, source, compare, stack);
+    const keys = Object.keys(source);
+    if (target == null) return isRoot && keys.length === 0;
+    if (isRoot) {
+        if (require_isPrimitive.isPrimitive(target)) target = Object(target);
+    } else {
+        const tag = require_getTag.getTag(target);
+        if (tag !== "[object Object]" && tag !== "[object Arguments]") return false;
+    }
+    if (keys.length === 0) return true;
+    if (stack?.has(source)) return stack.get(source) === target;
+    stack?.set(source, target);
+    try {
+        for(let i = 0; i < keys.length; i++){
+            const key = keys[i];
+            if (!(key in target)) return false;
+            if (source[key] === void 0 && target[key] !== void 0) return false;
+            if (source[key] === null && target[key] !== null) return false;
+            if (!compare(target[key], source[key], key, target, source, stack)) return false;
+        }
+        return true;
+    } finally{
+        stack?.delete(source);
+    }
+}
+function isMapMatch(target, source, compare, stack) {
+    if (source.size === 0) return true;
+    if (!(target instanceof Map)) return false;
+    for (const [key, sourceValue] of source.entries())if (compare(target.get(key), sourceValue, key, target, source, stack) === false) return false;
+    return true;
+}
+function isArrayMatch(target, source, compare, stack) {
+    if (source.length === 0) return true;
+    if (!Array.isArray(target)) return false;
+    const countedIndex = /* @__PURE__ */ new Set();
+    for(let i = 0; i < source.length; i++){
+        const sourceItem = source[i];
+        let found = false;
+        for(let j = 0; j < target.length; j++){
+            if (countedIndex.has(j)) continue;
+            const targetItem = target[j];
+            let matches = false;
+            if (compare(targetItem, sourceItem, i, target, source, stack)) matches = true;
+            if (matches) {
+                countedIndex.add(j);
+                found = true;
+                break;
+            }
+        }
+        if (!found) return false;
+    }
+    return true;
+}
+function isSetMatch(target, source, compare, stack) {
+    if (source.size === 0) return true;
+    if (!(target instanceof Set)) return false;
+    return isArrayMatch([
+        ...target
+    ], [
+        ...source
+    ], compare, stack);
+}
+//#endregion
+exports.isMatchWith = isMatchWith;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isObject.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/predicate/isObject.ts
+/**
+* Checks if the given value is an object. An object is a value that is
+* not a primitive type (string, number, boolean, symbol, null, or undefined).
+*
+* This function tests whether the provided value is an object or not.
+* It returns `true` if the value is an object, and `false` otherwise.
+*
+* This function can also serve as a type predicate in TypeScript, narrowing the type of the argument to an object value.
+*
+* @param value - The value to check if it is an object.
+* @returns `true` if the value is an object, `false` otherwise.
+*
+* @example
+* const value1 = {};
+* const value2 = [1, 2, 3];
+* const value3 = () => {};
+* const value4 = null;
+*
+* console.log(isObject(value1)); // true
+* console.log(isObject(value2)); // true
+* console.log(isObject(value3)); // true
+* console.log(isObject(value4)); // false
+*/ function isObject(value) {
+    return value !== null && (typeof value === "object" || typeof value === "function");
+}
+//#endregion
+exports.isObject = isObject;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isSymbol.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/predicate/isSymbol.ts
+/**
+* Check whether a value is a symbol.
+*
+* This function can also serve as a type predicate in TypeScript, narrowing the type of the argument to `symbol`.
+*
+* @param value The value to check.
+* @returns Returns `true` if `value` is a symbol, else `false`.
+* @example
+* isSymbol(Symbol.iterator);
+* // => true
+*
+* isSymbol('abc');
+* // => false
+*/ function isSymbol(value) {
+    return typeof value === "symbol" || value instanceof Symbol;
+}
+//#endregion
+exports.isSymbol = isSymbol;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/matches.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_cloneDeep = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/object/cloneDeep.js [app-client] (ecmascript)");
+const require_isMatch = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isMatch.js [app-client] (ecmascript)");
+//#region src/compat/predicate/matches.ts
+/**
+* Creates a function that performs a deep comparison between a given target and the source object.
+*
+* @template T
+* @template V
+* @param source - The source object to create the matcher from.
+* @returns Returns a function that takes a target object and returns `true` if the target matches the source, otherwise `false`.
+*
+* @example
+* // Basic usage
+* const matcher = matches({ a: 1, b: 2 });
+* matcher({ a: 1, b: 2, c: 3 }); // true
+* matcher({ a: 1, c: 3 }); // false
+*
+* @example
+* // Matching arrays
+* const arrayMatcher = matches([1, 2, 3]);
+* arrayMatcher([1, 2, 3, 4]); // true
+* arrayMatcher([4, 5, 6]); // false
+*
+* @example
+* // Matching objects with nested structures
+* const nestedMatcher = matches({ a: { b: 2 } });
+* nestedMatcher({ a: { b: 2, c: 3 } }); // true
+* nestedMatcher({ a: { c: 3 } }); // false
+*/ function matches(source) {
+    source = require_cloneDeep.cloneDeep(source);
+    return (target)=>{
+        return require_isMatch.isMatch(target, source);
+    };
+}
+//#endregion
+exports.matches = matches;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/matchesProperty.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_toKey = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/toKey.js [app-client] (ecmascript)");
+const require_get = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/object/get.js [app-client] (ecmascript)");
+const require_isMatch = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isMatch.js [app-client] (ecmascript)");
+const require_cloneDeep = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/object/cloneDeep.js [app-client] (ecmascript)");
+const require_has = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/object/has.js [app-client] (ecmascript)");
+//#region src/compat/predicate/matchesProperty.ts
+/**
+* Creates a function that checks if a given target object matches a specific property value.
+*
+* The returned function takes a target object and determines if the property at the
+* specified path within the target object is equal to the given value.
+*
+* @param property - The property path to check within the target object.
+*     This can be a single property key or an array of property keys.
+* @param source - The value to compare against the property value in the target object.
+*
+* @returns A function that takes a target object and returns
+*     `true` if the property value at the given path in the target object matches the provided value,
+*     otherwise returns `false`.
+*
+* @example
+* // Using a single property key
+* const checkName = matchesProperty('name', 'Alice');
+* console.log(checkName({ name: 'Alice' })); // true
+* console.log(checkName({ name: 'Bob' })); // false
+*
+* // Using an array of property keys
+* const checkNested = matchesProperty(['address', 'city'], 'New York');
+* console.log(checkNested({ address: { city: 'New York' } })); // true
+* console.log(checkNested({ address: { city: 'Los Angeles' } })); // false
+*/ function matchesProperty(property, source) {
+    switch(typeof property){
+        case "object":
+            if (Object.is(property?.valueOf(), -0)) property = "-0";
+            break;
+        case "number":
+            property = require_toKey.toKey(property);
+            break;
+    }
+    source = require_cloneDeep.cloneDeep(source);
+    return function(target) {
+        const result = require_get.get(target, property);
+        if (result === void 0) return require_has.has(target, property);
+        if (source === void 0) return result === void 0;
+        return require_isMatch.isMatch(result, source);
+    };
+}
+//#endregion
+exports.matchesProperty = matchesProperty;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/util/eq.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/compat/util/eq.ts
+/**
+* Performs a `SameValueZero` comparison between two values to determine if they are equivalent.
+*
+* @param value The value to compare.
+* @param other The other value to compare.
+* @returns Returns `true` if the values are equivalent, else `false`.
+*
+* @example
+* eq(1, 1); // true
+* eq(0, -0); // true
+* eq(NaN, NaN); // true
+* eq('a', Object('a')); // false
+*/ function eq(value, other) {
+    return value === other || Number.isNaN(value) && Number.isNaN(other);
+}
+//#endregion
+exports.eq = eq;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/util/iteratee.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_identity = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/function/identity.js [app-client] (ecmascript)");
+const require_property = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/object/property.js [app-client] (ecmascript)");
+const require_matches = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/matches.js [app-client] (ecmascript)");
+const require_matchesProperty = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/matchesProperty.js [app-client] (ecmascript)");
+//#region src/compat/util/iteratee.ts
+/**
+* Creates a function that returns a value from an element in a collection.
+*
+* You can call `iteratee` with the following types of arguments:
+*
+* - **Function**: Returns the function as-is, which will be called with the element from the collection.
+* - **Property name**: Returns the value of the specified property from the element.
+* - **Property-value pair**: Returns a boolean indicating whether the element's property matches the given value.
+* - **Partial object**: Returns a boolean indicating whether the element matches the properties of the partial object.
+*
+* If you don't provide any arguments or pass `null`, this function will return a function that simply returns its input unchanged.
+*
+* @param value - The value to convert to an iteratee.
+* @returns Returns the new iteratee function.
+* @example
+* const func = iteratee();
+* [{ a: 1 }, { a: 2 }, { a: 3 }].map(func) // => [{ a: 1 }, { a: 2 }, { a: 3 }]
+*
+* const func = iteratee((object) => object.a);
+* [{ a: 1 }, { a: 2 }, { a: 3 }].map(func) // => [1, 2, 3]
+*
+* const func = iteratee('a');
+* [{ a: 1 }, { a: 2 }, { a: 3 }].map(func) // => [1, 2, 3]
+*
+* const func = iteratee({ a: 1 });
+* [{ a: 1 }, { a: 2 }, { a: 3 }].find(func) // => { a: 1 }
+*
+* const func = iteratee(['a', 1]);
+* [{ a: 1 }, { a: 2 }, { a: 3 }].find(func) // => { a: 1 }
+*/ function iteratee(value) {
+    if (value == null) return require_identity.identity;
+    switch(typeof value){
+        case "function":
+            return value;
+        case "object":
+            if (Array.isArray(value) && value.length === 2) return require_matchesProperty.matchesProperty(value[0], value[1]);
+            return require_matches.matches(value);
+        default:
+            return require_property.property(value);
+    }
+}
+//#endregion
+exports.iteratee = iteratee;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/util/toFinite.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_toNumber = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/toNumber.js [app-client] (ecmascript)");
+//#region src/compat/util/toFinite.ts
+/**
+* Converts `value` to a finite number.
+*
+* @param value - The value to convert.
+* @returns Returns the number.
+*
+* @example
+* toFinite(3.2); // => 3.2
+* toFinite(Number.MIN_VALUE); // => 5e-324
+* toFinite(Infinity); // => 1.7976931348623157e+308
+* toFinite('3.2'); // => 3.2
+* toFinite(Symbol.iterator); // => 0
+* toFinite(NaN); // => 0
+*/ function toFinite(value) {
+    if (!value) return value === 0 ? value : 0;
+    value = require_toNumber.toNumber(value);
+    if (value === Infinity || value === -Infinity) return (value < 0 ? -1 : 1) * Number.MAX_VALUE;
+    return value === value ? value : 0;
+}
+//#endregion
+exports.toFinite = toFinite;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/util/toNumber.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isSymbol = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isSymbol.js [app-client] (ecmascript)");
+//#region src/compat/util/toNumber.ts
+/**
+* Converts `value` to a number.
+*
+* Unlike `Number()`, this function returns `NaN` for symbols.
+*
+* @param value - The value to convert.
+* @returns Returns the number.
+*
+* @example
+* toNumber(3.2); // => 3.2
+* toNumber(Number.MIN_VALUE); // => 5e-324
+* toNumber(Infinity); // => Infinity
+* toNumber('3.2'); // => 3.2
+* toNumber(Symbol.iterator); // => NaN
+* toNumber(NaN); // => NaN
+*/ function toNumber(value) {
+    if (require_isSymbol.isSymbol(value)) return NaN;
+    return Number(value);
+}
+//#endregion
+exports.toNumber = toNumber;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/util/toPath.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_toKey = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/toKey.js [app-client] (ecmascript)");
+const require_toString = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/toString.js [app-client] (ecmascript)");
+//#region src/compat/util/toPath.ts
+/**
+* Converts a deep key string into an array of path segments.
+*
+* This function takes a string representing a deep key (e.g., 'a.b.c' or 'a[b][c]') and breaks it down into an array of strings, each representing a segment of the path.
+*
+* @param deepKey - The deep key string to convert.
+* @returns An array of strings, each representing a segment of the path.
+*
+* Examples:
+*
+* toPath('a.b.c') // Returns ['a', 'b', 'c']
+* toPath('a[b][c]') // Returns ['a', 'b', 'c']
+* toPath('.a.b.c') // Returns ['', 'a', 'b', 'c']
+* toPath('a["b.c"].d') // Returns ['a', 'b.c', 'd']
+* toPath('') // Returns []
+* toPath('.a[b].c.d[e]["f.g"].h') // Returns ['', 'a', 'b', 'c', 'd', 'e', 'f.g', 'h']
+*/ function toPath(deepKey) {
+    if (Array.isArray(deepKey)) return deepKey.map(require_toKey.toKey);
+    if (typeof deepKey === "symbol") return [
+        deepKey
+    ];
+    deepKey = require_toString.toString(deepKey);
+    const result = [];
+    const length = deepKey.length;
+    if (length === 0) return result;
+    let index = 0;
+    let key = "";
+    let quoteChar = "";
+    let bracket = false;
+    let bracketHadQuote = false;
+    const bracketNumberRegex = /^-?\d+(?:\.\d+)?$/;
+    if (deepKey.charCodeAt(0) === 46) result.push("");
+    while(index < length){
+        const char = deepKey[index];
+        if (quoteChar) if (char === "\\" && index + 1 < length) {
+            index++;
+            key += deepKey[index];
+        } else if (char === quoteChar) quoteChar = "";
+        else key += char;
+        else if (bracket) if (char === "\"" || char === "'") {
+            quoteChar = char;
+            bracketHadQuote = true;
+        } else if (char === "]") {
+            bracket = false;
+            if (!bracketHadQuote && key.includes(".") && !bracketNumberRegex.test(key)) {
+                const segments = key.split(".");
+                for(let i = 0; i < segments.length; i++)if (segments[i] !== "") result.push(segments[i]);
+            } else result.push(key);
+            key = "";
+        } else key += char;
+        else if (char === "[") {
+            bracket = true;
+            bracketHadQuote = false;
+            if (key) {
+                result.push(key);
+                key = "";
+            }
+        } else if (char === ".") {
+            if (key) {
+                result.push(key);
+                key = "";
+            }
+            const next = deepKey[index + 1];
+            if (next === void 0 || next === ".") result.push("");
+        } else key += char;
+        index++;
+    }
+    if (key) result.push(key);
+    return result;
+}
+//#endregion
+exports.toPath = toPath;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/compat/util/toString.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isSymbol = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/predicate/isSymbol.js [app-client] (ecmascript)");
+//#region src/compat/util/toString.ts
+/**
+* Converts `value` to a string.
+*
+* An empty string is returned for `null` and `undefined` values.
+* The sign of `-0` is preserved.
+*
+* @param value - The value to convert.
+* @returns Returns the converted string.
+*
+* @example
+* toString(null) // returns ''
+* toString(undefined) // returns ''
+* toString(-0) // returns '-0'
+* toString([1, 2, -0]) // returns '1,2,-0'
+* toString([Symbol('a'), Symbol('b')]) // returns 'Symbol(a),Symbol(b)'
+*/ function toString(value) {
+    if (value == null) return "";
+    return baseToString(value);
+}
+function baseToString(value) {
+    if (typeof value === "string") return value;
+    if (Array.isArray(value)) return value.map(baseToString).join(",");
+    if (require_isSymbol.isSymbol(value)) return value.toString();
+    const result = value + "";
+    if (result === "0" && Object.is(Number(value), -0)) return "-0";
+    return result;
+}
+//#endregion
+exports.toString = toString;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/function/ary.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/function/ary.ts
+/**
+* Creates a function that invokes func, with up to n arguments, ignoring any additional arguments.
+*
+* @template F - The type of the function.
+* @param func - The function to cap arguments for.
+* @param n - The arity cap.
+* @returns Returns the new capped function.
+*
+* @example
+* function fn(a: number, b: number, c: number) {
+*   return Array.from(arguments);
+* }
+*
+* ary(fn, 0)(1, 2, 3) // []
+* ary(fn, 1)(1, 2, 3) // [1]
+* ary(fn, 2)(1, 2, 3) // [1, 2]
+* ary(fn, 3)(1, 2, 3) // [1, 2, 3]
+*/ function ary(func, n) {
+    return function(...args) {
+        return func.apply(this, args.slice(0, n));
+    };
+}
+//#endregion
+exports.ary = ary;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/function/debounce.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/function/debounce.ts
+/**
+* Creates a debounced function that delays invoking the provided function until after `debounceMs` milliseconds
+* have elapsed since the last time the debounced function was invoked. The debounced function also has a `cancel`
+* method to cancel any pending execution.
+*
+* @template F - The type of function.
+* @param func - The function to debounce.
+* @param debounceMs - The number of milliseconds to delay.
+* @param options - The options object
+* @param options.signal - An optional AbortSignal to cancel the debounced function.
+* @param options.edges - An optional array specifying whether the function should be invoked on the leading edge, trailing edge, or both.
+* @returns A new debounced function with a `cancel` method.
+*
+* @example
+* const debouncedFunction = debounce(() => {
+*   console.log('Function executed');
+* }, 1000);
+*
+* // Will log 'Function executed' after 1 second if not called again in that time
+* debouncedFunction();
+*
+* // Will not log anything as the previous call is canceled
+* debouncedFunction.cancel();
+*
+* // With AbortSignal
+* const controller = new AbortController();
+* const signal = controller.signal;
+* const debouncedWithSignal = debounce(() => {
+*  console.log('Function executed');
+* }, 1000, { signal });
+*
+* debouncedWithSignal();
+*
+* // Will cancel the debounced function call
+* controller.abort();
+*/ function debounce(func, debounceMs, { signal, edges } = {}) {
+    let pendingThis = void 0;
+    let pendingArgs = null;
+    const leading = edges != null && edges.includes("leading");
+    const trailing = edges == null || edges.includes("trailing");
+    const invoke = ()=>{
+        if (pendingArgs !== null) {
+            func.apply(pendingThis, pendingArgs);
+            pendingThis = void 0;
+            pendingArgs = null;
+        }
+    };
+    const onTimerEnd = ()=>{
+        if (trailing) invoke();
+        cancel();
+    };
+    let timeoutId = null;
+    const schedule = ()=>{
+        if (timeoutId != null) clearTimeout(timeoutId);
+        timeoutId = setTimeout(()=>{
+            timeoutId = null;
+            onTimerEnd();
+        }, debounceMs);
+    };
+    const cancelTimer = ()=>{
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+    };
+    const cancel = ()=>{
+        cancelTimer();
+        pendingThis = void 0;
+        pendingArgs = null;
+    };
+    const flush = ()=>{
+        invoke();
+    };
+    const debounced = function(...args) {
+        if (signal?.aborted) return;
+        pendingThis = this;
+        pendingArgs = args;
+        const isFirstCall = timeoutId == null;
+        schedule();
+        if (leading && isFirstCall) invoke();
+    };
+    debounced.schedule = schedule;
+    debounced.cancel = cancel;
+    debounced.flush = flush;
+    signal?.addEventListener("abort", cancel, {
+        once: true
+    });
+    return debounced;
+}
+//#endregion
+exports.debounce = debounce;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/function/identity.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/function/identity.ts
+/**
+* Returns the input value unchanged.
+*
+* @template T - The type of the input value.
+* @param x - The value to be returned.
+* @returns The input value.
+*
+* @example
+* // Returns 5
+* identity(5);
+*
+* @example
+* // Returns 'hello'
+* identity('hello');
+*
+* @example
+* // Returns { key: 'value' }
+* identity({ key: 'value' });
+*/ function identity(x) {
+    return x;
+}
+//#endregion
+exports.identity = identity;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/function/noop.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/function/noop.ts
+/**
+* A no-operation function that does nothing.
+* This can be used as a placeholder or default function.
+*
+* @example
+* noop(); // Does nothing
+*
+* @returns This function does not return anything.
+*/ function noop() {}
+//#endregion
+exports.noop = noop;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/object/cloneDeep.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_cloneDeepWith = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/object/cloneDeepWith.js [app-client] (ecmascript)");
+//#region src/object/cloneDeep.ts
+/**
+* Creates a deep clone of the given object.
+*
+* @template T - The type of the object.
+* @param obj - The object to clone.
+* @returns A deep clone of the given object.
+*
+* @example
+* // Clone a primitive value
+* const num = 29;
+* const clonedNum = cloneDeep(num);
+* console.log(clonedNum); // 29
+* console.log(clonedNum === num); // true
+*
+* @example
+* // Clone an array
+* const arr = [1, 2, 3];
+* const clonedArr = cloneDeep(arr);
+* console.log(clonedArr); // [1, 2, 3]
+* console.log(clonedArr === arr); // false
+*
+* @example
+* // Clone an array with nested objects
+* const arr = [1, { a: 1 }, [1, 2, 3]];
+* const clonedArr = cloneDeep(arr);
+* arr[1].a = 2;
+* console.log(arr); // [1, { a: 2 }, [1, 2, 3]]
+* console.log(clonedArr); // [1, { a: 1 }, [1, 2, 3]]
+* console.log(clonedArr === arr); // false
+*
+* @example
+* // Clone an object
+* const obj = { a: 1, b: 'es-toolkit', c: [1, 2, 3] };
+* const clonedObj = cloneDeep(obj);
+* console.log(clonedObj); // { a: 1, b: 'es-toolkit', c: [1, 2, 3] }
+* console.log(clonedObj === obj); // false
+*
+* @example
+* // Clone an object with nested objects
+* const obj = { a: 1, b: { c: 1 } };
+* const clonedObj = cloneDeep(obj);
+* obj.b.c = 2;
+* console.log(obj); // { a: 1, b: { c: 2 } }
+* console.log(clonedObj); // { a: 1, b: { c: 1 } }
+* console.log(clonedObj === obj); // false
+*/ function cloneDeep(obj) {
+    return require_cloneDeepWith.cloneDeepWithImpl(obj, void 0, obj, /* @__PURE__ */ new Map(), void 0);
+}
+//#endregion
+exports.cloneDeep = cloneDeep;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/object/cloneDeepWith.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_isPrimitive = (()=>{
+    const e = new Error("Cannot find module '../predicate/isPrimitive.js'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+const require_isTypedArray = (()=>{
+    const e = new Error("Cannot find module '../predicate/isTypedArray.js'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+const require_getSymbols = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getSymbols.js [app-client] (ecmascript)");
+const require_getTag = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getTag.js [app-client] (ecmascript)");
+const require_tags = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/tags.js [app-client] (ecmascript)");
+const require_isBuffer = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/predicate/isBuffer.js [app-client] (ecmascript)");
+//#region src/object/cloneDeepWith.ts
+/**
+* Deeply clones the given object.
+*
+* You can customize the deep cloning process using the `cloneValue` function.
+* The function takes the current value `value`, the property name `key`, and the entire object `obj` as arguments.
+* If the function returns a value, that value is used;
+* if it returns `undefined`, the default cloning method is used.
+*
+* @template T - The type of the object.
+* @param obj - The object to clone.
+* @param [cloneValue] - A function to customize the cloning process.
+* @returns A deep clone of the given object.
+*
+* @example
+* // Clone a primitive value
+* const num = 29;
+* const clonedNum = cloneDeepWith(num);
+* console.log(clonedNum); // 29
+* console.log(clonedNum === num); // true
+*
+* @example
+* // Clone an object with a customizer
+* const obj = { a: 1, b: 2 };
+* const clonedObj = cloneDeepWith(obj, (value) => {
+*   if (typeof value === 'number') {
+*     return value * 2; // Double the number
+*   }
+* });
+* console.log(clonedObj); // { a: 2, b: 4 }
+* console.log(clonedObj === obj); // false
+*
+* @example
+* // Clone an array with a customizer
+* const arr = [1, 2, 3];
+* const clonedArr = cloneDeepWith(arr, (value) => {
+*   if (typeof value === 'number') {
+*     return value + 1; // Increment each number
+*   }
+* });
+* console.log(clonedArr); // [2, 3, 4]
+* console.log(clonedArr === arr); // false
+*/ function cloneDeepWith(obj, cloneValue) {
+    return cloneDeepWithImpl(obj, void 0, obj, /* @__PURE__ */ new Map(), cloneValue);
+}
+function cloneDeepWithImpl(valueToClone, keyToClone, objectToClone, stack = /* @__PURE__ */ new Map(), cloneValue = void 0) {
+    const cloned = cloneValue?.(valueToClone, keyToClone, objectToClone, stack);
+    if (cloned !== void 0) return cloned;
+    if (require_isPrimitive.isPrimitive(valueToClone)) return valueToClone;
+    if (stack.has(valueToClone)) return stack.get(valueToClone);
+    if (Array.isArray(valueToClone)) {
+        const result = new Array(valueToClone.length);
+        stack.set(valueToClone, result);
+        for(let i = 0; i < valueToClone.length; i++)result[i] = cloneDeepWithImpl(valueToClone[i], i, objectToClone, stack, cloneValue);
+        if (Object.hasOwn(valueToClone, "index")) result.index = valueToClone.index;
+        if (Object.hasOwn(valueToClone, "input")) result.input = valueToClone.input;
+        return result;
+    }
+    if (valueToClone instanceof Date) return new Date(valueToClone.getTime());
+    if (valueToClone instanceof RegExp) {
+        const result = new RegExp(valueToClone.source, valueToClone.flags);
+        result.lastIndex = valueToClone.lastIndex;
+        return result;
+    }
+    if (valueToClone instanceof Map) {
+        const result = /* @__PURE__ */ new Map();
+        stack.set(valueToClone, result);
+        for (const [key, value] of valueToClone)result.set(key, cloneDeepWithImpl(value, key, objectToClone, stack, cloneValue));
+        return result;
+    }
+    if (valueToClone instanceof Set) {
+        const result = /* @__PURE__ */ new Set();
+        stack.set(valueToClone, result);
+        for (const value of valueToClone)result.add(cloneDeepWithImpl(value, void 0, objectToClone, stack, cloneValue));
+        return result;
+    }
+    if (require_isBuffer.isBuffer(valueToClone)) return valueToClone.subarray();
+    if (require_isTypedArray.isTypedArray(valueToClone)) {
+        const result = new (Object.getPrototypeOf(valueToClone)).constructor(valueToClone.length);
+        stack.set(valueToClone, result);
+        for(let i = 0; i < valueToClone.length; i++)result[i] = cloneDeepWithImpl(valueToClone[i], i, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (valueToClone instanceof ArrayBuffer || typeof SharedArrayBuffer !== "undefined" && valueToClone instanceof SharedArrayBuffer) return valueToClone.slice(0);
+    if (valueToClone instanceof DataView) {
+        const result = new DataView(valueToClone.buffer.slice(0), valueToClone.byteOffset, valueToClone.byteLength);
+        stack.set(valueToClone, result);
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (typeof File !== "undefined" && valueToClone instanceof File) {
+        const result = new File([
+            valueToClone
+        ], valueToClone.name, {
+            type: valueToClone.type
+        });
+        stack.set(valueToClone, result);
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (typeof Blob !== "undefined" && valueToClone instanceof Blob) {
+        const result = new Blob([
+            valueToClone
+        ], {
+            type: valueToClone.type
+        });
+        stack.set(valueToClone, result);
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (valueToClone instanceof Error) {
+        const result = structuredClone(valueToClone);
+        stack.set(valueToClone, result);
+        result.message = valueToClone.message;
+        result.name = valueToClone.name;
+        result.stack = valueToClone.stack;
+        result.cause = valueToClone.cause;
+        result.constructor = valueToClone.constructor;
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (valueToClone instanceof Boolean) {
+        const result = new Boolean(valueToClone.valueOf());
+        stack.set(valueToClone, result);
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (valueToClone instanceof Number) {
+        const result = new Number(valueToClone.valueOf());
+        stack.set(valueToClone, result);
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (valueToClone instanceof String) {
+        const result = new String(valueToClone.valueOf());
+        stack.set(valueToClone, result);
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    if (typeof valueToClone === "object" && isCloneableObject(valueToClone)) {
+        const result = Object.create(Object.getPrototypeOf(valueToClone));
+        stack.set(valueToClone, result);
+        copyProperties(result, valueToClone, objectToClone, stack, cloneValue);
+        return result;
+    }
+    return valueToClone;
+}
+function copyProperties(target, source, objectToClone = target, stack, cloneValue) {
+    const keys = [
+        ...Object.keys(source),
+        ...require_getSymbols.getSymbols(source)
+    ];
+    for(let i = 0; i < keys.length; i++){
+        const key = keys[i];
+        const descriptor = Object.getOwnPropertyDescriptor(target, key);
+        if (descriptor == null || descriptor.writable) target[key] = cloneDeepWithImpl(source[key], key, objectToClone, stack, cloneValue);
+    }
+}
+function isCloneableObject(object) {
+    switch(require_getTag.getTag(object)){
+        case require_tags.argumentsTag:
+        case require_tags.arrayTag:
+        case require_tags.arrayBufferTag:
+        case require_tags.dataViewTag:
+        case require_tags.booleanTag:
+        case require_tags.dateTag:
+        case require_tags.float32ArrayTag:
+        case require_tags.float64ArrayTag:
+        case require_tags.int8ArrayTag:
+        case require_tags.int16ArrayTag:
+        case require_tags.int32ArrayTag:
+        case require_tags.mapTag:
+        case require_tags.numberTag:
+        case require_tags.objectTag:
+        case require_tags.regexpTag:
+        case require_tags.setTag:
+        case require_tags.stringTag:
+        case require_tags.symbolTag:
+        case require_tags.uint8ArrayTag:
+        case require_tags.uint8ClampedArrayTag:
+        case require_tags.uint16ArrayTag:
+        case require_tags.uint32ArrayTag:
+            return true;
+        default:
+            return false;
+    }
+}
+//#endregion
+exports.cloneDeepWith = cloneDeepWith;
+exports.cloneDeepWithImpl = cloneDeepWithImpl;
+exports.copyProperties = copyProperties;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/predicate/isBuffer.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_globalThis = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/_internal/globalThis.js [app-client] (ecmascript)");
+//#region src/predicate/isBuffer.ts
+/**
+* Checks if the given value is a Buffer instance.
+*
+* This function tests whether the provided value is an instance of Buffer.
+* It returns `true` if the value is a Buffer, and `false` otherwise.
+*
+* This function can also serve as a type predicate in TypeScript, narrowing the type of the argument to `Buffer`.
+*
+* @param x - The value to check if it is a Buffer.
+* @returns Returns `true` if `x` is a Buffer, else `false`.
+*
+* @example
+* const buffer = Buffer.from("test");
+* console.log(isBuffer(buffer)); // true
+*
+* const notBuffer = "not a buffer";
+* console.log(isBuffer(notBuffer)); // false
+*/ function isBuffer(x) {
+    return typeof require_globalThis.globalThis_.Buffer !== "undefined" && require_globalThis.globalThis_.Buffer.isBuffer(x);
+}
+//#endregion
+exports.isBuffer = isBuffer;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/predicate/isEqual.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_noop = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/function/noop.js [app-client] (ecmascript)");
+const require_isEqualWith = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/predicate/isEqualWith.js [app-client] (ecmascript)");
+//#region src/predicate/isEqual.ts
+/**
+* Checks if two values are equal, including support for `Date`, `RegExp`, and deep object comparison.
+*
+* @param a - The first value to compare.
+* @param b - The second value to compare.
+* @returns `true` if the values are equal, otherwise `false`.
+*
+* @example
+* isEqual(1, 1); // true
+* isEqual({ a: 1 }, { a: 1 }); // true
+* isEqual(/abc/g, /abc/g); // true
+* isEqual(new Date('2020-01-01'), new Date('2020-01-01')); // true
+* isEqual([1, 2, 3], [1, 2, 3]); // true
+*/ function isEqual(a, b) {
+    return require_isEqualWith.isEqualWith(a, b, require_noop.noop);
+}
+//#endregion
+exports.isEqual = isEqual;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/predicate/isEqualWith.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+const require_getSymbols = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getSymbols.js [app-client] (ecmascript)");
+const require_getTag = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/getTag.js [app-client] (ecmascript)");
+const require_tags = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/_internal/tags.js [app-client] (ecmascript)");
+const require_isBuffer = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/predicate/isBuffer.js [app-client] (ecmascript)");
+const require_isPlainObject = (()=>{
+    const e = new Error("Cannot find module './isPlainObject.js'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+const require_eq = __turbopack_context__.r("[project]/frontend/node_modules/es-toolkit/dist/compat/util/eq.js [app-client] (ecmascript)");
+//#region src/predicate/isEqualWith.ts
+/**
+* Compares two values for equality using a custom comparison function.
+*
+* The custom function allows for fine-tuned control over the comparison process. If it returns a boolean, that result determines the equality. If it returns undefined, the function falls back to the default equality comparison.
+*
+* This function also uses the custom equality function to compare values inside objects,
+* arrays, maps, sets, and other complex structures, ensuring a deep comparison.
+*
+* This approach provides flexibility in handling complex comparisons while maintaining efficient default behavior for simpler cases.
+*
+* The custom comparison function can take up to six parameters:
+* - `x`: The value from the first object `a`.
+* - `y`: The value from the second object `b`.
+* - `property`: The property key used to get `x` and `y`.
+* - `xParent`: The parent of the first value `x`.
+* - `yParent`: The parent of the second value `y`.
+* - `stack`: An internal stack (Map) to handle circular references.
+*
+* @param a - The first value to compare.
+* @param b - The second value to compare.
+* @param areValuesEqual - A function to customize the comparison.
+*   If it returns a boolean, that result will be used. If it returns undefined,
+*   the default equality comparison will be used.
+* @returns `true` if the values are equal according to the customizer, otherwise `false`.
+*
+* @example
+* const customizer = (a, b) => {
+*   if (typeof a === 'string' && typeof b === 'string') {
+*     return a.toLowerCase() === b.toLowerCase();
+*   }
+* };
+* isEqualWith('Hello', 'hello', customizer); // true
+* isEqualWith({ a: 'Hello' }, { a: 'hello' }, customizer); // true
+* isEqualWith([1, 2, 3], [1, 2, 3], customizer); // true
+*/ function isEqualWith(a, b, areValuesEqual) {
+    return isEqualWithImpl(a, b, void 0, void 0, void 0, void 0, areValuesEqual);
+}
+function isEqualWithImpl(a, b, property, aParent, bParent, stack, areValuesEqual) {
+    const result = areValuesEqual(a, b, property, aParent, bParent, stack);
+    if (result !== void 0) return result;
+    if (typeof a === typeof b) switch(typeof a){
+        case "bigint":
+        case "string":
+        case "boolean":
+        case "symbol":
+        case "undefined":
+            return a === b;
+        case "number":
+            return a === b || Object.is(a, b);
+        case "function":
+            return a === b;
+        case "object":
+            return areObjectsEqual(a, b, stack, areValuesEqual);
+    }
+    return areObjectsEqual(a, b, stack, areValuesEqual);
+}
+function areObjectsEqual(a, b, stack, areValuesEqual) {
+    if (Object.is(a, b)) return true;
+    let aTag = require_getTag.getTag(a);
+    let bTag = require_getTag.getTag(b);
+    if (aTag === "[object Arguments]") aTag = require_tags.objectTag;
+    if (bTag === "[object Arguments]") bTag = require_tags.objectTag;
+    if (aTag !== bTag) return false;
+    switch(aTag){
+        case require_tags.stringTag:
+            return a.toString() === b.toString();
+        case require_tags.numberTag:
+            {
+                const x = a.valueOf();
+                const y = b.valueOf();
+                return require_eq.eq(x, y);
+            }
+        case require_tags.booleanTag:
+        case require_tags.dateTag:
+        case require_tags.symbolTag:
+            return Object.is(a.valueOf(), b.valueOf());
+        case require_tags.regexpTag:
+            return a.source === b.source && a.flags === b.flags;
+        case require_tags.functionTag:
+            return a === b;
+    }
+    stack = stack ?? /* @__PURE__ */ new Map();
+    const aStack = stack.get(a);
+    const bStack = stack.get(b);
+    if (aStack != null && bStack != null) return aStack === b;
+    stack.set(a, b);
+    stack.set(b, a);
+    try {
+        switch(aTag){
+            case require_tags.mapTag:
+                if (a.size !== b.size) return false;
+                for (const [key, value] of a.entries())if (!b.has(key) || !isEqualWithImpl(value, b.get(key), key, a, b, stack, areValuesEqual)) return false;
+                return true;
+            case require_tags.setTag:
+                {
+                    if (a.size !== b.size) return false;
+                    const aValues = Array.from(a.values());
+                    const bValues = Array.from(b.values());
+                    for(let i = 0; i < aValues.length; i++){
+                        const aValue = aValues[i];
+                        const index = bValues.findIndex((bValue)=>{
+                            return isEqualWithImpl(aValue, bValue, void 0, a, b, stack, areValuesEqual);
+                        });
+                        if (index === -1) return false;
+                        bValues.splice(index, 1);
+                    }
+                    return true;
+                }
+            case require_tags.arrayTag:
+            case require_tags.uint8ArrayTag:
+            case require_tags.uint8ClampedArrayTag:
+            case require_tags.uint16ArrayTag:
+            case require_tags.uint32ArrayTag:
+            case require_tags.bigUint64ArrayTag:
+            case require_tags.int8ArrayTag:
+            case require_tags.int16ArrayTag:
+            case require_tags.int32ArrayTag:
+            case require_tags.bigInt64ArrayTag:
+            case require_tags.float32ArrayTag:
+            case require_tags.float64ArrayTag:
+                if (require_isBuffer.isBuffer(a) !== require_isBuffer.isBuffer(b)) return false;
+                if (a.length !== b.length) return false;
+                for(let i = 0; i < a.length; i++)if (!isEqualWithImpl(a[i], b[i], i, a, b, stack, areValuesEqual)) return false;
+                return true;
+            case require_tags.arrayBufferTag:
+                if (a.byteLength !== b.byteLength) return false;
+                return areObjectsEqual(new Uint8Array(a), new Uint8Array(b), stack, areValuesEqual);
+            case require_tags.dataViewTag:
+                if (a.byteLength !== b.byteLength || a.byteOffset !== b.byteOffset) return false;
+                return areObjectsEqual(new Uint8Array(a), new Uint8Array(b), stack, areValuesEqual);
+            case require_tags.errorTag:
+                return a.name === b.name && a.message === b.message;
+            case require_tags.objectTag:
+                {
+                    if (!(areObjectsEqual(a.constructor, b.constructor, stack, areValuesEqual) || require_isPlainObject.isPlainObject(a) && require_isPlainObject.isPlainObject(b))) return false;
+                    const aKeys = [
+                        ...Object.keys(a),
+                        ...require_getSymbols.getSymbols(a)
+                    ];
+                    const bKeys = [
+                        ...Object.keys(b),
+                        ...require_getSymbols.getSymbols(b)
+                    ];
+                    if (aKeys.length !== bKeys.length) return false;
+                    for(let i = 0; i < aKeys.length; i++){
+                        const propKey = aKeys[i];
+                        const aProp = a[propKey];
+                        if (!Object.hasOwn(b, propKey)) return false;
+                        const bProp = b[propKey];
+                        if (!isEqualWithImpl(aProp, bProp, propKey, a, b, stack, areValuesEqual)) return false;
+                    }
+                    return true;
+                }
+            default:
+                return false;
+        }
+    } finally{
+        stack.delete(a);
+        stack.delete(b);
+    }
+}
+//#endregion
+exports.isEqualWith = isEqualWith;
+}),
+"[project]/frontend/node_modules/es-toolkit/dist/predicate/isLength.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+
+//#region src/predicate/isLength.ts
+/**
+* Checks if a given value is a valid length.
+*
+* A valid length is of type `number`, is a non-negative integer, and is less than or equal to
+* JavaScript's maximum safe integer (`Number.MAX_SAFE_INTEGER`).
+* It returns `true` if the value is a valid length, and `false` otherwise.
+*
+* This function can also serve as a type predicate in TypeScript, narrowing the type of the
+* argument to a valid length (`number`).
+*
+* @param value The value to check.
+* @returns Returns `true` if `value` is a valid length, else `false`.
+*
+* @example
+* isLength(0); // true
+* isLength(42); // true
+* isLength(-1); // false
+* isLength(1.5); // false
+* isLength(Number.MAX_SAFE_INTEGER); // true
+* isLength(Number.MAX_SAFE_INTEGER + 1); // false
+*/ function isLength(value) {
+    return Number.isSafeInteger(value) && value >= 0;
+}
+//#endregion
+exports.isLength = isLength;
+}),
+"[project]/frontend/node_modules/eventemitter3/index.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var has = Object.prototype.hasOwnProperty, prefix = '~';
+/**
+ * Constructor to create a storage for our `EE` objects.
+ * An `Events` instance is a plain object whose properties are event names.
+ *
+ * @constructor
+ * @private
+ */ function Events() {}
+//
+// We try to not inherit from `Object.prototype`. In some engines creating an
+// instance in this way is faster than calling `Object.create(null)` directly.
+// If `Object.create(null)` is not supported we prefix the event names with a
+// character to make sure that the built-in object properties are not
+// overridden or used as an attack vector.
+//
+if (Object.create) {
+    Events.prototype = Object.create(null);
+    //
+    // This hack is needed because the `__proto__` property is still inherited in
+    // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
+    //
+    if (!new Events().__proto__) prefix = false;
+}
+/**
+ * Representation of a single event listener.
+ *
+ * @param {Function} fn The listener function.
+ * @param {*} context The context to invoke the listener with.
+ * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
+ * @constructor
+ * @private
+ */ function EE(fn, context, once) {
+    this.fn = fn;
+    this.context = context;
+    this.once = once || false;
+}
+/**
+ * Add a listener for a given event.
+ *
+ * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} context The context to invoke the listener with.
+ * @param {Boolean} once Specify if the listener is a one-time listener.
+ * @returns {EventEmitter}
+ * @private
+ */ function addListener(emitter, event, fn, context, once) {
+    if (typeof fn !== 'function') {
+        throw new TypeError('The listener must be a function');
+    }
+    var listener = new EE(fn, context || emitter, once), evt = prefix ? prefix + event : event;
+    if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
+    else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
+    else emitter._events[evt] = [
+        emitter._events[evt],
+        listener
+    ];
+    return emitter;
+}
+/**
+ * Clear event by name.
+ *
+ * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+ * @param {(String|Symbol)} evt The Event name.
+ * @private
+ */ function clearEvent(emitter, evt) {
+    if (--emitter._eventsCount === 0) emitter._events = new Events();
+    else delete emitter._events[evt];
+}
+/**
+ * Minimal `EventEmitter` interface that is molded against the Node.js
+ * `EventEmitter` interface.
+ *
+ * @constructor
+ * @public
+ */ function EventEmitter() {
+    this._events = new Events();
+    this._eventsCount = 0;
+}
+/**
+ * Return an array listing the events for which the emitter has registered
+ * listeners.
+ *
+ * @returns {Array}
+ * @public
+ */ EventEmitter.prototype.eventNames = function eventNames() {
+    var names = [], events, name;
+    if (this._eventsCount === 0) return names;
+    for(name in events = this._events){
+        if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
+    }
+    if (Object.getOwnPropertySymbols) {
+        return names.concat(Object.getOwnPropertySymbols(events));
+    }
+    return names;
+};
+/**
+ * Return the listeners registered for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Array} The registered listeners.
+ * @public
+ */ EventEmitter.prototype.listeners = function listeners(event) {
+    var evt = prefix ? prefix + event : event, handlers = this._events[evt];
+    if (!handlers) return [];
+    if (handlers.fn) return [
+        handlers.fn
+    ];
+    for(var i = 0, l = handlers.length, ee = new Array(l); i < l; i++){
+        ee[i] = handlers[i].fn;
+    }
+    return ee;
+};
+/**
+ * Return the number of listeners listening to a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Number} The number of listeners.
+ * @public
+ */ EventEmitter.prototype.listenerCount = function listenerCount(event) {
+    var evt = prefix ? prefix + event : event, listeners = this._events[evt];
+    if (!listeners) return 0;
+    if (listeners.fn) return 1;
+    return listeners.length;
+};
+/**
+ * Calls each of the listeners registered for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Boolean} `true` if the event had listeners, else `false`.
+ * @public
+ */ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+    var evt = prefix ? prefix + event : event;
+    if (!this._events[evt]) return false;
+    var listeners = this._events[evt], len = arguments.length, args, i;
+    if (listeners.fn) {
+        if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
+        switch(len){
+            case 1:
+                return listeners.fn.call(listeners.context), true;
+            case 2:
+                return listeners.fn.call(listeners.context, a1), true;
+            case 3:
+                return listeners.fn.call(listeners.context, a1, a2), true;
+            case 4:
+                return listeners.fn.call(listeners.context, a1, a2, a3), true;
+            case 5:
+                return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
+            case 6:
+                return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+        }
+        for(i = 1, args = new Array(len - 1); i < len; i++){
+            args[i - 1] = arguments[i];
+        }
+        listeners.fn.apply(listeners.context, args);
+    } else {
+        var length = listeners.length, j;
+        for(i = 0; i < length; i++){
+            if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+            switch(len){
+                case 1:
+                    listeners[i].fn.call(listeners[i].context);
+                    break;
+                case 2:
+                    listeners[i].fn.call(listeners[i].context, a1);
+                    break;
+                case 3:
+                    listeners[i].fn.call(listeners[i].context, a1, a2);
+                    break;
+                case 4:
+                    listeners[i].fn.call(listeners[i].context, a1, a2, a3);
+                    break;
+                default:
+                    if (!args) for(j = 1, args = new Array(len - 1); j < len; j++){
+                        args[j - 1] = arguments[j];
+                    }
+                    listeners[i].fn.apply(listeners[i].context, args);
+            }
+        }
+    }
+    return true;
+};
+/**
+ * Add a listener for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */ EventEmitter.prototype.on = function on(event, fn, context) {
+    return addListener(this, event, fn, context, false);
+};
+/**
+ * Add a one-time listener for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */ EventEmitter.prototype.once = function once(event, fn, context) {
+    return addListener(this, event, fn, context, true);
+};
+/**
+ * Remove the listeners of a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn Only remove the listeners that match this function.
+ * @param {*} context Only remove the listeners that have this context.
+ * @param {Boolean} once Only remove one-time listeners.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */ EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+    var evt = prefix ? prefix + event : event;
+    if (!this._events[evt]) return this;
+    if (!fn) {
+        clearEvent(this, evt);
+        return this;
+    }
+    var listeners = this._events[evt];
+    if (listeners.fn) {
+        if (listeners.fn === fn && (!once || listeners.once) && (!context || listeners.context === context)) {
+            clearEvent(this, evt);
+        }
+    } else {
+        for(var i = 0, events = [], length = listeners.length; i < length; i++){
+            if (listeners[i].fn !== fn || once && !listeners[i].once || context && listeners[i].context !== context) {
+                events.push(listeners[i]);
+            }
+        }
+        //
+        // Reset the array, or remove it completely if we have no more listeners.
+        //
+        if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
+        else clearEvent(this, evt);
+    }
+    return this;
+};
+/**
+ * Remove all listeners, or those of the specified event.
+ *
+ * @param {(String|Symbol)} [event] The event name.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */ EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+    var evt;
+    if (event) {
+        evt = prefix ? prefix + event : event;
+        if (this._events[evt]) clearEvent(this, evt);
+    } else {
+        this._events = new Events();
+        this._eventsCount = 0;
+    }
+    return this;
+};
+//
+// Alias methods names because people roll like that.
+//
+EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+EventEmitter.prototype.addListener = EventEmitter.prototype.on;
+//
+// Expose the prefix.
+//
+EventEmitter.prefixed = prefix;
+//
+// Allow `EventEmitter` to be imported as module namespace.
+//
+EventEmitter.EventEmitter = EventEmitter;
+//
+// Expose the module.
+//
+if ("TURBOPACK compile-time truthy", 1) {
+    module.exports = EventEmitter;
+}
+}),
+"[project]/frontend/node_modules/eventemitter3/index.mjs [app-client] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$eventemitter3$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/eventemitter3/index.js [app-client] (ecmascript)");
+;
+;
+const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$eventemitter3$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"];
+}),
+"[project]/frontend/node_modules/immer/dist/immer.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Immer",
+    ()=>Immer2,
+    "applyPatches",
+    ()=>applyPatches,
+    "castDraft",
+    ()=>castDraft,
+    "castImmutable",
+    ()=>castImmutable,
+    "createDraft",
+    ()=>createDraft,
+    "current",
+    ()=>current,
+    "enableArrayMethods",
+    ()=>enableArrayMethods,
+    "enableMapSet",
+    ()=>enableMapSet,
+    "enablePatches",
+    ()=>enablePatches,
+    "finishDraft",
+    ()=>finishDraft,
+    "freeze",
+    ()=>freeze,
+    "immerable",
+    ()=>DRAFTABLE,
+    "isDraft",
+    ()=>isDraft,
+    "isDraftable",
+    ()=>isDraftable,
+    "nothing",
+    ()=>NOTHING,
+    "original",
+    ()=>original,
+    "produce",
+    ()=>produce,
+    "produceWithPatches",
+    ()=>produceWithPatches,
+    "setAutoFreeze",
+    ()=>setAutoFreeze,
+    "setUseStrictIteration",
+    ()=>setUseStrictIteration,
+    "setUseStrictShallowCopy",
+    ()=>setUseStrictShallowCopy
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+// src/utils/env.ts
+var NOTHING = Symbol.for("immer-nothing");
+var DRAFTABLE = Symbol.for("immer-draftable");
+var DRAFT_STATE = Symbol.for("immer-state");
+// src/utils/errors.ts
+var errors = ("TURBOPACK compile-time truthy", 1) ? [
+    // All error codes, starting by 0:
+    function(plugin) {
+        return `The plugin for '${plugin}' has not been loaded into Immer. To enable the plugin, import and call \`enable${plugin}()\` when initializing your application.`;
+    },
+    function(thing) {
+        return `produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '${thing}'`;
+    },
+    "This object has been frozen and should not be mutated",
+    function(data) {
+        return "Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? " + data;
+    },
+    "An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",
+    "Immer forbids circular references",
+    "The first or second argument to `produce` must be a function",
+    "The third argument to `produce` must be a function or undefined",
+    "First argument to `createDraft` must be a plain object, an array, or an immerable object",
+    "First argument to `finishDraft` must be a draft returned by `createDraft`",
+    function(thing) {
+        return `'current' expects a draft, got: ${thing}`;
+    },
+    "Object.defineProperty() cannot be used on an Immer draft",
+    "Object.setPrototypeOf() cannot be used on an Immer draft",
+    "Immer only supports deleting array indices",
+    "Immer only supports setting array indices and the 'length' property",
+    function(thing) {
+        return `'original' expects a draft, got: ${thing}`;
+    }
+] : "TURBOPACK unreachable";
+function die(error, ...args) {
+    if ("TURBOPACK compile-time truthy", 1) {
+        const e = errors[error];
+        const msg = isFunction(e) ? e.apply(null, args) : e;
+        throw new Error(`[Immer] ${msg}`);
+    }
+    throw new Error(`[Immer] minified error nr: ${error}. Full error at: https://bit.ly/3cXEKWf`);
+}
+// src/utils/common.ts
+var O = Object;
+var getPrototypeOf = O.getPrototypeOf;
+var CONSTRUCTOR = "constructor";
+var PROTOTYPE = "prototype";
+var CONFIGURABLE = "configurable";
+var ENUMERABLE = "enumerable";
+var WRITABLE = "writable";
+var VALUE = "value";
+var isDraft = (value)=>!!value && !!value[DRAFT_STATE];
+function isDraftable(value) {
+    if (!value) return false;
+    return isPlainObject(value) || isArray(value) || !!value[DRAFTABLE] || !!value[CONSTRUCTOR]?.[DRAFTABLE] || isMap(value) || isSet(value);
+}
+var objectCtorString = O[PROTOTYPE][CONSTRUCTOR].toString();
+var cachedCtorStrings = /* @__PURE__ */ new WeakMap();
+function isPlainObject(value) {
+    if (!value || !isObjectish(value)) return false;
+    const proto = getPrototypeOf(value);
+    if (proto === null || proto === O[PROTOTYPE]) return true;
+    const Ctor = O.hasOwnProperty.call(proto, CONSTRUCTOR) && proto[CONSTRUCTOR];
+    if (Ctor === Object) return true;
+    if (!isFunction(Ctor)) return false;
+    let ctorString = cachedCtorStrings.get(Ctor);
+    if (ctorString === void 0) {
+        ctorString = Function.toString.call(Ctor);
+        cachedCtorStrings.set(Ctor, ctorString);
+    }
+    return ctorString === objectCtorString;
+}
+function original(value) {
+    if (!isDraft(value)) die(15, value);
+    return value[DRAFT_STATE].base_;
+}
+function each(obj, iter, strict = true) {
+    if (getArchtype(obj) === 0 /* Object */ ) {
+        const keys = strict ? Reflect.ownKeys(obj) : O.keys(obj);
+        keys.forEach((key)=>{
+            iter(key, obj[key], obj);
+        });
+    } else {
+        obj.forEach((entry, index)=>iter(index, entry, obj));
+    }
+}
+function getArchtype(thing) {
+    const state = thing[DRAFT_STATE];
+    return state ? state.type_ : isArray(thing) ? 1 /* Array */  : isMap(thing) ? 2 /* Map */  : isSet(thing) ? 3 /* Set */  : 0 /* Object */ ;
+}
+var has = (thing, prop, type = getArchtype(thing))=>type === 2 /* Map */  ? thing.has(prop) : O[PROTOTYPE].hasOwnProperty.call(thing, prop);
+var get = (thing, prop, type = getArchtype(thing))=>// @ts-ignore
+    type === 2 /* Map */  ? thing.get(prop) : thing[prop];
+var set = (thing, propOrOldValue, value, type = getArchtype(thing))=>{
+    if (type === 2 /* Map */ ) thing.set(propOrOldValue, value);
+    else if (type === 3 /* Set */ ) {
+        thing.add(value);
+    } else thing[propOrOldValue] = value;
+};
+function is(x, y) {
+    if (x === y) {
+        return x !== 0 || 1 / x === 1 / y;
+    } else {
+        return x !== x && y !== y;
+    }
+}
+var isArray = Array.isArray;
+var isMap = (target)=>target instanceof Map;
+var isSet = (target)=>target instanceof Set;
+var isObjectish = (target)=>typeof target === "object";
+var isFunction = (target)=>typeof target === "function";
+var isBoolean = (target)=>typeof target === "boolean";
+function isArrayIndex(value) {
+    const n = +value;
+    return Number.isInteger(n) && String(n) === value;
+}
+var getProxyDraft = (value)=>{
+    if (!isObjectish(value)) return null;
+    return value?.[DRAFT_STATE];
+};
+var latest = (state)=>state.copy_ || state.base_;
+var getValue = (value)=>{
+    const proxyDraft = getProxyDraft(value);
+    return proxyDraft ? getFinalValue(proxyDraft) : value;
+};
+var getFinalValue = (state)=>state.modified_ ? state.copy_ : state.base_;
+function shallowCopy(base, strict) {
+    if (isMap(base)) {
+        return new Map(base);
+    }
+    if (isSet(base)) {
+        return new Set(base);
+    }
+    if (isArray(base)) return Array[PROTOTYPE].slice.call(base);
+    const isPlain = isPlainObject(base);
+    if (strict === true || strict === "class_only" && !isPlain) {
+        const descriptors = O.getOwnPropertyDescriptors(base);
+        delete descriptors[DRAFT_STATE];
+        let keys = Reflect.ownKeys(descriptors);
+        for(let i = 0; i < keys.length; i++){
+            const key = keys[i];
+            const desc = descriptors[key];
+            if (desc[WRITABLE] === false) {
+                desc[WRITABLE] = true;
+                desc[CONFIGURABLE] = true;
+            }
+            if (desc.get || desc.set) descriptors[key] = {
+                [CONFIGURABLE]: true,
+                [WRITABLE]: true,
+                // could live with !!desc.set as well here...
+                [ENUMERABLE]: desc[ENUMERABLE],
+                [VALUE]: base[key]
+            };
+        }
+        return O.create(getPrototypeOf(base), descriptors);
+    } else {
+        const proto = getPrototypeOf(base);
+        if (proto !== null && isPlain) {
+            return {
+                ...base
+            };
+        }
+        const obj = O.create(proto);
+        return O.assign(obj, base);
+    }
+}
+function freeze(obj, deep = false) {
+    if (isFrozen(obj) || isDraft(obj) || !isDraftable(obj)) return obj;
+    if (getArchtype(obj) > 1) {
+        O.defineProperties(obj, {
+            set: dontMutateMethodOverride,
+            add: dontMutateMethodOverride,
+            clear: dontMutateMethodOverride,
+            delete: dontMutateMethodOverride
+        });
+    }
+    O.freeze(obj);
+    if (deep) each(obj, (_key, value)=>{
+        freeze(value, true);
+    }, false);
+    return obj;
+}
+function dontMutateFrozenCollections() {
+    die(2);
+}
+var dontMutateMethodOverride = {
+    [VALUE]: dontMutateFrozenCollections
+};
+function isFrozen(obj) {
+    if (obj === null || !isObjectish(obj)) return true;
+    return O.isFrozen(obj);
+}
+// src/utils/plugins.ts
+var PluginMapSet = "MapSet";
+var PluginPatches = "Patches";
+var PluginArrayMethods = "ArrayMethods";
+var plugins = {};
+function getPlugin(pluginKey) {
+    const plugin = plugins[pluginKey];
+    if (!plugin) {
+        die(0, pluginKey);
+    }
+    return plugin;
+}
+var isPluginLoaded = (pluginKey)=>!!plugins[pluginKey];
+function loadPlugin(pluginKey, implementation) {
+    if (!plugins[pluginKey]) plugins[pluginKey] = implementation;
+}
+// src/core/scope.ts
+var currentScope;
+var getCurrentScope = ()=>currentScope;
+var createScope = (parent_, immer_)=>({
+        drafts_: [],
+        parent_,
+        immer_,
+        // Whenever the modified draft contains a draft from another scope, we
+        // need to prevent auto-freezing so the unowned draft can be finalized.
+        canAutoFreeze_: true,
+        unfinalizedDrafts_: 0,
+        handledSet_: /* @__PURE__ */ new Set(),
+        processedForPatches_: /* @__PURE__ */ new Set(),
+        mapSetPlugin_: isPluginLoaded(PluginMapSet) ? getPlugin(PluginMapSet) : void 0,
+        arrayMethodsPlugin_: isPluginLoaded(PluginArrayMethods) ? getPlugin(PluginArrayMethods) : void 0
+    });
+function usePatchesInScope(scope, patchListener) {
+    if (patchListener) {
+        scope.patchPlugin_ = getPlugin(PluginPatches);
+        scope.patches_ = [];
+        scope.inversePatches_ = [];
+        scope.patchListener_ = patchListener;
+    }
+}
+function revokeScope(scope) {
+    leaveScope(scope);
+    scope.drafts_.forEach(revokeDraft);
+    scope.drafts_ = null;
+}
+function leaveScope(scope) {
+    if (scope === currentScope) {
+        currentScope = scope.parent_;
+    }
+}
+var enterScope = (immer2)=>currentScope = createScope(currentScope, immer2);
+function revokeDraft(draft) {
+    const state = draft[DRAFT_STATE];
+    if (state.type_ === 0 /* Object */  || state.type_ === 1 /* Array */ ) state.revoke_();
+    else state.revoked_ = true;
+}
+// src/core/finalize.ts
+function processResult(result, scope) {
+    scope.unfinalizedDrafts_ = scope.drafts_.length;
+    const baseDraft = scope.drafts_[0];
+    const isReplaced = result !== void 0 && result !== baseDraft;
+    if (isReplaced) {
+        if (baseDraft[DRAFT_STATE].modified_) {
+            revokeScope(scope);
+            die(4);
+        }
+        if (isDraftable(result)) {
+            result = finalize(scope, result);
+        }
+        const { patchPlugin_ } = scope;
+        if (patchPlugin_) {
+            patchPlugin_.generateReplacementPatches_(baseDraft[DRAFT_STATE].base_, result, scope);
+        }
+    } else {
+        result = finalize(scope, baseDraft);
+    }
+    maybeFreeze(scope, result, true);
+    revokeScope(scope);
+    if (scope.patches_) {
+        scope.patchListener_(scope.patches_, scope.inversePatches_);
+    }
+    return result !== NOTHING ? result : void 0;
+}
+function finalize(rootScope, value) {
+    if (isFrozen(value)) return value;
+    const state = value[DRAFT_STATE];
+    if (!state) {
+        const finalValue = handleValue(value, rootScope.handledSet_, rootScope);
+        return finalValue;
+    }
+    if (!isSameScope(state, rootScope)) {
+        return value;
+    }
+    if (!state.modified_) {
+        return state.base_;
+    }
+    if (!state.finalized_) {
+        const { callbacks_ } = state;
+        if (callbacks_) {
+            while(callbacks_.length > 0){
+                const callback = callbacks_.pop();
+                callback(rootScope);
+            }
+        }
+        generatePatchesAndFinalize(state, rootScope);
+    }
+    return state.copy_;
+}
+function maybeFreeze(scope, value, deep = false) {
+    if (!scope.parent_ && scope.immer_.autoFreeze_ && scope.canAutoFreeze_) {
+        freeze(value, deep);
+    }
+}
+function markStateFinalized(state) {
+    state.finalized_ = true;
+    state.scope_.unfinalizedDrafts_--;
+}
+var isSameScope = (state, rootScope)=>state.scope_ === rootScope;
+var EMPTY_LOCATIONS_RESULT = [];
+function updateDraftInParent(parent, draftValue, finalizedValue, originalKey) {
+    const parentCopy = latest(parent);
+    const parentType = parent.type_;
+    if (originalKey !== void 0) {
+        const currentValue = get(parentCopy, originalKey, parentType);
+        if (currentValue === draftValue) {
+            set(parentCopy, originalKey, finalizedValue, parentType);
+            return;
+        }
+    }
+    if (!parent.draftLocations_) {
+        const draftLocations = parent.draftLocations_ = /* @__PURE__ */ new Map();
+        each(parentCopy, (key, value)=>{
+            if (isDraft(value)) {
+                const keys = draftLocations.get(value) || [];
+                keys.push(key);
+                draftLocations.set(value, keys);
+            }
+        });
+    }
+    const locations = parent.draftLocations_.get(draftValue) ?? EMPTY_LOCATIONS_RESULT;
+    for (const location of locations){
+        set(parentCopy, location, finalizedValue, parentType);
+    }
+}
+function registerChildFinalizationCallback(parent, child, key) {
+    parent.callbacks_.push(function childCleanup(rootScope) {
+        const state = child;
+        if (!state || !isSameScope(state, rootScope)) {
+            return;
+        }
+        rootScope.mapSetPlugin_?.fixSetContents(state);
+        const finalizedValue = getFinalValue(state);
+        updateDraftInParent(parent, state.draft_ ?? state, finalizedValue, key);
+        generatePatchesAndFinalize(state, rootScope);
+    });
+}
+function generatePatchesAndFinalize(state, rootScope) {
+    const shouldFinalize = state.modified_ && !state.finalized_ && (state.type_ === 3 /* Set */  || state.type_ === 1 /* Array */  && state.allIndicesReassigned_ || (state.assigned_?.size ?? 0) > 0);
+    if (shouldFinalize) {
+        const { patchPlugin_ } = rootScope;
+        if (patchPlugin_) {
+            const basePath = patchPlugin_.getPath(state);
+            if (basePath) {
+                patchPlugin_.generatePatches_(state, basePath, rootScope);
+            }
+        }
+        markStateFinalized(state);
+    }
+}
+function handleCrossReference(target, key, value) {
+    const { scope_ } = target;
+    if (isDraft(value)) {
+        const state = value[DRAFT_STATE];
+        if (isSameScope(state, scope_)) {
+            state.callbacks_.push(function crossReferenceCleanup() {
+                prepareCopy(target);
+                const finalizedValue = getFinalValue(state);
+                updateDraftInParent(target, value, finalizedValue, key);
+            });
+        }
+    } else if (isDraftable(value)) {
+        target.callbacks_.push(function nestedDraftCleanup() {
+            const targetCopy = latest(target);
+            if (target.type_ === 3 /* Set */ ) {
+                if (targetCopy.has(value)) {
+                    handleValue(value, scope_.handledSet_, scope_);
+                }
+            } else {
+                if (get(targetCopy, key, target.type_) === value) {
+                    if (scope_.drafts_.length > 1 && (target.assigned_.get(key) ?? false) === true && target.copy_) {
+                        handleValue(get(target.copy_, key, target.type_), scope_.handledSet_, scope_);
+                    }
+                }
+            }
+        });
+    }
+}
+function handleValue(target, handledSet, rootScope) {
+    if (!rootScope.immer_.autoFreeze_ && rootScope.unfinalizedDrafts_ < 1) {
+        return target;
+    }
+    if (isDraft(target) || handledSet.has(target) || !isDraftable(target) || isFrozen(target)) {
+        return target;
+    }
+    handledSet.add(target);
+    each(target, (key, value)=>{
+        if (isDraft(value)) {
+            const state = value[DRAFT_STATE];
+            if (isSameScope(state, rootScope)) {
+                const updatedValue = getFinalValue(state);
+                set(target, key, updatedValue, target.type_);
+                markStateFinalized(state);
+            }
+        } else if (isDraftable(value)) {
+            handleValue(value, handledSet, rootScope);
+        }
+    });
+    return target;
+}
+// src/core/proxy.ts
+function createProxyProxy(base, parent) {
+    const baseIsArray = isArray(base);
+    const state = {
+        type_: baseIsArray ? 1 /* Array */  : 0 /* Object */ ,
+        // Track which produce call this is associated with.
+        scope_: parent ? parent.scope_ : getCurrentScope(),
+        // True for both shallow and deep changes.
+        modified_: false,
+        // Used during finalization.
+        finalized_: false,
+        // Track which properties have been assigned (true) or deleted (false).
+        // actually instantiated in `prepareCopy()`
+        assigned_: void 0,
+        // The parent draft state.
+        parent_: parent,
+        // The base state.
+        base_: base,
+        // The base proxy.
+        draft_: null,
+        // set below
+        // The base copy with any updated values.
+        copy_: null,
+        // Called by the `produce` function.
+        revoke_: null,
+        isManual_: false,
+        // `callbacks` actually gets assigned in `createProxy`
+        callbacks_: void 0
+    };
+    let target = state;
+    let traps = objectTraps;
+    if (baseIsArray) {
+        target = [
+            state
+        ];
+        traps = arrayTraps;
+    }
+    const { revoke, proxy } = Proxy.revocable(target, traps);
+    state.draft_ = proxy;
+    state.revoke_ = revoke;
+    return [
+        proxy,
+        state
+    ];
+}
+var objectTraps = {
+    get (state, prop) {
+        if (prop === DRAFT_STATE) return state;
+        let arrayPlugin = state.scope_.arrayMethodsPlugin_;
+        const isArrayWithStringProp = state.type_ === 1 /* Array */  && typeof prop === "string";
+        if (isArrayWithStringProp) {
+            if (arrayPlugin?.isArrayOperationMethod(prop)) {
+                return arrayPlugin.createMethodInterceptor(state, prop);
+            }
+        }
+        const source = latest(state);
+        if (!has(source, prop, state.type_)) {
+            return readPropFromProto(state, source, prop);
+        }
+        const value = source[prop];
+        if (state.finalized_ || !isDraftable(value)) {
+            return value;
+        }
+        if (isArrayWithStringProp && state.operationMethod && arrayPlugin?.isMutatingArrayMethod(state.operationMethod) && isArrayIndex(prop)) {
+            return value;
+        }
+        if (value === peek(state.base_, prop) || isRelocatedBaseRef(state, prop, value)) {
+            prepareCopy(state);
+            const childKey = state.type_ === 1 /* Array */  ? +prop : prop;
+            const childDraft = createProxy(state.scope_, value, state, childKey);
+            return state.copy_[childKey] = childDraft;
+        }
+        return value;
+    },
+    has (state, prop) {
+        return prop in latest(state);
+    },
+    ownKeys (state) {
+        return Reflect.ownKeys(latest(state));
+    },
+    set (state, prop, value) {
+        const desc = getDescriptorFromProto(latest(state), prop);
+        if (desc?.set) {
+            desc.set.call(state.draft_, value);
+            return true;
+        }
+        if (!state.modified_) {
+            const current2 = peek(latest(state), prop);
+            const currentState = current2?.[DRAFT_STATE];
+            if (currentState && currentState.base_ === value) {
+                state.copy_[prop] = value;
+                state.assigned_.set(prop, false);
+                return true;
+            }
+            if (is(value, current2) && (value !== void 0 || has(state.base_, prop, state.type_))) return true;
+            prepareCopy(state);
+            markChanged(state);
+        }
+        if (state.copy_[prop] === value && // special case: handle new props with value 'undefined'
+        (value !== void 0 || has(state.copy_, prop, state.type_)) || // special case: NaN
+        Number.isNaN(value) && Number.isNaN(state.copy_[prop])) return true;
+        state.copy_[prop] = value;
+        state.assigned_.set(prop, true);
+        handleCrossReference(state, prop, value);
+        return true;
+    },
+    deleteProperty (state, prop) {
+        prepareCopy(state);
+        if (peek(state.base_, prop) !== void 0 || prop in state.base_) {
+            state.assigned_.set(prop, false);
+            markChanged(state);
+        } else {
+            state.assigned_.delete(prop);
+        }
+        if (state.copy_) {
+            delete state.copy_[prop];
+        }
+        return true;
+    },
+    // Note: We never coerce `desc.value` into an Immer draft, because we can't make
+    // the same guarantee in ES5 mode.
+    getOwnPropertyDescriptor (state, prop) {
+        const owner = latest(state);
+        const desc = Reflect.getOwnPropertyDescriptor(owner, prop);
+        if (!desc) return desc;
+        return {
+            [WRITABLE]: true,
+            [CONFIGURABLE]: state.type_ !== 1 /* Array */  || prop !== "length",
+            [ENUMERABLE]: desc[ENUMERABLE],
+            [VALUE]: owner[prop]
+        };
+    },
+    defineProperty () {
+        die(11);
+    },
+    getPrototypeOf (state) {
+        return getPrototypeOf(state.base_);
+    },
+    setPrototypeOf () {
+        die(12);
+    }
+};
+var arrayTraps = {};
+for(let key in objectTraps){
+    let fn = objectTraps[key];
+    arrayTraps[key] = function() {
+        const args = arguments;
+        args[0] = args[0][0];
+        return fn.apply(this, args);
+    };
+}
+arrayTraps.deleteProperty = function(state, prop) {
+    if (("TURBOPACK compile-time value", "development") !== "production" && isNaN(parseInt(prop))) die(13);
+    return arrayTraps.set.call(this, state, prop, void 0);
+};
+arrayTraps.set = function(state, prop, value) {
+    if (("TURBOPACK compile-time value", "development") !== "production" && prop !== "length" && isNaN(parseInt(prop))) die(14);
+    return objectTraps.set.call(this, state[0], prop, value, state[0]);
+};
+function peek(draft, prop) {
+    const state = draft[DRAFT_STATE];
+    const source = state ? latest(state) : draft;
+    return source[prop];
+}
+function isRelocatedBaseRef(state, prop, value) {
+    if (state.type_ !== 1 /* Array */  || !state.allIndicesReassigned_ || state.assigned_?.get(prop) || !isDraftable(value) || value[DRAFT_STATE]) {
+        return false;
+    }
+    return state.baseRefs_.has(value);
+}
+function readPropFromProto(state, source, prop) {
+    const desc = getDescriptorFromProto(source, prop);
+    return desc ? VALUE in desc ? desc[VALUE] : // This is a very special case, if the prop is a getter defined by the
+    // prototype, we should invoke it with the draft as context!
+    desc.get?.call(state.draft_) : void 0;
+}
+function getDescriptorFromProto(source, prop) {
+    if (!(prop in source)) return void 0;
+    let proto = getPrototypeOf(source);
+    while(proto){
+        const desc = Object.getOwnPropertyDescriptor(proto, prop);
+        if (desc) return desc;
+        proto = getPrototypeOf(proto);
+    }
+    return void 0;
+}
+function markChanged(state) {
+    if (!state.modified_) {
+        state.modified_ = true;
+        if (state.parent_) {
+            markChanged(state.parent_);
+        }
+    }
+}
+function prepareCopy(state) {
+    if (!state.copy_) {
+        state.assigned_ = /* @__PURE__ */ new Map();
+        state.copy_ = shallowCopy(state.base_, state.scope_.immer_.useStrictShallowCopy_);
+    }
+}
+// src/core/immerClass.ts
+var Immer2 = class {
+    constructor(config){
+        this.autoFreeze_ = true;
+        this.useStrictShallowCopy_ = false;
+        this.useStrictIteration_ = false;
+        /**
+     * The `produce` function takes a value and a "recipe function" (whose
+     * return value often depends on the base state). The recipe function is
+     * free to mutate its first argument however it wants. All mutations are
+     * only ever applied to a __copy__ of the base state.
+     *
+     * Pass only a function to create a "curried producer" which relieves you
+     * from passing the recipe function every time.
+     *
+     * Only plain objects and arrays are made mutable. All other objects are
+     * considered uncopyable.
+     *
+     * Note: This function is __bound__ to its `Immer` instance.
+     *
+     * @param {any} base - the initial state
+     * @param {Function} recipe - function that receives a proxy of the base state as first argument and which can be freely modified
+     * @param {Function} patchListener - optional function that will be called with all the patches produced here
+     * @returns {any} a new state, or the initial state if nothing was modified
+     */ this.produce = (base, recipe, patchListener)=>{
+            if (isFunction(base) && !isFunction(recipe)) {
+                const defaultBase = recipe;
+                recipe = base;
+                const self = this;
+                return function curriedProduce(base2 = defaultBase, ...args) {
+                    return self.produce(base2, (draft)=>recipe.call(this, draft, ...args));
+                };
+            }
+            if (!isFunction(recipe)) die(6);
+            if (patchListener !== void 0 && !isFunction(patchListener)) die(7);
+            let result;
+            if (isDraftable(base)) {
+                const scope = enterScope(this);
+                const proxy = createProxy(scope, base, void 0);
+                let hasError = true;
+                try {
+                    result = recipe(proxy);
+                    hasError = false;
+                } finally{
+                    if (hasError) revokeScope(scope);
+                    else leaveScope(scope);
+                }
+                usePatchesInScope(scope, patchListener);
+                return processResult(result, scope);
+            } else if (!base || !isObjectish(base)) {
+                result = recipe(base);
+                if (result === void 0) result = base;
+                if (result === NOTHING) result = void 0;
+                if (this.autoFreeze_) freeze(result, true);
+                if (patchListener) {
+                    const p = [];
+                    const ip = [];
+                    getPlugin(PluginPatches).generateReplacementPatches_(base, result, {
+                        patches_: p,
+                        inversePatches_: ip
+                    });
+                    patchListener(p, ip);
+                }
+                return result;
+            } else die(1, base);
+        };
+        this.produceWithPatches = (base, recipe)=>{
+            if (isFunction(base)) {
+                return (state, ...args)=>this.produceWithPatches(state, (draft)=>base(draft, ...args));
+            }
+            let patches, inversePatches;
+            const result = this.produce(base, recipe, (p, ip)=>{
+                patches = p;
+                inversePatches = ip;
+            });
+            return [
+                result,
+                patches,
+                inversePatches
+            ];
+        };
+        if (isBoolean(config?.autoFreeze)) this.setAutoFreeze(config.autoFreeze);
+        if (isBoolean(config?.useStrictShallowCopy)) this.setUseStrictShallowCopy(config.useStrictShallowCopy);
+        if (isBoolean(config?.useStrictIteration)) this.setUseStrictIteration(config.useStrictIteration);
+    }
+    createDraft(base) {
+        if (!isDraftable(base)) die(8);
+        if (isDraft(base)) base = current(base);
+        const scope = enterScope(this);
+        const proxy = createProxy(scope, base, void 0);
+        proxy[DRAFT_STATE].isManual_ = true;
+        leaveScope(scope);
+        return proxy;
+    }
+    finishDraft(draft, patchListener) {
+        const state = draft && draft[DRAFT_STATE];
+        if (!state || !state.isManual_) die(9);
+        const { scope_: scope } = state;
+        usePatchesInScope(scope, patchListener);
+        return processResult(void 0, scope);
+    }
+    /**
+   * Pass true to automatically freeze all copies created by Immer.
+   *
+   * By default, auto-freezing is enabled.
+   */ setAutoFreeze(value) {
+        this.autoFreeze_ = value;
+    }
+    /**
+   * Pass true to enable strict shallow copy.
+   *
+   * By default, immer does not copy the object descriptors such as getter, setter and non-enumrable properties.
+   */ setUseStrictShallowCopy(value) {
+        this.useStrictShallowCopy_ = value;
+    }
+    /**
+   * Pass false to use faster iteration that skips non-enumerable properties
+   * but still handles symbols for compatibility.
+   *
+   * By default, strict iteration is enabled (includes all own properties).
+   */ setUseStrictIteration(value) {
+        this.useStrictIteration_ = value;
+    }
+    shouldUseStrictIteration() {
+        return this.useStrictIteration_;
+    }
+    applyPatches(base, patches) {
+        let i;
+        for(i = patches.length - 1; i >= 0; i--){
+            const patch = patches[i];
+            if (patch.path.length === 0 && patch.op === "replace") {
+                base = patch.value;
+                break;
+            }
+        }
+        if (i > -1) {
+            patches = patches.slice(i + 1);
+        }
+        const applyPatchesImpl = getPlugin(PluginPatches).applyPatches_;
+        if (isDraft(base)) {
+            return applyPatchesImpl(base, patches);
+        }
+        return this.produce(base, (draft)=>applyPatchesImpl(draft, patches));
+    }
+};
+function createProxy(rootScope, value, parent, key) {
+    const [draft, state] = isMap(value) ? getPlugin(PluginMapSet).proxyMap_(value, parent) : isSet(value) ? getPlugin(PluginMapSet).proxySet_(value, parent) : createProxyProxy(value, parent);
+    const scope = parent?.scope_ ?? getCurrentScope();
+    scope.drafts_.push(draft);
+    state.callbacks_ = parent?.callbacks_ ?? [];
+    state.key_ = key;
+    if (parent && key !== void 0) {
+        registerChildFinalizationCallback(parent, state, key);
+    } else {
+        state.callbacks_.push(function rootDraftCleanup(rootScope2) {
+            rootScope2.mapSetPlugin_?.fixSetContents(state);
+            const { patchPlugin_ } = rootScope2;
+            if (state.modified_ && patchPlugin_) {
+                patchPlugin_.generatePatches_(state, [], rootScope2);
+            }
+        });
+    }
+    return draft;
+}
+// src/core/current.ts
+function current(value) {
+    if (!isDraft(value)) die(10, value);
+    return currentImpl(value);
+}
+function currentImpl(value) {
+    if (!isDraftable(value) || isFrozen(value)) return value;
+    const state = value[DRAFT_STATE];
+    let copy;
+    let strict = true;
+    if (state) {
+        if (!state.modified_) return state.base_;
+        state.finalized_ = true;
+        copy = shallowCopy(value, state.scope_.immer_.useStrictShallowCopy_);
+        strict = state.scope_.immer_.shouldUseStrictIteration();
+    } else {
+        copy = shallowCopy(value, true);
+    }
+    each(copy, (key, childValue)=>{
+        set(copy, key, currentImpl(childValue));
+    }, strict);
+    if (state) {
+        state.finalized_ = false;
+    }
+    return copy;
+}
+// src/plugins/patches.ts
+function enablePatches() {
+    const errorOffset = 16;
+    if ("TURBOPACK compile-time truthy", 1) {
+        errors.push('Sets cannot have "replace" patches.', function(op) {
+            return "Unsupported patch operation: " + op;
+        }, function(path) {
+            return "Cannot apply patch, path doesn't resolve: " + path;
+        }, "Patching reserved attributes like __proto__, prototype and constructor is not allowed");
+    }
+    function getPath(state, path = []) {
+        if (state.key_ !== void 0) {
+            const parentCopy = state.parent_.copy_ ?? state.parent_.base_;
+            const proxyDraft = getProxyDraft(get(parentCopy, state.key_));
+            const valueAtKey = get(parentCopy, state.key_);
+            if (valueAtKey === void 0) {
+                return null;
+            }
+            if (valueAtKey !== state.draft_ && valueAtKey !== state.base_ && valueAtKey !== state.copy_) {
+                return null;
+            }
+            if (proxyDraft != null && proxyDraft.base_ !== state.base_) {
+                return null;
+            }
+            const isSet2 = state.parent_.type_ === 3 /* Set */ ;
+            let key;
+            if (isSet2) {
+                const setParent = state.parent_;
+                key = Array.from(setParent.drafts_.keys()).indexOf(state.key_);
+            } else {
+                key = state.key_;
+            }
+            if (!(isSet2 && parentCopy.size > key || has(parentCopy, key))) {
+                return null;
+            }
+            path.push(key);
+        }
+        if (state.parent_) {
+            return getPath(state.parent_, path);
+        }
+        path.reverse();
+        try {
+            resolvePath(state.copy_, path);
+        } catch (e) {
+            return null;
+        }
+        return path;
+    }
+    function resolvePath(base, path) {
+        let current2 = base;
+        for(let i = 0; i < path.length - 1; i++){
+            const key = path[i];
+            current2 = get(current2, key);
+            if (!isObjectish(current2) || current2 === null) {
+                throw new Error(`Cannot resolve path at '${path.join("/")}'`);
+            }
+        }
+        return current2;
+    }
+    const REPLACE = "replace";
+    const ADD = "add";
+    const REMOVE = "remove";
+    function generatePatches_(state, basePath, scope) {
+        if (state.scope_.processedForPatches_.has(state)) {
+            return;
+        }
+        state.scope_.processedForPatches_.add(state);
+        const { patches_, inversePatches_ } = scope;
+        switch(state.type_){
+            case 0 /* Object */ :
+            case 2 /* Map */ :
+                return generatePatchesFromAssigned(state, basePath, patches_, inversePatches_);
+            case 1 /* Array */ :
+                return generateArrayPatches(state, basePath, patches_, inversePatches_);
+            case 3 /* Set */ :
+                return generateSetPatches(state, basePath, patches_, inversePatches_);
+        }
+    }
+    function generateArrayPatches(state, basePath, patches, inversePatches) {
+        let { base_, assigned_ } = state;
+        let copy_ = state.copy_;
+        if (copy_.length < base_.length) {
+            ;
+            [base_, copy_] = [
+                copy_,
+                base_
+            ];
+            [patches, inversePatches] = [
+                inversePatches,
+                patches
+            ];
+        }
+        const allReassigned = state.allIndicesReassigned_ === true;
+        for(let i = 0; i < base_.length; i++){
+            const copiedItem = copy_[i];
+            const baseItem = base_[i];
+            const isAssigned = allReassigned || assigned_?.get(i.toString());
+            if (isAssigned && copiedItem !== baseItem) {
+                const childState = copiedItem?.[DRAFT_STATE];
+                if (childState && childState.modified_) {
+                    continue;
+                }
+                const path = basePath.concat([
+                    i
+                ]);
+                patches.push({
+                    op: REPLACE,
+                    path,
+                    // Need to maybe clone it, as it can in fact be the original value
+                    // due to the base/copy inversion at the start of this function
+                    value: clonePatchValueIfNeeded(copiedItem)
+                });
+                inversePatches.push({
+                    op: REPLACE,
+                    path,
+                    value: clonePatchValueIfNeeded(baseItem)
+                });
+            }
+        }
+        for(let i = base_.length; i < copy_.length; i++){
+            const path = basePath.concat([
+                i
+            ]);
+            patches.push({
+                op: ADD,
+                path,
+                // Need to maybe clone it, as it can in fact be the original value
+                // due to the base/copy inversion at the start of this function
+                value: clonePatchValueIfNeeded(copy_[i])
+            });
+        }
+        for(let i = copy_.length - 1; base_.length <= i; --i){
+            const path = basePath.concat([
+                i
+            ]);
+            inversePatches.push({
+                op: REMOVE,
+                path
+            });
+        }
+    }
+    function generatePatchesFromAssigned(state, basePath, patches, inversePatches) {
+        const { base_, copy_, type_ } = state;
+        each(state.assigned_, (key, assignedValue)=>{
+            const origValue = get(base_, key, type_);
+            const value = get(copy_, key, type_);
+            const op = !assignedValue ? REMOVE : has(base_, key) ? REPLACE : ADD;
+            if (origValue === value && op === REPLACE) return;
+            const path = basePath.concat(key);
+            patches.push(op === REMOVE ? {
+                op,
+                path
+            } : {
+                op,
+                path,
+                value: clonePatchValueIfNeeded(value)
+            });
+            inversePatches.push(op === ADD ? {
+                op: REMOVE,
+                path
+            } : op === REMOVE ? {
+                op: ADD,
+                path,
+                value: clonePatchValueIfNeeded(origValue)
+            } : {
+                op: REPLACE,
+                path,
+                value: clonePatchValueIfNeeded(origValue)
+            });
+        });
+    }
+    function generateSetPatches(state, basePath, patches, inversePatches) {
+        let { base_, copy_ } = state;
+        let i = 0;
+        base_.forEach((value)=>{
+            if (!copy_.has(value)) {
+                const path = basePath.concat([
+                    i
+                ]);
+                patches.push({
+                    op: REMOVE,
+                    path,
+                    value
+                });
+                inversePatches.unshift({
+                    op: ADD,
+                    path,
+                    value
+                });
+            }
+            i++;
+        });
+        i = 0;
+        copy_.forEach((value)=>{
+            if (!base_.has(value)) {
+                const path = basePath.concat([
+                    i
+                ]);
+                patches.push({
+                    op: ADD,
+                    path,
+                    value
+                });
+                inversePatches.unshift({
+                    op: REMOVE,
+                    path,
+                    value
+                });
+            }
+            i++;
+        });
+    }
+    function generateReplacementPatches_(baseValue, replacement, scope) {
+        const { patches_, inversePatches_ } = scope;
+        patches_.push({
+            op: REPLACE,
+            path: [],
+            value: replacement === NOTHING ? void 0 : replacement
+        });
+        inversePatches_.push({
+            op: REPLACE,
+            path: [],
+            value: baseValue
+        });
+    }
+    function applyPatches_(draft, patches) {
+        patches.forEach((patch)=>{
+            const { path, op } = patch;
+            let base = draft;
+            for(let i = 0; i < path.length - 1; i++){
+                const parentType = getArchtype(base);
+                let p = path[i];
+                if (typeof p !== "string" && typeof p !== "number") {
+                    p = "" + p;
+                }
+                if ((parentType === 0 /* Object */  || parentType === 1 /* Array */ ) && (p === "__proto__" || p === CONSTRUCTOR)) die(errorOffset + 3);
+                if (isFunction(base) && p === PROTOTYPE) die(errorOffset + 3);
+                base = get(base, p);
+                if (base === null || !isObjectish(base)) die(errorOffset + 2, path.join("/"));
+            }
+            const type = getArchtype(base);
+            const value = deepClonePatchValue(patch.value);
+            const key = path[path.length - 1];
+            switch(op){
+                case REPLACE:
+                    switch(type){
+                        case 2 /* Map */ :
+                            return base.set(key, value);
+                        case 3 /* Set */ :
+                            die(errorOffset);
+                        default:
+                            return base[key] = value;
+                    }
+                case ADD:
+                    switch(type){
+                        case 1 /* Array */ :
+                            return key === "-" ? base.push(value) : base.splice(key, 0, value);
+                        case 2 /* Map */ :
+                            return base.set(key, value);
+                        case 3 /* Set */ :
+                            return base.add(value);
+                        default:
+                            return base[key] = value;
+                    }
+                case REMOVE:
+                    switch(type){
+                        case 1 /* Array */ :
+                            return base.splice(key, 1);
+                        case 2 /* Map */ :
+                            return base.delete(key);
+                        case 3 /* Set */ :
+                            return base.delete(patch.value);
+                        default:
+                            return delete base[key];
+                    }
+                default:
+                    die(errorOffset + 1, op);
+            }
+        });
+        return draft;
+    }
+    function deepClonePatchValue(obj) {
+        if (!isDraftable(obj)) return obj;
+        if (isArray(obj)) return obj.map(deepClonePatchValue);
+        if (isMap(obj)) return new Map(Array.from(obj.entries()).map(([k, v])=>[
+                k,
+                deepClonePatchValue(v)
+            ]));
+        if (isSet(obj)) return new Set(Array.from(obj).map(deepClonePatchValue));
+        const cloned = Object.create(getPrototypeOf(obj));
+        for(const key in obj)cloned[key] = deepClonePatchValue(obj[key]);
+        if (has(obj, DRAFTABLE)) cloned[DRAFTABLE] = obj[DRAFTABLE];
+        return cloned;
+    }
+    function clonePatchValueIfNeeded(obj) {
+        if (isDraft(obj)) {
+            return deepClonePatchValue(obj);
+        } else return obj;
+    }
+    loadPlugin(PluginPatches, {
+        applyPatches_,
+        generatePatches_,
+        generateReplacementPatches_,
+        getPath
+    });
+}
+// src/plugins/mapset.ts
+var _globalIterator = globalThis.Iterator;
+var hasIteratorFrom = typeof _globalIterator?.from === "function";
+function enableMapSet() {
+    class DraftMap extends Map {
+        constructor(target, parent){
+            super();
+            this[DRAFT_STATE] = {
+                type_: 2 /* Map */ ,
+                parent_: parent,
+                scope_: parent ? parent.scope_ : getCurrentScope(),
+                modified_: false,
+                finalized_: false,
+                copy_: void 0,
+                assigned_: void 0,
+                base_: target,
+                draft_: this,
+                isManual_: false,
+                revoked_: false,
+                callbacks_: []
+            };
+        }
+        get size() {
+            return latest(this[DRAFT_STATE]).size;
+        }
+        has(key) {
+            return latest(this[DRAFT_STATE]).has(key);
+        }
+        set(key, value) {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            if (!latest(state).has(key) || latest(state).get(key) !== value) {
+                prepareMapCopy(state);
+                markChanged(state);
+                state.assigned_.set(key, true);
+                state.copy_.set(key, value);
+                state.assigned_.set(key, true);
+                handleCrossReference(state, key, value);
+            }
+            return this;
+        }
+        delete(key) {
+            if (!this.has(key)) {
+                return false;
+            }
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            prepareMapCopy(state);
+            markChanged(state);
+            if (state.base_.has(key)) {
+                state.assigned_.set(key, false);
+            } else {
+                state.assigned_.delete(key);
+            }
+            state.copy_.delete(key);
+            return true;
+        }
+        clear() {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            if (latest(state).size) {
+                prepareMapCopy(state);
+                markChanged(state);
+                state.assigned_ = /* @__PURE__ */ new Map();
+                each(state.base_, (key)=>{
+                    state.assigned_.set(key, false);
+                });
+                state.copy_.clear();
+            }
+        }
+        forEach(cb, thisArg) {
+            const state = this[DRAFT_STATE];
+            latest(state).forEach((_value, key, _map)=>{
+                cb.call(thisArg, this.get(key), key, this);
+            });
+        }
+        get(key) {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            const value = latest(state).get(key);
+            if (state.finalized_ || !isDraftable(value)) {
+                return value;
+            }
+            if (value !== state.base_.get(key)) {
+                return value;
+            }
+            const draft = createProxy(state.scope_, value, state, key);
+            prepareMapCopy(state);
+            state.copy_.set(key, draft);
+            return draft;
+        }
+        keys() {
+            return latest(this[DRAFT_STATE]).keys();
+        }
+        values() {
+            const iterator = this.keys();
+            return iteratorFrom({
+                next: ()=>{
+                    const r = iterator.next();
+                    if (r.done) return r;
+                    const value = this.get(r.value);
+                    return {
+                        done: false,
+                        value
+                    };
+                }
+            });
+        }
+        entries() {
+            const iterator = this.keys();
+            return iteratorFrom({
+                next: ()=>{
+                    const r = iterator.next();
+                    if (r.done) return r;
+                    const value = this.get(r.value);
+                    return {
+                        done: false,
+                        value: [
+                            r.value,
+                            value
+                        ]
+                    };
+                }
+            });
+        }
+        [(DRAFT_STATE, Symbol.iterator)]() {
+            return this.entries();
+        }
+    }
+    function iteratorFrom(iterable) {
+        if (hasIteratorFrom) {
+            return _globalIterator.from(iterable);
+        }
+        const iterator = {
+            ...iterable,
+            [Symbol.iterator]: ()=>iterator
+        };
+        return iterator;
+    }
+    function proxyMap_(target, parent) {
+        const map = new DraftMap(target, parent);
+        return [
+            map,
+            map[DRAFT_STATE]
+        ];
+    }
+    function prepareMapCopy(state) {
+        if (!state.copy_) {
+            state.assigned_ = /* @__PURE__ */ new Map();
+            state.copy_ = new Map(state.base_);
+        }
+    }
+    class DraftSet extends Set {
+        constructor(target, parent){
+            super();
+            this[DRAFT_STATE] = {
+                type_: 3 /* Set */ ,
+                parent_: parent,
+                scope_: parent ? parent.scope_ : getCurrentScope(),
+                modified_: false,
+                finalized_: false,
+                copy_: void 0,
+                base_: target,
+                draft_: this,
+                drafts_: /* @__PURE__ */ new Map(),
+                revoked_: false,
+                isManual_: false,
+                assigned_: void 0,
+                callbacks_: []
+            };
+        }
+        get size() {
+            return latest(this[DRAFT_STATE]).size;
+        }
+        has(value) {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            if (!state.copy_) {
+                return state.base_.has(value);
+            }
+            if (state.copy_.has(value)) return true;
+            if (state.drafts_.has(value) && state.copy_.has(state.drafts_.get(value))) return true;
+            return false;
+        }
+        add(value) {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            if (!this.has(value)) {
+                prepareSetCopy(state);
+                markChanged(state);
+                state.copy_.add(value);
+                handleCrossReference(state, value, value);
+            }
+            return this;
+        }
+        delete(value) {
+            if (!this.has(value)) {
+                return false;
+            }
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            prepareSetCopy(state);
+            markChanged(state);
+            return state.copy_.delete(value) || (state.drafts_.has(value) ? state.copy_.delete(state.drafts_.get(value)) : /* istanbul ignore next */ false);
+        }
+        clear() {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            if (latest(state).size) {
+                prepareSetCopy(state);
+                markChanged(state);
+                state.copy_.clear();
+            }
+        }
+        values() {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            prepareSetCopy(state);
+            return state.copy_.values();
+        }
+        entries() {
+            const state = this[DRAFT_STATE];
+            assertUnrevoked(state);
+            prepareSetCopy(state);
+            return state.copy_.entries();
+        }
+        keys() {
+            return this.values();
+        }
+        [(DRAFT_STATE, Symbol.iterator)]() {
+            return this.values();
+        }
+        forEach(cb, thisArg) {
+            const iterator = this.values();
+            let result = iterator.next();
+            while(!result.done){
+                cb.call(thisArg, result.value, result.value, this);
+                result = iterator.next();
+            }
+        }
+    }
+    function proxySet_(target, parent) {
+        const set2 = new DraftSet(target, parent);
+        return [
+            set2,
+            set2[DRAFT_STATE]
+        ];
+    }
+    function prepareSetCopy(state) {
+        if (!state.copy_) {
+            state.copy_ = /* @__PURE__ */ new Set();
+            state.base_.forEach((value)=>{
+                if (isDraftable(value)) {
+                    const draft = createProxy(state.scope_, value, state, value);
+                    state.drafts_.set(value, draft);
+                    state.copy_.add(draft);
+                } else {
+                    state.copy_.add(value);
+                }
+            });
+        }
+    }
+    function assertUnrevoked(state) {
+        if (state.revoked_) die(3, JSON.stringify(latest(state)));
+    }
+    function fixSetContents(target) {
+        if (target.type_ === 3 /* Set */  && target.copy_) {
+            const copy = new Set(target.copy_);
+            target.copy_.clear();
+            copy.forEach((value)=>{
+                target.copy_.add(getValue(value));
+            });
+        }
+    }
+    loadPlugin(PluginMapSet, {
+        proxyMap_,
+        proxySet_,
+        fixSetContents
+    });
+}
+// src/plugins/arrayMethods.ts
+function enableArrayMethods() {
+    const SHIFTING_METHODS = /* @__PURE__ */ new Set([
+        "shift",
+        "unshift"
+    ]);
+    const QUEUE_METHODS = /* @__PURE__ */ new Set([
+        "push",
+        "pop"
+    ]);
+    const RESULT_RETURNING_METHODS = /* @__PURE__ */ new Set([
+        ...QUEUE_METHODS,
+        ...SHIFTING_METHODS
+    ]);
+    const REORDERING_METHODS = /* @__PURE__ */ new Set([
+        "reverse",
+        "sort"
+    ]);
+    const MUTATING_METHODS = /* @__PURE__ */ new Set([
+        ...RESULT_RETURNING_METHODS,
+        ...REORDERING_METHODS,
+        "splice"
+    ]);
+    const FIND_METHODS = /* @__PURE__ */ new Set([
+        "find",
+        "findLast"
+    ]);
+    const NON_MUTATING_METHODS = /* @__PURE__ */ new Set([
+        "filter",
+        "slice",
+        "concat",
+        "flat",
+        ...FIND_METHODS,
+        "findIndex",
+        "findLastIndex",
+        "some",
+        "every",
+        "indexOf",
+        "lastIndexOf",
+        "includes",
+        "join",
+        "toString",
+        "toLocaleString"
+    ]);
+    function isMutatingArrayMethod(method) {
+        return MUTATING_METHODS.has(method);
+    }
+    function isNonMutatingArrayMethod(method) {
+        return NON_MUTATING_METHODS.has(method);
+    }
+    function isArrayOperationMethod(method) {
+        return isMutatingArrayMethod(method) || isNonMutatingArrayMethod(method);
+    }
+    function enterOperation(state, method) {
+        state.operationMethod = method;
+    }
+    function exitOperation(state) {
+        state.operationMethod = void 0;
+    }
+    function executeArrayMethod(state, operation, markLength = true) {
+        prepareCopy(state);
+        const result = operation();
+        markArrayChanged(state, markLength);
+        return result;
+    }
+    function markArrayChanged(state, markLength = true) {
+        markChanged(state);
+        if (markLength) state.assigned_.set("length", true);
+    }
+    function markAllIndicesReassigned(state) {
+        state.allIndicesReassigned_ = true;
+        state.baseRefs_ = new Set(state.base_);
+    }
+    function normalizeSliceIndex(index, length) {
+        if (index < 0) {
+            return Math.max(length + index, 0);
+        }
+        return Math.min(index, length);
+    }
+    function handleInsertedValues(state, startIndex, values) {
+        for(let i = 0; i < values.length; i++){
+            const index = "" + (startIndex + i);
+            state.assigned_.set(index, true);
+            handleCrossReference(state, index, values[i]);
+        }
+    }
+    function handleSimpleOperation(state, method, args) {
+        const isInsert = method === "push" || method === "unshift";
+        if (isInsert ? args.length === 0 : latest(state).length === 0) {
+            return isInsert ? latest(state).length : void 0;
+        }
+        prepareCopy(state);
+        const lengthBefore = state.copy_.length;
+        const result = state.copy_[method](...args);
+        markArrayChanged(state);
+        if (SHIFTING_METHODS.has(method)) {
+            markAllIndicesReassigned(state);
+        }
+        if (method === "push") {
+            handleInsertedValues(state, lengthBefore, args);
+        } else if (method === "unshift") {
+            handleInsertedValues(state, 0, args);
+        }
+        return RESULT_RETURNING_METHODS.has(method) ? result : state.draft_;
+    }
+    function handleReorderingOperation(state, method, args) {
+        if (latest(state).length <= 1) return state.draft_;
+        return executeArrayMethod(state, ()=>{
+            ;
+            state.copy_[method](...args);
+            markAllIndicesReassigned(state);
+            return state.draft_;
+        }, false);
+    }
+    function createMethodInterceptor(state, originalMethod) {
+        return function interceptedMethod(...args) {
+            const method = originalMethod;
+            enterOperation(state, method);
+            try {
+                if (isMutatingArrayMethod(method)) {
+                    if (RESULT_RETURNING_METHODS.has(method)) {
+                        return handleSimpleOperation(state, method, args);
+                    }
+                    if (REORDERING_METHODS.has(method)) {
+                        return handleReorderingOperation(state, method, args);
+                    }
+                    if (method === "splice") {
+                        const insertCount = args.length > 2 ? args.length - 2 : 0;
+                        if (insertCount === 0) {
+                            const length = latest(state).length;
+                            if (args.length === 0 || normalizeSliceIndex(args[0] ?? 0, length) === length || args.length > 1 && !(args[1] >= 1)) {
+                                return [];
+                            }
+                        }
+                        prepareCopy(state);
+                        const res = state.copy_.splice(...args);
+                        if (res.length === 0 && insertCount === 0) {
+                            return res;
+                        }
+                        markArrayChanged(state);
+                        markAllIndicesReassigned(state);
+                        if (insertCount > 0) {
+                            const startIndex = normalizeSliceIndex(args[0] ?? 0, state.copy_.length);
+                            handleInsertedValues(state, startIndex, args.slice(2));
+                        }
+                        return res;
+                    }
+                } else {
+                    return handleNonMutatingOperation(state, method, args);
+                }
+            } finally{
+                exitOperation(state);
+            }
+        };
+    }
+    function handleNonMutatingOperation(state, method, args) {
+        const source = latest(state);
+        if (method === "filter") {
+            const predicate = args[0];
+            const result = [];
+            for(let i = 0; i < source.length; i++){
+                if (predicate(source[i], i, source)) {
+                    result.push(state.draft_[i]);
+                }
+            }
+            return result;
+        }
+        if (FIND_METHODS.has(method)) {
+            const predicate = args[0];
+            const isForward = method === "find";
+            const step = isForward ? 1 : -1;
+            const start = isForward ? 0 : source.length - 1;
+            for(let i = start; i >= 0 && i < source.length; i += step){
+                if (predicate(source[i], i, source)) {
+                    return state.draft_[i];
+                }
+            }
+            return void 0;
+        }
+        if (method === "slice") {
+            const rawStart = args[0] ?? 0;
+            const rawEnd = args[1] ?? source.length;
+            const start = normalizeSliceIndex(rawStart, source.length);
+            const end = normalizeSliceIndex(rawEnd, source.length);
+            const result = [];
+            for(let i = start; i < end; i++){
+                result.push(state.draft_[i]);
+            }
+            return result;
+        }
+        return source[method](...args);
+    }
+    loadPlugin(PluginArrayMethods, {
+        createMethodInterceptor,
+        isArrayOperationMethod,
+        isMutatingArrayMethod
+    });
+}
+// src/immer.ts
+var immer = new Immer2();
+var produce = immer.produce;
+var produceWithPatches = /* @__PURE__ */ immer.produceWithPatches.bind(immer);
+var setAutoFreeze = /* @__PURE__ */ immer.setAutoFreeze.bind(immer);
+var setUseStrictShallowCopy = /* @__PURE__ */ immer.setUseStrictShallowCopy.bind(immer);
+var setUseStrictIteration = /* @__PURE__ */ immer.setUseStrictIteration.bind(immer);
+var applyPatches = /* @__PURE__ */ immer.applyPatches.bind(immer);
+var createDraft = /* @__PURE__ */ immer.createDraft.bind(immer);
+var finishDraft = /* @__PURE__ */ immer.finishDraft.bind(immer);
+var castDraft = (value)=>value;
+var castImmutable = (value)=>value;
+;
+}),
+"[project]/frontend/node_modules/internmap/src/index.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "InternMap",
+    ()=>InternMap,
+    "InternSet",
+    ()=>InternSet
+]);
+class InternMap extends Map {
+    constructor(entries, key = keyof){
+        super();
+        Object.defineProperties(this, {
+            _intern: {
+                value: new Map()
+            },
+            _key: {
+                value: key
+            }
+        });
+        if (entries != null) for (const [key, value] of entries)this.set(key, value);
+    }
+    get(key) {
+        return super.get(intern_get(this, key));
+    }
+    has(key) {
+        return super.has(intern_get(this, key));
+    }
+    set(key, value) {
+        return super.set(intern_set(this, key), value);
+    }
+    delete(key) {
+        return super.delete(intern_delete(this, key));
+    }
+}
+class InternSet extends Set {
+    constructor(values, key = keyof){
+        super();
+        Object.defineProperties(this, {
+            _intern: {
+                value: new Map()
+            },
+            _key: {
+                value: key
+            }
+        });
+        if (values != null) for (const value of values)this.add(value);
+    }
+    has(value) {
+        return super.has(intern_get(this, value));
+    }
+    add(value) {
+        return super.add(intern_set(this, value));
+    }
+    delete(value) {
+        return super.delete(intern_delete(this, value));
+    }
+}
+function intern_get({ _intern, _key }, value) {
+    const key = _key(value);
+    return _intern.has(key) ? _intern.get(key) : value;
+}
+function intern_set({ _intern, _key }, value) {
+    const key = _key(value);
+    if (_intern.has(key)) return _intern.get(key);
+    _intern.set(key, value);
+    return value;
+}
+function intern_delete({ _intern, _key }, value) {
+    const key = _key(value);
+    if (_intern.has(key)) {
+        value = _intern.get(key);
+        _intern.delete(key);
+    }
+    return value;
+}
+function keyof(value) {
+    return value !== null && typeof value === "object" ? value.valueOf() : value;
+}
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/calendar.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "__iconNode",
+    ()=>__iconNode,
+    "default",
+    ()=>Calendar
+]);
+/**
+ * @license lucide-react v1.31.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/createLucideIcon.mjs [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "path",
+        {
+            d: "M8 2v3",
+            key: "1ioesn"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M16 2v3",
+            key: "otl347"
+        }
+    ],
+    [
+        "rect",
+        {
+            x: "3",
+            y: "3",
+            width: "18",
+            height: "18",
+            rx: "2",
+            key: "h1oib"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M3 9h18",
+            key: "1pudct"
+        }
+    ]
+];
+const Calendar = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("calendar", __iconNode);
+;
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/calendar.mjs [app-client] (ecmascript) <export default as Calendar>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Calendar",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/calendar.mjs [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/chart-column.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "__iconNode",
+    ()=>__iconNode,
+    "default",
+    ()=>ChartColumn
+]);
+/**
+ * @license lucide-react v1.31.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/createLucideIcon.mjs [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "path",
+        {
+            d: "M3 3v16a2 2 0 0 0 2 2h16",
+            key: "c24i48"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M18 17V9",
+            key: "2bz60n"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M13 17V5",
+            key: "1frdt8"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M8 17v-3",
+            key: "17ska0"
+        }
+    ]
+];
+const ChartColumn = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("chart-column", __iconNode);
+;
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/chart-column.mjs [app-client] (ecmascript) <export default as BarChart3>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "BarChart3",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$column$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$column$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/chart-column.mjs [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/layers.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "__iconNode",
+    ()=>__iconNode,
+    "default",
+    ()=>Layers
+]);
+/**
+ * @license lucide-react v1.31.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/createLucideIcon.mjs [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "path",
+        {
+            d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",
+            key: "zw3jo"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12",
+            key: "1wduqc"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17",
+            key: "kqbvx6"
+        }
+    ]
+];
+const Layers = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("layers", __iconNode);
+;
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/layers.mjs [app-client] (ecmascript) <export default as Layers>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Layers",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/layers.mjs [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/package-check.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "__iconNode",
+    ()=>__iconNode,
+    "default",
+    ()=>PackageCheck
+]);
+/**
+ * @license lucide-react v1.31.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */ var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/createLucideIcon.mjs [app-client] (ecmascript)");
+;
+const __iconNode = [
+    [
+        "path",
+        {
+            d: "M12 22V12",
+            key: "d0xqtd"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "m16 17 2 2 4-4",
+            key: "uh5qu3"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M21 11.127V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.32-.753",
+            key: "kpkbpo"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "M3.29 7 12 12l8.71-5",
+            key: "19ckod"
+        }
+    ],
+    [
+        "path",
+        {
+            d: "m7.5 4.27 8.997 5.148",
+            key: "9yrvtv"
+        }
+    ]
+];
+const PackageCheck = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$createLucideIcon$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])("package-check", __iconNode);
+;
+}),
+"[project]/frontend/node_modules/lucide-react/dist/esm/icons/package-check.mjs [app-client] (ecmascript) <export default as PackageCheck>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "PackageCheck",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2d$check$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2d$check$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/lucide-react/dist/esm/icons/package-check.mjs [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/react-is/cjs/react-is.development.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+/**
+ * @license React
+ * react-is.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ "use strict";
+"production" !== ("TURBOPACK compile-time value", "development") && function() {
+    function typeOf(object) {
+        if ("object" === typeof object && null !== object) {
+            var $$typeof = object.$$typeof;
+            switch($$typeof){
+                case REACT_ELEMENT_TYPE:
+                    switch(object = object.type, object){
+                        case REACT_FRAGMENT_TYPE:
+                        case REACT_PROFILER_TYPE:
+                        case REACT_STRICT_MODE_TYPE:
+                        case REACT_SUSPENSE_TYPE:
+                        case REACT_SUSPENSE_LIST_TYPE:
+                        case REACT_VIEW_TRANSITION_TYPE:
+                            return object;
+                        default:
+                            switch(object = object && object.$$typeof, object){
+                                case REACT_CONTEXT_TYPE:
+                                case REACT_FORWARD_REF_TYPE:
+                                case REACT_LAZY_TYPE:
+                                case REACT_MEMO_TYPE:
+                                    return object;
+                                case REACT_CONSUMER_TYPE:
+                                    return object;
+                                default:
+                                    return $$typeof;
+                            }
+                    }
+                case REACT_PORTAL_TYPE:
+                    return $$typeof;
+            }
+        }
+    }
+    var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference");
+    exports.ContextConsumer = REACT_CONSUMER_TYPE;
+    exports.ContextProvider = REACT_CONTEXT_TYPE;
+    exports.Element = REACT_ELEMENT_TYPE;
+    exports.ForwardRef = REACT_FORWARD_REF_TYPE;
+    exports.Fragment = REACT_FRAGMENT_TYPE;
+    exports.Lazy = REACT_LAZY_TYPE;
+    exports.Memo = REACT_MEMO_TYPE;
+    exports.Portal = REACT_PORTAL_TYPE;
+    exports.Profiler = REACT_PROFILER_TYPE;
+    exports.StrictMode = REACT_STRICT_MODE_TYPE;
+    exports.Suspense = REACT_SUSPENSE_TYPE;
+    exports.SuspenseList = REACT_SUSPENSE_LIST_TYPE;
+    exports.isContextConsumer = function(object) {
+        return typeOf(object) === REACT_CONSUMER_TYPE;
+    };
+    exports.isContextProvider = function(object) {
+        return typeOf(object) === REACT_CONTEXT_TYPE;
+    };
+    exports.isElement = function(object) {
+        return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
+    };
+    exports.isForwardRef = function(object) {
+        return typeOf(object) === REACT_FORWARD_REF_TYPE;
+    };
+    exports.isFragment = function(object) {
+        return typeOf(object) === REACT_FRAGMENT_TYPE;
+    };
+    exports.isLazy = function(object) {
+        return typeOf(object) === REACT_LAZY_TYPE;
+    };
+    exports.isMemo = function(object) {
+        return typeOf(object) === REACT_MEMO_TYPE;
+    };
+    exports.isPortal = function(object) {
+        return typeOf(object) === REACT_PORTAL_TYPE;
+    };
+    exports.isProfiler = function(object) {
+        return typeOf(object) === REACT_PROFILER_TYPE;
+    };
+    exports.isStrictMode = function(object) {
+        return typeOf(object) === REACT_STRICT_MODE_TYPE;
+    };
+    exports.isSuspense = function(object) {
+        return typeOf(object) === REACT_SUSPENSE_TYPE;
+    };
+    exports.isSuspenseList = function(object) {
+        return typeOf(object) === REACT_SUSPENSE_LIST_TYPE;
+    };
+    exports.isValidElementType = function(type) {
+        return "string" === typeof type || "function" === typeof type || type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_VIEW_TRANSITION_TYPE || "object" === typeof type && null !== type && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_CONSUMER_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_CLIENT_REFERENCE || void 0 !== type.getModuleId) ? !0 : !1;
+    };
+    exports.typeOf = typeOf;
+}();
+}),
+"[project]/frontend/node_modules/react-is/index.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+'use strict';
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+else {
+    module.exports = __turbopack_context__.r("[project]/frontend/node_modules/react-is/cjs/react-is.development.js [app-client] (ecmascript)");
+}
+}),
+"[project]/frontend/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "Provider",
+    ()=>Provider_default,
+    "ReactReduxContext",
+    ()=>ReactReduxContext,
+    "batch",
+    ()=>batch,
+    "connect",
+    ()=>connect,
+    "createDispatchHook",
+    ()=>createDispatchHook,
+    "createSelectorHook",
+    ()=>createSelectorHook,
+    "createStoreHook",
+    ()=>createStoreHook,
+    "legacy_connect",
+    ()=>legacy_connect,
+    "shallowEqual",
+    ()=>shallowEqual,
+    "useDispatch",
+    ()=>useDispatch,
+    "useSelector",
+    ()=>useSelector,
+    "useStore",
+    ()=>useStore
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+// src/utils/react.ts
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+// src/hooks/useSelector.ts
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$use$2d$sync$2d$external$2d$store$2f$with$2d$selector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/use-sync-external-store/with-selector.js [app-client] (ecmascript)");
+;
+// src/utils/react-is.ts
+var IS_REACT_19 = /* @__PURE__ */ __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["version"].startsWith("19");
+var REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for(IS_REACT_19 ? "react.transitional.element" : "react.element");
+var REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal");
+var REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment");
+var REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode");
+var REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler");
+var REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer");
+var REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context");
+var REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref");
+var REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense");
+var REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list");
+var REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo");
+var REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+var REACT_OFFSCREEN_TYPE = /* @__PURE__ */ Symbol.for("react.offscreen");
+var REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference");
+var ForwardRef = REACT_FORWARD_REF_TYPE;
+var Memo = REACT_MEMO_TYPE;
+function isValidElementType(type) {
+    return typeof type === "string" || typeof type === "function" || type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_OFFSCREEN_TYPE || typeof type === "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_CONSUMER_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_CLIENT_REFERENCE || type.getModuleId !== void 0) ? true : false;
+}
+function typeOf(object) {
+    if (typeof object === "object" && object !== null) {
+        const { $$typeof } = object;
+        switch($$typeof){
+            case REACT_ELEMENT_TYPE:
+                switch(object = object.type, object){
+                    case REACT_FRAGMENT_TYPE:
+                    case REACT_PROFILER_TYPE:
+                    case REACT_STRICT_MODE_TYPE:
+                    case REACT_SUSPENSE_TYPE:
+                    case REACT_SUSPENSE_LIST_TYPE:
+                        return object;
+                    default:
+                        switch(object = object && object.$$typeof, object){
+                            case REACT_CONTEXT_TYPE:
+                            case REACT_FORWARD_REF_TYPE:
+                            case REACT_LAZY_TYPE:
+                            case REACT_MEMO_TYPE:
+                                return object;
+                            case REACT_CONSUMER_TYPE:
+                                return object;
+                            default:
+                                return $$typeof;
+                        }
+                }
+            case REACT_PORTAL_TYPE:
+                return $$typeof;
+        }
+    }
+}
+function isContextConsumer(object) {
+    return IS_REACT_19 ? typeOf(object) === REACT_CONSUMER_TYPE : typeOf(object) === REACT_CONTEXT_TYPE;
+}
+function isMemo(object) {
+    return typeOf(object) === REACT_MEMO_TYPE;
+}
+// src/utils/warning.ts
+function warning(message) {
+    if (typeof console !== "undefined" && typeof console.error === "function") {
+        console.error(message);
+    }
+    try {
+        throw new Error(message);
+    } catch (e) {}
+}
+// src/connect/verifySubselectors.ts
+function verify(selector, methodName) {
+    if (!selector) {
+        throw new Error(`Unexpected value for ${methodName} in connect.`);
+    } else if (methodName === "mapStateToProps" || methodName === "mapDispatchToProps") {
+        if (!Object.prototype.hasOwnProperty.call(selector, "dependsOnOwnProps")) {
+            warning(`The selector for ${methodName} of connect did not specify a value for dependsOnOwnProps.`);
+        }
+    }
+}
+function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps) {
+    verify(mapStateToProps, "mapStateToProps");
+    verify(mapDispatchToProps, "mapDispatchToProps");
+    verify(mergeProps, "mergeProps");
+}
+// src/connect/selectorFactory.ts
+function pureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, { areStatesEqual, areOwnPropsEqual, areStatePropsEqual }) {
+    let hasRunAtLeastOnce = false;
+    let state;
+    let ownProps;
+    let stateProps;
+    let dispatchProps;
+    let mergedProps;
+    function handleFirstCall(firstState, firstOwnProps) {
+        state = firstState;
+        ownProps = firstOwnProps;
+        stateProps = mapStateToProps(state, ownProps);
+        dispatchProps = mapDispatchToProps(dispatch, ownProps);
+        mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+        hasRunAtLeastOnce = true;
+        return mergedProps;
+    }
+    function handleNewPropsAndNewState() {
+        stateProps = mapStateToProps(state, ownProps);
+        if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
+        mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+        return mergedProps;
+    }
+    function handleNewProps() {
+        if (mapStateToProps.dependsOnOwnProps) stateProps = mapStateToProps(state, ownProps);
+        if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
+        mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+        return mergedProps;
+    }
+    function handleNewState() {
+        const nextStateProps = mapStateToProps(state, ownProps);
+        const statePropsChanged = !areStatePropsEqual(nextStateProps, stateProps);
+        stateProps = nextStateProps;
+        if (statePropsChanged) mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+        return mergedProps;
+    }
+    function handleSubsequentCalls(nextState, nextOwnProps) {
+        const propsChanged = !areOwnPropsEqual(nextOwnProps, ownProps);
+        const stateChanged = !areStatesEqual(nextState, state, nextOwnProps, ownProps);
+        state = nextState;
+        ownProps = nextOwnProps;
+        if (propsChanged && stateChanged) return handleNewPropsAndNewState();
+        if (propsChanged) return handleNewProps();
+        if (stateChanged) return handleNewState();
+        return mergedProps;
+    }
+    return function pureFinalPropsSelector(nextState, nextOwnProps) {
+        return hasRunAtLeastOnce ? handleSubsequentCalls(nextState, nextOwnProps) : handleFirstCall(nextState, nextOwnProps);
+    };
+}
+function finalPropsSelectorFactory(dispatch, { initMapStateToProps, initMapDispatchToProps, initMergeProps, ...options }) {
+    const mapStateToProps = initMapStateToProps(dispatch, options);
+    const mapDispatchToProps = initMapDispatchToProps(dispatch, options);
+    const mergeProps = initMergeProps(dispatch, options);
+    if ("TURBOPACK compile-time truthy", 1) {
+        verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps);
+    }
+    return pureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, options);
+}
+// src/utils/bindActionCreators.ts
+function bindActionCreators(actionCreators, dispatch) {
+    const boundActionCreators = {};
+    for(const key in actionCreators){
+        const actionCreator = actionCreators[key];
+        if (typeof actionCreator === "function") {
+            boundActionCreators[key] = (...args)=>dispatch(actionCreator(...args));
+        }
+    }
+    return boundActionCreators;
+}
+// src/utils/isPlainObject.ts
+function isPlainObject(obj) {
+    if (typeof obj !== "object" || obj === null) return false;
+    const proto = Object.getPrototypeOf(obj);
+    if (proto === null) return true;
+    let baseProto = proto;
+    while(Object.getPrototypeOf(baseProto) !== null){
+        baseProto = Object.getPrototypeOf(baseProto);
+    }
+    return proto === baseProto;
+}
+// src/utils/verifyPlainObject.ts
+function verifyPlainObject(value, displayName, methodName) {
+    if (!isPlainObject(value)) {
+        warning(`${methodName}() in ${displayName} must return a plain object. Instead received ${value}.`);
+    }
+}
+// src/connect/wrapMapToProps.ts
+function wrapMapToPropsConstant(getConstant) {
+    return function initConstantSelector(dispatch) {
+        const constant = getConstant(dispatch);
+        function constantSelector() {
+            return constant;
+        }
+        constantSelector.dependsOnOwnProps = false;
+        return constantSelector;
+    };
+}
+function getDependsOnOwnProps(mapToProps) {
+    return mapToProps.dependsOnOwnProps ? Boolean(mapToProps.dependsOnOwnProps) : mapToProps.length !== 1;
+}
+function wrapMapToPropsFunc(mapToProps, methodName) {
+    return function initProxySelector(dispatch, { displayName }) {
+        const proxy = function mapToPropsProxy(stateOrDispatch, ownProps) {
+            return proxy.dependsOnOwnProps ? proxy.mapToProps(stateOrDispatch, ownProps) : proxy.mapToProps(stateOrDispatch, void 0);
+        };
+        proxy.dependsOnOwnProps = true;
+        proxy.mapToProps = function detectFactoryAndVerify(stateOrDispatch, ownProps) {
+            proxy.mapToProps = mapToProps;
+            proxy.dependsOnOwnProps = getDependsOnOwnProps(mapToProps);
+            let props = proxy(stateOrDispatch, ownProps);
+            if (typeof props === "function") {
+                proxy.mapToProps = props;
+                proxy.dependsOnOwnProps = getDependsOnOwnProps(props);
+                props = proxy(stateOrDispatch, ownProps);
+            }
+            if ("TURBOPACK compile-time truthy", 1) verifyPlainObject(props, displayName, methodName);
+            return props;
+        };
+        return proxy;
+    };
+}
+// src/connect/invalidArgFactory.ts
+function createInvalidArgFactory(arg, name) {
+    return (dispatch, options)=>{
+        throw new Error(`Invalid value of type ${typeof arg} for ${name} argument when connecting component ${options.wrappedComponentName}.`);
+    };
+}
+// src/connect/mapDispatchToProps.ts
+function mapDispatchToPropsFactory(mapDispatchToProps) {
+    return mapDispatchToProps && typeof mapDispatchToProps === "object" ? wrapMapToPropsConstant((dispatch)=>// @ts-ignore
+        bindActionCreators(mapDispatchToProps, dispatch)) : !mapDispatchToProps ? wrapMapToPropsConstant((dispatch)=>({
+            dispatch
+        })) : typeof mapDispatchToProps === "function" ? // @ts-ignore
+    wrapMapToPropsFunc(mapDispatchToProps, "mapDispatchToProps") : createInvalidArgFactory(mapDispatchToProps, "mapDispatchToProps");
+}
+// src/connect/mapStateToProps.ts
+function mapStateToPropsFactory(mapStateToProps) {
+    return !mapStateToProps ? wrapMapToPropsConstant(()=>({})) : typeof mapStateToProps === "function" ? // @ts-ignore
+    wrapMapToPropsFunc(mapStateToProps, "mapStateToProps") : createInvalidArgFactory(mapStateToProps, "mapStateToProps");
+}
+// src/connect/mergeProps.ts
+function defaultMergeProps(stateProps, dispatchProps, ownProps) {
+    return {
+        ...ownProps,
+        ...stateProps,
+        ...dispatchProps
+    };
+}
+function wrapMergePropsFunc(mergeProps) {
+    return function initMergePropsProxy(dispatch, { displayName, areMergedPropsEqual }) {
+        let hasRunOnce = false;
+        let mergedProps;
+        return function mergePropsProxy(stateProps, dispatchProps, ownProps) {
+            const nextMergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+            if (hasRunOnce) {
+                if (!areMergedPropsEqual(nextMergedProps, mergedProps)) mergedProps = nextMergedProps;
+            } else {
+                hasRunOnce = true;
+                mergedProps = nextMergedProps;
+                if ("TURBOPACK compile-time truthy", 1) verifyPlainObject(mergedProps, displayName, "mergeProps");
+            }
+            return mergedProps;
+        };
+    };
+}
+function mergePropsFactory(mergeProps) {
+    return !mergeProps ? ()=>defaultMergeProps : typeof mergeProps === "function" ? wrapMergePropsFunc(mergeProps) : createInvalidArgFactory(mergeProps, "mergeProps");
+}
+// src/utils/batch.ts
+function defaultNoopBatch(callback) {
+    callback();
+}
+// src/utils/Subscription.ts
+function createListenerCollection() {
+    let first = null;
+    let last = null;
+    return {
+        clear () {
+            first = null;
+            last = null;
+        },
+        notify () {
+            defaultNoopBatch(()=>{
+                let listener = first;
+                while(listener){
+                    listener.callback();
+                    listener = listener.next;
+                }
+            });
+        },
+        get () {
+            const listeners = [];
+            let listener = first;
+            while(listener){
+                listeners.push(listener);
+                listener = listener.next;
+            }
+            return listeners;
+        },
+        subscribe (callback) {
+            let isSubscribed = true;
+            const listener = last = {
+                callback,
+                next: null,
+                prev: last
+            };
+            if (listener.prev) {
+                listener.prev.next = listener;
+            } else {
+                first = listener;
+            }
+            return function unsubscribe() {
+                if (!isSubscribed || first === null) return;
+                isSubscribed = false;
+                if (listener.next) {
+                    listener.next.prev = listener.prev;
+                } else {
+                    last = listener.prev;
+                }
+                if (listener.prev) {
+                    listener.prev.next = listener.next;
+                } else {
+                    first = listener.next;
+                }
+            };
+        }
+    };
+}
+var nullListeners = {
+    notify () {},
+    get: ()=>[]
+};
+function createSubscription(store, parentSub) {
+    let unsubscribe;
+    let listeners = nullListeners;
+    let subscriptionsAmount = 0;
+    let selfSubscribed = false;
+    function addNestedSub(listener) {
+        trySubscribe();
+        const cleanupListener = listeners.subscribe(listener);
+        let removed = false;
+        return ()=>{
+            if (!removed) {
+                removed = true;
+                cleanupListener();
+                tryUnsubscribe();
+            }
+        };
+    }
+    function notifyNestedSubs() {
+        listeners.notify();
+    }
+    function handleChangeWrapper() {
+        if (subscription.onStateChange) {
+            subscription.onStateChange();
+        }
+    }
+    function isSubscribed() {
+        return selfSubscribed;
+    }
+    function trySubscribe() {
+        subscriptionsAmount++;
+        if (!unsubscribe) {
+            unsubscribe = parentSub ? parentSub.addNestedSub(handleChangeWrapper) : store.subscribe(handleChangeWrapper);
+            listeners = createListenerCollection();
+        }
+    }
+    function tryUnsubscribe() {
+        subscriptionsAmount--;
+        if (unsubscribe && subscriptionsAmount === 0) {
+            unsubscribe();
+            unsubscribe = void 0;
+            listeners.clear();
+            listeners = nullListeners;
+        }
+    }
+    function trySubscribeSelf() {
+        if (!selfSubscribed) {
+            selfSubscribed = true;
+            trySubscribe();
+        }
+    }
+    function tryUnsubscribeSelf() {
+        if (selfSubscribed) {
+            selfSubscribed = false;
+            tryUnsubscribe();
+        }
+    }
+    const subscription = {
+        addNestedSub,
+        notifyNestedSubs,
+        handleChangeWrapper,
+        isSubscribed,
+        trySubscribe: trySubscribeSelf,
+        tryUnsubscribe: tryUnsubscribeSelf,
+        getListeners: ()=>listeners
+    };
+    return subscription;
+}
+// src/utils/useIsomorphicLayoutEffect.ts
+var canUseDOM = ()=>!!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
+var isDOM = /* @__PURE__ */ canUseDOM();
+var isRunningInReactNative = ()=>typeof navigator !== "undefined" && navigator.product === "ReactNative";
+var isReactNative = /* @__PURE__ */ isRunningInReactNative();
+var getUseIsomorphicLayoutEffect = ()=>isDOM || isReactNative ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLayoutEffect"] : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"];
+var useIsomorphicLayoutEffect = /* @__PURE__ */ getUseIsomorphicLayoutEffect();
+// src/utils/shallowEqual.ts
+function is(x, y) {
+    if (x === y) {
+        return x !== 0 || y !== 0 || 1 / x === 1 / y;
+    } else {
+        return x !== x && y !== y;
+    }
+}
+function shallowEqual(objA, objB) {
+    if (is(objA, objB)) return true;
+    if (typeof objA !== "object" || objA === null || typeof objB !== "object" || objB === null) {
+        return false;
+    }
+    const keysA = Object.keys(objA);
+    const keysB = Object.keys(objB);
+    if (keysA.length !== keysB.length) return false;
+    for(let i = 0; i < keysA.length; i++){
+        if (!Object.prototype.hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+            return false;
+        }
+    }
+    return true;
+}
+// src/utils/hoistStatics.ts
+var REACT_STATICS = {
+    childContextTypes: true,
+    contextType: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    getDerivedStateFromError: true,
+    getDerivedStateFromProps: true,
+    mixins: true,
+    propTypes: true,
+    type: true
+};
+var KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    callee: true,
+    arguments: true,
+    arity: true
+};
+var FORWARD_REF_STATICS = {
+    $$typeof: true,
+    render: true,
+    defaultProps: true,
+    displayName: true,
+    propTypes: true
+};
+var MEMO_STATICS = {
+    $$typeof: true,
+    compare: true,
+    defaultProps: true,
+    displayName: true,
+    propTypes: true,
+    type: true
+};
+var TYPE_STATICS = {
+    [ForwardRef]: FORWARD_REF_STATICS,
+    [Memo]: MEMO_STATICS
+};
+function getStatics(component) {
+    if (isMemo(component)) {
+        return MEMO_STATICS;
+    }
+    return TYPE_STATICS[component["$$typeof"]] || REACT_STATICS;
+}
+var defineProperty = Object.defineProperty;
+var getOwnPropertyNames = Object.getOwnPropertyNames;
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var getPrototypeOf = Object.getPrototypeOf;
+var objectPrototype = Object.prototype;
+function hoistNonReactStatics(targetComponent, sourceComponent) {
+    if (typeof sourceComponent !== "string") {
+        if (objectPrototype) {
+            const inheritedComponent = getPrototypeOf(sourceComponent);
+            if (inheritedComponent && inheritedComponent !== objectPrototype) {
+                hoistNonReactStatics(targetComponent, inheritedComponent);
+            }
+        }
+        let keys = getOwnPropertyNames(sourceComponent);
+        if (getOwnPropertySymbols) {
+            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+        }
+        const targetStatics = getStatics(targetComponent);
+        const sourceStatics = getStatics(sourceComponent);
+        for(let i = 0; i < keys.length; ++i){
+            const key = keys[i];
+            if (!KNOWN_STATICS[key] && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
+                const descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+                try {
+                    defineProperty(targetComponent, key, descriptor);
+                } catch (e) {}
+            }
+        }
+    }
+    return targetComponent;
+}
+// src/components/Context.ts
+var ContextKey = /* @__PURE__ */ Symbol.for(`react-redux-context`);
+var gT = typeof globalThis !== "undefined" ? globalThis : /* fall back to a per-module scope (pre-8.1 behaviour) if `globalThis` is not available */ {};
+function getContext() {
+    if (!__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"]) return {};
+    const contextMap = gT[ContextKey] ??= /* @__PURE__ */ new Map();
+    let realContext = contextMap.get(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"]);
+    if (!realContext) {
+        realContext = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"](null);
+        if ("TURBOPACK compile-time truthy", 1) {
+            realContext.displayName = "ReactRedux";
+        }
+        contextMap.set(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"], realContext);
+    }
+    return realContext;
+}
+var ReactReduxContext = /* @__PURE__ */ getContext();
+// src/components/connect.tsx
+var NO_SUBSCRIPTION_ARRAY = [
+    null,
+    null
+];
+var stringifyComponent = (Comp)=>{
+    try {
+        return JSON.stringify(Comp);
+    } catch (err) {
+        return String(Comp);
+    }
+};
+function useIsomorphicLayoutEffectWithArgs(effectFunc, effectArgs, dependencies) {
+    useIsomorphicLayoutEffect({
+        "useIsomorphicLayoutEffectWithArgs.useIsomorphicLayoutEffect": ()=>effectFunc(...effectArgs)
+    }["useIsomorphicLayoutEffectWithArgs.useIsomorphicLayoutEffect"], dependencies);
+}
+function captureWrapperProps(lastWrapperProps, lastChildProps, renderIsScheduled, wrapperProps, childPropsFromStoreUpdate, notifyNestedSubs) {
+    lastWrapperProps.current = wrapperProps;
+    renderIsScheduled.current = false;
+    if (childPropsFromStoreUpdate.current) {
+        childPropsFromStoreUpdate.current = null;
+        notifyNestedSubs();
+    }
+}
+function subscribeUpdates(shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, isMounted, childPropsFromStoreUpdate, notifyNestedSubs, additionalSubscribeListener) {
+    if (!shouldHandleStateChanges) return ()=>{};
+    let didUnsubscribe = false;
+    let lastThrownError = null;
+    const checkForUpdates = ()=>{
+        if (didUnsubscribe || !isMounted.current) {
+            return;
+        }
+        const latestStoreState = store.getState();
+        let newChildProps, error;
+        try {
+            newChildProps = childPropsSelector(latestStoreState, lastWrapperProps.current);
+        } catch (e) {
+            error = e;
+            lastThrownError = e;
+        }
+        if (!error) {
+            lastThrownError = null;
+        }
+        if (newChildProps === lastChildProps.current) {
+            if (!renderIsScheduled.current) {
+                notifyNestedSubs();
+            }
+        } else {
+            lastChildProps.current = newChildProps;
+            childPropsFromStoreUpdate.current = newChildProps;
+            renderIsScheduled.current = true;
+            additionalSubscribeListener();
+        }
+    };
+    subscription.onStateChange = checkForUpdates;
+    subscription.trySubscribe();
+    checkForUpdates();
+    const unsubscribeWrapper = ()=>{
+        didUnsubscribe = true;
+        subscription.tryUnsubscribe();
+        subscription.onStateChange = null;
+        if (lastThrownError) {
+            throw lastThrownError;
+        }
+    };
+    return unsubscribeWrapper;
+}
+function strictEqual(a, b) {
+    return a === b;
+}
+var hasWarnedAboutDeprecatedPureOption = false;
+function _connect(mapStateToProps, mapDispatchToProps, mergeProps, { // The `pure` option has been removed, so TS doesn't like us destructuring this to check its existence.
+// @ts-ignore
+pure, areStatesEqual = strictEqual, areOwnPropsEqual = shallowEqual, areStatePropsEqual = shallowEqual, areMergedPropsEqual = shallowEqual, // use React's forwardRef to expose a ref of the wrapped component
+forwardRef = false, // the context consumer to use
+context = ReactReduxContext } = {}) {
+    if ("TURBOPACK compile-time truthy", 1) {
+        if (pure !== void 0 && !hasWarnedAboutDeprecatedPureOption) {
+            hasWarnedAboutDeprecatedPureOption = true;
+            warning('The `pure` option has been removed. `connect` is now always a "pure/memoized" component');
+        }
+    }
+    const Context = context;
+    const initMapStateToProps = mapStateToPropsFactory(mapStateToProps);
+    const initMapDispatchToProps = mapDispatchToPropsFactory(mapDispatchToProps);
+    const initMergeProps = mergePropsFactory(mergeProps);
+    const shouldHandleStateChanges = Boolean(mapStateToProps);
+    const wrapWithConnect = (WrappedComponent)=>{
+        if ("TURBOPACK compile-time truthy", 1) {
+            const isValid = /* @__PURE__ */ isValidElementType(WrappedComponent);
+            if (!isValid) throw new Error(`You must pass a component to the function returned by connect. Instead received ${stringifyComponent(WrappedComponent)}`);
+        }
+        const wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || "Component";
+        const displayName = `Connect(${wrappedComponentName})`;
+        const selectorFactoryOptions = {
+            shouldHandleStateChanges,
+            displayName,
+            wrappedComponentName,
+            WrappedComponent,
+            // @ts-ignore
+            initMapStateToProps,
+            initMapDispatchToProps,
+            initMergeProps,
+            areStatesEqual,
+            areStatePropsEqual,
+            areOwnPropsEqual,
+            areMergedPropsEqual
+        };
+        function ConnectFunction(props) {
+            const [propsContext, reactReduxForwardedRef, wrapperProps] = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo": ()=>{
+                    const { reactReduxForwardedRef: reactReduxForwardedRef2, ...wrapperProps2 } = props;
+                    return [
+                        props.context,
+                        reactReduxForwardedRef2,
+                        wrapperProps2
+                    ];
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo"], [
+                props
+            ]);
+            const ContextToUse = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo[ContextToUse]": ()=>{
+                    let ResultContext = Context;
+                    if (propsContext?.Consumer) {
+                        if ("TURBOPACK compile-time truthy", 1) {
+                            const isValid = /* @__PURE__ */ isContextConsumer(// @ts-ignore
+                            /* @__PURE__ */ __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createElement"](propsContext.Consumer, null));
+                            if (!isValid) {
+                                throw new Error("You must pass a valid React context consumer as `props.context`");
+                            }
+                            ResultContext = propsContext;
+                        }
+                    }
+                    return ResultContext;
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo[ContextToUse]"], [
+                propsContext,
+                Context
+            ]);
+            const contextValue = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"](ContextToUse);
+            const didStoreComeFromProps = Boolean(props.store) && Boolean(props.store.getState) && Boolean(props.store.dispatch);
+            const didStoreComeFromContext = Boolean(contextValue) && Boolean(contextValue.store);
+            if (("TURBOPACK compile-time value", "development") !== "production" && !didStoreComeFromProps && !didStoreComeFromContext) {
+                throw new Error(`Could not find "store" in the context of "${displayName}". Either wrap the root component in a <Provider>, or pass a custom React context provider to <Provider> and the corresponding React context consumer to ${displayName} in connect options.`);
+            }
+            const store = didStoreComeFromProps ? props.store : contextValue.store;
+            const getServerState = didStoreComeFromContext ? contextValue.getServerState : store.getState;
+            const childPropsSelector = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo[childPropsSelector]": ()=>{
+                    return finalPropsSelectorFactory(store.dispatch, selectorFactoryOptions);
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo[childPropsSelector]"], [
+                store
+            ]);
+            const [subscription, notifyNestedSubs] = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo": ()=>{
+                    if (!shouldHandleStateChanges) return NO_SUBSCRIPTION_ARRAY;
+                    const subscription2 = createSubscription(store, didStoreComeFromProps ? void 0 : contextValue.subscription);
+                    const notifyNestedSubs2 = subscription2.notifyNestedSubs.bind(subscription2);
+                    return [
+                        subscription2,
+                        notifyNestedSubs2
+                    ];
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo"], [
+                store,
+                didStoreComeFromProps,
+                contextValue
+            ]);
+            const overriddenContextValue = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo[overriddenContextValue]": ()=>{
+                    if (didStoreComeFromProps) {
+                        return contextValue;
+                    }
+                    return {
+                        ...contextValue,
+                        subscription
+                    };
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo[overriddenContextValue]"], [
+                didStoreComeFromProps,
+                contextValue,
+                subscription
+            ]);
+            const lastChildProps = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"](void 0);
+            const lastWrapperProps = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"](wrapperProps);
+            const childPropsFromStoreUpdate = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"](void 0);
+            const renderIsScheduled = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"](false);
+            const isMounted = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"](false);
+            const latestSubscriptionCallbackError = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"](void 0);
+            useIsomorphicLayoutEffect({
+                "_connect.wrapWithConnect.ConnectFunction.useIsomorphicLayoutEffect": ()=>{
+                    isMounted.current = true;
+                    return ({
+                        "_connect.wrapWithConnect.ConnectFunction.useIsomorphicLayoutEffect": ()=>{
+                            isMounted.current = false;
+                        }
+                    })["_connect.wrapWithConnect.ConnectFunction.useIsomorphicLayoutEffect"];
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useIsomorphicLayoutEffect"], []);
+            const actualChildPropsSelector = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo[actualChildPropsSelector]": ()=>{
+                    const selector = {
+                        "_connect.wrapWithConnect.ConnectFunction.useMemo[actualChildPropsSelector].selector": ()=>{
+                            if (childPropsFromStoreUpdate.current && wrapperProps === lastWrapperProps.current) {
+                                return childPropsFromStoreUpdate.current;
+                            }
+                            return childPropsSelector(store.getState(), wrapperProps);
+                        }
+                    }["_connect.wrapWithConnect.ConnectFunction.useMemo[actualChildPropsSelector].selector"];
+                    return selector;
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo[actualChildPropsSelector]"], [
+                store,
+                wrapperProps
+            ]);
+            const subscribeForReact = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo[subscribeForReact]": ()=>{
+                    const subscribe = {
+                        "_connect.wrapWithConnect.ConnectFunction.useMemo[subscribeForReact].subscribe": (reactListener)=>{
+                            if (!subscription) {
+                                return ({
+                                    "_connect.wrapWithConnect.ConnectFunction.useMemo[subscribeForReact].subscribe": ()=>{}
+                                })["_connect.wrapWithConnect.ConnectFunction.useMemo[subscribeForReact].subscribe"];
+                            }
+                            return subscribeUpdates(shouldHandleStateChanges, store, subscription, // @ts-ignore
+                            childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, isMounted, childPropsFromStoreUpdate, notifyNestedSubs, reactListener);
+                        }
+                    }["_connect.wrapWithConnect.ConnectFunction.useMemo[subscribeForReact].subscribe"];
+                    return subscribe;
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo[subscribeForReact]"], [
+                subscription
+            ]);
+            useIsomorphicLayoutEffectWithArgs(captureWrapperProps, [
+                lastWrapperProps,
+                lastChildProps,
+                renderIsScheduled,
+                wrapperProps,
+                childPropsFromStoreUpdate,
+                notifyNestedSubs
+            ]);
+            let actualChildProps;
+            try {
+                actualChildProps = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSyncExternalStore"](// TODO We're passing through a big wrapper that does a bunch of extra side effects besides subscribing
+                subscribeForReact, // TODO This is incredibly hacky. We've already processed the store update and calculated new child props,
+                // TODO and we're just passing that through so it triggers a re-render for us rather than relying on `uSES`.
+                actualChildPropsSelector, getServerState ? ({
+                    "_connect.wrapWithConnect.ConnectFunction.useSyncExternalStore": ()=>childPropsSelector(getServerState(), wrapperProps)
+                })["_connect.wrapWithConnect.ConnectFunction.useSyncExternalStore"] : actualChildPropsSelector);
+            } catch (err) {
+                if (latestSubscriptionCallbackError.current) {
+                    ;
+                    err.message += `
+The error may be correlated with this previous error:
+${latestSubscriptionCallbackError.current.stack}
+
+`;
+                }
+                throw err;
+            }
+            useIsomorphicLayoutEffect({
+                "_connect.wrapWithConnect.ConnectFunction.useIsomorphicLayoutEffect": ()=>{
+                    latestSubscriptionCallbackError.current = void 0;
+                    childPropsFromStoreUpdate.current = void 0;
+                    lastChildProps.current = actualChildProps;
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useIsomorphicLayoutEffect"]);
+            const renderedWrappedComponent = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo[renderedWrappedComponent]": ()=>{
+                    return(// @ts-ignore
+                    /* @__PURE__ */ __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createElement"](WrappedComponent, {
+                        ...actualChildProps,
+                        ref: reactReduxForwardedRef
+                    }));
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo[renderedWrappedComponent]"], [
+                reactReduxForwardedRef,
+                WrappedComponent,
+                actualChildProps
+            ]);
+            const renderedChild = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+                "_connect.wrapWithConnect.ConnectFunction.useMemo[renderedChild]": ()=>{
+                    if (shouldHandleStateChanges) {
+                        return /* @__PURE__ */ __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createElement"](ContextToUse.Provider, {
+                            value: overriddenContextValue
+                        }, renderedWrappedComponent);
+                    }
+                    return renderedWrappedComponent;
+                }
+            }["_connect.wrapWithConnect.ConnectFunction.useMemo[renderedChild]"], [
+                ContextToUse,
+                renderedWrappedComponent,
+                overriddenContextValue
+            ]);
+            return renderedChild;
+        }
+        const _Connect = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["memo"](ConnectFunction);
+        const Connect = _Connect;
+        Connect.WrappedComponent = WrappedComponent;
+        Connect.displayName = ConnectFunction.displayName = displayName;
+        if (forwardRef) {
+            const _forwarded = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["forwardRef"](function forwardConnectRef(props, ref) {
+                return /* @__PURE__ */ __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createElement"](Connect, {
+                    ...props,
+                    reactReduxForwardedRef: ref
+                });
+            });
+            const forwarded = _forwarded;
+            forwarded.displayName = displayName;
+            forwarded.WrappedComponent = WrappedComponent;
+            return /* @__PURE__ */ hoistNonReactStatics(forwarded, WrappedComponent);
+        }
+        return /* @__PURE__ */ hoistNonReactStatics(Connect, WrappedComponent);
+    };
+    return wrapWithConnect;
+}
+var connect = _connect;
+var legacy_connect = _connect;
+// src/components/Provider.tsx
+function Provider(providerProps) {
+    const { children, context, serverState, store } = providerProps;
+    const contextValue = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+        "Provider.useMemo[contextValue]": ()=>{
+            const subscription = createSubscription(store);
+            const baseContextValue = {
+                store,
+                subscription,
+                getServerState: serverState ? ({
+                    "Provider.useMemo[contextValue]": ()=>serverState
+                })["Provider.useMemo[contextValue]"] : void 0
+            };
+            if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+            ;
+            else {
+                const { identityFunctionCheck = "once", stabilityCheck = "once" } = providerProps;
+                return /* @__PURE__ */ Object.assign(baseContextValue, {
+                    stabilityCheck,
+                    identityFunctionCheck
+                });
+            }
+        }
+    }["Provider.useMemo[contextValue]"], [
+        store,
+        serverState
+    ]);
+    const previousState = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+        "Provider.useMemo[previousState]": ()=>store.getState()
+    }["Provider.useMemo[previousState]"], [
+        store
+    ]);
+    useIsomorphicLayoutEffect({
+        "Provider.useIsomorphicLayoutEffect": ()=>{
+            const { subscription } = contextValue;
+            subscription.onStateChange = subscription.notifyNestedSubs;
+            subscription.trySubscribe();
+            if (previousState !== store.getState()) {
+                subscription.notifyNestedSubs();
+            }
+            return ({
+                "Provider.useIsomorphicLayoutEffect": ()=>{
+                    subscription.tryUnsubscribe();
+                    subscription.onStateChange = void 0;
+                }
+            })["Provider.useIsomorphicLayoutEffect"];
+        }
+    }["Provider.useIsomorphicLayoutEffect"], [
+        contextValue,
+        previousState
+    ]);
+    const Context = context || ReactReduxContext;
+    return /* @__PURE__ */ __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createElement"](Context.Provider, {
+        value: contextValue
+    }, children);
+}
+var Provider_default = Provider;
+// src/hooks/useReduxContext.ts
+function createReduxContextHook(context = ReactReduxContext) {
+    return function useReduxContext2() {
+        const contextValue = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"](context);
+        if (("TURBOPACK compile-time value", "development") !== "production" && !contextValue) {
+            throw new Error("could not find react-redux context value; please ensure the component is wrapped in a <Provider>");
+        }
+        return contextValue;
+    };
+}
+var useReduxContext = /* @__PURE__ */ createReduxContextHook();
+// src/hooks/useStore.ts
+function createStoreHook(context = ReactReduxContext) {
+    const useReduxContext2 = context === ReactReduxContext ? useReduxContext : // @ts-ignore
+    createReduxContextHook(context);
+    const useStore2 = ()=>{
+        const { store } = useReduxContext2();
+        return store;
+    };
+    Object.assign(useStore2, {
+        withTypes: ()=>useStore2
+    });
+    return useStore2;
+}
+var useStore = /* @__PURE__ */ createStoreHook();
+// src/hooks/useDispatch.ts
+function createDispatchHook(context = ReactReduxContext) {
+    const useStore2 = context === ReactReduxContext ? useStore : createStoreHook(context);
+    const useDispatch2 = ()=>{
+        const store = useStore2();
+        return store.dispatch;
+    };
+    Object.assign(useDispatch2, {
+        withTypes: ()=>useDispatch2
+    });
+    return useDispatch2;
+}
+var useDispatch = /* @__PURE__ */ createDispatchHook();
+;
+var refEquality = (a, b)=>a === b;
+function createSelectorHook(context = ReactReduxContext) {
+    const useReduxContext2 = context === ReactReduxContext ? useReduxContext : createReduxContextHook(context);
+    const useSelector2 = (selector, equalityFnOrOptions = {})=>{
+        const { equalityFn = refEquality } = typeof equalityFnOrOptions === "function" ? {
+            equalityFn: equalityFnOrOptions
+        } : equalityFnOrOptions;
+        if ("TURBOPACK compile-time truthy", 1) {
+            if (!selector) {
+                throw new Error(`You must pass a selector to useSelector`);
+            }
+            if (typeof selector !== "function") {
+                throw new Error(`You must pass a function as a selector to useSelector`);
+            }
+            if (typeof equalityFn !== "function") {
+                throw new Error(`You must pass a function as an equality function to useSelector`);
+            }
+        }
+        const reduxContext = useReduxContext2();
+        const { store, subscription, getServerState } = reduxContext;
+        const firstRun = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"](true);
+        const wrappedSelector = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"]({
+            [selector.name] (state) {
+                const selected = selector(state);
+                if ("TURBOPACK compile-time truthy", 1) {
+                    const { devModeChecks = {} } = typeof equalityFnOrOptions === "function" ? {} : equalityFnOrOptions;
+                    const { identityFunctionCheck, stabilityCheck } = reduxContext;
+                    const { identityFunctionCheck: finalIdentityFunctionCheck, stabilityCheck: finalStabilityCheck } = {
+                        stabilityCheck,
+                        identityFunctionCheck,
+                        ...devModeChecks
+                    };
+                    if (finalStabilityCheck === "always" || finalStabilityCheck === "once" && firstRun.current) {
+                        const toCompare = selector(state);
+                        if (!equalityFn(selected, toCompare)) {
+                            let stack = void 0;
+                            try {
+                                throw new Error();
+                            } catch (e) {
+                                ;
+                                ({ stack } = e);
+                            }
+                            console.warn("Selector " + (selector.name || "unknown") + " returned a different result when called with the same parameters. This can lead to unnecessary rerenders.\nSelectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization", {
+                                state,
+                                selected,
+                                selected2: toCompare,
+                                stack
+                            });
+                        }
+                    }
+                    if (finalIdentityFunctionCheck === "always" || finalIdentityFunctionCheck === "once" && firstRun.current) {
+                        if (selected === state) {
+                            let stack = void 0;
+                            try {
+                                throw new Error();
+                            } catch (e) {
+                                ;
+                                ({ stack } = e);
+                            }
+                            console.warn("Selector " + (selector.name || "unknown") + " returned the root state when called. This can lead to unnecessary rerenders.\nSelectors that return the entire state are almost certainly a mistake, as they will cause a rerender whenever *anything* in state changes.", {
+                                stack
+                            });
+                        }
+                    }
+                    if (firstRun.current) firstRun.current = false;
+                }
+                return selected;
+            }
+        }[selector.name], [
+            selector
+        ]);
+        const selectedState = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$use$2d$sync$2d$external$2d$store$2f$with$2d$selector$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSyncExternalStoreWithSelector"])(subscription.addNestedSub, store.getState, getServerState || store.getState, wrappedSelector, equalityFn);
+        __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDebugValue"](selectedState);
+        return selectedState;
+    };
+    Object.assign(useSelector2, {
+        withTypes: ()=>useSelector2
+    });
+    return useSelector2;
+}
+var useSelector = /* @__PURE__ */ createSelectorHook();
+// src/exports.ts
+var batch = defaultNoopBatch;
+;
+}),
+"[project]/frontend/node_modules/redux-thunk/dist/redux-thunk.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "thunk",
+    ()=>thunk,
+    "withExtraArgument",
+    ()=>withExtraArgument
+]);
+// src/index.ts
+function createThunkMiddleware(extraArgument) {
+    const middleware = ({ dispatch, getState })=>(next)=>(action)=>{
+                if (typeof action === "function") {
+                    return action(dispatch, getState, extraArgument);
+                }
+                return next(action);
+            };
+    return middleware;
+}
+var thunk = createThunkMiddleware();
+var withExtraArgument = createThunkMiddleware;
+;
+}),
+"[project]/frontend/node_modules/redux/dist/redux.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "__DO_NOT_USE__ActionTypes",
+    ()=>actionTypes_default,
+    "applyMiddleware",
+    ()=>applyMiddleware,
+    "bindActionCreators",
+    ()=>bindActionCreators,
+    "combineReducers",
+    ()=>combineReducers,
+    "compose",
+    ()=>compose,
+    "createStore",
+    ()=>createStore,
+    "isAction",
+    ()=>isAction,
+    "isPlainObject",
+    ()=>isPlainObject,
+    "legacy_createStore",
+    ()=>legacy_createStore
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+// src/utils/formatProdErrorMessage.ts
+function formatProdErrorMessage(code) {
+    return `Minified Redux error #${code}; visit https://redux.js.org/Errors?code=${code} for the full message or use the non-minified dev environment for full errors. `;
+}
+// src/utils/symbol-observable.ts
+var $$observable = /* @__PURE__ */ (()=>typeof Symbol === "function" && Symbol.observable || "@@observable")();
+var symbol_observable_default = $$observable;
+// src/utils/actionTypes.ts
+var randomString = ()=>Math.random().toString(36).substring(7).split("").join(".");
+var ActionTypes = {
+    INIT: `@@redux/INIT${/* @__PURE__ */ randomString()}`,
+    REPLACE: `@@redux/REPLACE${/* @__PURE__ */ randomString()}`,
+    PROBE_UNKNOWN_ACTION: ()=>`@@redux/PROBE_UNKNOWN_ACTION${randomString()}`
+};
+var actionTypes_default = ActionTypes;
+// src/utils/isPlainObject.ts
+function isPlainObject(obj) {
+    if (typeof obj !== "object" || obj === null) return false;
+    let proto = obj;
+    while(Object.getPrototypeOf(proto) !== null){
+        proto = Object.getPrototypeOf(proto);
+    }
+    return Object.getPrototypeOf(obj) === proto || Object.getPrototypeOf(obj) === null;
+}
+// src/utils/kindOf.ts
+function miniKindOf(val) {
+    if (val === void 0) return "undefined";
+    if (val === null) return "null";
+    const type = typeof val;
+    switch(type){
+        case "boolean":
+        case "string":
+        case "number":
+        case "symbol":
+        case "function":
+            {
+                return type;
+            }
+    }
+    if (Array.isArray(val)) return "array";
+    if (isDate(val)) return "date";
+    if (isError(val)) return "error";
+    const constructorName = ctorName(val);
+    switch(constructorName){
+        case "Symbol":
+        case "Promise":
+        case "WeakMap":
+        case "WeakSet":
+        case "Map":
+        case "Set":
+            return constructorName;
+    }
+    return Object.prototype.toString.call(val).slice(8, -1).toLowerCase().replace(/\s/g, "");
+}
+function ctorName(val) {
+    return typeof val.constructor === "function" ? val.constructor.name : null;
+}
+function isError(val) {
+    return val instanceof Error || typeof val.message === "string" && val.constructor && typeof val.constructor.stackTraceLimit === "number";
+}
+function isDate(val) {
+    if (val instanceof Date) return true;
+    return typeof val.toDateString === "function" && typeof val.getDate === "function" && typeof val.setDate === "function";
+}
+function kindOf(val) {
+    let typeOfVal = typeof val;
+    if ("TURBOPACK compile-time truthy", 1) {
+        typeOfVal = miniKindOf(val);
+    }
+    return typeOfVal;
+}
+// src/createStore.ts
+function createStore(reducer, preloadedState, enhancer) {
+    if (typeof reducer !== "function") {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `Expected the root reducer to be a function. Instead, received: '${kindOf(reducer)}'`);
+    }
+    if (typeof preloadedState === "function" && typeof enhancer === "function" || typeof enhancer === "function" && typeof arguments[3] === "function") {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "It looks like you are passing several store enhancers to createStore(). This is not supported. Instead, compose them together to a single function. See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers for an example.");
+    }
+    if (typeof preloadedState === "function" && typeof enhancer === "undefined") {
+        enhancer = preloadedState;
+        preloadedState = void 0;
+    }
+    if (typeof enhancer !== "undefined") {
+        if (typeof enhancer !== "function") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `Expected the enhancer to be a function. Instead, received: '${kindOf(enhancer)}'`);
+        }
+        return enhancer(createStore)(reducer, preloadedState);
+    }
+    let currentReducer = reducer;
+    let currentState = preloadedState;
+    let currentListeners = /* @__PURE__ */ new Map();
+    let nextListeners = currentListeners;
+    let listenerIdCounter = 0;
+    let isDispatching = false;
+    function ensureCanMutateNextListeners() {
+        if (nextListeners === currentListeners) {
+            nextListeners = /* @__PURE__ */ new Map();
+            currentListeners.forEach((listener, key)=>{
+                nextListeners.set(key, listener);
+            });
+        }
+    }
+    function getState() {
+        if (isDispatching) {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "You may not call store.getState() while the reducer is executing. The reducer has already received the state as an argument. Pass it down from the top reducer instead of reading it from the store.");
+        }
+        return currentState;
+    }
+    function subscribe(listener) {
+        if (typeof listener !== "function") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `Expected the listener to be a function. Instead, received: '${kindOf(listener)}'`);
+        }
+        if (isDispatching) {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "You may not call store.subscribe() while the reducer is executing. If you would like to be notified after the store has been updated, subscribe from a component and invoke store.getState() in the callback to access the latest state. See https://redux.js.org/api/store#subscribelistener for more details.");
+        }
+        let isSubscribed = true;
+        ensureCanMutateNextListeners();
+        const listenerId = listenerIdCounter++;
+        nextListeners.set(listenerId, listener);
+        return function unsubscribe() {
+            if (!isSubscribed) {
+                return;
+            }
+            if (isDispatching) {
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "You may not unsubscribe from a store listener while the reducer is executing. See https://redux.js.org/api/store#subscribelistener for more details.");
+            }
+            isSubscribed = false;
+            ensureCanMutateNextListeners();
+            nextListeners.delete(listenerId);
+            currentListeners = null;
+        };
+    }
+    function dispatch(action) {
+        if (!isPlainObject(action)) {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `Actions must be plain objects. Instead, the actual type was: '${kindOf(action)}'. You may need to add middleware to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions. See https://redux.js.org/tutorials/fundamentals/part-4-store#middleware and https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-the-redux-thunk-middleware for examples.`);
+        }
+        if (typeof action.type === "undefined") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : 'Actions may not have an undefined "type" property. You may have misspelled an action type string constant.');
+        }
+        if (typeof action.type !== "string") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `Action "type" property must be a string. Instead, the actual type was: '${kindOf(action.type)}'. Value was: '${action.type}' (stringified)`);
+        }
+        if (isDispatching) {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "Reducers may not dispatch actions.");
+        }
+        try {
+            isDispatching = true;
+            currentState = currentReducer(currentState, action);
+        } finally{
+            isDispatching = false;
+        }
+        const listeners = currentListeners = nextListeners;
+        listeners.forEach((listener)=>{
+            listener();
+        });
+        return action;
+    }
+    function replaceReducer(nextReducer) {
+        if (typeof nextReducer !== "function") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `Expected the nextReducer to be a function. Instead, received: '${kindOf(nextReducer)}`);
+        }
+        currentReducer = nextReducer;
+        dispatch({
+            type: actionTypes_default.REPLACE
+        });
+    }
+    function observable() {
+        const outerSubscribe = subscribe;
+        return {
+            /**
+       * The minimal observable subscription method.
+       * @param observer Any object that can be used as an observer.
+       * The observer object should have a `next` method.
+       * @returns An object with an `unsubscribe` method that can
+       * be used to unsubscribe the observable from the store, and prevent further
+       * emission of values from the observable.
+       */ subscribe (observer) {
+                if (typeof observer !== "object" || observer === null) {
+                    throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `Expected the observer to be an object. Instead, received: '${kindOf(observer)}'`);
+                }
+                function observeState() {
+                    const observerAsObserver = observer;
+                    if (observerAsObserver.next) {
+                        observerAsObserver.next(getState());
+                    }
+                }
+                observeState();
+                const unsubscribe = outerSubscribe(observeState);
+                return {
+                    unsubscribe
+                };
+            },
+            [symbol_observable_default] () {
+                return this;
+            }
+        };
+    }
+    dispatch({
+        type: actionTypes_default.INIT
+    });
+    const store = {
+        dispatch,
+        subscribe,
+        getState,
+        replaceReducer,
+        [symbol_observable_default]: observable
+    };
+    return store;
+}
+function legacy_createStore(reducer, preloadedState, enhancer) {
+    return createStore(reducer, preloadedState, enhancer);
+}
+// src/utils/warning.ts
+function warning(message) {
+    if (typeof console !== "undefined" && typeof console.error === "function") {
+        console.error(message);
+    }
+    try {
+        throw new Error(message);
+    } catch (e) {}
+}
+// src/combineReducers.ts
+function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
+    const reducerKeys = Object.keys(reducers);
+    const argumentName = action && action.type === actionTypes_default.INIT ? "preloadedState argument passed to createStore" : "previous state received by the reducer";
+    if (reducerKeys.length === 0) {
+        return "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers.";
+    }
+    if (!isPlainObject(inputState)) {
+        return `The ${argumentName} has unexpected type of "${kindOf(inputState)}". Expected argument to be an object with the following keys: "${reducerKeys.join('", "')}"`;
+    }
+    const unexpectedKeys = Object.keys(inputState).filter((key)=>!reducers.hasOwnProperty(key) && !unexpectedKeyCache[key]);
+    unexpectedKeys.forEach((key)=>{
+        unexpectedKeyCache[key] = true;
+    });
+    if (action && action.type === actionTypes_default.REPLACE) return;
+    if (unexpectedKeys.length > 0) {
+        return `Unexpected ${unexpectedKeys.length > 1 ? "keys" : "key"} "${unexpectedKeys.join('", "')}" found in ${argumentName}. Expected to find one of the known reducer keys instead: "${reducerKeys.join('", "')}". Unexpected keys will be ignored.`;
+    }
+}
+function assertReducerShape(reducers) {
+    Object.keys(reducers).forEach((key)=>{
+        const reducer = reducers[key];
+        const initialState = reducer(void 0, {
+            type: actionTypes_default.INIT
+        });
+        if (typeof initialState === "undefined") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `The slice reducer for key "${key}" returned undefined during initialization. If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.`);
+        }
+        if (typeof reducer(void 0, {
+            type: actionTypes_default.PROBE_UNKNOWN_ACTION()
+        }) === "undefined") {
+            throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `The slice reducer for key "${key}" returned undefined when probed with a random type. Don't try to handle '${actionTypes_default.INIT}' or other actions in "redux/*" namespace. They are considered private. Instead, you must return the current state for any unknown actions, unless it is undefined, in which case you must return the initial state, regardless of the action type. The initial state may not be undefined, but can be null.`);
+        }
+    });
+}
+function combineReducers(reducers) {
+    const reducerKeys = Object.keys(reducers);
+    const finalReducers = {};
+    for(let i = 0; i < reducerKeys.length; i++){
+        const key = reducerKeys[i];
+        if ("TURBOPACK compile-time truthy", 1) {
+            if (typeof reducers[key] === "undefined") {
+                warning(`No reducer provided for key "${key}"`);
+            }
+        }
+        if (typeof reducers[key] === "function") {
+            finalReducers[key] = reducers[key];
+        }
+    }
+    const finalReducerKeys = Object.keys(finalReducers);
+    let unexpectedKeyCache;
+    if (("TURBOPACK compile-time value", "development") !== "production") {
+        unexpectedKeyCache = {};
+    }
+    let shapeAssertionError;
+    try {
+        assertReducerShape(finalReducers);
+    } catch (e) {
+        shapeAssertionError = e;
+    }
+    return function combination(state = {}, action) {
+        if (shapeAssertionError) {
+            throw shapeAssertionError;
+        }
+        if ("TURBOPACK compile-time truthy", 1) {
+            const warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
+            if (warningMessage) {
+                warning(warningMessage);
+            }
+        }
+        let hasChanged = false;
+        const nextState = {};
+        for(let i = 0; i < finalReducerKeys.length; i++){
+            const key = finalReducerKeys[i];
+            const reducer = finalReducers[key];
+            const previousStateForKey = state[key];
+            const nextStateForKey = reducer(previousStateForKey, action);
+            if (typeof nextStateForKey === "undefined") {
+                const actionType = action && action.type;
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `When called with an action of type ${actionType ? `"${String(actionType)}"` : "(unknown type)"}, the slice reducer for key "${key}" returned undefined. To ignore an action, you must explicitly return the previous state. If you want this reducer to hold no value, you can return null instead of undefined.`);
+            }
+            nextState[key] = nextStateForKey;
+            hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
+        }
+        hasChanged = hasChanged || finalReducerKeys.length !== Object.keys(state).length;
+        return hasChanged ? nextState : state;
+    };
+}
+// src/bindActionCreators.ts
+function bindActionCreator(actionCreator, dispatch) {
+    return function(...args) {
+        return dispatch(actionCreator.apply(this, args));
+    };
+}
+function bindActionCreators(actionCreators, dispatch) {
+    if (typeof actionCreators === "function") {
+        return bindActionCreator(actionCreators, dispatch);
+    }
+    if (typeof actionCreators !== "object" || actionCreators === null) {
+        throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : `bindActionCreators expected an object or a function, but instead received: '${kindOf(actionCreators)}'. Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?`);
+    }
+    const boundActionCreators = {};
+    for(const key in actionCreators){
+        const actionCreator = actionCreators[key];
+        if (typeof actionCreator === "function") {
+            boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+        }
+    }
+    return boundActionCreators;
+}
+// src/compose.ts
+function compose(...funcs) {
+    if (funcs.length === 0) {
+        return (arg)=>arg;
+    }
+    if (funcs.length === 1) {
+        return funcs[0];
+    }
+    return funcs.reduce((a, b)=>(...args)=>a(b(...args)));
+}
+// src/applyMiddleware.ts
+function applyMiddleware(...middlewares) {
+    return (createStore2)=>(reducer, preloadedState)=>{
+            const store = createStore2(reducer, preloadedState);
+            let dispatch = ()=>{
+                throw new Error(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "Dispatching while constructing your middleware is not allowed. Other middleware would not be applied to this dispatch.");
+            };
+            const middlewareAPI = {
+                getState: store.getState,
+                dispatch: (action, ...args)=>dispatch(action, ...args)
+            };
+            const chain = middlewares.map((middleware)=>middleware(middlewareAPI));
+            dispatch = compose(...chain)(store.dispatch);
+            return {
+                ...store,
+                dispatch
+            };
+        };
+}
+// src/utils/isAction.ts
+function isAction(action) {
+    return isPlainObject(action) && "type" in action && typeof action.type === "string";
+}
+;
+}),
+"[project]/frontend/node_modules/reselect/dist/reselect.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "createSelector",
+    ()=>createSelector,
+    "createSelectorCreator",
+    ()=>createSelectorCreator,
+    "createStructuredSelector",
+    ()=>createStructuredSelector,
+    "lruMemoize",
+    ()=>lruMemoize,
+    "referenceEqualityCheck",
+    ()=>referenceEqualityCheck,
+    "setGlobalDevModeChecks",
+    ()=>setGlobalDevModeChecks,
+    "unstable_autotrackMemoize",
+    ()=>autotrackMemoize,
+    "weakMapMemoize",
+    ()=>weakMapMemoize
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+// src/devModeChecks/identityFunctionCheck.ts
+var runIdentityFunctionCheck = (resultFunc, inputSelectorsResults, outputSelectorResult)=>{
+    if (inputSelectorsResults.length === 1 && inputSelectorsResults[0] === outputSelectorResult) {
+        let isInputSameAsOutput = false;
+        try {
+            const emptyObject = {};
+            if (resultFunc(emptyObject) === emptyObject) isInputSameAsOutput = true;
+        } catch  {}
+        if (isInputSameAsOutput) {
+            let stack = void 0;
+            try {
+                throw new Error();
+            } catch (e) {
+                ;
+                ({ stack } = e);
+            }
+            console.warn("The result function returned its own inputs without modification. e.g\n`createSelector([state => state.todos], todos => todos)`\nThis could lead to inefficient memoization and unnecessary re-renders.\nEnsure transformation logic is in the result function, and extraction logic is in the input selectors.", {
+                stack
+            });
+        }
+    }
+};
+// src/devModeChecks/inputStabilityCheck.ts
+var runInputStabilityCheck = (inputSelectorResultsObject, options, inputSelectorArgs)=>{
+    const { memoize, memoizeOptions } = options;
+    const { inputSelectorResults, inputSelectorResultsCopy } = inputSelectorResultsObject;
+    const createAnEmptyObject = memoize(()=>({}), ...memoizeOptions);
+    const areInputSelectorResultsEqual = createAnEmptyObject.apply(null, inputSelectorResults) === createAnEmptyObject.apply(null, inputSelectorResultsCopy);
+    if (!areInputSelectorResultsEqual) {
+        let stack = void 0;
+        try {
+            throw new Error();
+        } catch (e) {
+            ;
+            ({ stack } = e);
+        }
+        console.warn("An input selector returned a different result when passed same arguments.\nThis means your output selector will likely run more frequently than intended.\nAvoid returning a new reference inside your input selector, e.g.\n`createSelector([state => state.todos.map(todo => todo.id)], todoIds => todoIds.length)`", {
+            arguments: inputSelectorArgs,
+            firstInputs: inputSelectorResults,
+            secondInputs: inputSelectorResultsCopy,
+            stack
+        });
+    }
+};
+// src/devModeChecks/setGlobalDevModeChecks.ts
+var globalDevModeChecks = {
+    inputStabilityCheck: "once",
+    identityFunctionCheck: "once"
+};
+var setGlobalDevModeChecks = (devModeChecks)=>{
+    Object.assign(globalDevModeChecks, devModeChecks);
+};
+// src/utils.ts
+var NOT_FOUND = /* @__PURE__ */ Symbol("NOT_FOUND");
+function assertIsFunction(func, errorMessage = `expected a function, instead received ${typeof func}`) {
+    if (typeof func !== "function") {
+        throw new TypeError(errorMessage);
+    }
+}
+function assertIsObject(object, errorMessage = `expected an object, instead received ${typeof object}`) {
+    if (typeof object !== "object") {
+        throw new TypeError(errorMessage);
+    }
+}
+function assertIsArrayOfFunctions(array, errorMessage = `expected all items to be functions, instead received the following types: `) {
+    if (!array.every((item)=>typeof item === "function")) {
+        const itemTypes = array.map((item)=>typeof item === "function" ? `function ${item.name || "unnamed"}()` : typeof item).join(", ");
+        throw new TypeError(`${errorMessage}[${itemTypes}]`);
+    }
+}
+var ensureIsArray = (item)=>{
+    return Array.isArray(item) ? item : [
+        item
+    ];
+};
+function getDependencies(createSelectorArgs) {
+    const dependencies = Array.isArray(createSelectorArgs[0]) ? createSelectorArgs[0] : createSelectorArgs;
+    assertIsArrayOfFunctions(dependencies, `createSelector expects all input-selectors to be functions, but received the following types: `);
+    return dependencies;
+}
+function collectInputSelectorResults(dependencies, inputSelectorArgs) {
+    const inputSelectorResults = [];
+    const { length } = dependencies;
+    for(let i = 0; i < length; i++){
+        inputSelectorResults.push(dependencies[i].apply(null, inputSelectorArgs));
+    }
+    return inputSelectorResults;
+}
+var getDevModeChecksExecutionInfo = (firstRun, devModeChecks)=>{
+    const { identityFunctionCheck, inputStabilityCheck } = {
+        ...globalDevModeChecks,
+        ...devModeChecks
+    };
+    return {
+        identityFunctionCheck: {
+            shouldRun: identityFunctionCheck === "always" || identityFunctionCheck === "once" && firstRun,
+            run: runIdentityFunctionCheck
+        },
+        inputStabilityCheck: {
+            shouldRun: inputStabilityCheck === "always" || inputStabilityCheck === "once" && firstRun,
+            run: runInputStabilityCheck
+        }
+    };
+};
+// src/autotrackMemoize/autotracking.ts
+var $REVISION = 0;
+var CURRENT_TRACKER = null;
+var Cell = class {
+    revision = $REVISION;
+    _value;
+    _lastValue;
+    _isEqual = tripleEq;
+    constructor(initialValue, isEqual = tripleEq){
+        this._value = this._lastValue = initialValue;
+        this._isEqual = isEqual;
+    }
+    // Whenever a storage value is read, it'll add itself to the current tracker if
+    // one exists, entangling its state with that cache.
+    get value() {
+        CURRENT_TRACKER?.add(this);
+        return this._value;
+    }
+    // Whenever a storage value is updated, we bump the global revision clock,
+    // assign the revision for this storage to the new value, _and_ we schedule a
+    // rerender. This is important, and it's what makes autotracking  _pull_
+    // based. We don't actively tell the caches which depend on the storage that
+    // anything has happened. Instead, we recompute the caches when needed.
+    set value(newValue) {
+        if (this.value === newValue) return;
+        this._value = newValue;
+        this.revision = ++$REVISION;
+    }
+};
+function tripleEq(a, b) {
+    return a === b;
+}
+var TrackingCache = class {
+    _cachedValue;
+    _cachedRevision = -1;
+    _deps = [];
+    hits = 0;
+    fn;
+    constructor(fn){
+        this.fn = fn;
+    }
+    clear() {
+        this._cachedValue = void 0;
+        this._cachedRevision = -1;
+        this._deps = [];
+        this.hits = 0;
+    }
+    get value() {
+        if (this.revision > this._cachedRevision) {
+            const { fn } = this;
+            const currentTracker = /* @__PURE__ */ new Set();
+            const prevTracker = CURRENT_TRACKER;
+            CURRENT_TRACKER = currentTracker;
+            this._cachedValue = fn();
+            CURRENT_TRACKER = prevTracker;
+            this.hits++;
+            this._deps = Array.from(currentTracker);
+            this._cachedRevision = this.revision;
+        }
+        CURRENT_TRACKER?.add(this);
+        return this._cachedValue;
+    }
+    get revision() {
+        return Math.max(...this._deps.map((d)=>d.revision), 0);
+    }
+};
+function getValue(cell) {
+    if (!(cell instanceof Cell)) {
+        console.warn("Not a valid cell! ", cell);
+    }
+    return cell.value;
+}
+function setValue(storage, value) {
+    if (!(storage instanceof Cell)) {
+        throw new TypeError("setValue must be passed a tracked store created with `createStorage`.");
+    }
+    storage.value = storage._lastValue = value;
+}
+function createCell(initialValue, isEqual = tripleEq) {
+    return new Cell(initialValue, isEqual);
+}
+function createCache(fn) {
+    assertIsFunction(fn, "the first parameter to `createCache` must be a function");
+    return new TrackingCache(fn);
+}
+// src/autotrackMemoize/tracking.ts
+var neverEq = (a, b)=>false;
+function createTag() {
+    return createCell(null, neverEq);
+}
+function dirtyTag(tag, value) {
+    setValue(tag, value);
+}
+var consumeCollection = (node)=>{
+    let tag = node.collectionTag;
+    if (tag === null) {
+        tag = node.collectionTag = createTag();
+    }
+    getValue(tag);
+};
+var dirtyCollection = (node)=>{
+    const tag = node.collectionTag;
+    if (tag !== null) {
+        dirtyTag(tag, null);
+    }
+};
+// src/autotrackMemoize/proxy.ts
+var nextId = 0;
+var proto = /* @__PURE__ */ Object.getPrototypeOf({});
+var ObjectTreeNode = class {
+    constructor(value){
+        this.value = value;
+        this.value = value;
+        this.tag.value = value;
+    }
+    proxy = new Proxy(this, objectProxyHandler);
+    tag = createTag();
+    tags = {};
+    children = {};
+    collectionTag = null;
+    id = nextId++;
+};
+var objectProxyHandler = {
+    get (node, key) {
+        function calculateResult() {
+            const { value } = node;
+            const childValue = Reflect.get(value, key);
+            if (typeof key === "symbol") {
+                return childValue;
+            }
+            if (key in proto) {
+                return childValue;
+            }
+            if (typeof childValue === "object" && childValue !== null) {
+                let childNode = node.children[key];
+                if (childNode === void 0) {
+                    childNode = node.children[key] = createNode(childValue);
+                }
+                if (childNode.tag) {
+                    getValue(childNode.tag);
+                }
+                return childNode.proxy;
+            } else {
+                let tag = node.tags[key];
+                if (tag === void 0) {
+                    tag = node.tags[key] = createTag();
+                    tag.value = childValue;
+                }
+                getValue(tag);
+                return childValue;
+            }
+        }
+        const res = calculateResult();
+        return res;
+    },
+    ownKeys (node) {
+        consumeCollection(node);
+        return Reflect.ownKeys(node.value);
+    },
+    getOwnPropertyDescriptor (node, prop) {
+        return Reflect.getOwnPropertyDescriptor(node.value, prop);
+    },
+    has (node, prop) {
+        return Reflect.has(node.value, prop);
+    }
+};
+var ArrayTreeNode = class {
+    constructor(value){
+        this.value = value;
+        this.value = value;
+        this.tag.value = value;
+    }
+    proxy = new Proxy([
+        this
+    ], arrayProxyHandler);
+    tag = createTag();
+    tags = {};
+    children = {};
+    collectionTag = null;
+    id = nextId++;
+};
+var arrayProxyHandler = {
+    get ([node], key) {
+        if (key === "length") {
+            consumeCollection(node);
+        }
+        return objectProxyHandler.get(node, key);
+    },
+    ownKeys ([node]) {
+        return objectProxyHandler.ownKeys(node);
+    },
+    getOwnPropertyDescriptor ([node], prop) {
+        return objectProxyHandler.getOwnPropertyDescriptor(node, prop);
+    },
+    has ([node], prop) {
+        return objectProxyHandler.has(node, prop);
+    }
+};
+function createNode(value) {
+    if (Array.isArray(value)) {
+        return new ArrayTreeNode(value);
+    }
+    return new ObjectTreeNode(value);
+}
+function updateNode(node, newValue) {
+    const { value, tags, children } = node;
+    node.value = newValue;
+    if (Array.isArray(value) && Array.isArray(newValue) && value.length !== newValue.length) {
+        dirtyCollection(node);
+    } else {
+        if (value !== newValue) {
+            let oldKeysSize = 0;
+            let newKeysSize = 0;
+            let anyKeysAdded = false;
+            for(const _key in value){
+                oldKeysSize++;
+            }
+            for(const key in newValue){
+                newKeysSize++;
+                if (!(key in value)) {
+                    anyKeysAdded = true;
+                    break;
+                }
+            }
+            const isDifferent = anyKeysAdded || oldKeysSize !== newKeysSize;
+            if (isDifferent) {
+                dirtyCollection(node);
+            }
+        }
+    }
+    for(const key in tags){
+        const childValue = value[key];
+        const newChildValue = newValue[key];
+        if (childValue !== newChildValue) {
+            dirtyCollection(node);
+            dirtyTag(tags[key], newChildValue);
+        }
+        if (typeof newChildValue === "object" && newChildValue !== null) {
+            delete tags[key];
+        }
+    }
+    for(const key in children){
+        const childNode = children[key];
+        const newChildValue = newValue[key];
+        const childValue = childNode.value;
+        if (childValue === newChildValue) {
+            continue;
+        } else if (typeof newChildValue === "object" && newChildValue !== null) {
+            updateNode(childNode, newChildValue);
+        } else {
+            deleteNode(childNode);
+            delete children[key];
+        }
+    }
+}
+function deleteNode(node) {
+    if (node.tag) {
+        dirtyTag(node.tag, null);
+    }
+    dirtyCollection(node);
+    for(const key in node.tags){
+        dirtyTag(node.tags[key], null);
+    }
+    for(const key in node.children){
+        deleteNode(node.children[key]);
+    }
+}
+// src/lruMemoize.ts
+function createSingletonCache(equals) {
+    let entry;
+    return {
+        get (key) {
+            if (entry && equals(entry.key, key)) {
+                return entry.value;
+            }
+            return NOT_FOUND;
+        },
+        put (key, value) {
+            entry = {
+                key,
+                value
+            };
+        },
+        getEntries () {
+            return entry ? [
+                entry
+            ] : [];
+        },
+        clear () {
+            entry = void 0;
+        }
+    };
+}
+function createLruCache(maxSize, equals) {
+    let entries = [];
+    function get(key) {
+        const cacheIndex = entries.findIndex((entry)=>equals(key, entry.key));
+        if (cacheIndex > -1) {
+            const entry = entries[cacheIndex];
+            if (cacheIndex > 0) {
+                entries.splice(cacheIndex, 1);
+                entries.unshift(entry);
+            }
+            return entry.value;
+        }
+        return NOT_FOUND;
+    }
+    function put(key, value) {
+        if (get(key) === NOT_FOUND) {
+            entries.unshift({
+                key,
+                value
+            });
+            if (entries.length > maxSize) {
+                entries.pop();
+            }
+        }
+    }
+    function getEntries() {
+        return entries;
+    }
+    function clear() {
+        entries = [];
+    }
+    return {
+        get,
+        put,
+        getEntries,
+        clear
+    };
+}
+var referenceEqualityCheck = (a, b)=>a === b;
+function createCacheKeyComparator(equalityCheck) {
+    return function areArgumentsShallowlyEqual(prev, next) {
+        if (prev === null || next === null || prev.length !== next.length) {
+            return false;
+        }
+        const { length } = prev;
+        for(let i = 0; i < length; i++){
+            if (!equalityCheck(prev[i], next[i])) {
+                return false;
+            }
+        }
+        return true;
+    };
+}
+function lruMemoize(func, equalityCheckOrOptions) {
+    const providedOptions = typeof equalityCheckOrOptions === "object" ? equalityCheckOrOptions : {
+        equalityCheck: equalityCheckOrOptions
+    };
+    const { equalityCheck = referenceEqualityCheck, maxSize = 1, resultEqualityCheck } = providedOptions;
+    const comparator = createCacheKeyComparator(equalityCheck);
+    let resultsCount = 0;
+    const cache = maxSize <= 1 ? createSingletonCache(comparator) : createLruCache(maxSize, comparator);
+    function memoized() {
+        let value = cache.get(arguments);
+        if (value === NOT_FOUND) {
+            value = func.apply(null, arguments);
+            resultsCount++;
+            if (resultEqualityCheck) {
+                const entries = cache.getEntries();
+                const matchingEntry = entries.find((entry)=>resultEqualityCheck(entry.value, value));
+                if (matchingEntry) {
+                    value = matchingEntry.value;
+                    resultsCount !== 0 && resultsCount--;
+                }
+            }
+            cache.put(arguments, value);
+        }
+        return value;
+    }
+    memoized.clearCache = ()=>{
+        cache.clear();
+        memoized.resetResultsCount();
+    };
+    memoized.resultsCount = ()=>resultsCount;
+    memoized.resetResultsCount = ()=>{
+        resultsCount = 0;
+    };
+    return memoized;
+}
+// src/autotrackMemoize/autotrackMemoize.ts
+function autotrackMemoize(func) {
+    const node = createNode([]);
+    let lastArgs = null;
+    const shallowEqual = createCacheKeyComparator(referenceEqualityCheck);
+    const cache = createCache(()=>{
+        const res = func.apply(null, node.proxy);
+        return res;
+    });
+    function memoized() {
+        if (!shallowEqual(lastArgs, arguments)) {
+            updateNode(node, arguments);
+            lastArgs = arguments;
+        }
+        return cache.value;
+    }
+    memoized.clearCache = ()=>{
+        return cache.clear();
+    };
+    return memoized;
+}
+// src/weakMapMemoize.ts
+var StrongRef = class {
+    constructor(value){
+        this.value = value;
+    }
+    deref() {
+        return this.value;
+    }
+};
+var getWeakRef = ()=>typeof WeakRef === "undefined" ? StrongRef : WeakRef;
+var Ref = /* @__PURE__ */ getWeakRef();
+var UNTERMINATED = 0;
+var TERMINATED = 1;
+function createCacheNode() {
+    return {
+        s: UNTERMINATED,
+        v: void 0,
+        o: null,
+        p: null
+    };
+}
+function maybeDeref(r) {
+    if (r instanceof Ref) {
+        return r.deref();
+    }
+    return r;
+}
+function weakMapMemoize(func, options = {}) {
+    let fnNode = createCacheNode();
+    const { resultEqualityCheck } = options;
+    let lastResult;
+    let resultsCount = 0;
+    function memoized() {
+        let cacheNode = fnNode;
+        const { length } = arguments;
+        for(let i = 0, l = length; i < l; i++){
+            const arg = arguments[i];
+            if (typeof arg === "function" || typeof arg === "object" && arg !== null) {
+                let objectCache = cacheNode.o;
+                if (objectCache === null) {
+                    cacheNode.o = objectCache = /* @__PURE__ */ new WeakMap();
+                }
+                const objectNode = objectCache.get(arg);
+                if (objectNode === void 0) {
+                    cacheNode = createCacheNode();
+                    objectCache.set(arg, cacheNode);
+                } else {
+                    cacheNode = objectNode;
+                }
+            } else {
+                let primitiveCache = cacheNode.p;
+                if (primitiveCache === null) {
+                    cacheNode.p = primitiveCache = /* @__PURE__ */ new Map();
+                }
+                const primitiveNode = primitiveCache.get(arg);
+                if (primitiveNode === void 0) {
+                    cacheNode = createCacheNode();
+                    primitiveCache.set(arg, cacheNode);
+                } else {
+                    cacheNode = primitiveNode;
+                }
+            }
+        }
+        const terminatedNode = cacheNode;
+        let result;
+        if (cacheNode.s === TERMINATED) {
+            result = cacheNode.v;
+        } else {
+            result = func.apply(null, arguments);
+            resultsCount++;
+            if (resultEqualityCheck) {
+                const lastResultValue = maybeDeref(lastResult);
+                if (lastResultValue != null && resultEqualityCheck(lastResultValue, result)) {
+                    result = lastResultValue;
+                    resultsCount !== 0 && resultsCount--;
+                }
+                const needsWeakRef = typeof result === "object" && result !== null || typeof result === "function";
+                lastResult = needsWeakRef ? /* @__PURE__ */ new Ref(result) : result;
+            }
+        }
+        terminatedNode.s = TERMINATED;
+        terminatedNode.v = result;
+        return result;
+    }
+    memoized.clearCache = ()=>{
+        fnNode = createCacheNode();
+        memoized.resetResultsCount();
+    };
+    memoized.resultsCount = ()=>resultsCount;
+    memoized.resetResultsCount = ()=>{
+        resultsCount = 0;
+    };
+    return memoized;
+}
+// src/createSelectorCreator.ts
+function createSelectorCreator(memoizeOrOptions, ...memoizeOptionsFromArgs) {
+    const createSelectorCreatorOptions = typeof memoizeOrOptions === "function" ? {
+        memoize: memoizeOrOptions,
+        memoizeOptions: memoizeOptionsFromArgs
+    } : memoizeOrOptions;
+    const createSelector2 = (...createSelectorArgs)=>{
+        let recomputations = 0;
+        let dependencyRecomputations = 0;
+        let lastResult;
+        let directlyPassedOptions = {};
+        let resultFunc = createSelectorArgs.pop();
+        if (typeof resultFunc === "object") {
+            directlyPassedOptions = resultFunc;
+            resultFunc = createSelectorArgs.pop();
+        }
+        assertIsFunction(resultFunc, `createSelector expects an output function after the inputs, but received: [${typeof resultFunc}]`);
+        const combinedOptions = {
+            ...createSelectorCreatorOptions,
+            ...directlyPassedOptions
+        };
+        const { memoize, memoizeOptions = [], argsMemoize = weakMapMemoize, argsMemoizeOptions = [] } = combinedOptions;
+        const finalMemoizeOptions = ensureIsArray(memoizeOptions);
+        const finalArgsMemoizeOptions = ensureIsArray(argsMemoizeOptions);
+        const dependencies = getDependencies(createSelectorArgs);
+        const memoizedResultFunc = memoize(function recomputationWrapper() {
+            recomputations++;
+            return resultFunc.apply(null, arguments);
+        }, ...finalMemoizeOptions);
+        let firstRun = true;
+        const selector = argsMemoize(function dependenciesChecker() {
+            dependencyRecomputations++;
+            const inputSelectorResults = collectInputSelectorResults(dependencies, arguments);
+            lastResult = memoizedResultFunc.apply(null, inputSelectorResults);
+            if ("TURBOPACK compile-time truthy", 1) {
+                const { devModeChecks = {} } = combinedOptions;
+                const { identityFunctionCheck, inputStabilityCheck } = getDevModeChecksExecutionInfo(firstRun, devModeChecks);
+                if (identityFunctionCheck.shouldRun) {
+                    identityFunctionCheck.run(resultFunc, inputSelectorResults, lastResult);
+                }
+                if (inputStabilityCheck.shouldRun) {
+                    const inputSelectorResultsCopy = collectInputSelectorResults(dependencies, arguments);
+                    inputStabilityCheck.run({
+                        inputSelectorResults,
+                        inputSelectorResultsCopy
+                    }, {
+                        memoize,
+                        memoizeOptions: finalMemoizeOptions
+                    }, arguments);
+                }
+                if (firstRun) firstRun = false;
+            }
+            return lastResult;
+        }, ...finalArgsMemoizeOptions);
+        return Object.assign(selector, {
+            resultFunc,
+            memoizedResultFunc,
+            dependencies,
+            dependencyRecomputations: ()=>dependencyRecomputations,
+            resetDependencyRecomputations: ()=>{
+                dependencyRecomputations = 0;
+            },
+            lastResult: ()=>lastResult,
+            recomputations: ()=>recomputations,
+            resetRecomputations: ()=>{
+                recomputations = 0;
+            },
+            memoize,
+            argsMemoize
+        });
+    };
+    Object.assign(createSelector2, {
+        withTypes: ()=>createSelector2
+    });
+    return createSelector2;
+}
+var createSelector = /* @__PURE__ */ createSelectorCreator(weakMapMemoize);
+// src/createStructuredSelector.ts
+var createStructuredSelector = /* @__PURE__ */ Object.assign((inputSelectorsObject, selectorCreator = createSelector)=>{
+    assertIsObject(inputSelectorsObject, `createStructuredSelector expects first argument to be an object where each property is a selector, instead received a ${typeof inputSelectorsObject}`);
+    const inputSelectorKeys = Object.keys(inputSelectorsObject);
+    const dependencies = inputSelectorKeys.map((key)=>inputSelectorsObject[key]);
+    const structuredSelector = selectorCreator(dependencies, (...inputSelectorResults)=>{
+        return inputSelectorResults.reduce((composition, value, index)=>{
+            composition[inputSelectorKeys[index]] = value;
+            return composition;
+        }, {});
+    });
+    return structuredSelector;
+}, {
+    withTypes: ()=>createStructuredSelector
+});
+;
+}),
+"[project]/frontend/node_modules/swr/dist/_internal/constants.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "INFINITE_PREFIX",
+    ()=>INFINITE_PREFIX
+]);
+const INFINITE_PREFIX = '$inf$';
+;
+}),
+"[project]/frontend/node_modules/swr/dist/_internal/index.mjs [app-client] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "normalize",
+    ()=>normalize,
+    "preload",
+    ()=>preload,
+    "subscribeCallback",
+    ()=>subscribeCallback,
+    "useSWRConfig",
+    ()=>useSWRConfig,
+    "withArgs",
+    ()=>withArgs,
+    "withMiddleware",
+    ()=>withMiddleware
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/swr/dist/config-context-ext53wcz.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$_internal$2f$constants$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/swr/dist/_internal/constants.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+;
+;
+;
+;
+// @ts-expect-error
+const enableDevtools = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["p"] && window.__SWR_DEVTOOLS_USE__;
+const use = enableDevtools ? window.__SWR_DEVTOOLS_USE__ : [];
+const setupDevTools = ()=>{
+    if (enableDevtools) {
+        // @ts-expect-error
+        window.__SWR_DEVTOOLS_REACT__ = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"];
+    }
+};
+const normalize = (args)=>{
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["e"])(args[1]) ? [
+        args[0],
+        args[1],
+        args[2] || {}
+    ] : [
+        args[0],
+        null,
+        (args[1] === null ? args[2] : args[1]) || {}
+    ];
+};
+const useSWRConfig = ()=>{
+    const parentConfig = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["q"]);
+    const mergedConfig = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSWRConfig.useMemo[mergedConfig]": ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["m"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["d"], parentConfig)
+    }["useSWRConfig.useMemo[mergedConfig]"], [
+        parentConfig
+    ]);
+    return mergedConfig;
+};
+const preload = (key_, fetcher)=>{
+    // preload should be a no-op on the server
+    if (__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["I"]) {
+        return undefined;
+    }
+    const [key, fnArg] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["s"])(key_);
+    const [, , , PRELOAD] = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["a"].get(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["o"]);
+    // Prevent preload to be called multiple times before used.
+    if (PRELOAD[key]) {
+        return PRELOAD[key];
+    }
+    const req = fetcher(fnArg);
+    PRELOAD[key] = req;
+    return req;
+};
+const middleware = (useSWRNext)=>(key_, fetcher_, config)=>{
+        // fetcher might be a sync function, so this should not be an async function
+        const fetcher = fetcher_ && ((...args)=>{
+            const [key] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["s"])(key_);
+            const [, , , PRELOAD] = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["a"].get(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["o"]);
+            if (key.startsWith(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$_internal$2f$constants$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["INFINITE_PREFIX"])) {
+                // we want the infinite fetcher to be called.
+                // handling of the PRELOAD cache happens there.
+                return fetcher_(...args);
+            }
+            const req = PRELOAD[key];
+            if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(req)) return fetcher_(...args);
+            delete PRELOAD[key];
+            return req;
+        });
+        return useSWRNext(key_, fetcher, config);
+    };
+const BUILT_IN_MIDDLEWARE = use.concat(middleware);
+// It's tricky to pass generic types as parameters, so we just directly override
+// the types here.
+const withArgs = (hook)=>{
+    return function useSWRArgs(...args) {
+        // Get the default and inherited configuration.
+        const fallbackConfig = useSWRConfig();
+        // Normalize arguments.
+        const [key, fn, _config] = normalize(args);
+        // Merge configurations.
+        const config = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["t"])(fallbackConfig, _config);
+        // Apply middleware
+        let next = hook;
+        const { use } = config;
+        const middleware = (use || []).concat(BUILT_IN_MIDDLEWARE);
+        for(let i = middleware.length; i--;){
+            next = middleware[i](next);
+        }
+        return next(key, fn || config.fetcher || null, config);
+    };
+};
+// Add a callback function to a list of keyed callback functions and return
+// the unsubscribe function.
+const subscribeCallback = (key, callbacks, callback)=>{
+    const keyedRevalidators = callbacks[key] || (callbacks[key] = []);
+    keyedRevalidators.push(callback);
+    return ()=>{
+        const index = keyedRevalidators.indexOf(callback);
+        if (index >= 0) {
+            // O(1): faster than splice
+            keyedRevalidators[index] = keyedRevalidators[keyedRevalidators.length - 1];
+            keyedRevalidators.pop();
+        }
+    };
+};
+// Create a custom hook with a middleware
+const withMiddleware = (useSWR, middleware)=>{
+    return (...args)=>{
+        const [key, fn, config] = normalize(args);
+        const uses = (config.use || []).concat(middleware);
+        return useSWR(key, fn, {
+            ...config,
+            use: uses
+        });
+    };
+};
+setupDevTools();
+;
+}),
+"[project]/frontend/node_modules/swr/dist/config-context-ext53wcz.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "A",
+    ()=>isLegacyDeno,
+    "B",
+    ()=>preset,
+    "C",
+    ()=>events,
+    "D",
+    ()=>slowConnection,
+    "E",
+    ()=>ERROR_REVALIDATE_EVENT,
+    "F",
+    ()=>FOCUS_EVENT,
+    "G",
+    ()=>stableHash,
+    "I",
+    ()=>IS_SERVER,
+    "M",
+    ()=>MUTATE_EVENT,
+    "O",
+    ()=>OBJECT,
+    "R",
+    ()=>RECONNECT_EVENT,
+    "S",
+    ()=>SWRConfig,
+    "U",
+    ()=>UNDEFINED,
+    "a",
+    ()=>SWRGlobalState,
+    "b",
+    ()=>isPromiseLike,
+    "c",
+    ()=>createCacheHelper,
+    "d",
+    ()=>defaultConfig,
+    "e",
+    ()=>isFunction,
+    "f",
+    ()=>internalMutate,
+    "g",
+    ()=>getTimestamp,
+    "h",
+    ()=>UNLOAD_EVENT,
+    "i",
+    ()=>isUndefined,
+    "j",
+    ()=>IS_REACT_LEGACY,
+    "k",
+    ()=>mutate,
+    "l",
+    ()=>unload,
+    "m",
+    ()=>mergeObjects,
+    "n",
+    ()=>noop,
+    "o",
+    ()=>cache,
+    "p",
+    ()=>isWindowDefined,
+    "q",
+    ()=>SWRConfigContext,
+    "r",
+    ()=>rAF,
+    "s",
+    ()=>serialize,
+    "t",
+    ()=>mergeConfigs,
+    "u",
+    ()=>useIsomorphicLayoutEffect,
+    "v",
+    ()=>compare,
+    "w",
+    ()=>defaultConfigOptions,
+    "x",
+    ()=>hasRequestAnimationFrame,
+    "y",
+    ()=>initCache,
+    "z",
+    ()=>isDocumentDefined
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$dequal$2f$lite$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/dequal/lite/index.mjs [app-client] (ecmascript)");
+'use client';
+;
+;
+const FOCUS_EVENT = 0;
+const RECONNECT_EVENT = 1;
+const MUTATE_EVENT = 2;
+const ERROR_REVALIDATE_EVENT = 3;
+const UNLOAD_EVENT = 4;
+var events = {
+    __proto__: null,
+    ERROR_REVALIDATE_EVENT: ERROR_REVALIDATE_EVENT,
+    FOCUS_EVENT: FOCUS_EVENT,
+    MUTATE_EVENT: MUTATE_EVENT,
+    RECONNECT_EVENT: RECONNECT_EVENT,
+    UNLOAD_EVENT: UNLOAD_EVENT
+};
+// Global state used to deduplicate requests and store listeners
+const SWRGlobalState = new WeakMap();
+// Shared state between server components and client components
+const noop = ()=>{};
+// Using noop() as the undefined value as undefined can be replaced
+// by something else. Prettier ignore and extra parentheses are necessary here
+// to ensure that tsc doesn't remove the __NOINLINE__ comment.
+// prettier-ignore
+const UNDEFINED = /*#__NOINLINE__*/ noop();
+const OBJECT = Object;
+const isUndefined = (v)=>v === UNDEFINED;
+const isFunction = (v)=>typeof v == 'function';
+const mergeObjects = (a, b)=>({
+        ...a,
+        ...b
+    });
+const isPromiseLike = (x)=>isFunction(x.then);
+const EMPTY_CACHE = {};
+const INITIAL_CACHE = {};
+const STR_UNDEFINED = 'undefined';
+// NOTE: Use the function to guarantee it's re-evaluated between jsdom and node runtime for tests.
+const isWindowDefined = typeof window != STR_UNDEFINED;
+const isDocumentDefined = typeof document != STR_UNDEFINED;
+const isLegacyDeno = isWindowDefined && 'Deno' in window;
+const hasRequestAnimationFrame = ()=>isWindowDefined && typeof window['requestAnimationFrame'] != STR_UNDEFINED;
+const createCacheHelper = (cache, key)=>{
+    const state = SWRGlobalState.get(cache);
+    return [
+        // Getter
+        ()=>!isUndefined(key) && cache.get(key) || EMPTY_CACHE,
+        // Setter
+        (info)=>{
+            if (!isUndefined(key)) {
+                const prev = cache.get(key);
+                // Before writing to the store, we keep the value in the initial cache
+                // if it's not there yet.
+                if (!(key in INITIAL_CACHE)) {
+                    INITIAL_CACHE[key] = prev;
+                }
+                state[5](key, mergeObjects(prev, info), prev || EMPTY_CACHE);
+            }
+        },
+        // Subscriber
+        state[6],
+        // Get server cache snapshot
+        ()=>{
+            if (!isUndefined(key)) {
+                // If the cache was updated on the client, we return the stored initial value.
+                if (key in INITIAL_CACHE) return INITIAL_CACHE[key];
+            }
+            // If we haven't done any client-side updates, we return the current value.
+            return !isUndefined(key) && cache.get(key) || EMPTY_CACHE;
+        }
+    ];
+} // export { UNDEFINED, OBJECT, isUndefined, isFunction, mergeObjects, isPromiseLike }
+;
+/**
+ * Due to the bug https://bugs.chromium.org/p/chromium/issues/detail?id=678075,
+ * it's not reliable to detect if the browser is currently online or offline
+ * based on `navigator.onLine`.
+ * As a workaround, we always assume it's online on the first load, and change
+ * the status upon `online` or `offline` events.
+ */ let online = true;
+const isOnline = ()=>online;
+// For node and React Native, `add/removeEventListener` doesn't exist on window.
+const [onWindowEvent, offWindowEvent] = isWindowDefined && window.addEventListener ? [
+    window.addEventListener.bind(window),
+    window.removeEventListener.bind(window)
+] : [
+    noop,
+    noop
+];
+const isVisible = ()=>{
+    const visibilityState = isDocumentDefined && document.visibilityState;
+    return isUndefined(visibilityState) || visibilityState !== 'hidden';
+};
+const initFocus = (callback)=>{
+    // focus revalidate
+    if (isDocumentDefined) {
+        document.addEventListener('visibilitychange', callback);
+    }
+    onWindowEvent('focus', callback);
+    return ()=>{
+        if (isDocumentDefined) {
+            document.removeEventListener('visibilitychange', callback);
+        }
+        offWindowEvent('focus', callback);
+    };
+};
+const initReconnect = (callback)=>{
+    // revalidate on reconnected
+    const onOnline = ()=>{
+        online = true;
+        callback();
+    };
+    // nothing to revalidate, just update the status
+    const onOffline = ()=>{
+        online = false;
+    };
+    onWindowEvent('online', onOnline);
+    onWindowEvent('offline', onOffline);
+    return ()=>{
+        offWindowEvent('online', onOnline);
+        offWindowEvent('offline', onOffline);
+    };
+};
+const preset = {
+    isOnline,
+    isVisible
+};
+const defaultConfigOptions = {
+    initFocus,
+    initReconnect
+};
+const IS_REACT_LEGACY = !__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useId;
+const IS_SERVER = !isWindowDefined || isLegacyDeno;
+// Polyfill requestAnimationFrame
+const rAF = (f)=>hasRequestAnimationFrame() ? window['requestAnimationFrame'](f) : setTimeout(f, 1);
+// React currently throws a warning when using useLayoutEffect on the server.
+// To get around it, we can conditionally useEffect on the server (no-op) and
+// useLayoutEffect in the browser.
+const useIsomorphicLayoutEffect = IS_SERVER ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"] : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLayoutEffect"];
+// This assignment is to extend the Navigator type to use effectiveType.
+const navigatorConnection = typeof navigator !== 'undefined' && navigator.connection;
+// Adjust the config based on slow connection status (<= 70Kbps).
+const slowConnection = !IS_SERVER && navigatorConnection && ([
+    'slow-2g',
+    '2g'
+].includes(navigatorConnection.effectiveType) || navigatorConnection.saveData);
+// use WeakMap to store the object->key mapping
+// so the objects can be garbage collected.
+// WeakMap uses a hashtable under the hood, so the lookup
+// complexity is almost O(1).
+const table = new WeakMap();
+const getTypeName = (value)=>OBJECT.prototype.toString.call(value);
+const isObjectTypeName = (typeName, type)=>typeName === `[object ${type}]`;
+// counter of the key
+let counter = 0;
+// A stable hash implementation that supports:
+// - Fast and ensures unique hash properties
+// - Handles unserializable values
+// - Handles object key ordering
+// - Generates short results
+//
+// This is not a serialization function, and the result is not guaranteed to be
+// parsable.
+const stableHash = (arg)=>{
+    const type = typeof arg;
+    const typeName = getTypeName(arg);
+    const isDate = isObjectTypeName(typeName, 'Date');
+    const isRegex = isObjectTypeName(typeName, 'RegExp');
+    const isPlainObject = isObjectTypeName(typeName, 'Object');
+    let result;
+    let index;
+    if (OBJECT(arg) === arg && !isDate && !isRegex) {
+        // Object/function, not null/date/regexp. Use WeakMap to store the id first.
+        // If it's already hashed, directly return the result.
+        result = table.get(arg);
+        if (result) return result;
+        // Store the hash first for circular reference detection before entering the
+        // recursive `stableHash` calls.
+        // For other objects like set and map, we use this id directly as the hash.
+        result = ++counter + '~';
+        table.set(arg, result);
+        if (Array.isArray(arg)) {
+            // Array.
+            result = '@';
+            for(index = 0; index < arg.length; index++){
+                result += stableHash(arg[index]) + ',';
+            }
+            table.set(arg, result);
+        }
+        if (isPlainObject) {
+            // Object, sort keys.
+            result = '#';
+            const keys = OBJECT.keys(arg).sort();
+            while(!isUndefined(index = keys.pop())){
+                if (!isUndefined(arg[index])) {
+                    result += index + ':' + stableHash(arg[index]) + ',';
+                }
+            }
+            table.set(arg, result);
+        }
+    } else {
+        result = isDate ? arg.toJSON() : type == 'symbol' ? arg.toString() : type == 'string' ? JSON.stringify(arg) : '' + arg;
+    }
+    return result;
+};
+const serialize = (key)=>{
+    if (isFunction(key)) {
+        try {
+            key = key();
+        } catch (err) {
+            // dependencies not ready
+            key = '';
+        }
+    }
+    // Use the original key as the argument of fetcher. This can be a string or an
+    // array of values.
+    const args = key;
+    // If key is not falsy, or not an empty array, hash it.
+    key = typeof key == 'string' ? key : (Array.isArray(key) ? key.length : key) ? stableHash(key) : '';
+    return [
+        key,
+        args
+    ];
+};
+// Global timestamp.
+let __timestamp = 0;
+const getTimestamp = ()=>++__timestamp;
+async function internalMutate(...args) {
+    const [cache, _key, _data, _opts] = args;
+    // When passing as a boolean, it's explicitly used to disable/enable
+    // revalidation.
+    const options = mergeObjects({
+        populateCache: true,
+        throwOnError: true
+    }, typeof _opts === 'boolean' ? {
+        revalidate: _opts
+    } : _opts || {});
+    let populateCache = options.populateCache;
+    const rollbackOnErrorOption = options.rollbackOnError;
+    let optimisticData = options.optimisticData;
+    const rollbackOnError = (error)=>{
+        return typeof rollbackOnErrorOption === 'function' ? rollbackOnErrorOption(error) : rollbackOnErrorOption !== false;
+    };
+    const throwOnError = options.throwOnError;
+    // If the second argument is a key filter, return the mutation results for all
+    // filtered keys.
+    if (isFunction(_key)) {
+        const keyFilter = _key;
+        const matchedKeys = [];
+        const it = cache.keys();
+        for (const key of it){
+            if (!/^\$(inf|sub)\$/.test(key) && keyFilter(cache.get(key)._k)) {
+                matchedKeys.push(key);
+            }
+        }
+        return Promise.all(matchedKeys.map(mutateByKey));
+    }
+    return mutateByKey(_key);
+    //TURBOPACK unreachable
+    ;
+    async function mutateByKey(_k) {
+        // Serialize key
+        const [key] = serialize(_k);
+        if (!key) return;
+        const [get, set] = createCacheHelper(cache, key);
+        const [EVENT_REVALIDATORS, MUTATION, FETCH, PRELOAD] = SWRGlobalState.get(cache);
+        const startRevalidate = ()=>{
+            const revalidators = EVENT_REVALIDATORS[key];
+            const revalidate = isFunction(options.revalidate) ? options.revalidate(get().data, _k) : options.revalidate !== false;
+            if (revalidate) {
+                // Invalidate the key by deleting the concurrent request markers so new
+                // requests will not be deduped.
+                delete FETCH[key];
+                delete PRELOAD[key];
+                if (revalidators && revalidators[0]) {
+                    return revalidators[0](MUTATE_EVENT).then(()=>get().data);
+                }
+            }
+            return get().data;
+        };
+        // If there is no new data provided, revalidate the key with current state.
+        if (args.length < 3) {
+            // Revalidate and broadcast state.
+            return startRevalidate();
+        }
+        let data = _data;
+        let error;
+        let isError = false;
+        // Update global timestamps.
+        const beforeMutationTs = getTimestamp();
+        MUTATION[key] = [
+            beforeMutationTs,
+            0
+        ];
+        const hasOptimisticData = !isUndefined(optimisticData);
+        const state = get();
+        // `displayedData` is the current value on screen. It could be the optimistic value
+        // that is going to be overridden by a `committedData`, or get reverted back.
+        // `committedData` is the validated value that comes from a fetch or mutation.
+        const displayedData = state.data;
+        const currentData = state._c;
+        const committedData = isUndefined(currentData) ? displayedData : currentData;
+        // Do optimistic data update.
+        if (hasOptimisticData) {
+            optimisticData = isFunction(optimisticData) ? optimisticData(committedData, displayedData) : optimisticData;
+            // When we set optimistic data, backup the current committedData data in `_c`.
+            set({
+                data: optimisticData,
+                _c: committedData
+            });
+        }
+        if (isFunction(data)) {
+            // `data` is a function, call it passing current cache value.
+            try {
+                data = data(committedData);
+            } catch (err) {
+                // If it throws an error synchronously, we shouldn't update the cache.
+                error = err;
+                isError = true;
+            }
+        }
+        // `data` is a promise/thenable, resolve the final data first.
+        if (data && isPromiseLike(data)) {
+            // This means that the mutation is async, we need to check timestamps to
+            // avoid race conditions.
+            data = await data.catch((err)=>{
+                error = err;
+                isError = true;
+            });
+            // Check if other mutations have occurred since we've started this mutation.
+            // If there's a race we don't update cache or broadcast the change,
+            // just return the data.
+            if (beforeMutationTs !== MUTATION[key][0]) {
+                if (isError) throw error;
+                return data;
+            } else if (isError && hasOptimisticData && rollbackOnError(error)) {
+                // Rollback. Always populate the cache in this case but without
+                // transforming the data.
+                populateCache = true;
+                // Reset data to be the latest committed data, and clear the `_c` value.
+                set({
+                    data: committedData,
+                    _c: UNDEFINED
+                });
+            }
+        }
+        // If we should write back the cache after request.
+        if (populateCache) {
+            if (!isError) {
+                // Transform the result into data.
+                if (isFunction(populateCache)) {
+                    const populateCachedData = populateCache(data, committedData);
+                    set({
+                        data: populateCachedData,
+                        error: UNDEFINED,
+                        _c: UNDEFINED
+                    });
+                } else {
+                    // Only update cached data and reset the error if there's no error. Data can be `undefined` here.
+                    set({
+                        data,
+                        error: UNDEFINED,
+                        _c: UNDEFINED
+                    });
+                }
+            }
+        }
+        // Reset the timestamp to mark the mutation has ended.
+        MUTATION[key][1] = getTimestamp();
+        // Update existing SWR Hooks' internal states:
+        Promise.resolve(startRevalidate()).then(()=>{
+            // The mutation and revalidation are ended, we can clear it since the data is
+            // not an optimistic value anymore.
+            set({
+                _c: UNDEFINED
+            });
+        });
+        // Throw error or return data
+        if (isError) {
+            if (throwOnError) throw error;
+            return;
+        }
+        return data;
+    }
+}
+const revalidateAllKeys = (revalidators, type)=>{
+    for(const key in revalidators){
+        if (revalidators[key][0]) revalidators[key][0](type);
+    }
+};
+const initCache = (provider, options)=>{
+    // The global state for a specific provider will be used to deduplicate
+    // requests and store listeners. As well as a mutate function that is bound to
+    // the cache.
+    // The provider's global state might be already initialized. Let's try to get the
+    // global state associated with the provider first.
+    if (!SWRGlobalState.has(provider)) {
+        const opts = mergeObjects(defaultConfigOptions, options);
+        // If there's no global state bound to the provider, create a new one with the
+        // new mutate function.
+        const EVENT_REVALIDATORS = Object.create(null);
+        const mutate = internalMutate.bind(UNDEFINED, provider);
+        let unmount = noop;
+        const subscriptions = Object.create(null);
+        const subscribe = (key, callback)=>{
+            const subs = subscriptions[key] || [];
+            subscriptions[key] = subs;
+            subs.push(callback);
+            return ()=>{
+                const index = subs.indexOf(callback);
+                if (index >= 0) {
+                    // O(1): swap with the last element and pop
+                    subs[index] = subs[subs.length - 1];
+                    subs.pop();
+                }
+            };
+        };
+        const setter = (key, value, prev)=>{
+            provider.set(key, value);
+            const subs = subscriptions[key];
+            if (subs) {
+                for (const fn of subs){
+                    fn(value, prev);
+                }
+            }
+        };
+        const unload = (unloadOptions)=>{
+            const state = SWRGlobalState.get(provider);
+            const [, MUTATION, FETCH, PRELOAD] = state;
+            const ts = getTimestamp();
+            // Bump the unload generation so in-flight writes that bypass the
+            // request markers (e.g. `useSWRInfinite` page responses) know to
+            // discard themselves when they resolve.
+            state[8]++;
+            // Invalidate all in-flight requests and mutations first, so nothing
+            // that resolves after this point can write back to the cache: fetches
+            // fail the concurrent request marker check, and mutations fail the
+            // timestamp race check. Mutation timestamps are overwritten instead of
+            // deleted because ongoing mutations read them on resolution.
+            for(const key in FETCH)delete FETCH[key];
+            for(const key in PRELOAD)delete PRELOAD[key];
+            for(const key in MUTATION)MUTATION[key] = [
+                ts,
+                ts
+            ];
+            // Delete all entries — including the special `useSWRInfinite` and
+            // `useSWRSubscription` keys — and notify the subscribers of each key
+            // so mounted hooks re-render with the empty cache. Subscribers receive
+            // the same empty state object that cache reads resolve to for missing
+            // entries.
+            const emptyState = {};
+            for (const key of [
+                ...provider.keys()
+            ]){
+                const prev = provider.get(key);
+                provider.delete(key);
+                const subs = subscriptions[key];
+                if (subs) {
+                    for (const fn of subs){
+                        fn(emptyState, prev);
+                    }
+                }
+            }
+            // The unload event runs last so the fresh requests it may start are
+            // not invalidated by the cleanup above. It always fires — even without
+            // revalidation — and to every hook on the key, so each one can drop
+            // the previous data kept by `keepPreviousData`. Only the first hook
+            // revalidates, consistent with how mutations revalidate a key.
+            const revalidate = !unloadOptions || unloadOptions.revalidate !== false;
+            for(const key in EVENT_REVALIDATORS){
+                const revalidators = EVENT_REVALIDATORS[key];
+                for(let i = 0; i < revalidators.length; i++){
+                    revalidators[i](UNLOAD_EVENT, {
+                        revalidate: revalidate && !i
+                    });
+                }
+            }
+        };
+        const initProvider = ()=>{
+            if (!SWRGlobalState.has(provider)) {
+                // Update the state if it's new, or if the provider has been extended.
+                SWRGlobalState.set(provider, [
+                    EVENT_REVALIDATORS,
+                    Object.create(null),
+                    Object.create(null),
+                    Object.create(null),
+                    mutate,
+                    setter,
+                    subscribe,
+                    unload,
+                    0
+                ]);
+                if (!IS_SERVER) {
+                    // When listening to the native events for auto revalidations,
+                    // we intentionally put a delay (setTimeout) here to make sure they are
+                    // fired after immediate JavaScript executions, which can be
+                    // React's state updates.
+                    // This avoids some unnecessary revalidations such as
+                    // https://github.com/vercel/swr/issues/1680.
+                    const releaseFocus = opts.initFocus(setTimeout.bind(UNDEFINED, revalidateAllKeys.bind(UNDEFINED, EVENT_REVALIDATORS, FOCUS_EVENT)));
+                    const releaseReconnect = opts.initReconnect(setTimeout.bind(UNDEFINED, revalidateAllKeys.bind(UNDEFINED, EVENT_REVALIDATORS, RECONNECT_EVENT)));
+                    unmount = ()=>{
+                        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                        releaseFocus && releaseFocus();
+                        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                        releaseReconnect && releaseReconnect();
+                        // When un-mounting, we need to remove the cache provider from the state
+                        // storage too because it's a side-effect. Otherwise, when re-mounting we
+                        // will not re-register those event listeners.
+                        SWRGlobalState.delete(provider);
+                    };
+                }
+            }
+        };
+        initProvider();
+        // This is a new provider, we need to initialize it and setup DOM events
+        // listeners for `focus` and `reconnect` actions.
+        // We might want to inject an extra layer on top of `provider` in the future,
+        // such as key serialization, auto GC, etc.
+        // For now, it's just a `Map` interface without any modifications.
+        return [
+            provider,
+            mutate,
+            initProvider,
+            unmount,
+            unload
+        ];
+    }
+    const state = SWRGlobalState.get(provider);
+    return [
+        provider,
+        state[4],
+        UNDEFINED,
+        UNDEFINED,
+        state[7]
+    ];
+};
+// error retry
+const onErrorRetry = (_, __, config, revalidate, opts)=>{
+    const maxRetryCount = config.errorRetryCount;
+    const currentRetryCount = opts.retryCount;
+    // Exponential backoff
+    const timeout = ~~((Math.random() + 0.5) * (1 << (currentRetryCount < 8 ? currentRetryCount : 8))) * config.errorRetryInterval;
+    if (!isUndefined(maxRetryCount) && currentRetryCount > maxRetryCount) {
+        return;
+    }
+    setTimeout(revalidate, timeout, opts);
+};
+const compare = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$dequal$2f$lite$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["dequal"];
+// Default cache provider
+const [cache, mutate, , , unload] = initCache(new Map());
+// Default config
+const defaultConfig = mergeObjects({
+    // events
+    onLoadingSlow: noop,
+    onSuccess: noop,
+    onError: noop,
+    onErrorRetry,
+    onDiscarded: noop,
+    // switches
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    revalidateIfStale: true,
+    shouldRetryOnError: true,
+    // timeouts
+    errorRetryInterval: slowConnection ? 10000 : 5000,
+    focusThrottleInterval: 5 * 1000,
+    dedupingInterval: 2 * 1000,
+    loadingTimeout: slowConnection ? 5000 : 3000,
+    // providers
+    compare,
+    isPaused: ()=>false,
+    cache,
+    mutate,
+    unload,
+    fallback: {}
+}, preset);
+const mergeConfigs = (a, b)=>{
+    // Need to create a new object to avoid mutating the original here.
+    const v = mergeObjects(a, b);
+    // If two configs are provided, merge their `use`, `fallback`, and
+    // `cacheData` options.
+    if (b) {
+        const { use: u1, fallback: f1, cacheData: c1 } = a;
+        const { use: u2, fallback: f2, cacheData: c2 } = b;
+        if (u1 && u2) {
+            v.use = u1.concat(u2);
+        }
+        if (f1 && f2) {
+            v.fallback = mergeObjects(f1, f2);
+        }
+        if (c1 && c2) {
+            v.cacheData = mergeObjects(c1, c2);
+        }
+    }
+    return v;
+};
+const SWRConfigContext = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])({});
+const SWRConfig = (props)=>{
+    const { value } = props;
+    const parentConfig = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"])(SWRConfigContext);
+    const isFunctionalConfig = isFunction(value);
+    const config = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "SWRConfig.useMemo[config]": ()=>isFunctionalConfig ? value(parentConfig) : value
+    }["SWRConfig.useMemo[config]"], [
+        isFunctionalConfig,
+        parentConfig,
+        value
+    ]);
+    // Extend parent context values and middleware.
+    const extendedConfig = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "SWRConfig.useMemo[extendedConfig]": ()=>isFunctionalConfig ? config : mergeConfigs(parentConfig, config)
+    }["SWRConfig.useMemo[extendedConfig]"], [
+        isFunctionalConfig,
+        parentConfig,
+        config
+    ]);
+    // Should not use the inherited provider.
+    const provider = config && config.provider;
+    // initialize the cache only on first access.
+    const cacheContextRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(UNDEFINED);
+    if (provider && !cacheContextRef.current) {
+        cacheContextRef.current = initCache(provider(extendedConfig.cache || cache), config);
+    }
+    const cacheContext = cacheContextRef.current;
+    // Override the cache if a new provider is given.
+    if (cacheContext) {
+        extendedConfig.cache = cacheContext[0];
+        extendedConfig.mutate = cacheContext[1];
+        extendedConfig.unload = cacheContext[4];
+    }
+    // Unsubscribe events.
+    useIsomorphicLayoutEffect({
+        "SWRConfig.useIsomorphicLayoutEffect": ()=>{
+            if (cacheContext) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                cacheContext[2] && cacheContext[2]();
+                return cacheContext[3];
+            }
+        }
+    }["SWRConfig.useIsomorphicLayoutEffect"], []);
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createElement"])(SWRConfigContext.Provider, mergeObjects(props, {
+        value: extendedConfig
+    }));
+};
+;
+}),
+"[project]/frontend/node_modules/swr/dist/use-swr-emll9s78.mjs [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "S",
+    ()=>SWRConfig,
+    "u",
+    ()=>useSWR
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$use$2d$sync$2d$external$2d$store$2f$shim$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/use-sync-external-store/shim/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$_internal$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/swr/dist/_internal/index.mjs [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/swr/dist/config-context-ext53wcz.mjs [app-client] (ecmascript)");
+;
+;
+;
+;
+/// <reference types="react/experimental" />
+const use = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].use || // This extra generic is to avoid TypeScript mixing up the generic and JSX sytax
+// and emitting an error.
+// We assume that this is only for the `use(thenable)` case, not `use(context)`.
+// https://github.com/facebook/react/blob/aed00dacfb79d17c53218404c52b1c7aa59c4a89/packages/react-server/src/ReactFizzThenable.js#L45
+((thenable)=>{
+    switch(thenable.status){
+        case 'pending':
+            throw thenable;
+        case 'fulfilled':
+            return thenable.value;
+        case 'rejected':
+            throw thenable.reason;
+        default:
+            thenable.status = 'pending';
+            thenable.then((v)=>{
+                thenable.status = 'fulfilled';
+                thenable.value = v;
+            }, (e)=>{
+                thenable.status = 'rejected';
+                thenable.reason = e;
+            });
+            throw thenable;
+    }
+});
+const WITH_DEDUPE = {
+    dedupe: true
+};
+const isCacheDataConsumed = (consumedCacheData, cacheData, key)=>{
+    var _consumedCacheData_get;
+    return cacheData ? ((_consumedCacheData_get = consumedCacheData.get(cacheData)) == null ? void 0 : _consumedCacheData_get.has(key)) === true : false;
+};
+const markCacheDataConsumed = (consumedCacheData, cacheData, key)=>{
+    if (!cacheData) return;
+    let consumedKeys = consumedCacheData.get(cacheData);
+    if (!consumedKeys) {
+        consumedKeys = new Set();
+        consumedCacheData.set(cacheData, consumedKeys);
+    }
+    consumedKeys.add(key);
+};
+const commitCacheData = ({ value, getCacheData, canCommit, setCache })=>{
+    const commit = (state)=>{
+        if (canCommit() && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(getCacheData())) {
+            setCache(state);
+        }
+    };
+    Promise.resolve(value).then((data)=>{
+        commit({
+            data,
+            error: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"]
+        });
+    }, (error)=>{
+        commit({
+            error
+        });
+    });
+};
+// React can only unwrap a thenable synchronously when it has React's thenable
+// status fields, so this fulfilled no-op keeps Suspense paths from waiting.
+const resolvedUndef = Promise.resolve(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"]);
+// @ts-ignore modify react promise status
+resolvedUndef.status = 'fulfilled';
+// @ts-ignore modify react promise value
+resolvedUndef.value = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"];
+const sub = ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["n"];
+/**
+ * The core implementation of the useSWR hook.
+ *
+ * This is the main handler function that implements all SWR functionality including
+ * data fetching, caching, revalidation, error handling, and state management.
+ * It manages the complete lifecycle of SWR requests from initialization through
+ * cleanup.
+ *
+ * Key responsibilities:
+ * - Key serialization and normalization
+ * - Cache state management and synchronization
+ * - Automatic and manual revalidation
+ * - Error handling and retry logic
+ * - Suspense integration
+ * - Loading state management
+ * - Effect cleanup and memory management
+ *
+ * @template Data - The type of data returned by the fetcher
+ * @template Error - The type of error that can be thrown
+ *
+ * @param _key - The SWR key (string, array, object, function, or falsy)
+ * @param fetcher - The fetcher function to retrieve data, or null to disable fetching
+ * @param config - Complete SWR configuration object with both public and internal options
+ *
+ * @returns SWRResponse object containing data, error, mutate function, and loading states
+ *
+ * @internal This is the internal implementation. Use `useSWR` instead.
+ */ const useSWRHandler = (_key, fetcher, config)=>{
+    const { cache, compare, suspense, fallbackData, revalidateOnMount, revalidateIfStale, refreshInterval, refreshWhenHidden, refreshWhenOffline, keepPreviousData, strictServerPrefetchWarning } = config;
+    const [EVENT_REVALIDATORS, MUTATION, FETCH, PRELOAD] = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["a"].get(cache);
+    // `key` is the identifier of the SWR internal state,
+    // `fnArg` is the argument/arguments parsed from the key, which will be passed
+    // to the fetcher.
+    // All of them are derived from `_key`.
+    const [key, fnArg] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["s"])(_key);
+    // If it's the initial render of this hook.
+    const initialMountedRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(false);
+    // If the hook is unmounted already. This will be used to prevent some effects
+    // to be called after unmounting.
+    const unmountedRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(false);
+    // Refs to keep the key and config.
+    const keyRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(key);
+    const fetcherRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(fetcher);
+    const configRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(config);
+    const getConfig = ()=>configRef.current;
+    const isActive = ()=>getConfig().isVisible() && getConfig().isOnline();
+    const [getCache, setCache, subscribeCache, getInitialCache] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(cache, key);
+    const stateDependencies = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])({}).current;
+    // Resolve the fallback data from either the inline option, or the global provider.
+    // If it's a promise, we simply let React suspend and resolve it for us.
+    const fallback = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(fallbackData) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(config.fallback) ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"] : config.fallback[key] : fallbackData;
+    const serverCacheData = config.cacheData;
+    const configCacheData = !key ? __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"] : serverCacheData == null ? void 0 : serverCacheData[key];
+    const req = key ? PRELOAD[key] : __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"];
+    // `cacheData` is request-scoped data provided by a Server Component through
+    // `SWRConfig`'s context. It's only used when there's no in-flight client
+    // `preload()` response (`req`) for the same key.
+    const hasCacheData = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(req) && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(configCacheData);
+    const preloadedData = hasCacheData ? configCacheData : req;
+    const isEqual = (prev, current)=>{
+        for(const _ in stateDependencies){
+            const t = _;
+            if (t === 'data') {
+                if (!compare(prev[t], current[t])) {
+                    if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(prev[t])) {
+                        return false;
+                    }
+                    if (!compare(returnedData, current[t])) {
+                        return false;
+                    }
+                }
+            } else {
+                if (current[t] !== prev[t]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+    const isInitialMount = !initialMountedRef.current;
+    const getSnapshot = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "useSWRHandler.useMemo[getSnapshot]": ()=>{
+            const cachedData = getCache();
+            const initialData = getInitialCache();
+            const getSelectedCache = {
+                "useSWRHandler.useMemo[getSnapshot].getSelectedCache": (state)=>{
+                    // We only select the needed fields from the state.
+                    const snapshot = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["m"])(state);
+                    delete snapshot._k;
+                    const shouldStartRequest = ({
+                        "useSWRHandler.useMemo[getSnapshot].getSelectedCache.shouldStartRequest": ()=>{
+                            if (!key) return false;
+                            if (!fetcher) return false;
+                            // If it's paused, we skip revalidation.
+                            if (getConfig().isPaused()) return false;
+                            // If `revalidateOnMount` is set, we take the value directly.
+                            if (isInitialMount && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(revalidateOnMount)) return revalidateOnMount;
+                            const data = !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(fallback) ? fallback : snapshot.data;
+                            // cacheData is consumed during the initial Suspense render. Once data
+                            // is cached, fall through to the normal mount revalidation policy.
+                            if (suspense && hasCacheData && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(data)) return false;
+                            if (suspense) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(data) || revalidateIfStale;
+                            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(data) || revalidateIfStale;
+                        }
+                    })["useSWRHandler.useMemo[getSnapshot].getSelectedCache.shouldStartRequest"]();
+                    if (!shouldStartRequest) {
+                        return snapshot;
+                    }
+                    return {
+                        isValidating: true,
+                        isLoading: true,
+                        ...snapshot
+                    };
+                }
+            }["useSWRHandler.useMemo[getSnapshot].getSelectedCache"];
+            const clientSnapshot = getSelectedCache(cachedData);
+            const serverSnapshot = cachedData === initialData ? clientSnapshot : getSelectedCache(initialData);
+            // To make sure that we are returning the same object reference to avoid
+            // unnecessary re-renders, we keep the previous snapshot and use deep
+            // comparison to check if we need to return a new one.
+            let memorizedSnapshot = clientSnapshot;
+            return [
+                {
+                    "useSWRHandler.useMemo[getSnapshot]": ()=>{
+                        const newSnapshot = getSelectedCache(getCache());
+                        const compareResult = isEqual(newSnapshot, memorizedSnapshot);
+                        if (compareResult) {
+                            // Mentally, we should always return the `memorizedSnapshot` here
+                            // as there's no change between the new and old snapshots.
+                            // However, since the `isEqual` function only compares selected fields,
+                            // the values of the unselected fields might be changed. That's
+                            // simply because we didn't track them.
+                            // To support the case in https://github.com/vercel/swr/pull/2576,
+                            // we need to update these fields in the `memorizedSnapshot` too
+                            // with direct mutations to ensure the snapshot is always up-to-date
+                            // even for the unselected fields, but only trigger re-renders when
+                            // the selected fields are changed.
+                            memorizedSnapshot.data = newSnapshot.data;
+                            memorizedSnapshot.isLoading = newSnapshot.isLoading;
+                            memorizedSnapshot.isValidating = newSnapshot.isValidating;
+                            memorizedSnapshot.error = newSnapshot.error;
+                            return memorizedSnapshot;
+                        } else {
+                            memorizedSnapshot = newSnapshot;
+                            return newSnapshot;
+                        }
+                    }
+                }["useSWRHandler.useMemo[getSnapshot]"],
+                {
+                    "useSWRHandler.useMemo[getSnapshot]": ()=>serverSnapshot
+                }["useSWRHandler.useMemo[getSnapshot]"]
+            ];
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }
+    }["useSWRHandler.useMemo[getSnapshot]"], [
+        cache,
+        key
+    ]);
+    // Get the current state that SWR should return.
+    const cached = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$use$2d$sync$2d$external$2d$store$2f$shim$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSyncExternalStore"])((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useSWRHandler.useSyncExternalStore[cached]": (callback)=>subscribeCache(key, {
+                "useSWRHandler.useSyncExternalStore[cached]": (current, prev)=>{
+                    if (!isEqual(prev, current)) callback();
+                }
+            }["useSWRHandler.useSyncExternalStore[cached]"])
+    }["useSWRHandler.useSyncExternalStore[cached]"], [
+        cache,
+        key
+    ]), getSnapshot[0], getSnapshot[1]);
+    const hasRevalidator = EVENT_REVALIDATORS[key] && EVENT_REVALIDATORS[key].length > 0;
+    const cachedData = cached.data;
+    let data = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(cachedData) ? fallback && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["b"])(fallback) ? use(fallback) : fallback : cachedData;
+    const error = cached.error;
+    // Use a ref to store previously returned data. Use the initial data as its initial value.
+    const laggyDataRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(data);
+    const consumedCacheDataRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"]);
+    let consumedCacheData = consumedCacheDataRef.current;
+    if (!consumedCacheData) {
+        consumedCacheData = new WeakMap();
+        consumedCacheDataRef.current = consumedCacheData;
+    }
+    const preloadCacheRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    let returnedData = keepPreviousData ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(cachedData) ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(laggyDataRef.current) ? data : laggyDataRef.current : cachedData : data;
+    const hasKeyButNoData = key && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(data);
+    const hydrationRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    // Note: the conditionally hook call is fine because the environment
+    // `IS_SERVER` never changes.
+    // @ts-expect-error -- use hydrationRef directly
+    !__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["I"] && // getServerSnapshot is only called during hydration
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$use$2d$sync$2d$external$2d$store$2f$shim$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSyncExternalStore"])(sub, {
+        "useSWRHandler.useSyncExternalStore": ()=>{
+            hydrationRef.current = false;
+            return hydrationRef;
+        }
+    }["useSWRHandler.useSyncExternalStore"], {
+        "useSWRHandler.useSyncExternalStore": ()=>{
+            hydrationRef.current = true;
+            return hydrationRef;
+        }
+    }["useSWRHandler.useSyncExternalStore"]);
+    const isHydration = hydrationRef.current;
+    // During the initial SSR render, warn if the key has no data pre-fetched via:
+    // - fallback data
+    // - preload calls
+    // - initial data from the cache provider
+    // We only warn once for each key during Hydration.
+    if (strictServerPrefetchWarning && isHydration && !suspense && hasKeyButNoData) {
+        console.warn(`Missing pre-initiated data for serialized key "${key}" during server-side rendering. Data fetching should be initiated on the server and provided to SWR via fallback data. You can set "strictServerPrefetchWarning: false" to disable this warning.`);
+    }
+    // Resolve the default validating state:
+    // If it's able to validate, and it should revalidate when mount, this will be true.
+    // - Suspense mode and there's stale data for the initial render.
+    // - Not suspense mode and there is no fallback data and `revalidateIfStale` is enabled.
+    // - `revalidateIfStale` is enabled but `data` is not defined.
+    const shouldDoInitialRevalidation = (()=>{
+        if (!key || !fetcher) return false;
+        // If it's paused, we skip revalidation.
+        if (getConfig().isPaused()) return false;
+        // if a key already has revalidators and also has error, we should not trigger revalidation
+        if (hasRevalidator && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(error)) return false;
+        // If `revalidateOnMount` is set, we take the value directly.
+        if (isInitialMount && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(revalidateOnMount)) return revalidateOnMount;
+        // cacheData satisfies the initial Suspense render without a duplicate
+        // request. Cached data on a later mount follows revalidateIfStale.
+        if (suspense && hasCacheData && hasKeyButNoData) return false;
+        // Under suspense mode, it will always fetch on render if there is no
+        // stale data so no need to revalidate immediately mount it again.
+        // If data exists, only revalidate if `revalidateIfStale` is true.
+        if (suspense) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(data) ? false : revalidateIfStale;
+        // If there is no stale data, we need to revalidate when mount;
+        // If `revalidateIfStale` is set to true, we will always revalidate.
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(data) || revalidateIfStale;
+    })();
+    const defaultValidatingState = isInitialMount && shouldDoInitialRevalidation;
+    const isValidating = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(cached.isValidating) ? defaultValidatingState : cached.isValidating;
+    const isLoading = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(cached.isLoading) ? defaultValidatingState : cached.isLoading;
+    // The revalidation function is a carefully crafted wrapper of the original
+    // `fetcher`, to correctly handle the many edge cases.
+    const revalidate = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useSWRHandler.useCallback[revalidate]": async (revalidateOpts)=>{
+            const currentFetcher = fetcherRef.current;
+            if (!key || !currentFetcher || unmountedRef.current || getConfig().isPaused()) {
+                return false;
+            }
+            let newData;
+            let startAt;
+            let loading = true;
+            const opts = revalidateOpts || {};
+            // If there is no ongoing concurrent request, or `dedupe` is not set, a
+            // new request should be initiated.
+            const shouldStartNewRequest = !FETCH[key] || !opts.dedupe;
+            const shouldUseRSCPreload = hasCacheData && !isCacheDataConsumed(consumedCacheData, serverCacheData, key) && !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(preloadedData) && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(getCache().data);
+            /*
+         For React 17
+         Do unmount check for calls:
+         If key has changed during the revalidation, or the component has been
+         unmounted, old dispatch and old event callbacks should not take any
+         effect
+
+        For React 18
+        only check if key has changed
+        https://github.com/reactwg/react-18/discussions/82
+      */ const callbackSafeguard = {
+                "useSWRHandler.useCallback[revalidate].callbackSafeguard": ()=>{
+                    if (__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["j"]) {
+                        return !unmountedRef.current && key === keyRef.current && initialMountedRef.current;
+                    }
+                    return key === keyRef.current;
+                }
+            }["useSWRHandler.useCallback[revalidate].callbackSafeguard"];
+            // The final state object when the request finishes.
+            const finalState = {
+                isValidating: false,
+                isLoading: false
+            };
+            const finishRequestAndUpdateState = {
+                "useSWRHandler.useCallback[revalidate].finishRequestAndUpdateState": ()=>{
+                    setCache(finalState);
+                }
+            }["useSWRHandler.useCallback[revalidate].finishRequestAndUpdateState"];
+            const cleanupState = {
+                "useSWRHandler.useCallback[revalidate].cleanupState": ()=>{
+                    // Check if it's still the same request before deleting it.
+                    const requestInfo = FETCH[key];
+                    if (requestInfo && requestInfo[1] === startAt) {
+                        delete FETCH[key];
+                    }
+                }
+            }["useSWRHandler.useCallback[revalidate].cleanupState"];
+            // Start fetching. Change the `isValidating` state, update the cache.
+            const initialState = {
+                isValidating: true
+            };
+            // It is in the `isLoading` state, if and only if there is no cached data.
+            // This bypasses fallback data and laggy data.
+            if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(getCache().data)) {
+                initialState.isLoading = true;
+            }
+            try {
+                if (shouldStartNewRequest) {
+                    setCache(initialState);
+                    // If no cache is being rendered currently (it shows a blank page),
+                    // we trigger the loading slow event.
+                    if (config.loadingTimeout && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(getCache().data)) {
+                        setTimeout({
+                            "useSWRHandler.useCallback[revalidate]": ()=>{
+                                if (loading && callbackSafeguard()) {
+                                    getConfig().onLoadingSlow(key, config);
+                                }
+                            }
+                        }["useSWRHandler.useCallback[revalidate]"], config.loadingTimeout);
+                    }
+                    // Start the request and save the timestamp.
+                    // Key must be truthy if entering here.
+                    if (shouldUseRSCPreload) {
+                        markCacheDataConsumed(consumedCacheData, serverCacheData, key);
+                    }
+                    FETCH[key] = [
+                        shouldUseRSCPreload ? preloadedData : currentFetcher(fnArg),
+                        (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["g"])()
+                    ];
+                    if (shouldUseRSCPreload && PRELOAD[key]) {
+                        delete PRELOAD[key];
+                    }
+                }
+                // Wait until the ongoing request is done. Deduplication is also
+                // considered here.
+                ;
+                [newData, startAt] = FETCH[key];
+                newData = await newData;
+                if (shouldStartNewRequest) {
+                    // If the request isn't interrupted, clean it up after the
+                    // deduplication interval.
+                    setTimeout(cleanupState, config.dedupingInterval);
+                }
+                // If there're other ongoing request(s), started after the current one,
+                // we need to ignore the current one to avoid possible race conditions:
+                //   req1------------------>res1        (current one)
+                //        req2---------------->res2
+                // the request that fired later will always be kept.
+                // The timestamp maybe be `undefined` or a number
+                if (!FETCH[key] || FETCH[key][1] !== startAt) {
+                    if (shouldStartNewRequest) {
+                        if (callbackSafeguard()) {
+                            getConfig().onDiscarded(key);
+                        }
+                    }
+                    return false;
+                }
+                // Clear error.
+                finalState.error = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"];
+                // If there're other mutations(s), that overlapped with the current revalidation:
+                // case 1:
+                //   req------------------>res
+                //       mutate------>end
+                // case 2:
+                //         req------------>res
+                //   mutate------>end
+                // case 3:
+                //   req------------------>res
+                //       mutate-------...---------->
+                // we have to ignore the revalidation result (res) because it's no longer fresh.
+                // meanwhile, a new revalidation should be triggered when the mutation ends.
+                const mutationInfo = MUTATION[key];
+                if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(mutationInfo) && // case 1
+                (startAt <= mutationInfo[0] || // case 2
+                startAt <= mutationInfo[1] || // case 3
+                mutationInfo[1] === 0)) {
+                    finishRequestAndUpdateState();
+                    if (shouldStartNewRequest) {
+                        if (callbackSafeguard()) {
+                            getConfig().onDiscarded(key);
+                        }
+                    }
+                    return false;
+                }
+                // Deep compare with the latest state to avoid extra re-renders.
+                // For local state, compare and assign.
+                const cacheData = getCache().data;
+                // Since the compare fn could be custom fn
+                // cacheData might be different from newData even when compare fn returns True
+                finalState.data = compare(cacheData, newData) ? cacheData : newData;
+                // Trigger the successful callback if it's the original request.
+                if (shouldStartNewRequest) {
+                    if (callbackSafeguard()) {
+                        getConfig().onSuccess(newData, key, config);
+                    }
+                }
+            } catch (err) {
+                cleanupState();
+                const currentConfig = getConfig();
+                const { shouldRetryOnError } = currentConfig;
+                // Not paused, we continue handling the error. Otherwise, discard it.
+                if (!currentConfig.isPaused()) {
+                    // Get a new error, don't use deep comparison for errors.
+                    finalState.error = err;
+                    // Error event and retry logic. Only for the actual request, not
+                    // deduped ones.
+                    if (shouldStartNewRequest && callbackSafeguard()) {
+                        currentConfig.onError(err, key, currentConfig);
+                        if (shouldRetryOnError === true || (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["e"])(shouldRetryOnError) && shouldRetryOnError(err)) {
+                            if (!getConfig().revalidateOnFocus || !getConfig().revalidateOnReconnect || isActive()) {
+                                // If it's inactive, stop. It will auto-revalidate when
+                                // refocusing or reconnecting.
+                                // When retrying, deduplication is always enabled.
+                                currentConfig.onErrorRetry(err, key, currentConfig, {
+                                    "useSWRHandler.useCallback[revalidate]": (_opts)=>{
+                                        const revalidators = EVENT_REVALIDATORS[key];
+                                        if (revalidators && revalidators[0]) {
+                                            revalidators[0](__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["E"], _opts);
+                                        }
+                                    }
+                                }["useSWRHandler.useCallback[revalidate]"], {
+                                    retryCount: (opts.retryCount || 0) + 1,
+                                    dedupe: true
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            // Mark loading as stopped.
+            loading = false;
+            // Update the current hook's state.
+            finishRequestAndUpdateState();
+            return true;
+        }
+    }["useSWRHandler.useCallback[revalidate]"], // `keyValidating` are depending on `key`, so we can exclude them from
+    // the deps array.
+    //
+    // FIXME:
+    // `fn` and `config` might be changed during the lifecycle,
+    // but they might be changed every render like this.
+    // `useSWR('key', () => fetch('/api/'), { suspense: true })`
+    // So we omit the values from the deps array
+    // even though it might cause unexpected behaviors.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+        key,
+        cache
+    ]);
+    // Similar to the global mutate but bound to the current cache and key.
+    // `cache` isn't allowed to change during the lifecycle.
+    const boundMutate = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useSWRHandler.useCallback[boundMutate]": (...args)=>{
+            return (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["f"])(cache, keyRef.current, ...args);
+        }
+    }["useSWRHandler.useCallback[boundMutate]"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["u"])({
+        "useSWRHandler.useIsomorphicLayoutEffect": ()=>{
+            const preloaded = preloadCacheRef.current;
+            if (!preloaded) return;
+            preloadCacheRef.current = null;
+            markCacheDataConsumed(consumedCacheData, preloaded.cacheData, preloaded.key);
+            if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(getCache().data)) {
+                setCache({
+                    data: preloaded.data,
+                    error: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"],
+                    _k: preloaded._k
+                });
+            }
+            if (PRELOAD[preloaded.key]) {
+                delete PRELOAD[preloaded.key];
+            }
+        }
+    }["useSWRHandler.useIsomorphicLayoutEffect"]);
+    // The logic for updating refs.
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["u"])({
+        "useSWRHandler.useIsomorphicLayoutEffect": ()=>{
+            fetcherRef.current = fetcher;
+            configRef.current = config;
+            // Handle laggy data updates. If there's cached data of the current key,
+            // it'll be the correct reference.
+            if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(cachedData)) {
+                laggyDataRef.current = cachedData;
+            }
+        }
+    }["useSWRHandler.useIsomorphicLayoutEffect"]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["u"])({
+        "useSWRHandler.useIsomorphicLayoutEffect": ()=>{
+            if (fetcher || !hasCacheData || (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(preloadedData) || isCacheDataConsumed(consumedCacheData, serverCacheData, key) || !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(getCache().data)) {
+                return;
+            }
+            markCacheDataConsumed(consumedCacheData, serverCacheData, key);
+            const mutation = MUTATION[key];
+            commitCacheData({
+                value: preloadedData,
+                getCacheData: {
+                    "useSWRHandler.useIsomorphicLayoutEffect": ()=>getCache().data
+                }["useSWRHandler.useIsomorphicLayoutEffect"],
+                canCommit: {
+                    "useSWRHandler.useIsomorphicLayoutEffect": ()=>!unmountedRef.current && key === keyRef.current && MUTATION[key] === mutation
+                }["useSWRHandler.useIsomorphicLayoutEffect"],
+                setCache: {
+                    "useSWRHandler.useIsomorphicLayoutEffect": (state)=>setCache({
+                            ...state,
+                            _k: fnArg
+                        })
+                }["useSWRHandler.useIsomorphicLayoutEffect"]
+            });
+        }
+    }["useSWRHandler.useIsomorphicLayoutEffect"]);
+    // After mounted or key changed.
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["u"])({
+        "useSWRHandler.useIsomorphicLayoutEffect": ()=>{
+            if (!key) return;
+            const softRevalidate = revalidate.bind(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"], WITH_DEDUPE);
+            let nextFocusRevalidatedAt = 0;
+            if (getConfig().revalidateOnFocus) {
+                const initNow = Date.now();
+                nextFocusRevalidatedAt = initNow + getConfig().focusThrottleInterval;
+            }
+            // Expose revalidators to global event listeners. So we can trigger
+            // revalidation from the outside.
+            const onRevalidate = {
+                "useSWRHandler.useIsomorphicLayoutEffect.onRevalidate": (type, opts = {})=>{
+                    if (type == __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["F"]) {
+                        const now = Date.now();
+                        if (getConfig().revalidateOnFocus && now > nextFocusRevalidatedAt && isActive()) {
+                            nextFocusRevalidatedAt = now + getConfig().focusThrottleInterval;
+                            softRevalidate();
+                        }
+                    } else if (type == __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["R"]) {
+                        if (getConfig().revalidateOnReconnect && isActive()) {
+                            softRevalidate();
+                        }
+                    } else if (type == __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["M"]) {
+                        return revalidate();
+                    } else if (type == __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["E"]) {
+                        return revalidate(opts);
+                    } else if (type == __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["h"]) {
+                        // The cache has been cleared: drop the previous data kept by
+                        // `keepPreviousData` so it can't stay on screen.
+                        laggyDataRef.current = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"];
+                        if (opts.revalidate) {
+                            return revalidate();
+                        }
+                    }
+                    return;
+                }
+            }["useSWRHandler.useIsomorphicLayoutEffect.onRevalidate"];
+            const unsubEvents = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$_internal$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["subscribeCallback"])(key, EVENT_REVALIDATORS, onRevalidate);
+            // Mark the component as mounted and update corresponding refs.
+            unmountedRef.current = false;
+            keyRef.current = key;
+            initialMountedRef.current = true;
+            // Keep the original key in the cache.
+            setCache({
+                _k: fnArg
+            });
+            // Trigger a revalidation
+            if (shouldDoInitialRevalidation) {
+                // Performance optimization: if a request is already in progress for this key,
+                // skip the revalidation to avoid redundant work
+                if (!FETCH[key]) {
+                    if ((0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(data) || __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["I"]) {
+                        // Revalidate immediately.
+                        softRevalidate();
+                    } else {
+                        // Delay the revalidate if we have data to return so we won't block
+                        // rendering.
+                        (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["r"])(softRevalidate);
+                    }
+                }
+            }
+            return ({
+                "useSWRHandler.useIsomorphicLayoutEffect": ()=>{
+                    // Mark it as unmounted.
+                    unmountedRef.current = true;
+                    unsubEvents();
+                }
+            })["useSWRHandler.useIsomorphicLayoutEffect"];
+        }
+    }["useSWRHandler.useIsomorphicLayoutEffect"], [
+        key
+    ]);
+    // Polling
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["u"])({
+        "useSWRHandler.useIsomorphicLayoutEffect": ()=>{
+            let timer;
+            function next() {
+                // Use the passed interval
+                // ...or invoke the function with the updated data to get the interval
+                const interval = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["e"])(refreshInterval) ? refreshInterval(getCache().data) : refreshInterval;
+                // We only start the next interval if `refreshInterval` is not 0, and:
+                // - `force` is true, which is the start of polling
+                // - or `timer` is not 0, which means the effect wasn't canceled
+                if (interval && timer !== -1) {
+                    timer = setTimeout(execute, interval);
+                }
+            }
+            function execute() {
+                // Check if it's OK to execute:
+                // Only revalidate when the page is visible, online, and not errored.
+                if (!getCache().error && (refreshWhenHidden || getConfig().isVisible()) && (refreshWhenOffline || getConfig().isOnline())) {
+                    revalidate(WITH_DEDUPE).then(next);
+                } else {
+                    // Schedule the next interval to check again.
+                    next();
+                }
+            }
+            next();
+            return ({
+                "useSWRHandler.useIsomorphicLayoutEffect": ()=>{
+                    if (timer) {
+                        clearTimeout(timer);
+                        timer = -1;
+                    }
+                }
+            })["useSWRHandler.useIsomorphicLayoutEffect"];
+        }
+    }["useSWRHandler.useIsomorphicLayoutEffect"], [
+        refreshInterval,
+        refreshWhenHidden,
+        refreshWhenOffline,
+        key
+    ]);
+    // Display debug info in React DevTools.
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDebugValue"])(returnedData);
+    // In Suspense mode, we can't return the empty `data` state.
+    // If there is an `error`, the `error` needs to be thrown to the error boundary.
+    // If there is no `error`, the `revalidation` promise needs to be thrown to
+    // the suspense boundary.
+    if (suspense) {
+        // SWR should throw when trying to use Suspense on the server with React 18,
+        // without providing any fallback data. This causes hydration errors. See:
+        // https://github.com/vercel/swr/issues/1832
+        if (!__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["j"] && __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["I"] && hasKeyButNoData && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(preloadedData)) {
+            throw new Error('Fallback data is required when using Suspense in SSR.');
+        }
+        // Always update fetcher and config refs even with the Suspense mode.
+        if (hasKeyButNoData) {
+            fetcherRef.current = fetcher;
+            configRef.current = config;
+            unmountedRef.current = false;
+        }
+        const shouldConsumePreload = !(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(preloadedData) && hasKeyButNoData;
+        let preloadData = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["U"];
+        if (shouldConsumePreload && hasCacheData) {
+            preloadData = preloadedData && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["b"])(preloadedData) ? use(preloadedData) : preloadedData;
+            data = preloadData;
+            returnedData = preloadData;
+            if (!__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["I"]) {
+                preloadCacheRef.current = {
+                    data: preloadData,
+                    _k: fnArg,
+                    key,
+                    cacheData: serverCacheData
+                };
+            }
+        } else {
+            const mutateReq = shouldConsumePreload ? boundMutate(preloadedData) : resolvedUndef;
+            use(mutateReq);
+        }
+        if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(error) && hasKeyButNoData) {
+            throw error;
+        }
+        const revalidation = hasKeyButNoData && (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(preloadData) ? revalidate(WITH_DEDUPE) : resolvedUndef;
+        if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["i"])(returnedData) && hasKeyButNoData) {
+            // @ts-ignore modify react promise status
+            revalidation.status = 'fulfilled';
+            // @ts-ignore modify react promise value
+            revalidation.value = true;
+        }
+        use(revalidation);
+    }
+    const swrResponse = {
+        mutate: boundMutate,
+        get data () {
+            stateDependencies.data = true;
+            return returnedData;
+        },
+        get error () {
+            stateDependencies.error = true;
+            return error;
+        },
+        get isValidating () {
+            stateDependencies.isValidating = true;
+            return isValidating;
+        },
+        get isLoading () {
+            stateDependencies.isLoading = true;
+            return isLoading;
+        }
+    };
+    return swrResponse;
+};
+const SWRConfig = __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["O"].defineProperty(__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["S"], 'defaultValue', {
+    value: __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$config$2d$context$2d$ext53wcz$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["d"]
+});
+/**
+ * A hook to fetch data.
+ *
+ * @see {@link https://swr.vercel.app}
+ *
+ * @example
+ * ```jsx
+ * import useSWR from 'swr'
+ * function Profile() {
+ *   const { data, error, isLoading } = useSWR('/api/user', fetcher)
+ *   if (error) return <div>failed to load</div>
+ *   if (isLoading) return <div>loading...</div>
+ *   return <div>hello {data.name}!</div>
+ * }
+ * ```
+ */ const useSWR = (0, __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$_internal$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["withArgs"])(useSWRHandler);
+;
+}),
+"[project]/frontend/node_modules/swr/dist/use-swr-emll9s78.mjs [app-client] (ecmascript) <export u as default>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$use$2d$swr$2d$emll9s78$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["u"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$swr$2f$dist$2f$use$2d$swr$2d$emll9s78$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/swr/dist/use-swr-emll9s78.mjs [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/tiny-invariant/dist/esm/tiny-invariant.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>invariant
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+var isProduction = ("TURBOPACK compile-time value", "development") === 'production';
+var prefix = 'Invariant failed';
+function invariant(condition, message) {
+    if (condition) {
+        return;
+    }
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    var provided = typeof message === 'function' ? message() : message;
+    var value = provided ? "".concat(prefix, ": ").concat(provided) : prefix;
+    throw new Error(value);
+}
+;
+}),
+"[project]/frontend/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+/**
+ * @license React
+ * use-sync-external-store-shim.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ "use strict";
+"production" !== ("TURBOPACK compile-time value", "development") && function() {
+    function is(x, y) {
+        return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+    }
+    function useSyncExternalStore$2(subscribe, getSnapshot) {
+        didWarnOld18Alpha || void 0 === React.startTransition || (didWarnOld18Alpha = !0, console.error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release."));
+        var value = getSnapshot();
+        if (!didWarnUncachedGetSnapshot) {
+            var cachedValue = getSnapshot();
+            objectIs(value, cachedValue) || (console.error("The result of getSnapshot should be cached to avoid an infinite loop"), didWarnUncachedGetSnapshot = !0);
+        }
+        cachedValue = useState({
+            inst: {
+                value: value,
+                getSnapshot: getSnapshot
+            }
+        });
+        var inst = cachedValue[0].inst, forceUpdate = cachedValue[1];
+        useLayoutEffect({
+            "useSyncExternalStore$2.useLayoutEffect": function() {
+                inst.value = value;
+                inst.getSnapshot = getSnapshot;
+                checkIfSnapshotChanged(inst) && forceUpdate({
+                    inst: inst
+                });
+            }
+        }["useSyncExternalStore$2.useLayoutEffect"], [
+            subscribe,
+            value,
+            getSnapshot
+        ]);
+        useEffect({
+            "useSyncExternalStore$2.useEffect": function() {
+                checkIfSnapshotChanged(inst) && forceUpdate({
+                    inst: inst
+                });
+                return subscribe({
+                    "useSyncExternalStore$2.useEffect": function() {
+                        checkIfSnapshotChanged(inst) && forceUpdate({
+                            inst: inst
+                        });
+                    }
+                }["useSyncExternalStore$2.useEffect"]);
+            }
+        }["useSyncExternalStore$2.useEffect"], [
+            subscribe
+        ]);
+        useDebugValue(value);
+        return value;
+    }
+    function checkIfSnapshotChanged(inst) {
+        var latestGetSnapshot = inst.getSnapshot;
+        inst = inst.value;
+        try {
+            var nextValue = latestGetSnapshot();
+            return !objectIs(inst, nextValue);
+        } catch (error) {
+            return !0;
+        }
+    }
+    function useSyncExternalStore$1(subscribe, getSnapshot) {
+        return getSnapshot();
+    }
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+    var React = __turbopack_context__.r("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)"), objectIs = "function" === typeof Object.is ? Object.is : is, useState = React.useState, useEffect = React.useEffect, useLayoutEffect = React.useLayoutEffect, useDebugValue = React.useDebugValue, didWarnOld18Alpha = !1, didWarnUncachedGetSnapshot = !1, shim = "undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement ? useSyncExternalStore$1 : useSyncExternalStore$2;
+    exports.useSyncExternalStore = void 0 !== React.useSyncExternalStore ? React.useSyncExternalStore : shim;
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+}();
+}),
+"[project]/frontend/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+/**
+ * @license React
+ * use-sync-external-store-shim/with-selector.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ "use strict";
+"production" !== ("TURBOPACK compile-time value", "development") && function() {
+    function is(x, y) {
+        return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+    }
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+    var React = __turbopack_context__.r("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)"), shim = __turbopack_context__.r("[project]/frontend/node_modules/use-sync-external-store/shim/index.js [app-client] (ecmascript)"), objectIs = "function" === typeof Object.is ? Object.is : is, useSyncExternalStore = shim.useSyncExternalStore, useRef = React.useRef, useEffect = React.useEffect, useMemo = React.useMemo, useDebugValue = React.useDebugValue;
+    exports.useSyncExternalStoreWithSelector = function(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
+        var instRef = useRef(null);
+        if (null === instRef.current) {
+            var inst = {
+                hasValue: !1,
+                value: null
+            };
+            instRef.current = inst;
+        } else inst = instRef.current;
+        instRef = useMemo(function() {
+            function memoizedSelector(nextSnapshot) {
+                if (!hasMemo) {
+                    hasMemo = !0;
+                    memoizedSnapshot = nextSnapshot;
+                    nextSnapshot = selector(nextSnapshot);
+                    if (void 0 !== isEqual && inst.hasValue) {
+                        var currentSelection = inst.value;
+                        if (isEqual(currentSelection, nextSnapshot)) return memoizedSelection = currentSelection;
+                    }
+                    return memoizedSelection = nextSnapshot;
+                }
+                currentSelection = memoizedSelection;
+                if (objectIs(memoizedSnapshot, nextSnapshot)) return currentSelection;
+                var nextSelection = selector(nextSnapshot);
+                if (void 0 !== isEqual && isEqual(currentSelection, nextSelection)) return memoizedSnapshot = nextSnapshot, currentSelection;
+                memoizedSnapshot = nextSnapshot;
+                return memoizedSelection = nextSelection;
+            }
+            var hasMemo = !1, memoizedSnapshot, memoizedSelection, maybeGetServerSnapshot = void 0 === getServerSnapshot ? null : getServerSnapshot;
+            return [
+                function() {
+                    return memoizedSelector(getSnapshot());
+                },
+                null === maybeGetServerSnapshot ? void 0 : function() {
+                    return memoizedSelector(maybeGetServerSnapshot());
+                }
+            ];
+        }, [
+            getSnapshot,
+            getServerSnapshot,
+            selector,
+            isEqual
+        ]);
+        var value = useSyncExternalStore(subscribe, instRef[0], instRef[1]);
+        useEffect(function() {
+            inst.hasValue = !0;
+            inst.value = value;
+        }, [
+            value
+        ]);
+        useDebugValue(value);
+        return value;
+    };
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+}();
+}),
+"[project]/frontend/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+/**
+ * @license React
+ * use-sync-external-store-with-selector.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ "use strict";
+"production" !== ("TURBOPACK compile-time value", "development") && function() {
+    function is(x, y) {
+        return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+    }
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+    var React = __turbopack_context__.r("[project]/frontend/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)"), objectIs = "function" === typeof Object.is ? Object.is : is, useSyncExternalStore = React.useSyncExternalStore, useRef = React.useRef, useEffect = React.useEffect, useMemo = React.useMemo, useDebugValue = React.useDebugValue;
+    exports.useSyncExternalStoreWithSelector = function(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
+        var instRef = useRef(null);
+        if (null === instRef.current) {
+            var inst = {
+                hasValue: !1,
+                value: null
+            };
+            instRef.current = inst;
+        } else inst = instRef.current;
+        instRef = useMemo(function() {
+            function memoizedSelector(nextSnapshot) {
+                if (!hasMemo) {
+                    hasMemo = !0;
+                    memoizedSnapshot = nextSnapshot;
+                    nextSnapshot = selector(nextSnapshot);
+                    if (void 0 !== isEqual && inst.hasValue) {
+                        var currentSelection = inst.value;
+                        if (isEqual(currentSelection, nextSnapshot)) return memoizedSelection = currentSelection;
+                    }
+                    return memoizedSelection = nextSnapshot;
+                }
+                currentSelection = memoizedSelection;
+                if (objectIs(memoizedSnapshot, nextSnapshot)) return currentSelection;
+                var nextSelection = selector(nextSnapshot);
+                if (void 0 !== isEqual && isEqual(currentSelection, nextSelection)) return memoizedSnapshot = nextSnapshot, currentSelection;
+                memoizedSnapshot = nextSnapshot;
+                return memoizedSelection = nextSelection;
+            }
+            var hasMemo = !1, memoizedSnapshot, memoizedSelection, maybeGetServerSnapshot = void 0 === getServerSnapshot ? null : getServerSnapshot;
+            return [
+                function() {
+                    return memoizedSelector(getSnapshot());
+                },
+                null === maybeGetServerSnapshot ? void 0 : function() {
+                    return memoizedSelector(maybeGetServerSnapshot());
+                }
+            ];
+        }, [
+            getSnapshot,
+            getServerSnapshot,
+            selector,
+            isEqual
+        ]);
+        var value = useSyncExternalStore(subscribe, instRef[0], instRef[1]);
+        useEffect(function() {
+            inst.hasValue = !0;
+            inst.value = value;
+        }, [
+            value
+        ]);
+        useDebugValue(value);
+        return value;
+    };
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+}();
+}),
+"[project]/frontend/node_modules/use-sync-external-store/shim/index.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+'use strict';
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+else {
+    module.exports = __turbopack_context__.r("[project]/frontend/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js [app-client] (ecmascript)");
+}
+}),
+"[project]/frontend/node_modules/use-sync-external-store/shim/with-selector.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+'use strict';
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+else {
+    module.exports = __turbopack_context__.r("[project]/frontend/node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js [app-client] (ecmascript)");
+}
+}),
+"[project]/frontend/node_modules/use-sync-external-store/with-selector.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+'use strict';
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+else {
+    module.exports = __turbopack_context__.r("[project]/frontend/node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js [app-client] (ecmascript)");
+}
+}),
+"[project]/frontend/node_modules/victory-vendor/es/d3-scale.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "scaleBand",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleBand"],
+    "scaleDiverging",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleDiverging"],
+    "scaleDivergingLog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleDivergingLog"],
+    "scaleDivergingPow",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleDivergingPow"],
+    "scaleDivergingSqrt",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleDivergingSqrt"],
+    "scaleDivergingSymlog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleDivergingSymlog"],
+    "scaleIdentity",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleIdentity"],
+    "scaleImplicit",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleImplicit"],
+    "scaleLinear",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleLinear"],
+    "scaleLog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleLog"],
+    "scaleOrdinal",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleOrdinal"],
+    "scalePoint",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scalePoint"],
+    "scalePow",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scalePow"],
+    "scaleQuantile",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleQuantile"],
+    "scaleQuantize",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleQuantize"],
+    "scaleRadial",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleRadial"],
+    "scaleSequential",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSequential"],
+    "scaleSequentialLog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSequentialLog"],
+    "scaleSequentialPow",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSequentialPow"],
+    "scaleSequentialQuantile",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSequentialQuantile"],
+    "scaleSequentialSqrt",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSequentialSqrt"],
+    "scaleSequentialSymlog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSequentialSymlog"],
+    "scaleSqrt",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSqrt"],
+    "scaleSymlog",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleSymlog"],
+    "scaleThreshold",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleThreshold"],
+    "scaleTime",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleTime"],
+    "scaleUtc",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["scaleUtc"],
+    "tickFormat",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["tickFormat"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$victory$2d$vendor$2f$es$2f$d3$2d$scale$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/frontend/node_modules/victory-vendor/es/d3-scale.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$frontend$2f$node_modules$2f$d3$2d$scale$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/frontend/node_modules/d3-scale/src/index.js [app-client] (ecmascript)");
+}),
+"[project]/frontend/node_modules/victory-vendor/es/d3-scale.js [app-client] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+// `victory-vendor/d3-scale` (ESM)
+// See upstream license: https://github.com/d3/d3-scale/blob/main/LICENSE
+//
+// Our ESM package uses the underlying installed dependencies of `node_modules/d3-scale`
+__turbopack_context__.s([]);
+;
+}),
+"[project]/frontend/node_modules/victory-vendor/es/d3-shape.js [app-client] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+// `victory-vendor/d3-shape` (ESM)
+// See upstream license: https://github.com/d3/d3-shape/blob/main/LICENSE
+//
+// Our ESM package uses the underlying installed dependencies of `node_modules/d3-shape`
+__turbopack_context__.s([]);
+;
+}),
+]);
+
+//# sourceMappingURL=19xk_1pl-ry9._.js.map

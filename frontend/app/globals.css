@@ -1,0 +1,224 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-ai: var(--ai);
+  --color-ai-foreground: var(--ai-foreground);
+  --color-ai-glow: var(--ai-glow);
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  /* Warm organic light-green canvas - đổi theo bản thiết kế mới (trước là #f4f6f0) */
+  --background: #ebf0ec;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  /* Deep forest green — trustworthy, ecological */
+  --primary: #1b4332;
+  --primary-foreground: #f4f6f0;
+  /* Sprout green */
+  --secondary: #d8ede0;
+  --secondary-foreground: #1b4332;
+  --muted: #eef1e9;
+  --muted-foreground: #5b6b5e;
+  --accent: #52b788;
+  --accent-foreground: #0f2c20;
+  --destructive: #c0432f;
+  --border: rgba(27, 67, 50, 0.1);
+  --input: rgba(27, 67, 50, 0.12);
+  --ring: #52b788;
+  /* AI — mint glow accent to distinguish AI-derived data */
+  --ai: #2d6a4f;
+  --ai-foreground: #f4f6f0;
+  --ai-glow: #95d5b2;
+  /* Charts: green-forward scale */
+  --chart-1: #2d6a4f;
+  --chart-2: #52b788;
+  --chart-3: #74c69d;
+  --chart-4: #95d5b2;
+  --chart-5: #b7e4c7;
+  --radius: 0.75rem;
+
+  /* Sidebar: đổi theo bản thiết kế mới */
+  --sidebar: #10261c; /* trước: #12281e */
+  --sidebar-foreground: #d8ede0;
+  /* Active nav = nền tối + chữ emerald sáng (trước: nền mint đặc + chữ tối).
+     Đổi Ở ĐÂY DUY NHẤT - sidebar.tsx không cần sửa gì vì đã dùng đúng
+     token bg-sidebar-primary / text-sidebar-primary-foreground sẵn. */
+  --sidebar-primary: #1a3b2b;
+  --sidebar-primary-foreground: #34d399;
+  --sidebar-accent: rgba(255, 255, 255, 0.06);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #1c382a; /* trước: rgba(255,255,255,0.08) - giờ đặc hơn theo spec */
+  --sidebar-ring: #52b788;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Glassmorphism surface with mint gradient border for AI-derived content */
+  .ai-surface {
+    position: relative;
+    background: color-mix(in oklab, var(--card) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  .ai-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      var(--ai-glow),
+      color-mix(in oklab, var(--accent) 60%, transparent)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /*
+    MỚI: glass surface DÙNG CHUNG cho card nội dung thường (thống kê, biểu đồ,
+    thời tiết...) theo bản thiết kế mới. Tách riêng khỏi .ai-surface (giữ
+    nguyên .ai-surface có viền gradient) để khối AI vẫn nổi bật hơn hẳn
+    khối dữ liệu thường - đúng yêu cầu gốc "phân biệt dữ liệu AI".
+  */
+  .surface-glass {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+}

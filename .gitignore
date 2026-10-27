@@ -1,0 +1,17 @@
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/.env*
+!frontend/.env.example
+
+# Backend
+farm_backend/__pycache__/
+farm_backend/*.pyc
+farm_backend/venv/
+farm_backend/.venv/
+farm_backend/.env
+
+# System
+.DS_Store
+*.log
+node_modules
