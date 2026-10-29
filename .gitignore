@@ -1,4 +1,5 @@
 # Frontend
+.env
 frontend/node_modules/
 frontend/.next/
 frontend/.env*
