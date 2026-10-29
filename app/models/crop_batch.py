@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy import Column, Date, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 from app.core.database import Base
 
@@ -14,10 +14,15 @@ class CropBatch(Base):
     expected_harvest_date = Column(Date, nullable=True)
     quantity = Column(Float, default=0.0)
     status = Column(String(50), default="Đang trồng")
+    planting_method = Column(String(50), nullable=True)
+    certification_standard = Column(String(50), nullable=True)
+    notes = Column(Text, nullable=True)
 
     harvest_logs = relationship("HarvestLog", back_populates="crop_batch")
     care_logs = relationship(
-        "CareLog", 
+        "CareLog",
         back_populates="crop_batch",
-        foreign_keys="[CareLog.crop_batch_id]" 
+        foreign_keys="[CareLog.crop_batch_id]",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )

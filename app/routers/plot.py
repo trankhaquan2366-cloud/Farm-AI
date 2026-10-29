@@ -1,13 +1,14 @@
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Any, Dict, Optional
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.deps import get_current_user
 from app.core.permissions import require_permission
 from app.models.user import User
+from app.schemas.plot import PlotCreate, PlotUpdate
 
 # Bỏ prefix="/api/plots" tại đây để main.py tự quản lý prefix alias
 router = APIRouter(tags=["Plots"])
@@ -86,10 +87,13 @@ class StartPlantingSchema(BaseModel):
 )
 def get_plots(
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: Dict[str, Any] = Depends(get_current_user)
 ):
     Plot = get_plot_model()
-    plots = db.query(Plot).all()
+    query = db.query(Plot)
+    if str(current_user.get("role", "")).strip().lower() in {"staff", "worker"}:
+        query = query.filter(Plot.id == current_user.get("plot_id"))
+    plots = query.all()
 
     Seed = get_seed_model()
     result = []
@@ -125,19 +129,23 @@ def get_plots(
 )
 def create_plot(payload: dict, db: Session = Depends(get_db)):
     Plot = get_plot_model()
+    try:
+        validated_payload = PlotCreate.model_validate(payload).model_dump(exclude_unset=True)
+    except ValidationError as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=error.errors(),
+        ) from error
 
     valid_keys = (
         {c.name for c in Plot.__table__.columns}
         if hasattr(Plot, "__table__")
-        else payload.keys()
+        else validated_payload.keys()
     )
-    filtered_payload = {k: v for k, v in payload.items() if k in valid_keys}
+    filtered_payload = {k: v for k, v in validated_payload.items() if k in valid_keys}
 
     if "area" in filtered_payload and filtered_payload["area"] is not None:
-        try:
-            filtered_payload["area"] = float(filtered_payload["area"])
-        except (ValueError, TypeError):
-            pass
+        filtered_payload["area"] = float(filtered_payload["area"])
 
     try:
         db_item = Plot(**filtered_payload)
@@ -228,15 +236,34 @@ def update_plot(plot_id: int, payload: dict, db: Session = Depends(get_db)):
     item = db.query(Plot).filter(Plot.id == plot_id).first()
     if not item:
         raise HTTPException(status_code=404, detail="Không tìm thấy lô đất")
+    try:
+        validated_payload = PlotUpdate.model_validate(payload).model_dump(exclude_unset=True)
+    except ValidationError as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=error.errors(),
+        ) from error
 
     valid_keys = (
         {c.name for c in Plot.__table__.columns}
         if hasattr(Plot, "__table__")
-        else payload.keys()
+        else validated_payload.keys()
     )
 
-    for k, v in payload.items():
-        if k in valid_keys and hasattr(item, k) and v is not None:
+    nullable_fields = {
+        "cultivation_model",
+        "ph_current",
+        "ec_ms_cm",
+        "previous_crop",
+        "description",
+        "location",
+    }
+    for k, v in validated_payload.items():
+        if (
+            k in valid_keys
+            and hasattr(item, k)
+            and (v is not None or k in nullable_fields)
+        ):
             setattr(item, k, v)
 
     db.commit()

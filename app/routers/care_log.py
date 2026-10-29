@@ -1,7 +1,9 @@
-import os
+import logging
+import uuid
 from datetime import datetime, date
-from typing import List, Optional, Any, Union
-from fastapi import APIRouter, Depends, HTTPException, status
+from pathlib import Path
+from typing import List, Optional, Any
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 from app.core.database import get_db
@@ -9,51 +11,40 @@ from app.core.deps import get_current_user
 from app.core.permissions import require_permission
 from app.models.care_log import CareLog
 from app.models.notification import Notification
+from app.schemas.care_log import CareLogCreate, CareLogResponse
 
-# Import client AI tập trung
-try:
-    from app.core.ai_client import call_gemini
-except ImportError:
-    call_gemini = None
+from app.core.ai_client import DISCLAIMER_TEXT, call_gemini_structured
 
 router = APIRouter(tags=["Care Logs & AI Assistant"])
+logger = logging.getLogger(__name__)
 
-AI_DISCLAIMER = "Lưu ý: Kết quả do AI sinh ra chỉ mang tính chất tham khảo. Cần có chuyên gia nông nghiệp kiểm chứng trước khi áp dụng."
+AI_DISCLAIMER = DISCLAIMER_TEXT
+UPLOAD_DIR = Path(__file__).resolve().parents[1] / "uploads" / "care-logs"
+MAX_IMAGE_SIZE = 5 * 1024 * 1024
+IMAGE_SIGNATURES = {
+    "image/jpeg": (b"\xff\xd8\xff", ".jpg"),
+    "image/png": (b"\x89PNG\r\n\x1a\n", ".png"),
+    "image/webp": (b"RIFF", ".webp"),
+}
 
 # ==================== PYDANTIC SCHEMAS ====================
-
-class CareLogSupplyUsage(BaseModel):
-    supply_id: int
-    quantity_used: float = Field(..., gt=0)
-    notes: Optional[str] = None
-
-class CareLogCreate(BaseModel):
-    batch_id: Union[int, str]
-    log_date: Optional[date] = None
-    action_type: Optional[str] = None
-    activity_type: Optional[str] = None  # Compatibility
-    notes: Optional[str] = None
-    description: Optional[str] = None    # Compatibility
-    quantity: Optional[float] = None
-    image_url: Optional[str] = None
-    supply_usages: List[CareLogSupplyUsage] = Field(default_factory=list)
-
-class CareLogResponse(BaseModel):
-    id: int
-    batch_id: int
-    log_date: date
-    action_type: str
-    notes: Optional[str] = None
-    quantity: Optional[float] = None
-    image_url: Optional[str] = None
-
-    model_config = ConfigDict(from_attributes=True)
 
 class AISummaryResponse(BaseModel):
     batch_id: int
     summary: str
     recommendation: str
     disclaimer: str = AI_DISCLAIMER
+
+    model_config = ConfigDict(strict=True, extra="forbid")
+
+
+class AISummaryContent(BaseModel):
+    summary: str
+    recommendation: str
+    batch_codes: List[str] = Field(default_factory=list)
+    care_log_ids: List[int] = Field(default_factory=list)
+
+    model_config = ConfigDict(strict=True, extra="forbid")
 
 
 # ==================== HELPER FUNCTIONS ====================
@@ -78,7 +69,7 @@ def parse_date_obj(val: Any) -> date:
 def normalize_care_log(log: Any) -> CareLogResponse:
     """Chuẩn hóa dữ liệu trả về Pydantic response tránh lỗi thiếu/khác tên cột trong CSDL."""
     log_id = getattr(log, "id", 0)
-    batch_id = getattr(log, "batch_id", None) or getattr(log, "crop_batch_id", None) or 0
+    batch_id = getattr(log, "crop_batch_id", None) or getattr(log, "batch_id", None) or 0
     
     raw_date = getattr(log, "log_date", None) or getattr(log, "created_at", None)
     log_date_obj = parse_date_obj(raw_date)
@@ -99,6 +90,7 @@ def normalize_care_log(log: Any) -> CareLogResponse:
         action_type=action_type,
         notes=notes,
         quantity=quantity,
+        quality_percent=getattr(log, "quality_percent", None),
         image_url=image_url
     )
 
@@ -109,18 +101,17 @@ def normalize_care_log(log: Any) -> CareLogResponse:
 @router.get("/", response_model=List[CareLogResponse], status_code=status.HTTP_200_OK, include_in_schema=False, dependencies=[Depends(require_permission("care_logs:read"))])
 def get_care_logs(
     batch_id: Optional[int] = None, 
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
 ):
     """Lấy danh sách nhật ký chăm sóc (có thể lọc theo batch_id)"""
-    query = db.query(CareLog)
+    from app.models.crop_batch import CropBatch
+
+    query = db.query(CareLog).join(CropBatch, CareLog.crop_batch_id == CropBatch.id)
     if batch_id:
-        if hasattr(CareLog, "batch_id") and hasattr(CareLog, "crop_batch_id"):
-            from sqlalchemy import or_
-            query = query.filter(or_(CareLog.batch_id == batch_id, CareLog.crop_batch_id == batch_id))
-        elif hasattr(CareLog, "batch_id"):
-            query = query.filter(CareLog.batch_id == batch_id)
-        elif hasattr(CareLog, "crop_batch_id"):
-            query = query.filter(CareLog.crop_batch_id == batch_id)
+        query = query.filter(CareLog.crop_batch_id == batch_id)
+    if str(current_user.get("role", "")).strip().lower() in {"staff", "worker"}:
+        query = query.filter(CropBatch.plot_id == current_user.get("plot_id"))
 
     logs = query.order_by(CareLog.log_date.desc(), CareLog.id.desc()).all()
     return [normalize_care_log(l) for l in logs]
@@ -129,10 +120,55 @@ def get_care_logs(
 @router.get("/{batch_id}", response_model=List[CareLogResponse], status_code=status.HTTP_200_OK, dependencies=[Depends(require_permission("care_logs:read"))])
 def get_care_logs_by_batch_path(
     batch_id: int, 
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
 ):
     """Lấy danh sách nhật ký theo đường dẫn /{batch_id}"""
-    return get_care_logs(batch_id=batch_id, db=db)
+    return get_care_logs(batch_id=batch_id, db=db, current_user=current_user)
+
+
+@router.post(
+    "/upload",
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(require_permission("care_logs:create"))],
+)
+async def upload_care_log_image(
+    request: Request,
+    file: UploadFile = File(...),
+):
+    """Store a bounded raster image and return its public URL."""
+    declared_type = (file.content_type or "").lower()
+    signature = IMAGE_SIGNATURES.get(declared_type)
+    if signature is None:
+        raise HTTPException(
+            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail="Chỉ hỗ trợ ảnh JPEG, PNG hoặc WebP.",
+        )
+
+    content = await file.read(MAX_IMAGE_SIZE + 1)
+    await file.close()
+    if len(content) > MAX_IMAGE_SIZE:
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            detail="Ảnh tải lên không được vượt quá 5 MB.",
+        )
+
+    magic, extension = signature
+    if not content.startswith(magic) or (
+        declared_type == "image/webp"
+        and (len(content) < 12 or content[8:12] != b"WEBP")
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail="Định dạng ảnh tải lên không hợp lệ.",
+        )
+
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    filename = f"{uuid.uuid4().hex}{extension}"
+    (UPLOAD_DIR / filename).write_bytes(content)
+    return {
+        "image_url": f"{str(request.base_url).rstrip('/')}/uploads/care-logs/{filename}"
+    }
 
 
 @router.post(
@@ -150,18 +186,13 @@ def get_care_logs_by_batch_path(
 )
 def create_care_log(
     log_in: CareLogCreate, 
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
 ):
     """Tạo nhật ký chăm sóc mới, tự động đổi trạng thái Lô trồng sang 'Đang trồng' và bắn thông báo."""
-    final_action_type = log_in.action_type or log_in.activity_type
-    final_notes = log_in.notes or log_in.description or ""
+    final_action_type = log_in.action_type
+    final_notes = log_in.notes or ""
     final_date_obj = parse_date_obj(log_in.log_date)
-
-    if not final_action_type:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, 
-            detail="Trường action_type hoặc activity_type không được để trống."
-        )
 
     from app.models.crop_batch import CropBatch
     from sqlalchemy import or_
@@ -180,6 +211,14 @@ def create_care_log(
     batch = db.query(CropBatch).filter(or_(*batch_filters)).first() if batch_filters else None
     if not batch:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Không tìm thấy lô trồng")
+    if (
+        str(current_user.get("role", "")).strip().lower() in {"staff", "worker"}
+        and batch.plot_id != current_user.get("plot_id")
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Bạn chỉ có thể ghi nhật ký cho lô trồng được phân công.",
+        )
 
     resolved_batch_id = batch.id
 
@@ -187,8 +226,6 @@ def create_care_log(
     valid_cols = {c.name: c.type for c in CareLog.__table__.columns} if hasattr(CareLog, "__table__") else {}
     log_data = {}
 
-    if "batch_id" in valid_cols:
-        log_data["batch_id"] = resolved_batch_id
     if "crop_batch_id" in valid_cols:
         log_data["crop_batch_id"] = resolved_batch_id
     if "action_type" in valid_cols:
@@ -204,6 +241,8 @@ def create_care_log(
         log_data["log_date"] = final_date_obj if "DATE" in col_type else str(final_date_obj)
     if "quantity" in valid_cols and log_in.quantity is not None:
         log_data["quantity"] = log_in.quantity
+    if "quality_percent" in valid_cols and log_in.quality_percent is not None:
+        log_data["quality_percent"] = log_in.quality_percent
     if "image_url" in valid_cols and log_in.image_url is not None:
         log_data["image_url"] = log_in.image_url
 
@@ -215,8 +254,32 @@ def create_care_log(
 
         # Trừ kho cùng transaction với nhật ký
         if log_in.supply_usages:
+            from app.models.supply import Supply
             from app.services.supply import deduct_supply_stock
+
             for usage in log_in.supply_usages:
+                supply = (
+                    db.query(Supply)
+                    .filter(Supply.id == usage.supply_id)
+                    .with_for_update()
+                    .first()
+                )
+                if supply is None:
+                    raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Không tìm thấy vật tư có mã {usage.supply_id}.",
+                    )
+
+                current_stock = float(supply.stock_quantity or 0)
+                if current_stock < usage.quantity_used:
+                    raise HTTPException(
+                        status_code=status.HTTP_400_BAD_REQUEST,
+                        detail=(
+                            f"Tồn kho vật tư {usage.supply_id} không đủ "
+                            f"(tồn: {current_stock}, cần: {usage.quantity_used})."
+                        ),
+                    )
+
                 deduct_supply_stock(
                     db,
                     usage.supply_id,
@@ -224,6 +287,22 @@ def create_care_log(
                     db_log.id,
                     usage.notes,
                 )
+                db.refresh(supply)
+
+                minimum_stock = getattr(supply, "min_threshold", None)
+                remaining_stock = float(supply.stock_quantity or 0)
+                if minimum_stock is not None and remaining_stock < float(minimum_stock):
+                    db.add(
+                        Notification(
+                            type="ai_warning",
+                            title="Cảnh báo tồn kho vật tư thấp",
+                            message=(
+                                f"Vật tư {usage.supply_id} còn {remaining_stock}, "
+                                f"dưới ngưỡng tối thiểu {minimum_stock}."
+                            ),
+                            is_read=False,
+                        )
+                    )
 
         # 2. ĐỒNG BỘ TRẠNG THÁI LÔ TRỒNG
         if hasattr(batch, "status"):
@@ -261,6 +340,9 @@ def create_care_log(
         db.refresh(db_log)
         return normalize_care_log(db_log)
 
+    except HTTPException:
+        db.rollback()
+        raise
     except Exception as e:
         db.rollback()
         raise HTTPException(
@@ -283,60 +365,84 @@ def generate_ai_care_summary(
     current_user: dict = Depends(get_current_user)
 ):
     """Tóm tắt nhật ký trồng trọt và đề xuất việc cần kiểm tra bằng AI."""
-    logs = db.query(CareLog).filter(
-        (CareLog.batch_id == batch_id) if hasattr(CareLog, "batch_id") else (CareLog.crop_batch_id == batch_id)
-    ).order_by(CareLog.log_date.asc()).all()
+    from app.models.crop_batch import CropBatch
+
+    batch = db.query(CropBatch).filter(CropBatch.id == batch_id).first()
+    if batch is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Không tìm thấy lô trồng",
+        )
+    if (
+        str(current_user.get("role", "")).strip().lower() in {"staff", "worker"}
+        and batch.plot_id != current_user.get("plot_id")
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Bạn chỉ có thể xem nhật ký của lô trồng được phân công.",
+        )
+
+    logs = (
+        db.query(CareLog)
+        .filter(CareLog.crop_batch_id == batch_id)
+        .order_by(CareLog.log_date.asc())
+        .all()
+    )
 
     if not logs:
         return AISummaryResponse(
             batch_id=batch_id,
-            summary="Lô trồng hiện chưa có ghi nhận nhật ký chăm sóc nào.",
-            recommendation="Cần bắt đầu cập nhật hoạt động tưới nước và theo dõi tình trạng đất hàng ngày.",
+            summary="Chưa đủ dữ liệu ghi nhận",
+            recommendation="Lô trồng hiện chưa có nhật ký chăm sóc để phân tích.",
             disclaimer=AI_DISCLAIMER
         )
 
     logs_text_list = [
-        f"- Ngày {getattr(l, 'log_date', '')}: [{getattr(l, 'action_type', '') or getattr(l, 'activity_type', '')}] {getattr(l, 'notes', '') or getattr(l, 'description', '')}"
+        f"- care_log_id={l.id}; Ngày {getattr(l, 'log_date', '')}: "
+        f"[{getattr(l, 'action_type', '') or getattr(l, 'activity_type', '')}] "
+        f"{getattr(l, 'notes', '') or getattr(l, 'description', '')}"
         for l in logs
     ]
     logs_summary_str = "\n".join(logs_text_list)
 
-    system_prompt = "Bạn là trợ lý quản lý trang trại. Chỉ đưa gợi ý tham khảo dựa trên dữ liệu trồng trọt được cung cấp."
-    user_prompt = f"Lô trồng: Batch #{batch_id}.\nNhật ký chăm sóc:\n{logs_summary_str}\nHãy tóm tắt tình trạng và đề xuất việc cần kiểm tra tuần tới."
+    batch_code = getattr(batch, "batch_code", None) or getattr(batch, "code", None)
+    system_prompt = (
+        "Bạn là trợ lý quản lý trang trại. Hãy tóm tắt và khuyến nghị chỉ từ dữ liệu "
+        "được cung cấp. Mọi mã lô hoặc ID nhật ký được nhắc trong nội dung phải được "
+        "liệt kê chính xác trong các trường batch_codes và care_log_ids."
+    )
+    user_prompt = (
+        f"Mã lô thực tế: {batch_code or 'Chưa đủ dữ liệu ghi nhận'}.\n"
+        f"ID lô: {batch.id}.\nNhật ký chăm sóc thực tế:\n{logs_summary_str}\n"
+        "Trả về summary và recommendation ngắn gọn. Nếu không đủ dữ liệu, ghi chính xác "
+        "'Chưa đủ dữ liệu ghi nhận'. Không tự tạo mã lô hoặc ID nhật ký. "
+        f"ID nhật ký được phép trích dẫn: {[log.id for log in logs]}."
+    )
 
-    if call_gemini:
-        try:
-            ai_text = call_gemini(
-                system_prompt=system_prompt,
-                user_prompt=user_prompt,
+    try:
+        ai_result = call_gemini_structured(
+            system_prompt=system_prompt,
+            user_prompt=user_prompt,
+            response_schema=AISummaryContent,
+        )
+        actual_log_ids = {log.id for log in logs}
+        if (
+            any(code != batch_code for code in ai_result.batch_codes)
+            or any(log_id not in actual_log_ids for log_id in ai_result.care_log_ids)
+        ):
+            raise HTTPException(
+                status_code=status.HTTP_502_BAD_GATEWAY,
+                detail="AI đã tham chiếu mã lô hoặc nhật ký không khớp dữ liệu thực tế.",
             )
-            if ai_text:
-                return AISummaryResponse(
-                    batch_id=batch_id,
-                    summary=ai_text,
-                    recommendation="Đã tóm tắt từ AI Gemini dựa trên toàn bộ lịch sử chăm sóc.",
-                    disclaimer=AI_DISCLAIMER
-                )
-        except Exception:
-            pass
-
-    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
-    if api_key:
-        try:
-            import google.generativeai as genai
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
-            response = model.generate_content(f"{system_prompt}\n\n{user_prompt}")
-            ai_text = response.text.strip()
-            
+        if ai_result.summary and ai_result.recommendation:
             return AISummaryResponse(
                 batch_id=batch_id,
-                summary=ai_text,
-                recommendation="Đã tóm tắt từ AI Gemini dựa trên toàn bộ lịch sử chăm sóc.",
+                summary=ai_result.summary,
+                recommendation=ai_result.recommendation,
                 disclaimer=AI_DISCLAIMER
             )
-        except Exception:
-            pass
+    except Exception:
+        logger.exception("Gemini failed to summarize care logs for batch %s", batch_id)
 
     has_pest = any(
         kw in (getattr(l, "notes", "") or getattr(l, "description", "") or "").lower() 
@@ -358,7 +464,7 @@ def generate_ai_care_summary(
 
     return AISummaryResponse(
         batch_id=batch_id,
-        summary=summary_msg,
+        summary=summary_msg if logs else "Chưa đủ dữ liệu ghi nhận",
         recommendation=rec_msg,
         disclaimer=AI_DISCLAIMER
     )
@@ -382,13 +488,7 @@ def delete_care_logs_by_date_range(
             detail="Ngày bắt đầu không được lớn hơn ngày kết thúc.",
         )
 
-    from sqlalchemy import or_
-
-    logs = (
-        db.query(CareLog)
-        .filter(or_(CareLog.batch_id == batch_id, CareLog.crop_batch_id == batch_id))
-        .all()
-    )
+    logs = db.query(CareLog).filter(CareLog.crop_batch_id == batch_id).all()
 
     selected_logs = []
     for log in logs:

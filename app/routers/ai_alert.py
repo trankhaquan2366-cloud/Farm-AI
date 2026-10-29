@@ -10,7 +10,7 @@ from app.services import ai_alert as service
 router = APIRouter(
     prefix="/api/ai-alert",
     tags=["AI Alert"],
-    dependencies=[Depends(require_roles([UserRole.TECHNICIAN]))] # 👈 THÊM DÒNG NÀY
+    dependencies=[Depends(require_roles([UserRole.TECHNICIAN, UserRole.MANAGER, UserRole.ADMIN]))]
 )
 
 @router.post("/alerts", response_model=AiAlertOut)

@@ -1,7 +1,10 @@
+from pathlib import Path
+
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.routers import dashboard, traceability
 from app.core.database import Base, engine, ensure_legacy_schema
@@ -49,6 +52,9 @@ app = FastAPI(
     description="Hệ thống Backend Quản lý Nông trại & Trợ lý AI",
     redirect_slashes=True,
 )
+upload_dir = Path(__file__).resolve().parent / "uploads"
+upload_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
 
 # 3. Cấu hình CORS Middleware
 app.add_middleware(
@@ -100,7 +106,14 @@ for prefix in ["/api/plots", "/api/v1/plots", "/api/land-plots", "/api/v1/land-p
     app.include_router(plot.router, prefix=prefix, tags=["Plots"])
 
 # --- Lô trồng (Crop Batches / Lots) ---
-for prefix in ["/api/batches", "/api/v1/batches", "/api/crop-lots", "/api/v1/crop-lots"]:
+for prefix in [
+    "/api/batches",
+    "/api/v1/batches",
+    "/api/crop-batches",
+    "/api/v1/crop-batches",
+    "/api/crop-lots",
+    "/api/v1/crop-lots",
+]:
     app.include_router(crop_batch.router, prefix=prefix, tags=["Crop Batches"])
 
 # --- Nhật ký chăm sóc (Care Logs) ---

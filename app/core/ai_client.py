@@ -9,7 +9,18 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-DISCLAIMER_TEXT = "AI chỉ đưa gợi ý tham khảo, cần chuyên gia nông nghiệp kiểm chứng."
+DISCLAIMER_TEXT = (
+    "Lưu ý: Thông tin do AI tạo ra chỉ mang tính chất tham khảo. "
+    "Vui lòng tham khảo ý kiến chuyên gia nông nghiệp trước khi ứng dụng thực tế."
+)
+GEMINI_MODEL = "gemini-2.5-flash"
+ANTI_HALLUCINATION_INSTRUCTIONS = (
+    "Chỉ phân tích dữ liệu thực tế được cung cấp từ cơ sở dữ liệu SQLite trong ngữ cảnh. "
+    "Không suy đoán, không tạo dữ liệu, mã lô, ID hoặc lịch sử không có trong dữ liệu. "
+    "Nếu dữ liệu không đủ để trả lời, hãy ghi chính xác: "
+    '"Chưa đủ dữ liệu ghi nhận". '
+    f"{DISCLAIMER_TEXT}"
+)
 
 
 def _get_client() -> genai.Client:
@@ -78,10 +89,12 @@ def call_gemini(
 
     try:
         response = client.models.generate_content(
-            model=settings.GEMINI_MODEL,
+            model=GEMINI_MODEL,
             contents=contents,
             config=types.GenerateContentConfig(
-                system_instruction=system_prompt,
+                system_instruction=(
+                    f"{system_prompt}\n\n{ANTI_HALLUCINATION_INSTRUCTIONS}"
+                ),
                 temperature=0.3,
             ),
         )
@@ -107,10 +120,12 @@ def call_gemini_structured(system_prompt: str, user_prompt: str, response_schema
 
     try:
         response = client.models.generate_content(
-            model=settings.GEMINI_MODEL,
+            model=GEMINI_MODEL,
             contents=_bounded_prompt(user_prompt),
             config=types.GenerateContentConfig(
-                system_instruction=system_prompt,
+                system_instruction=(
+                    f"{system_prompt}\n\n{ANTI_HALLUCINATION_INSTRUCTIONS}"
+                ),
                 response_mime_type="application/json",
                 response_schema=response_schema,
                 temperature=0.3,

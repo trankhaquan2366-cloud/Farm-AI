@@ -11,7 +11,7 @@ router = APIRouter(prefix="/api/ai", tags=["AI - Tóm tắt nhật ký"])
 router = APIRouter(
     prefix="/api/ai-summary",
     tags=["AI Summary"],
-    dependencies=[Depends(require_roles([UserRole.TECHNICIAN]))] # 👈 THÊM DÒNG NÀY
+    dependencies=[Depends(require_roles([UserRole.TECHNICIAN, UserRole.MANAGER, UserRole.ADMIN]))]
 )
 @router.post("/batches/{batch_id}/summary", response_model=AiSummaryOut)
 def summarize_batch(batch_id: int, db: Session = Depends(get_db)):

@@ -1,37 +1,42 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { memo, useEffect, useState, useRef } from 'react'
+import { useId, type FormEvent } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { Menu } from '@base-ui/react/menu'
 import {
   RefreshCw,
   Sparkles,
   AlertTriangle,
-  Menu,
   Bell,
   Search,
   X,
   LogOut,
   User as UserIcon,
   ChevronDown,
+  KeyRound,
+  Sun,
+  Moon,
+  CheckCircle2,
 } from 'lucide-react'
 
 import { api, ApiError, checkHealth } from '@/lib/api'
-import { NAV_ITEMS } from '@/lib/nav'
+import { isNavItemActive, NAV_ITEMS } from '@/lib/nav'
 import { cn } from '@/lib/utils'
-
-type HeaderProps = {
-  onOpenMobile: () => void
-}
+import { StaggeredMenu } from '@/components/effects/greenfarm-motion'
+import { inputClass } from '@/components/ui/field'
 
 type Status = 'checking' | 'online' | 'offline'
 
 interface UserProfile {
   id?: number
+  employee_code?: string
   full_name?: string
   username?: string
   email?: string
   role?: string
+  plot_name?: string
 }
 
 interface Notification {
@@ -43,19 +48,17 @@ interface Notification {
   unread: boolean;
 }
 
-export function Header({ onOpenMobile }: HeaderProps) {
+export const Header = memo(function Header() {
   const pathname = usePathname()
   const router = useRouter()
 
   const current =
-    NAV_ITEMS.find((i) =>
-      i.href === '/' ? pathname === '/' : pathname.startsWith(i.href),
-    ) ?? NAV_ITEMS[0]
+    NAV_ITEMS.find((item) => isNavItemActive(pathname, item.href)) ?? NAV_ITEMS[0]
 
   const [status, setStatus] = useState<Status>('online')
   const [user, setUser] = useState<UserProfile | null>(null)
-  const [showUserMenu, setShowUserMenu] = useState(false)
-  const userMenuRef = useRef<HTMLDivElement>(null)
+  const [profileDialog, setProfileDialog] = useState<'profile' | 'password' | null>(null)
+  const [isDarkTheme, setIsDarkTheme] = useState(false)
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user')
@@ -68,8 +71,27 @@ export function Header({ onOpenMobile }: HeaderProps) {
 
   const handleLogout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('access_token')
     localStorage.removeItem('user')
-    router.push('/login')
+    sessionStorage.removeItem('user')
+    router.replace('/login')
+    router.refresh()
+  }
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('greenfarm-theme')
+    const dark = storedTheme === 'dark'
+    document.documentElement.classList.toggle('dark', dark)
+    document.documentElement.classList.toggle('light', !dark)
+    setIsDarkTheme(dark)
+  }, [])
+
+  const toggleTheme = () => {
+    const nextIsDark = !isDarkTheme
+    document.documentElement.classList.toggle('dark', nextIsDark)
+    document.documentElement.classList.toggle('light', !nextIsDark)
+    localStorage.setItem('greenfarm-theme', nextIsDark ? 'dark' : 'light')
+    setIsDarkTheme(nextIsDark)
   }
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -106,8 +128,12 @@ export function Header({ onOpenMobile }: HeaderProps) {
   // 3. Xử lý API và nhận cảnh báo nội bộ
   useEffect(() => {
     let isMounted = true
+    let isFetchingNotifications = false
 
     const fetchSmartNotifications = async () => {
+      if (isFetchingNotifications) return
+      isFetchingNotifications = true
+
       try {
         const response = await fetch('http://localhost:8000/api/notifications', {
           headers: {
@@ -130,6 +156,8 @@ export function Header({ onOpenMobile }: HeaderProps) {
         }
       } catch (error) {
         // Bỏ qua lỗi nếu mất mạng, vẫn giữ thông báo local
+      } finally {
+        isFetchingNotifications = false
       }
     }
 
@@ -163,9 +191,6 @@ export function Header({ onOpenMobile }: HeaderProps) {
       if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
         setShowNotifications(false)
       }
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
-        setShowUserMenu(false)
-      }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
@@ -193,12 +218,18 @@ export function Header({ onOpenMobile }: HeaderProps) {
 
   useEffect(() => {
     let isMounted = true
+    let isCheckingHealth = false
     async function poll() {
+      if (isCheckingHealth) return
+      isCheckingHealth = true
+
       try {
         const isOk = await checkHealth()
         if (isMounted) setStatus(isOk ? 'online' : 'offline')
       } catch {
         if (isMounted) setStatus('offline')
+      } finally {
+        isCheckingHealth = false
       }
     }
     poll()
@@ -234,8 +265,10 @@ export function Header({ onOpenMobile }: HeaderProps) {
   const formatRole = (role?: string) => {
     switch (role?.toUpperCase()) {
       case 'ADMIN': return 'Quản trị viên'
-      case 'MANAGER': return 'Quản lý trang trại'
-      case 'FARMER': return 'Kỹ thuật / Nông dân'
+      case 'MANAGER': return 'Quản lý'
+      case 'TECHNICIAN': return 'Kỹ thuật viên'
+      case 'STAFF': return 'Nhân viên'
+      case 'FARMER': return 'Kỹ thuật viên'
       case 'USER': return 'Nhân viên'
       default: return role || 'Người dùng'
     }
@@ -243,20 +276,21 @@ export function Header({ onOpenMobile }: HeaderProps) {
 
   const getInitials = (name?: string) => {
     if (!name) return 'NT'
-    const words = name.trim().split(' ')
+    const words = name.trim().split(/\s+/).filter(Boolean)
+    if (!words.length) return 'NT'
     if (words.length === 1) return words[0].substring(0, 2).toUpperCase()
     return (words[0][0] + words[words.length - 1][0]).toUpperCase()
   }
 
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur-md md:px-6">
-      <button
-        type="button"
-        onClick={onOpenMobile}
-        className="rounded-lg p-2 text-foreground/70 hover:bg-muted lg:hidden"
-      >
-        <Menu className="size-5" />
-      </button>
+      <StaggeredMenu
+        items={NAV_ITEMS.filter((item) => {
+          if (!item.roles) return true
+          const role = user?.role?.toLowerCase()
+          return role ? item.roles.includes(role) : false
+        })}
+      />
 
       <div className="min-w-0">
         <h1 className="truncate text-base font-bold text-foreground md:text-lg">
@@ -304,7 +338,7 @@ export function Header({ onOpenMobile }: HeaderProps) {
                      <ul className="space-y-1">
                        {results.crop_varieties.map((item: any) => (
                          <li key={`variety-${item.id}`}>
-                           <Link href={item.url} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
+                           <Link href={item.url} prefetch={false} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
                              {item.name}
                            </Link>
                          </li>
@@ -318,7 +352,7 @@ export function Header({ onOpenMobile }: HeaderProps) {
                      <ul className="space-y-1">
                        {results.plots.map((item: any) => (
                          <li key={`plot-${item.id}`}>
-                           <Link href={item.url} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
+                           <Link href={item.url} prefetch={false} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
                              {item.name}
                            </Link>
                          </li>
@@ -332,7 +366,7 @@ export function Header({ onOpenMobile }: HeaderProps) {
                      <ul className="space-y-1">
                        {results.crop_batches.map((item: any) => (
                          <li key={`batch-${item.id}`}>
-                           <Link href={item.url} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
+                           <Link href={item.url} prefetch={false} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
                              {item.name}
                            </Link>
                          </li>
@@ -418,57 +452,108 @@ export function Header({ onOpenMobile }: HeaderProps) {
           )}
         </div>
 
-        <div className="relative" ref={userMenuRef}>
-          <button
-            type="button"
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className="flex items-center gap-2 rounded-xl border border-white/60 bg-white/80 py-1 pl-1 pr-2.5 backdrop-blur-sm transition-all hover:bg-emerald-50/50 focus:outline-none"
+        <Menu.Root>
+          <Menu.Trigger
+            aria-label="Mở menu tài khoản"
+            className="flex items-center gap-2 rounded-xl border border-white/60 bg-white/80 py-1 pl-1 pr-2.5 backdrop-blur-sm transition-colors hover:bg-emerald-50/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700"
           >
-            <span className="flex size-8 items-center justify-center rounded-lg bg-emerald-600 text-xs font-bold text-white shadow-sm">
+            <span className="flex size-8 items-center justify-center rounded-lg bg-emerald-700 text-xs font-bold text-white">
               {getInitials(user?.full_name || user?.username)}
             </span>
-            <div className="hidden text-left leading-tight sm:block">
-              <p className="text-xs font-semibold text-foreground max-w-[100px] truncate">
+            <span className="hidden text-left leading-tight sm:block">
+              <span className="block max-w-[120px] truncate text-xs font-semibold text-foreground">
                 {user?.full_name || user?.username || 'Nông trại'}
-              </p>
-              <p className="text-[11px] text-muted-foreground">
+              </span>
+              <span className="block text-[11px] text-muted-foreground">
                 {formatRole(user?.role)}
-              </p>
-            </div>
-            <ChevronDown className="size-3.5 text-muted-foreground hidden sm:block" />
-          </button>
+              </span>
+            </span>
+            <ChevronDown className="hidden size-3.5 text-muted-foreground sm:block" aria-hidden="true" />
+          </Menu.Trigger>
 
-          {showUserMenu && (
-            <div className="absolute right-0 mt-2 w-56 rounded-xl border border-border bg-background p-2 shadow-xl z-50">
-              <div className="px-3 py-2 border-b border-border">
-                <p className="text-xs font-medium text-foreground truncate">
-                  {user?.full_name || user?.username || 'Nông trại'}
-                </p>
-                <p className="text-[11px] text-muted-foreground truncate">
-                  {user?.email || 'Chưa cập nhật email'}
-                </p>
-                <span className="mt-1.5 inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
-                  {formatRole(user?.role)}
-                </span>
-              </div>
+          <Menu.Portal>
+            <Menu.Positioner side="bottom" align="end" sideOffset={8} className="z-50">
+              <Menu.Popup className="w-72 rounded-xl border border-slate-200 bg-white p-2 text-slate-800 shadow-lg shadow-slate-900/10 outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                <div className="flex items-start gap-3 border-b border-slate-200 px-2.5 pb-3 pt-1 dark:border-slate-700">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-700 text-sm font-bold text-white">
+                    {getInitials(user?.full_name || user?.username)}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-semibold text-slate-900 dark:text-white">
+                      {user?.full_name || user?.username || 'Nông trại'}
+                    </span>
+                    <span className="mt-0.5 block truncate text-xs text-slate-500 dark:text-slate-400">
+                      {user?.email || 'Chưa cập nhật email'}
+                    </span>
+                    <span className="mt-2 inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                      {formatRole(user?.role)}
+                    </span>
+                  </span>
+                </div>
 
-              <div className="py-1">
-                <button
-                  type="button"
+                <div className="space-y-0.5 py-1.5">
+                  <Menu.Item
+                    onClick={() => setProfileDialog('profile')}
+                    className="flex min-h-10 cursor-pointer items-center gap-2.5 rounded-lg px-2.5 text-sm text-slate-700 outline-none data-[highlighted]:bg-emerald-50 data-[highlighted]:text-emerald-900 dark:text-slate-200 dark:data-[highlighted]:bg-emerald-950/50 dark:data-[highlighted]:text-emerald-200"
+                  >
+                    <UserIcon className="size-4 text-slate-500" aria-hidden="true" />
+                    Hồ sơ cá nhân
+                  </Menu.Item>
+                  <Menu.Item
+                    onClick={() => setProfileDialog('password')}
+                    className="flex min-h-10 cursor-pointer items-center gap-2.5 rounded-lg px-2.5 text-sm text-slate-700 outline-none data-[highlighted]:bg-emerald-50 data-[highlighted]:text-emerald-900 dark:text-slate-200 dark:data-[highlighted]:bg-emerald-950/50 dark:data-[highlighted]:text-emerald-200"
+                  >
+                    <KeyRound className="size-4 text-slate-500" aria-hidden="true" />
+                    Đổi mật khẩu
+                  </Menu.Item>
+                  <Menu.Item
+                    onClick={toggleTheme}
+                    className="flex min-h-10 cursor-pointer items-center justify-between gap-2.5 rounded-lg px-2.5 text-sm text-slate-700 outline-none data-[highlighted]:bg-emerald-50 data-[highlighted]:text-emerald-900 dark:text-slate-200 dark:data-[highlighted]:bg-emerald-950/50 dark:data-[highlighted]:text-emerald-200"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      {isDarkTheme
+                        ? <Sun className="size-4 text-slate-500" aria-hidden="true" />
+                        : <Moon className="size-4 text-slate-500" aria-hidden="true" />}
+                      Chế độ giao diện
+                    </span>
+                    <span
+                      className={cn(
+                        'relative h-5 w-9 rounded-full transition-colors',
+                        isDarkTheme ? 'bg-emerald-700' : 'bg-slate-300',
+                      )}
+                      aria-label={isDarkTheme ? 'Đang bật chế độ tối' : 'Đang bật chế độ sáng'}
+                    >
+                      <span
+                        className={cn(
+                          'absolute top-0.5 size-4 rounded-full bg-white shadow-sm transition-transform',
+                          isDarkTheme ? 'translate-x-4' : 'translate-x-0.5',
+                        )}
+                      />
+                    </span>
+                  </Menu.Item>
+                </div>
+
+                <Menu.Separator className="my-1 h-px bg-slate-200 dark:bg-slate-700" />
+                <Menu.Item
                   onClick={handleLogout}
-                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10"
+                  className="flex min-h-10 cursor-pointer items-center gap-2.5 rounded-lg px-2.5 text-sm text-red-600 outline-none data-[highlighted]:bg-red-50 data-[highlighted]:text-red-700 dark:text-red-400 dark:data-[highlighted]:bg-red-950/30 dark:data-[highlighted]:text-red-300"
                 >
-                  <LogOut className="size-4" />
+                  <LogOut className="size-4" aria-hidden="true" />
                   Đăng xuất
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+                </Menu.Item>
+              </Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.Root>
       </div>
+      <AccountActionDialog
+        mode={profileDialog}
+        user={user}
+        onClose={() => setProfileDialog(null)}
+      />
     </header>
   )
-}
+})
 
 function StatusPill({ status }: { status: Status }) {
   const map = {
@@ -497,5 +582,204 @@ function StatusPill({ status }: { status: Status }) {
       </span>
       <span className="hidden sm:inline">{map.label}</span>
     </div>
+  )
+}
+
+function AccountActionDialog({
+  mode,
+  user,
+  onClose,
+}: {
+  mode: 'profile' | 'password' | null
+  user: UserProfile | null
+  onClose: () => void
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const titleId = useId()
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (mode && dialog && !dialog.open) dialog.showModal()
+    if (!mode && dialog?.open) dialog.close()
+    if (!mode) {
+      setCurrentPassword('')
+      setNewPassword('')
+      setConfirmPassword('')
+      setError(null)
+      setSaved(false)
+    }
+  }, [mode])
+
+  async function handlePasswordChange(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setError(null)
+    setSaved(false)
+    if (newPassword !== confirmPassword) {
+      setError('Mật khẩu xác nhận chưa khớp.')
+      return
+    }
+    setSaving(true)
+    try {
+      await api('/api/auth/me/password', {
+        method: 'POST',
+        body: { current_password: currentPassword, new_password: newPassword },
+      })
+      setCurrentPassword('')
+      setNewPassword('')
+      setConfirmPassword('')
+      setSaved(true)
+    } catch (requestError) {
+      setError(
+        requestError instanceof ApiError
+          ? requestError.message
+          : 'Không thể đổi mật khẩu. Vui lòng thử lại.',
+      )
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  if (!mode) return null
+
+  const fullName = user?.full_name || user?.username || 'Người dùng'
+  const roleLabel = (role?: string) => {
+    switch (role?.toLowerCase()) {
+      case 'admin': return 'Quản trị viên'
+      case 'manager': return 'Quản lý'
+      case 'technician': return 'Kỹ thuật viên'
+      case 'staff': return 'Nhân viên'
+      default: return role || 'Người dùng'
+    }
+  }
+
+  return (
+    <dialog
+      ref={dialogRef}
+      aria-labelledby={titleId}
+      onClose={onClose}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) event.currentTarget.close()
+      }}
+      className="m-auto max-h-[min(90dvh,680px)] w-[calc(100%-2rem)] max-w-md overflow-y-auto rounded-2xl border border-slate-200 bg-white p-0 text-slate-800 shadow-2xl backdrop:bg-slate-950/40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+    >
+      <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-4 dark:border-slate-700">
+        <div>
+          <h2 id={titleId} className="text-lg font-semibold text-slate-900 dark:text-white">
+            {mode === 'profile' ? 'Hồ sơ cá nhân' : 'Đổi mật khẩu'}
+          </h2>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            {mode === 'profile' ? 'Thông tin tài khoản đang đăng nhập.' : 'Chọn mật khẩu mới để bảo vệ tài khoản.'}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => dialogRef.current?.close()}
+          className="grid size-9 shrink-0 place-items-center rounded-lg text-slate-500 hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-700 dark:hover:bg-slate-800"
+          aria-label="Đóng hộp thoại"
+        >
+          <X className="size-4" aria-hidden="true" />
+        </button>
+      </div>
+
+      {mode === 'profile' ? (
+        <div className="p-5">
+          <div className="flex items-center gap-3 border-b border-slate-100 pb-4 dark:border-slate-800">
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-emerald-700 text-sm font-bold text-white">
+              {fullName.trim().split(/\s+/).slice(-2).map((part) => part[0]).join('').toLocaleUpperCase('vi-VN')}
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate font-semibold text-slate-900 dark:text-white">{fullName}</span>
+              <span className="block truncate text-sm text-slate-500 dark:text-slate-400">{user?.email || 'Chưa cập nhật email'}</span>
+            </span>
+          </div>
+          <dl className="mt-4 space-y-3 text-sm">
+            <div className="flex justify-between gap-4">
+              <dt className="text-slate-500 dark:text-slate-400">Mã nhân viên</dt>
+              <dd className="font-medium text-slate-800 dark:text-slate-100">{user?.employee_code || 'Chưa có'}</dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-slate-500 dark:text-slate-400">Vai trò</dt>
+              <dd className="font-medium text-slate-800 dark:text-slate-100">{roleLabel(user?.role)}</dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-slate-500 dark:text-slate-400">Lô đất phụ trách</dt>
+              <dd className="text-right font-medium text-slate-800 dark:text-slate-100">{user?.plot_name || 'Chưa phân công'}</dd>
+            </div>
+          </dl>
+        </div>
+      ) : (
+        <form onSubmit={handlePasswordChange} className="space-y-4 p-5">
+          {error && (
+            <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300" role="alert">
+              {error}
+            </p>
+          )}
+          {saved && (
+            <p className="flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-300" role="status">
+              <CheckCircle2 className="size-4 shrink-0" aria-hidden="true" />
+              Đã đổi mật khẩu thành công.
+            </p>
+          )}
+          <label className="block text-sm font-medium">
+            Mật khẩu hiện tại
+            <input
+              required
+              type="password"
+              autoComplete="current-password"
+              value={currentPassword}
+              onChange={(event) => setCurrentPassword(event.target.value)}
+              className={`${inputClass} mt-1.5 dark:border-slate-700 dark:bg-slate-800`}
+            />
+          </label>
+          <label className="block text-sm font-medium">
+            Mật khẩu mới
+            <input
+              required
+              minLength={6}
+              type="password"
+              autoComplete="new-password"
+              value={newPassword}
+              onChange={(event) => setNewPassword(event.target.value)}
+              className={`${inputClass} mt-1.5 dark:border-slate-700 dark:bg-slate-800`}
+            />
+          </label>
+          <label className="block text-sm font-medium">
+            Xác nhận mật khẩu mới
+            <input
+              required
+              minLength={6}
+              type="password"
+              autoComplete="new-password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              className={`${inputClass} mt-1.5 dark:border-slate-700 dark:bg-slate-800`}
+            />
+          </label>
+          <div className="flex justify-end gap-2 border-t border-slate-100 pt-4 dark:border-slate-800">
+            <button
+              type="button"
+              onClick={() => dialogRef.current?.close()}
+              className="min-h-10 rounded-lg px-4 text-sm font-medium text-slate-600 hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-700 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              Đóng
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="inline-flex min-h-10 items-center gap-2 rounded-lg bg-emerald-700 px-4 text-sm font-semibold text-white hover:bg-emerald-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 disabled:opacity-60"
+            >
+              {saving && <span className="size-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />}
+              {saving ? 'Đang lưu…' : 'Cập nhật mật khẩu'}
+            </button>
+          </div>
+        </form>
+      )}
+    </dialog>
   )
 }

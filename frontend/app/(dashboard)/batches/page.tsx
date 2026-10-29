@@ -2,12 +2,15 @@
 
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import useSWR, { mutate } from 'swr'
-import { Plus, Search, Sprout, Trash2, ChevronDown, Sparkles, Calendar, Loader2, X } from 'lucide-react'
+import { Plus, Search, Sprout, Trash2, Sparkles, Calendar, Loader2, X, Eye, Pencil } from 'lucide-react'
 import Link from 'next/link'
 import { api, fetcher, ApiError } from '@/lib/api'
 import type { CropBatch, Plot, PlantVariety } from '@/lib/types'
 import { StatusBadge } from '@/components/batches/status-badge'
 import { CreateBatchModal } from '@/components/batches/create-batch-modal'
+import { GlideSelect } from '@/components/effects/greenfarm-motion'
+import { ActionMenu } from '@/components/ui/action-menu'
+import { hasPermission, PERMISSIONS } from '@/lib/auth/permissions'
 
 // 1. Định dạng ngày hiển thị theo chuẩn Việt Nam
 function formatDate(dateStr?: string | null): string {
@@ -71,12 +74,25 @@ function matchStatus(batchStatus?: string, filterStatus?: string): boolean {
   return s === f
 }
 
+function Detail({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="min-w-0">
+      <p className="text-xs text-muted-foreground">{label}</p>
+      <p className="mt-1 truncate text-sm font-medium text-foreground">{value}</p>
+    </div>
+  )
+}
+
 export default function BatchesPage() {
   const [userRole, setUserRole] = useState<string>('')
   const [filterStatus, setFilterStatus] = useState<string>('all')
+  const [filterVariety, setFilterVariety] = useState<string>('all')
+  const [filterPlot, setFilterPlot] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [createOpen, setCreateOpen] = useState(false)
   const [updatingId, setUpdatingId] = useState<number | string | null>(null)
+  const [editingBatchId, setEditingBatchId] = useState<number | string | null>(null)
+  const [viewingBatch, setViewingBatch] = useState<Record<string, any> | null>(null)
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user')
@@ -90,9 +106,16 @@ export default function BatchesPage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('create') === '1') {
+      setCreateOpen(true)
+      window.history.replaceState({}, '', '/batches')
+    }
+  }, [])
+
   // Phân quyền hệ thống
-  const canManage = ['admin', 'manager', 'technician'].includes(userRole)
-  const canDelete = ['admin', 'manager'].includes(userRole)
+  const canManage = hasPermission(userRole, PERMISSIONS.BATCH_UPDATE)
+  const canDelete = hasPermission(userRole, PERMISSIONS.BATCH_DELETE)
 
   // Fetch dữ liệu từ API
   const { data: batches, error: batchesErr } = useSWR<CropBatch[]>('/api/batches', fetcher)
@@ -128,6 +151,10 @@ export default function BatchesPage() {
     return batches.filter((b: Record<string, any>) => {
       const matchesSt = matchStatus(b.status, filterStatus)
       if (!matchesSt) return false
+      if (filterVariety !== 'all' && String(b.variety_id ?? b.plant_variety_id) !== filterVariety) {
+        return false
+      }
+      if (filterPlot !== 'all' && String(b.plot_id) !== filterPlot) return false
 
       if (!query) return true
 
@@ -143,7 +170,15 @@ export default function BatchesPage() {
         pName.includes(query)
       )
     })
-  }, [batches, filterStatus, searchQuery, getVarietyName, getPlotName])
+  }, [
+    batches,
+    filterStatus,
+    filterVariety,
+    filterPlot,
+    searchQuery,
+    getVarietyName,
+    getPlotName,
+  ])
 
   // Đổi trạng thái lô trồng (Optimistic Update)
   async function handleStatusChange(batch: CropBatch, newStatus: string) {
@@ -218,10 +253,10 @@ export default function BatchesPage() {
   return (
     <div className="mx-auto max-w-7xl space-y-6 pb-10">
       {/* Thanh công cụ */}
-      <div className="surface-glass flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-border/50 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="surface-glass flex flex-col gap-3 rounded-2xl border border-border/50 p-4 shadow-sm xl:flex-row xl:items-center xl:justify-between">
+        <div className="flex min-w-0 flex-1 flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center">
           {/* Ô tìm kiếm */}
-          <div className="relative w-full sm:w-72">
+          <div className="relative w-full min-w-0 lg:w-72">
             <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
@@ -243,19 +278,44 @@ export default function BatchesPage() {
           </div>
 
           {/* Bộ lọc trạng thái */}
-          <div className="relative w-full sm:w-48">
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="w-full cursor-pointer appearance-none rounded-xl border border-border/60 bg-background/60 py-2 pl-3 pr-8 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-            >
-              <option value="all">Tất cả trạng thái</option>
-              <option value="Đang trồng">Đang trồng</option>
-              <option value="Kế hoạch">Kế hoạch</option>
-              <option value="Đã thu hoạch">Đã thu hoạch</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          </div>
+          <GlideSelect
+            label="Lọc theo trạng thái"
+            className="w-full lg:w-44"
+            value={filterStatus}
+            onChange={setFilterStatus}
+            options={[
+              { value: 'all', label: 'Tất cả trạng thái' },
+              { value: 'Đang trồng', label: 'Đang trồng' },
+              { value: 'Kế hoạch', label: 'Kế hoạch' },
+              { value: 'Đã thu hoạch', label: 'Đã thu hoạch' },
+            ]}
+          />
+          <GlideSelect
+            label="Lọc theo giống cây"
+            className="w-full lg:w-44"
+            value={filterVariety}
+            onChange={setFilterVariety}
+            options={[
+              { value: 'all', label: 'Tất cả giống cây' },
+              ...(varieties ?? []).map((variety) => ({
+                value: String(variety.id),
+                label: variety.name,
+              })),
+            ]}
+          />
+          <GlideSelect
+            label="Lọc theo lô đất"
+            className="w-full lg:w-44"
+            value={filterPlot}
+            onChange={setFilterPlot}
+            options={[
+              { value: 'all', label: 'Tất cả lô đất' },
+              ...(plots ?? []).map((plot) => ({
+                value: String(plot.id),
+                label: plot.name,
+              })),
+            ]}
+          />
         </div>
 
         {/* Nút Tạo lô trồng */}
@@ -263,7 +323,7 @@ export default function BatchesPage() {
           <button
             type="button"
             onClick={() => setCreateOpen(true)}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 sm:w-auto"
+            className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 xl:w-auto"
           >
             <Plus className="size-4" />
             Tạo Lô Trồng Mới
@@ -272,7 +332,7 @@ export default function BatchesPage() {
       </div>
 
       {/* Danh sách Lô Trồng */}
-      <div className="surface-glass overflow-hidden rounded-3xl border border-border/50 shadow-sm">
+      <div>
         {isLoading ? (
           <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
             <Loader2 className="mr-2 size-5 animate-spin text-primary" />
@@ -282,15 +342,14 @@ export default function BatchesPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-border bg-muted/40 text-xs text-muted-foreground">
-                  <th className="py-3.5 pl-5 pr-3 font-semibold">Tên mẻ / lô</th>
-                  <th className="py-3.5 pr-3 font-semibold">Mã lô</th>
-                  <th className="py-3.5 pr-3 font-semibold">Lô đất</th>
-                  <th className="py-3.5 pr-3 font-semibold">Giống cây</th>
-                  <th className="py-3.5 pr-3 font-semibold">Ngày gieo</th>
-                  <th className="py-3.5 pr-3 font-semibold">Dự kiến thu hoạch</th>
+                <tr className="border-b border-border/70 text-xs text-muted-foreground">
+                  <th className="w-[45%] py-3.5 pl-3 pr-3 font-semibold sm:pl-4">Tên mẻ / mã lô</th>
+                  <th className="hidden py-3.5 pr-3 font-semibold md:table-cell">Lô đất</th>
+                  <th className="hidden py-3.5 pr-3 font-semibold lg:table-cell">Giống cây</th>
+                  <th className="hidden py-3.5 pr-3 font-semibold xl:table-cell">Ngày gieo</th>
+                  <th className="hidden py-3.5 pr-3 font-semibold xl:table-cell">Dự kiến thu hoạch</th>
                   <th className="py-3.5 pr-3 font-semibold">Trạng thái</th>
-                  <th className="py-3.5 pl-3 pr-5 text-right font-semibold">Thao tác</th>
+                  <th className="py-3.5 pl-2 pr-3 text-right font-semibold sm:pr-4">Thao tác</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/50">
@@ -299,95 +358,111 @@ export default function BatchesPage() {
                   const harvestDate = getHarvestDate(b)
                   const currentStatus = b.status || 'Đang trồng'
                   const isUpdating = updatingId === b.id
+                  const isEditing = editingBatchId === b.id
                   const initialName = b.batch_name || b.name || ''
                   const initialCode = b.batch_code || b.code || ''
 
                   return (
-                    <tr key={b.id} className="transition-colors hover:bg-muted/20">
-                      <td className="py-3 pl-5 pr-3">
-                        {canManage ? (
+                    <tr key={b.id} className="transition-colors hover:bg-emerald-950/[0.025]">
+                      <td className="min-w-0 py-3 pl-3 pr-3 sm:pl-4">
+                        <div className="flex min-w-0 flex-col items-start gap-1">
+                          {canManage && isEditing ? (
                           <input
                             defaultValue={initialName}
                             onBlur={(e) =>
                               handleBatchFieldEdit(b as CropBatch, 'batch_name', e.target.value, initialName)
                             }
                             placeholder="Tên lô..."
-                            className="w-36 rounded-lg border border-border/60 bg-background px-2.5 py-1 text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                            aria-label="Tên mẻ"
+                            className="w-full max-w-56 rounded-md border border-border/60 bg-background px-2 py-1 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                           />
                         ) : (
-                          <span className="font-semibold text-foreground">
+                          <span className="max-w-full truncate font-semibold text-slate-800 dark:text-foreground">
                             {initialName || '—'}
                           </span>
                         )}
-                      </td>
-                      <td className="py-3 pr-3 font-mono text-xs font-semibold text-foreground">
-                        {canManage ? (
+                          {canManage && isEditing ? (
                           <input
                             defaultValue={initialCode}
                             onBlur={(e) =>
                               handleBatchFieldEdit(b as CropBatch, 'batch_code', e.target.value, initialCode)
                             }
-                            className="w-28 rounded-lg border border-border/60 bg-background px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
+                            aria-label="Mã lô trồng"
+                            className="w-full max-w-40 rounded-md border border-border/60 bg-background px-2 py-1 text-xs text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/30"
                           />
                         ) : (
-                          <span>{initialCode || '—'}</span>
+                          <span className="max-w-full truncate text-xs text-slate-400 dark:text-muted-foreground">
+                            {initialCode || '—'}
+                          </span>
                         )}
+                        </div>
                       </td>
-                      <td className="py-3 pr-3 font-medium text-muted-foreground">{getPlotName(b)}</td>
-                      <td className="py-3 pr-3 font-medium text-muted-foreground">{getVarietyName(b)}</td>
-                      <td className="py-3 pr-3 text-xs text-muted-foreground">
+                      <td className="hidden py-3 pr-3 font-medium text-muted-foreground md:table-cell">{getPlotName(b)}</td>
+                      <td className="hidden py-3 pr-3 font-medium text-muted-foreground lg:table-cell">{getVarietyName(b)}</td>
+                      <td className="hidden py-3 pr-3 text-xs text-muted-foreground xl:table-cell">
                         <span className="inline-flex items-center gap-1">
                           <Calendar className="size-3 text-muted-foreground/70" />
                           {formatDate(sowDate)}
                         </span>
                       </td>
-                      <td className="py-3 pr-3 text-xs text-muted-foreground">
+                      <td className="hidden py-3 pr-3 text-xs text-muted-foreground xl:table-cell">
                         <span className="inline-flex items-center gap-1">
                           <Calendar className="size-3 text-muted-foreground/70" />
                           {formatDate(harvestDate)}
                         </span>
                       </td>
                       <td className="py-3 pr-3">
-                        <StatusBadge status={currentStatus} />
+                        {canManage && isEditing ? (
+                          <select
+                            disabled={isUpdating}
+                            value={currentStatus}
+                            onChange={(e) => handleStatusChange(b as CropBatch, e.target.value)}
+                            className="max-w-32 rounded-full border border-border/60 bg-background px-2 py-1.5 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 disabled:opacity-50"
+                            aria-label={`Trạng thái ${initialName || initialCode}`}
+                          >
+                            <option value="Đang trồng">Đang trồng</option>
+                            <option value="Kế hoạch">Kế hoạch</option>
+                            <option value="Đã thu hoạch">Đã thu hoạch</option>
+                          </select>
+                        ) : (
+                          <StatusBadge status={currentStatus} />
+                        )}
                       </td>
-                      <td className="py-3 pl-3 pr-5 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          {/* AI Assistant */}
+                      <td className="relative py-3 pl-2 pr-3 text-right sm:pr-4">
+                        <div className="flex items-center justify-end gap-1">
                           <Link
                             href={`/care-logs?plot=${encodeURIComponent(getPlotName(b))}`}
-                            className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-800 transition hover:bg-emerald-100 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300"
+                            className="inline-flex size-8 items-center justify-center rounded-lg text-emerald-700 transition-colors hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/30 dark:text-emerald-400 dark:hover:bg-emerald-950/50"
                             title="Tư vấn AI cho lô này"
+                            aria-label={`Mở gợi ý AI cho lô ${initialName || initialCode}`}
                           >
-                            <Sparkles className="size-3 text-emerald-600 dark:text-emerald-400" />
-                            <span className="hidden sm:inline">AI gợi ý</span>
+                            <Sparkles className="size-4" aria-hidden="true" />
                           </Link>
-
-                          {/* Đổi trạng thái */}
-                          {canManage && (
-                            <select
-                              disabled={isUpdating}
-                              value={currentStatus}
-                              onChange={(e) => handleStatusChange(b as CropBatch, e.target.value)}
-                              className="cursor-pointer rounded-lg border border-border/60 bg-background px-2 py-1 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 disabled:opacity-50"
-                            >
-                              <option value="Đang trồng">Đang trồng</option>
-                              <option value="Kế hoạch">Kế hoạch</option>
-                              <option value="Đã thu hoạch">Đã thu hoạch</option>
-                            </select>
-                          )}
-
-                          {/* Xóa */}
-                          {canDelete && (
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteBatch(b as CropBatch)}
-                              className="rounded-lg p-1.5 text-destructive transition-colors hover:bg-destructive/10"
-                              title="Xóa lô trồng"
-                              aria-label="Xóa lô trồng"
-                            >
-                              <Trash2 className="size-4" />
-                            </button>
-                          )}
+                          <ActionMenu
+                            label={`Thao tác với lô trồng ${initialName || initialCode}`}
+                            items={[
+                              {
+                                label: 'Xem lô trồng',
+                                icon: Eye,
+                                onSelect: () => setViewingBatch(b),
+                              },
+                              ...(canManage
+                                ? [{
+                                    label: isEditing ? 'Hoàn tất sửa' : 'Sửa lô trồng',
+                                    icon: Pencil,
+                                    onSelect: () => setEditingBatchId(isEditing ? null : b.id),
+                                  }]
+                                : []),
+                              ...(canDelete
+                                ? [{
+                                    label: 'Xóa lô trồng',
+                                    icon: Trash2,
+                                    onSelect: () => handleDeleteBatch(b as CropBatch),
+                                    destructive: true,
+                                  }]
+                                : []),
+                            ]}
+                          />
                         </div>
                       </td>
                     </tr>
@@ -408,6 +483,53 @@ export default function BatchesPage() {
           </div>
         )}
       </div>
+
+      {viewingBatch && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 p-4 backdrop-blur-sm"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setViewingBatch(null)
+          }}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="batch-details-title"
+            className="w-full max-w-lg rounded-2xl border border-border bg-background p-5 shadow-2xl"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <h2 id="batch-details-title" className="truncate text-lg font-semibold text-foreground">
+                  {viewingBatch.batch_name || viewingBatch.name || 'Thông tin lô trồng'}
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {viewingBatch.batch_code || viewingBatch.code || 'Chưa có mã lô'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setViewingBatch(null)}
+                className="rounded-lg p-2 text-muted-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                aria-label="Đóng chi tiết lô trồng"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+            <div className="mt-5 grid grid-cols-1 gap-4 border-t border-border pt-4 sm:grid-cols-2">
+              <Detail label="Lô đất" value={getPlotName(viewingBatch)} />
+              <Detail label="Giống cây" value={getVarietyName(viewingBatch)} />
+              <Detail label="Ngày gieo" value={formatDate(getSowingDate(viewingBatch))} />
+              <Detail label="Dự kiến thu hoạch" value={formatDate(getHarvestDate(viewingBatch))} />
+              <div>
+                <p className="text-xs text-muted-foreground">Trạng thái</p>
+                <div className="mt-1">
+                  <StatusBadge status={viewingBatch.status || 'Đang trồng'} />
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
 
       {/* Modal Tạo Lô Mới */}
       {canManage && (

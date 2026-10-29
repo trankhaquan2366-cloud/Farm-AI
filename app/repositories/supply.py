@@ -19,12 +19,28 @@ def get_by_id(db: Session, supply_id: int):
 
 
 def create(db: Session, data: SupplyCreate) -> Supply:
-    values = data.model_dump()
+    values = data.model_dump(exclude={"initial_stock", "initial_expiry_date"})
+    initial_stock = data.initial_stock
+    initial_expiry_date = data.initial_expiry_date
     values["type"] = values.pop("category")
+    values["stock_quantity"] = initial_stock
     db_obj = Supply(**values)
     db.add(db_obj)
-    db.commit()
-    db.refresh(db_obj)
+    try:
+        db.flush()
+        if initial_stock > 0:
+            db.add(SupplyImport(
+                supply_id=db_obj.id,
+                quantity_imported=initial_stock,
+                unit_price=0,
+                batch_number="Tồn kho ban đầu",
+                expiry_date=initial_expiry_date,
+            ))
+        db.commit()
+        db.refresh(db_obj)
+    except Exception:
+        db.rollback()
+        raise
     return db_obj
 
 

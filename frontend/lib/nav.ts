@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
-import { LayoutDashboard, Leaf, LandPlot, Sprout, NotebookPen, QrCode, Users, Package } from 'lucide-react'
+import { FileSpreadsheet, LayoutDashboard, Leaf, LandPlot, Sprout, NotebookPen, QrCode, Users, Package } from 'lucide-react'
 
 export type NavItem = {
   label: string
@@ -7,6 +7,10 @@ export type NavItem = {
   href: string
   icon: LucideIcon
   roles?: string[]
+}
+
+export function isNavItemActive(pathname: string, href: string) {
+  return pathname === href || (href !== '/' && pathname.startsWith(`${href}/`))
 }
 
 // LƯU Ý: bản gốc chỉ có 1 mục "Lô đất & Giống cây" trỏ về /crop-lots,
@@ -40,7 +44,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Nhật ký & Trợ lý AI',
-    description: 'Chăm sóc & cố vấn Gemini',
+    description: 'Nhật ký chăm sóc và vật tư',
     href: '/care-logs',
     icon: NotebookPen,
   },
@@ -56,6 +60,12 @@ export const NAV_ITEMS: NavItem[] = [
     description: 'Thu hoạch & mã QR',
     href: '/traceability',
     icon: QrCode,
+  },
+  {
+    label: 'Dữ liệu & Báo cáo',
+    description: 'Nhập dữ liệu và xuất báo cáo',
+    href: '/data-reports',
+    icon: FileSpreadsheet,
   },
   {
     label: 'Quản lý tài khoản',

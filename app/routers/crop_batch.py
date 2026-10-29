@@ -1,11 +1,16 @@
 from datetime import datetime, date, timedelta
-from typing import Optional, List, Dict, Any, Union
+from typing import Optional, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.deps import get_current_user
 from app.core.permissions import require_permission
-from app.schemas.crop_batch import CropBatchCreate, CropBatchUpdate, CropBatchOut
+from app.schemas.crop_batch import CropBatchCreate, CropBatchUpdate
+from app.services.crop_batch_service import (
+    create_crop_batch,
+    delete_crop_batch,
+    update_crop_batch,
+)
 
 router = APIRouter(tags=["Crop Batches"])
 
@@ -58,7 +63,7 @@ def parse_date_obj(val: Any) -> Optional[date]:
 
 def normalize_batch(batch: Any, db: Session) -> Dict[str, Any]:
     """Chuẩn hóa dữ liệu lô trồng thành dict với các trường chuẩn cho Frontend/Schema."""
-    CropBatch, PlantVariety, Plot = get_models()
+    _, PlantVariety, Plot = get_models()
 
     if hasattr(batch, "__table__"):
         d = {c.name: getattr(batch, c.name) for c in batch.__table__.columns}
@@ -179,7 +184,10 @@ def get_batches(
     current_user: dict = Depends(get_current_user)
 ):
     CropBatch, _, _ = get_models()
-    batches = db.query(CropBatch).all()
+    query = db.query(CropBatch)
+    if str(current_user.get("role", "")).strip().lower() in {"staff", "worker"}:
+        query = query.filter(CropBatch.plot_id == current_user.get("plot_id"))
+    batches = query.all()
     return [normalize_batch(b, db) for b in batches]
 
 
@@ -196,165 +204,12 @@ def get_batches(
     dependencies=[Depends(require_permission("crop_batches:create"))]
 )
 def create_batch(
-    payload: Union[CropBatchCreate, dict], 
+    payload: CropBatchCreate,
     db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user)
 ):
-    CropBatch, PlantVariety, Plot = get_models()
-    valid_cols = {c.name: c.type for c in CropBatch.__table__.columns} if hasattr(CropBatch, "__table__") else {}
-    
-    # Chuyển payload thành dict nếu là Pydantic object
-    data_in = payload.model_dump(exclude_unset=True) if hasattr(payload, "model_dump") else payload
-    data = {}
-
-    # A. Tên lô
-    name_val = (
-        data_in.get("name") or 
-        data_in.get("batch_name") or 
-        data_in.get("batchName") or 
-        data_in.get("title") or 
-        "Lô trồng"
-    )
-    if "name" in valid_cols:
-        data["name"] = name_val
-    if "batch_name" in valid_cols:
-        data["batch_name"] = name_val
-
-    # B. Lô đất
-    plot_id = data_in.get("plot_id") or data_in.get("plotId") or data_in.get("plot")
-    if not plot_id:
-        raise HTTPException(status_code=400, detail="Vui lòng chọn lô đất.")
-    try:
-        plot_id = int(plot_id)
-    except (ValueError, TypeError):
-        raise HTTPException(status_code=400, detail="Lô đất không hợp lệ.")
-    if plot_id <= 0:
-        raise HTTPException(status_code=400, detail="Vui lòng chọn lô đất hợp lệ.")
-    if "plot_id" in valid_cols:
-        if not db.query(Plot).filter(Plot.id == plot_id).first():
-            raise HTTPException(status_code=400, detail="Lô đất được chọn không tồn tại.")
-        data["plot_id"] = plot_id
-
-    # C. Giống cây & Số lượng sử dụng (Trừ kho)
-    variety_id = data_in.get("variety_id") or data_in.get("varietyId") or data_in.get("plant_variety_id") or data_in.get("variety")
-    if not variety_id:
-        raise HTTPException(status_code=400, detail="Vui lòng chọn giống cây.")
-    try:
-        variety_id = int(variety_id)
-    except (ValueError, TypeError):
-        raise HTTPException(status_code=400, detail="Giống cây không hợp lệ.")
-    if variety_id <= 0:
-        raise HTTPException(status_code=400, detail="Vui lòng chọn giống cây hợp lệ.")
-        
-    qty = data_in.get("quantity") or data_in.get("quantity_used") or data_in.get("seed_quantity") or 0.0
-    try:
-        qty = float(qty)
-    except (ValueError, TypeError):
-        qty = 0.0
-
-    if "variety_id" in valid_cols:
-        data["variety_id"] = variety_id
-
-    variety = db.query(PlantVariety).filter(PlantVariety.id == variety_id).first()
-    if not variety:
-        raise HTTPException(status_code=400, detail="Giống cây được chọn không tồn tại.")
-
-    stock_attr = None
-    for attr in ["stock_quantity", "quantity", "stock", "quantity_in_stock"]:
-        if hasattr(variety, attr):
-            stock_attr = attr
-            break
-
-    if stock_attr and qty > 0:
-        current_stock = getattr(variety, stock_attr) or 0.0
-        if current_stock < qty:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Số lượng giống trong kho không đủ! (Tồn kho: {current_stock}, Cần: {qty})"
-            )
-        setattr(variety, stock_attr, current_stock - qty)
-
-    # D. Số lượng trong Lô
-    if "quantity" in valid_cols:
-        data["quantity"] = qty
-    if "seed_quantity" in valid_cols:
-        data["seed_quantity"] = qty
-    if "quantity_used" in valid_cols:
-        data["quantity_used"] = qty
-
-    # E. Ngày gieo
-    sow_date_raw = (
-        data_in.get("sowing_date") or data_in.get("sowingDate") or 
-        data_in.get("sow_date") or data_in.get("sowDate") or 
-        data_in.get("plant_date") or datetime.now().strftime("%Y-%m-%d")
-    )
-    sow_date_obj = parse_date_obj(sow_date_raw) or datetime.now().date()
-
-    for date_col in ["sow_date", "sowing_date", "plant_date", "start_date"]:
-        if date_col in valid_cols:
-            col_type = str(valid_cols[date_col]).upper()
-            data[date_col] = sow_date_obj if "DATE" in col_type else str(sow_date_obj)
-
-    # F. Ngày thu hoạch dự kiến
-    harvest_date_raw = data_in.get("expected_harvest_date") or data_in.get("expectedHarvestDate") or data_in.get("harvest_date")
-    if not harvest_date_raw and variety_id:
-        try:
-            growth_days = 30
-            if variety:
-                growth_days = (
-                    getattr(variety, "growth_period", None) or 
-                    getattr(variety, "days_to_harvest", None) or 
-                    getattr(variety, "growth_days", None) or
-                    getattr(variety, "cycle_days", None) or 30
-                )
-            harvest_date_obj = sow_date_obj + timedelta(days=int(growth_days))
-        except Exception:
-            harvest_date_obj = sow_date_obj + timedelta(days=30)
-    else:
-        harvest_date_obj = parse_date_obj(harvest_date_raw)
-
-    if harvest_date_obj:
-        for h_col in ["expected_harvest_date", "estimated_harvest_date", "harvest_date", "expected_harvest"]:
-            if h_col in valid_cols:
-                col_type = str(valid_cols[h_col]).upper()
-                data[h_col] = harvest_date_obj if "DATE" in col_type else str(harvest_date_obj)
-
-    # G. Mã lô
-    generated_code = data_in.get("batch_code") or data_in.get("batchCode") or data_in.get("code") or f"CB-{int(datetime.now().timestamp())}"
-    if "batch_code" in valid_cols:
-        data["batch_code"] = generated_code
-    if "code" in valid_cols:
-        data["code"] = generated_code
-
-    # H. Trạng thái
-    status_raw = data_in.get("status") or data_in.get("batch_status") or "Đang trồng"
-    status_val = STATUS_MAP_VN.get(status_raw, status_raw)
-    if "status" in valid_cols:
-        data["status"] = status_val
-    if "batch_status" in valid_cols:
-        data["batch_status"] = status_val
-
-    # I. Người tạo
-    if "created_by" in valid_cols and isinstance(current_user, dict) and "id" in current_user:
-        data["created_by"] = current_user["id"]
-
-    # J. Gán các trường mở rộng khác
-    for k, v in data_in.items():
-        if k in valid_cols and k not in data:
-            data[k] = v
-
-    try:
-        db_batch = CropBatch(**data)
-        db.add(db_batch)
-        db.commit()
-        db.refresh(db_batch)
-        return normalize_batch(db_batch, db)
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Không thể tạo lô trồng: {str(e)}"
-        )
+    db_batch = create_crop_batch(db, payload, current_user)
+    return normalize_batch(db_batch, db)
 
 
 # 3. Cập nhật Lô trồng
@@ -365,72 +220,12 @@ def create_batch(
 )
 def update_batch(
     batch_id: int, 
-    payload: Union[CropBatchUpdate, dict], 
+    payload: CropBatchUpdate,
     db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user)
 ):
-    CropBatch, _, _ = get_models()
-    batch = db.query(CropBatch).filter(CropBatch.id == batch_id).first()
-    if not batch:
-        raise HTTPException(status_code=404, detail="Không tìm thấy lô trồng")
-
-    valid_cols = {c.name: c.type for c in CropBatch.__table__.columns} if hasattr(CropBatch, "__table__") else {}
-    data_in = payload.model_dump(exclude_unset=True) if hasattr(payload, "model_dump") else payload
-
-    # Cập nhật Trạng thái
-    status_in = data_in.get("status") or data_in.get("batch_status") or data_in.get("batchStatus")
-    if status_in is not None:
-        status_vn = STATUS_MAP_VN.get(str(status_in), str(status_in))
-        for s_col in ["status", "batch_status", "state"]:
-            if s_col in valid_cols and hasattr(batch, s_col):
-                setattr(batch, s_col, status_vn)
-
-    # Cập nhật Tên lô
-    name_in = data_in.get("name") or data_in.get("batch_name") or data_in.get("batchName")
-    if name_in is not None:
-        for n_col in ["name", "batch_name", "title"]:
-            if n_col in valid_cols and hasattr(batch, n_col):
-                setattr(batch, n_col, str(name_in))
-
-    # Cập nhật Ngày gieo
-    sow_in = data_in.get("sowing_date") or data_in.get("sowingDate") or data_in.get("sow_date") or data_in.get("plant_date")
-    if sow_in is not None:
-        sow_obj = parse_date_obj(sow_in)
-        for d_col in ["sow_date", "sowing_date", "plant_date", "start_date"]:
-            if d_col in valid_cols and hasattr(batch, d_col):
-                col_type = str(valid_cols[d_col]).upper()
-                val_to_set = sow_obj if "DATE" in col_type else str(sow_in)
-                setattr(batch, d_col, val_to_set)
-
-    # Cập nhật Ngày thu hoạch dự kiến
-    harvest_in = data_in.get("expected_harvest_date") or data_in.get("expectedHarvestDate") or data_in.get("harvest_date")
-    if harvest_in is not None:
-        harvest_obj = parse_date_obj(harvest_in)
-        for h_col in ["expected_harvest_date", "estimated_harvest_date", "harvest_date", "expected_harvest"]:
-            if h_col in valid_cols and hasattr(batch, h_col):
-                col_type = str(valid_cols[h_col]).upper()
-                val_to_set = harvest_obj if "DATE" in col_type else str(harvest_in)
-                setattr(batch, h_col, val_to_set)
-
-    # Cập nhật các trường trực tiếp khác
-    for k, v in data_in.items():
-        if k in valid_cols and hasattr(batch, k) and v is not None:
-            col_type = str(valid_cols[k]).upper()
-            if "DATE" in col_type and isinstance(v, (str, datetime)):
-                setattr(batch, k, parse_date_obj(v))
-            else:
-                setattr(batch, k, v)
-
-    try:
-        db.commit()
-        db.refresh(batch)
-        return normalize_batch(batch, db)
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Lỗi cập nhật lô trồng: {str(e)}"
-        )
+    batch = update_crop_batch(db, batch_id, payload)
+    return normalize_batch(batch, db)
 
 
 # 4. Xóa Lô trồng
@@ -444,34 +239,153 @@ def delete_batch(
     db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user)
 ):
-    CropBatch, _, _ = get_models()
+    delete_crop_batch(db, batch_id)
+    return {"message": "Xóa lô trồng thành công"}
+
+
+# 5. API truy xuất nguồn gốc công khai
+@router.get("/trace/{batch_code}", status_code=status.HTTP_200_OK)
+def get_batch_trace(batch_code: str, db: Session = Depends(get_db)):
+    CropBatch, PlantVariety, Plot = get_models()
+    if hasattr(CropBatch, "batch_code"):
+        batch_code_column = CropBatch.batch_code
+    elif hasattr(CropBatch, "code"):
+        batch_code_column = CropBatch.code
+    else:
+        batch_code_column = None
+    if batch_code_column is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Không tìm thấy lô trồng với mã: {batch_code}",
+        )
+
+    batch = db.query(CropBatch).filter(batch_code_column == batch_code).first()
+    if batch is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Không tìm thấy lô trồng với mã: {batch_code}",
+        )
+
+    plot = db.query(Plot).filter(Plot.id == batch.plot_id).first()
+    variety_id = getattr(batch, "variety_id", None) or getattr(batch, "plant_variety_id", None)
+    variety = (
+        db.query(PlantVariety).filter(PlantVariety.id == variety_id).first()
+        if variety_id is not None
+        else None
+    )
+
+    from app.models.care_log import CareLog
+
+    care_logs = (
+        db.query(CareLog)
+        .filter(CareLog.crop_batch_id == batch.id)
+        .order_by(CareLog.id.asc())
+        .all()
+    )
+
+    harvest_model = None
     try:
-        from app.models import CareLog
+        from app.models import HarvestLog as harvest_model
     except ImportError:
         try:
-            from app.models.care_log import CareLog
+            from app.models import Harvest as harvest_model
         except ImportError:
-            CareLog = None
+            try:
+                from app.models.harvest import HarvestLog as harvest_model
+            except ImportError:
+                harvest_model = None
 
-    batch = db.query(CropBatch).filter(CropBatch.id == batch_id).first()
-    if not batch:
-        raise HTTPException(status_code=404, detail="Không tìm thấy lô trồng")
+    harvest_history = []
+    if harvest_model is not None:
+        from sqlalchemy import or_
 
-    if CareLog:
-        try:
-            from sqlalchemy import or_
-            filter_conditions = []
-            for col in ["batch_id", "crop_batch_id", "lot_id", "crop_lot_id"]:
-                if hasattr(CareLog, col):
-                    filter_conditions.append(getattr(CareLog, col) == batch_id)
-            if filter_conditions:
-                db.query(CareLog).filter(or_(*filter_conditions)).delete(synchronize_session=False)
-        except Exception:
-            pass
+        harvest_batch_columns = [
+            getattr(harvest_model, column_name) == batch.id
+            for column_name in ("crop_batch_id", "batch_id", "lot_id", "crop_lot_id")
+            if hasattr(harvest_model, column_name)
+        ]
+        if harvest_batch_columns:
+            harvests = (
+                db.query(harvest_model)
+                .filter(or_(*harvest_batch_columns))
+                .all()
+            )
+            harvest_history = [
+                {
+                    "id": harvest.id,
+                    "quantity": getattr(harvest, "quantity", None)
+                    or getattr(harvest, "yield_kg", None),
+                    "unit": getattr(harvest, "unit", None) or "kg",
+                    "harvest_date": getattr(harvest, "harvest_date", None)
+                    or getattr(harvest, "harvested_at", None)
+                    or getattr(harvest, "created_at", None),
+                    "qr_trace_code": getattr(harvest, "qr_trace_code", None)
+                    or getattr(harvest, "trace_code", None),
+                }
+                for harvest in harvests
+            ]
 
-    db.delete(batch)
-    db.commit()
-    return {"message": "Xóa lô trồng thành công"}
+    batch_name = getattr(batch, "name", None) or getattr(batch, "batch_name", None)
+    quantity_used = next(
+        (
+            getattr(batch, attribute)
+            for attribute in ("quantity_used", "quantity", "seed_quantity")
+            if getattr(batch, attribute, None) is not None
+        ),
+        None,
+    )
+    growth_duration_days = None
+    if variety is not None:
+        growth_duration_days = (
+            getattr(variety, "growth_duration_days", None)
+            or getattr(variety, "growth_period", None)
+            or getattr(variety, "growth_days", None)
+            or getattr(variety, "days_to_harvest", None)
+        )
+
+    return {
+        "batch_info": {
+            "id": batch.id,
+            "batch_code": getattr(batch, "batch_code", None)
+            or getattr(batch, "code", None),
+            "batch_name": batch_name,
+            "status": STATUS_MAP_VN.get(
+                getattr(batch, "status", None), getattr(batch, "status", None)
+            ),
+            "sow_date": getattr(batch, "sow_date", None)
+            or getattr(batch, "sowing_date", None),
+            "expected_harvest_date": getattr(batch, "expected_harvest_date", None),
+            "quantity_used": quantity_used,
+        },
+        "plot_info": {
+            "id": getattr(plot, "id", None),
+            "name": getattr(plot, "name", None)
+            or getattr(plot, "plot_name", None),
+            "area": getattr(plot, "area", None)
+            or getattr(plot, "area_size", None),
+            "location": getattr(plot, "location", None),
+        },
+        "variety_info": {
+            "id": getattr(variety, "id", None),
+            "name": getattr(variety, "name", None)
+            or getattr(variety, "variety_name", None),
+            "growth_duration_days": growth_duration_days,
+        },
+        "safety_certifications": ["VietGAP", "Cảnh báo dư lượng"],
+        "care_history": [
+            {
+                "id": care_log.id,
+                "action_type": care_log.action_type,
+                "notes": care_log.notes or care_log.description,
+                "logged_at": getattr(care_log, "logged_at", None)
+                or care_log.log_date
+                or care_log.created_at,
+                "image_url": care_log.image_url,
+            }
+            for care_log in care_logs
+        ],
+        "harvest_history": harvest_history,
+    }
 
 
 # 5. API Truy xuất nguồn gốc Lô trồng (Public / QR Code)

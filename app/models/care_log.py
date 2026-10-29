@@ -7,19 +7,23 @@ class CareLog(Base):
     __tablename__ = "care_logs"
 
     id = Column(Integer, primary_key=True, index=True)
-    crop_batch_id = Column(Integer, ForeignKey("crop_batches.id"), nullable=True)
-    batch_id = Column(Integer, ForeignKey("crop_batches.id"), nullable=True)
+    crop_batch_id = Column(
+        Integer,
+        ForeignKey("crop_batches.id", ondelete="CASCADE"),
+        nullable=True,
+    )
     action_type = Column(String(100), nullable=False)  # Ví dụ: Tưới nước, Bón phân...
     log_date = Column(String(50), nullable=True)  
     description = Column(Text, nullable=True)    
     notes = Column(Text, nullable=True)                
-    image_url = Column(String(500), nullable=True)      
+    image_url = Column(String(255), nullable=True)
     quantity = Column(Float, nullable=True, default=0.0)
+    quality_percent = Column(Float, nullable=True)
     created_by = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     crop_batch = relationship(
         "CropBatch", 
         back_populates="care_logs",
-        foreign_keys=[crop_batch_id]
+        foreign_keys=[crop_batch_id],
     )

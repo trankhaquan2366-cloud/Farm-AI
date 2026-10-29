@@ -3,9 +3,11 @@
 from typing import List, Dict, Any
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.orm import Session
 import jwt
 
 from app.core.security import SECRET_KEY, ALGORITHM
+from app.core.database import get_db
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
@@ -18,7 +20,10 @@ def _to_clean_str(val: Any) -> str:
     return str(val).strip().lower()
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)) -> Dict[str, Any]:
+def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db),
+) -> Dict[str, Any]:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Token không hợp lệ",
@@ -29,6 +34,27 @@ def get_current_user(token: str = Depends(oauth2_scheme)) -> Dict[str, Any]:
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
+        from app.models.user import User
+
+        user = db.query(User).filter(User.email == username).first()
+        if user is None or not user.is_active:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Tài khoản không tồn tại hoặc đã bị khóa.",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        payload.update(
+            {
+                "id": user.id,
+                "employee_code": user.employee_code,
+                "username": user.username,
+                "full_name": user.full_name,
+                "email": user.email,
+                "role": user.role.value if hasattr(user.role, "value") else str(user.role),
+                "plot_id": user.plot_id,
+                "is_active": user.is_active,
+            }
+        )
         return payload
     except jwt.ExpiredSignatureError:
         raise HTTPException(

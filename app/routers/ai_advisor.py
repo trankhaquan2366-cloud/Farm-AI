@@ -1,11 +1,11 @@
-from typing import Optional, Union
-from fastapi import APIRouter, Depends
-from pydantic import BaseModel, field_validator
+from typing import List, Optional, Union
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.core.deps import require_roles
-from app.core.ai_client import call_gemini, DISCLAIMER_TEXT
+from app.core.deps import get_current_user, require_roles
+from app.core.ai_client import call_gemini_structured, DISCLAIMER_TEXT
 from app.models.user import UserRole
 from app.models.crop_batch import CropBatch
 from app.models.care_log import CareLog
@@ -13,13 +13,15 @@ from app.models.care_log import CareLog
 router = APIRouter(
     prefix="/api/v1/ai-advisor",
     tags=["AI Advisor"],
-    dependencies=[Depends(require_roles([UserRole.TECHNICIAN, UserRole.ADMIN, UserRole.MANAGER]))]
+    dependencies=[Depends(require_roles([UserRole.TECHNICIAN, UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF]))]
 )
 
 class ChatRequest(BaseModel):
     message: Optional[str] = None
     prompt: Optional[str] = None
     batch_id: Optional[Union[int, str]] = None  # Chấp nhận cả int, string hoặc null
+
+    model_config = ConfigDict(extra="forbid")
 
     @field_validator("batch_id", mode="before")
     @classmethod
@@ -29,60 +31,92 @@ class ChatRequest(BaseModel):
             return None
         try:
             return int(v)
-        except (ValueError, TypeError):
-            return None
+        except (ValueError, TypeError) as exc:
+            raise ValueError("batch_id phải là số nguyên hợp lệ.") from exc
 
-def build_system_context(db: Session, batch_id: Optional[int] = None) -> str:
+
+class AdvisorCitations(BaseModel):
+    batch_codes: List[str] = Field(default_factory=list)
+    care_log_ids: List[int] = Field(default_factory=list)
+
+    model_config = ConfigDict(strict=True, extra="forbid")
+
+
+class AdvisorResponse(BaseModel):
+    reply: str
+    citations: AdvisorCitations
+
+    model_config = ConfigDict(strict=True, extra="forbid")
+
+def build_system_context(
+    db: Session,
+    batch_id: Optional[int] = None,
+    assigned_plot_id: Optional[int] = None,
+) -> str:
     """Truy vấn CSDL để lấy bối cảnh dữ liệu thực tế của trang trại."""
     context_lines = ["Dưới đây là thông tin thực tế từ hệ thống quản lý trang trại:"]
 
     if batch_id:
-        batch = db.query(CropBatch).filter(CropBatch.id == batch_id).first()
+        batch_query = db.query(CropBatch).filter(CropBatch.id == batch_id)
+        if assigned_plot_id is not None:
+            batch_query = batch_query.filter(CropBatch.plot_id == assigned_plot_id)
+        batch = batch_query.first()
         if batch:
             batch_name = getattr(batch, "name", f"Lô {batch.id}")
             planting_date = getattr(batch, "planting_date", "Chưa rõ")
             context_lines.append(
-                f"- Lô đang chọn: ID {batch.id}, Tên/Mã lô: {batch_name}, Ngày gieo: {planting_date}"
+                f"- Lô đang chọn: ID {batch.id}, Mã lô: "
+                f"{getattr(batch, 'batch_code', None) or getattr(batch, 'code', 'N/A')}, "
+                f"Tên: {batch_name}, Ngày gieo: {planting_date}"
             )
 
-            # Xác định cột sắp xếp an toàn cho CareLog
-            if hasattr(CareLog, "batch_id"):
-                order_col = getattr(
-                    CareLog, "log_date", 
-                    getattr(CareLog, "logged_at", getattr(CareLog, "created_at", CareLog.id))
-                )
-                logs = (
-                    db.query(CareLog)
-                    .filter(CareLog.batch_id == batch_id)
-                    .order_by(order_col.desc())
-                    .limit(3)
-                    .all()
-                )
-                if logs:
-                    context_lines.append("  + Hoạt động chăm sóc gần đây:")
-                    for log in logs:
-                        log_date = getattr(
-                            log, "log_date",
-                            getattr(log, "logged_at", getattr(log, "created_at", "N/A"))
-                        )
-                        action = getattr(log, "action_type", "Chăm sóc")
-                        notes = getattr(log, "notes", "")
-                        context_lines.append(f"    * Ngày {log_date}: {action} - {notes}")
+            order_col = getattr(CareLog, "log_date", CareLog.id)
+            logs = (
+                db.query(CareLog)
+                .filter(CareLog.crop_batch_id == batch_id)
+                .order_by(order_col.desc())
+                .limit(10)
+                .all()
+            )
+            if logs:
+                context_lines.append("  + Hoạt động chăm sóc gần đây:")
+                for log in logs:
+                    log_date = getattr(log, "log_date", "N/A")
+                    action = getattr(log, "action_type", "Chăm sóc")
+                    notes = getattr(log, "notes", "")
+                    context_lines.append(
+                        f"    * Nhật ký ID {log.id}, Ngày {log_date}: {action} - {notes}"
+                    )
+            else:
+                context_lines.append("- Chưa đủ dữ liệu ghi nhận nhật ký chăm sóc.")
+        else:
+            context_lines.append("- Chưa đủ dữ liệu ghi nhận cho lô được yêu cầu.")
     else:
-        batches = db.query(CropBatch).all()
+        batch_query = db.query(CropBatch)
+        if assigned_plot_id is not None:
+            batch_query = batch_query.filter(CropBatch.plot_id == assigned_plot_id)
+        batches = batch_query.limit(10).all()
         if batches:
             context_lines.append("- Danh sách các lô hiện có trong hệ thống:")
             for b in batches[:10]:
                 b_name = getattr(b, "name", f"Lô {b.id}")
                 b_status = getattr(b, "status", "Đang hoạt động")
-                context_lines.append(f"  + {b_name} (ID: {b.id}): Trạng thái {b_status}")
+                b_code = getattr(b, "batch_code", None) or getattr(b, "code", "N/A")
+                context_lines.append(
+                    f"  + {b_name} (ID: {b.id}, batch_code: {b_code}): "
+                    f"Trạng thái {b_status}"
+                )
         else:
             context_lines.append("- Hiện chưa có dữ liệu lô trồng trong hệ thống.")
 
     return "\n".join(context_lines)
 
 @router.post("/chat")
-def chat_with_advisor(payload: ChatRequest, db: Session = Depends(get_db)):
+def chat_with_advisor(
+    payload: ChatRequest,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
     user_prompt = payload.message or payload.prompt or ""
 
     if not user_prompt.strip():
@@ -93,24 +127,75 @@ def chat_with_advisor(payload: ChatRequest, db: Session = Depends(get_db)):
         }
 
     # 1. Trích xuất dữ liệu từ Database làm ngữ cảnh
-    db_context = build_system_context(db, batch_id=payload.batch_id)
+    user_role = str(current_user.get("role", "")).strip().lower()
+    assigned_plot_id = None
+    if user_role in {"staff", "worker"}:
+        assigned_plot_id = current_user.get("plot_id")
+        if assigned_plot_id is None:
+            raise HTTPException(status_code=403, detail="Tài khoản chưa được phân công lô đất.")
+        if payload.batch_id is not None:
+            assigned_batch = db.query(CropBatch).filter(CropBatch.id == payload.batch_id).first()
+            if assigned_batch is None or assigned_batch.plot_id != assigned_plot_id:
+                raise HTTPException(
+                    status_code=403,
+                    detail="Bạn chỉ có thể hỏi AI về lô trồng được phân công.",
+                )
+
+    db_context = build_system_context(
+        db,
+        batch_id=payload.batch_id,
+        assigned_plot_id=assigned_plot_id,
+    )
 
     # 2. Ghép dữ liệu CSDL vào System Prompt
     system_prompt = (
         "Bạn là chuyên gia cố vấn nông nghiệp thông minh của trang trại GreenFarm.\n"
-        "Hãy dựa vào dữ liệu hệ thống được cung cấp dưới đây để trả lời chính xác câu hỏi của người dùng.\n"
-        "Nếu người dùng hỏi về lô cây cụ thể, hãy kiểm tra danh sách bên dưới trước khi trả lời.\n\n"
+        "Chỉ sử dụng dữ liệu thực tế SQLite dưới đây. Không suy đoán hoặc tự tạo mã lô/ID. "
+        "Nếu dữ liệu không đủ, hãy trả lời chính xác 'Chưa đủ dữ liệu ghi nhận'. "
+        "Không ghi mã lô hoặc ID nhật ký trong nội dung reply; chỉ đưa mã lô và ID đã thấy "
+        "vào mảng citations. "
+        "Trả về JSON có reply và citations; citations gồm batch_codes và care_log_ids.\n\n"
         f"{db_context}"
     )
 
-    # 3. Gửi sang Gemini
-    ai_reply = call_gemini(
+    response = call_gemini_structured(
         system_prompt=system_prompt,
-        user_prompt=user_prompt
+        user_prompt=user_prompt,
+        response_schema=AdvisorResponse,
     )
 
+    batch_codes = response.citations.batch_codes
+    care_log_ids = response.citations.care_log_ids
+    if batch_codes:
+        batch_query = db.query(CropBatch.batch_code).filter(CropBatch.batch_code.in_(batch_codes))
+        if assigned_plot_id is not None:
+            batch_query = batch_query.filter(CropBatch.plot_id == assigned_plot_id)
+        existing_batch_codes = {
+            code
+            for (code,) in batch_query.all()
+        }
+        if set(batch_codes) != existing_batch_codes:
+            raise HTTPException(
+                status_code=502,
+                detail="AI đã tham chiếu mã lô không tồn tại trong cơ sở dữ liệu.",
+            )
+    if care_log_ids:
+        log_query = db.query(CareLog.id).join(CropBatch, CareLog.crop_batch_id == CropBatch.id)
+        log_query = log_query.filter(CareLog.id.in_(care_log_ids))
+        if assigned_plot_id is not None:
+            log_query = log_query.filter(CropBatch.plot_id == assigned_plot_id)
+        existing_log_ids = {
+            log_id
+            for (log_id,) in log_query.all()
+        }
+        if set(care_log_ids) != existing_log_ids:
+            raise HTTPException(
+                status_code=502,
+                detail="AI đã tham chiếu nhật ký chăm sóc không tồn tại trong cơ sở dữ liệu.",
+            )
+
     return {
-        "reply": ai_reply,
-        "response": ai_reply,
+        "reply": response.reply,
+        "response": response.reply,
         "disclaimer": DISCLAIMER_TEXT
     }

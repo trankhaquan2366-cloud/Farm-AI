@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Sprout,
   LandPlot,
@@ -303,13 +303,24 @@ export function TraceReport({ data, publicUrl }: TraceReportProps) {
 
 function QrShareBlock({ publicUrl }: { publicUrl: string }) {
   const [copied, setCopied] = useState(false)
+  const copiedTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=8&data=${encodeURIComponent(publicUrl)}`
+
+  useEffect(() => {
+    return () => {
+      if (copiedTimeout.current) clearTimeout(copiedTimeout.current)
+    }
+  }, [])
 
   async function handleCopy() {
     try {
       await navigator.clipboard.writeText(publicUrl)
       setCopied(true)
-      setTimeout(() => setCopied(false), 1500)
+      if (copiedTimeout.current) clearTimeout(copiedTimeout.current)
+      copiedTimeout.current = setTimeout(() => {
+        setCopied(false)
+        copiedTimeout.current = null
+      }, 1500)
     } catch {
       /* ignore */
     }

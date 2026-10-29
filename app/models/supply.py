@@ -16,6 +16,8 @@ class Supply(Base):
     stock_quantity = Column(Float, nullable=False, default=0)
     min_threshold = Column(Float, nullable=False, default=0)
     location = Column(String(150), nullable=True)
+    usage_notes = Column(String(2000), nullable=True)
+    storage_notes = Column(String(2000), nullable=True)
     status = Column(String(30), nullable=False, default="active")
 
     imports = relationship("SupplyImport", back_populates="supply", cascade="all, delete-orphan")

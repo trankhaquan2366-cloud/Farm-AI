@@ -10,9 +10,17 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'GreenFarm AI — Quản lý Trang trại Rau sạch Thông minh',
+  title: {
+    default: 'GreenFarm AI - Nông Trại Thông Minh',
+    template: '%s | GreenFarm AI',
+  },
   description:
-    'Hệ thống quản lý trang trại rau sạch tích hợp AI: theo dõi lô đất, nhật ký chăm sóc, thu hoạch và truy xuất nguồn gốc.',
+    'Hệ thống quản lý nông nghiệp thông minh tích hợp AI và IoT',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/apple-icon',
+  },
   generator: 'v0.app',
 }
 

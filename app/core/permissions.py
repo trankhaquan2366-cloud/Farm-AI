@@ -20,47 +20,50 @@ def _clean_role(val: Any) -> str:
 # *** KHI CẦN SỬA MẤT QUYỀN HOẶC ĐỔI QUYỀN, BẠN CHỈ SỬA DUY NHẤT BẢNG NÀY ***
 # ==============================================================================
 PERMISSIONS_MATRIX: Dict[str, List[str]] = {
-    # --- 1. LÔ TRỒNG (Crop Batches) ---
-    "batches:read":   ["admin", "technician", "staff"],
-    "batches:create": ["admin", "technician"],
-    "batches:update": ["admin", "technician"],
-    "batches:delete": ["admin", "technician"],
+    # Admin and manager have farm-wide management rights.
+    "plots:read": ["admin", "manager", "technician", "staff"],
+    "plots:create": ["admin", "manager"],
+    "plots:update": ["admin", "manager"],
+    "plots:delete": ["admin", "manager"],
+    "plots:assign": ["admin", "manager"],
 
-    # --- 2. LÔ ĐẤT (Plots) ---
-    "plots:read":     ["admin", "technician", "staff"],
-    "plots:create":   ["admin", "technician"],
-    "plots:update":   ["admin", "technician"],
-    "plots:delete":   ["admin", "technician"],
+    "plant_varieties:read": ["admin", "manager", "technician", "staff"],
+    "plant_varieties:create": ["admin", "manager"],
+    "plant_varieties:update": ["admin", "manager"],
+    "plant_varieties:delete": ["admin", "manager"],
 
-    # --- 3. GIỐNG CÂY (Plant Varieties) ---
-    "varieties:read":   ["admin", "technician", "staff"],
-    "varieties:create": ["admin", "technician"],
-    "varieties:update": ["admin", "technician"],
-    "varieties:delete": ["admin", "technician"],
+    "crop_batches:read": ["admin", "manager", "technician", "staff"],
+    "crop_batches:create": ["admin", "manager", "technician"],
+    "crop_batches:update": ["admin", "manager", "technician"],
+    "crop_batches:delete": ["admin", "manager", "technician"],
 
-    # --- 4. NHẬT KÝ CHĂM SÓC (Care Logs) ---
-    "care_logs:read":   ["admin", "technician", "staff"],
-    "care_logs:create": ["admin", "technician", "staff"],
-    "care_logs:update": ["admin", "technician", "staff"],
-    "care_logs:delete": ["admin", "technician"],
+    "care_logs:read": ["admin", "manager", "technician", "staff"],
+    "care_logs:create": ["admin", "manager", "technician", "staff"],
+    "care_logs:update": ["admin", "manager", "technician"],
+    "care_logs:approve": ["admin", "manager", "technician"],
+    "care_logs:delete": ["admin", "manager", "technician"],
 
-    # --- 5. KHO VẬT TƯ (Supplies) ---
-    "supplies:read":   ["admin", "technician", "staff"],
-    "supplies:create": ["admin", "technician"],
-    "supplies:update": ["admin", "technician"],
-    "supplies:delete": ["admin", "technician"],
+    "supplies:read": ["admin", "manager", "technician", "staff"],
+    "supplies:report": ["admin", "manager", "technician", "staff"],
+    "supplies:create": ["admin", "manager"],
+    "supplies:update": ["admin", "manager"],
+    "supplies:delete": ["admin", "manager"],
+    "supplies:approve": ["admin", "manager"],
 
-    # --- 6. THU HOẠCH (Harvests) ---
-    "harvests:read":   ["admin", "technician", "staff"],
-    "harvests:create": ["admin", "technician"],
-    "harvests:update": ["admin", "technician"],
-    "harvests:delete": ["admin", "technician"],
+    "harvests:read": ["admin", "manager", "technician", "staff"],
+    "harvests:create": ["admin", "manager", "technician"],
+    "harvests:update": ["admin", "manager", "technician"],
+    "harvests:delete": ["admin", "manager"],
 
-    # --- 7. QUẢN LÝ TÀI KHOẢN (Users - Chỉ Admin) ---
-    "users:read":   ["admin"],
-    "users:create": ["admin"],
-    "users:update": ["admin"],
-    "users:delete": ["admin"],
+    "traceability:read": ["admin", "manager", "technician", "staff"],
+    "traceability:create": ["admin", "manager", "technician"],
+    "ai:ask": ["admin", "manager", "technician", "staff"],
+    "ai:schedule": ["admin", "manager", "technician"],
+
+    "users:read": ["admin", "manager"],
+    "users:create": ["admin", "manager"],
+    "users:update": ["admin", "manager"],
+    "users:delete": ["admin", "manager"],
 }
 
 

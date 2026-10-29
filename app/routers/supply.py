@@ -1,7 +1,6 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
-from app.core.deps import require_staff
 from app.core.database import get_db
 from app.core.deps import get_current_user, require_roles
 from app.models.user import UserRole
@@ -10,8 +9,6 @@ from app.services import supply as service
 
 router = APIRouter(prefix="/api/supplies", tags=["Supplies"])
 
-@router.post("", dependencies=[Depends(require_staff)])
-@router.put("/{supply_id}", dependencies=[Depends(require_staff)])
 @router.get("", response_model=list[SupplyOut])
 def list_supplies(
     category: Optional[str] = Query(None),
@@ -29,7 +26,11 @@ def supply_alerts(db: Session = Depends(get_db), _user=Depends(get_current_user)
 
 
 @router.get("/{supply_id}", response_model=SupplyOut)
-def get_supply(supply_id: int, db: Session = Depends(get_db)):
+def get_supply(
+    supply_id: int,
+    db: Session = Depends(get_db),
+    _user=Depends(get_current_user),
+):
     return service.get_supply_or_404(db, supply_id)
 
 

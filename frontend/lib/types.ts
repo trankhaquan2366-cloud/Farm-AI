@@ -10,12 +10,15 @@ export interface PlantVariety {
   name: string;
   stock_quantity: number; // Số lượng còn trong kho
   unit: string;           // Đơn vị: kg, khay, bao...
+  growth_days?: number | null
+  growth_duration_days?: number | null
 }
 
 export interface Plot {
   id: number
   name: string
   area_m2: number | null
+  area?: number | null
   location: string | null
   soil_type: string | null
 }
@@ -186,7 +189,8 @@ export interface PlantVariety {
   id: number
   name: string
   category?: string
-  growth_duration_days: number
+  growth_duration_days?: number | null
+  growth_days?: number | null
   stock_quantity: number // Thêm số lượng tồn kho
   unit: string           // Thêm đơn vị (kg, khay, bao...)
 }

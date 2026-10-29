@@ -17,6 +17,8 @@ def to_output(supply: Supply) -> SupplyOut:
         quantity=float(supply.stock_quantity or 0),
         min_threshold=float(supply.min_threshold or 0),
         location=supply.location,
+        usage_notes=supply.usage_notes,
+        storage_notes=supply.storage_notes,
         status=supply.status,
     )
 

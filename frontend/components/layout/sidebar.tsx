@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Leaf, PanelLeftClose, PanelLeftOpen, X } from 'lucide-react'
-import { NAV_ITEMS } from '@/lib/nav'
+import { isNavItemActive, NAV_ITEMS } from '@/lib/nav'
 import { cn, getUserRole } from '@/lib/utils'
 import { RiceStalkArtwork } from '@/components/decor/rice-stalk'
 
@@ -15,16 +15,19 @@ type SidebarProps = {
   onCloseMobile: () => void
 }
 
-export function Sidebar({
+export const Sidebar = memo(function Sidebar({
   collapsed,
   onToggleCollapse,
   mobileOpen,
   onCloseMobile,
 }: SidebarProps) {
   const [role, setRole] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
+  const pathname = usePathname()
 
   // Lấy role của user khi component được mount ở Client
   useEffect(() => {
+    setMounted(true)
     setRole(getUserRole())
   }, [])
 
@@ -93,6 +96,7 @@ export function Sidebar({
               key={item.href}
               item={item}
               collapsed={collapsed}
+              active={mounted && isNavItemActive(pathname, item.href)}
               onNavigate={onCloseMobile}
             />
           ))}
@@ -124,29 +128,32 @@ export function Sidebar({
       </aside>
     </>
   )
-}
+})
 
-function NavLink({
+const NavLink = memo(function NavLink({
   item,
   collapsed,
+  active,
   onNavigate,
 }: {
   item: (typeof NAV_ITEMS)[number]
   collapsed: boolean
+  active: boolean
   onNavigate: () => void
 }) {
-  const pathname = usePathname()
-  const active =
-    item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
   const Icon = item.icon
 
   return (
     <Link
       href={item.href}
+      prefetch={false}
+      replace={false}
       onClick={onNavigate}
       title={collapsed ? item.label : undefined}
+      aria-current={active ? 'page' : undefined}
+      suppressHydrationWarning
       className={cn(
-        'group relative flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors',
+        'group relative z-30 flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors',
         active
           ? 'bg-sidebar-primary text-sidebar-primary-foreground'
           : 'text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
@@ -163,6 +170,7 @@ function NavLink({
           {item.label}
         </span>
         <span
+          suppressHydrationWarning
           className={cn(
             'block truncate text-xs',
             active
@@ -175,4 +183,4 @@ function NavLink({
       </span>
     </Link>
   )
-}
+})
