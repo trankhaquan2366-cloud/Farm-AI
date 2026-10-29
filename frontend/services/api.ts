@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type InternalAxiosRequestConfig } from 'axios';
 
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000', // Server FastAPI
@@ -9,7 +9,7 @@ const api = axios.create({
 
 // Tự động chèn Bearer Token vào Header của mỗi request
 api.interceptors.request.use(
-  (config) => {
+  (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('token') || localStorage.getItem('access_token');
       console.log("Token hiện tại là:", token);
@@ -19,7 +19,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error: unknown) => Promise.reject(error)
 );
 
 export default api;
