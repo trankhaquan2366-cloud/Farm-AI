@@ -16,7 +16,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "frontend/package.json"
+      "dest": "frontend/$1"
     }
   ]
 }
