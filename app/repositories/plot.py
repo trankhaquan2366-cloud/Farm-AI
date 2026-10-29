@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from app.models.plot import Plot
 from app.schemas.plot import PlotCreate, PlotUpdate
@@ -9,6 +10,17 @@ def get_all(db: Session):
 
 def get_by_id(db: Session, plot_id: int):
     return db.query(Plot).filter(Plot.id == plot_id).first()
+
+
+def get_by_code(db: Session, plot_code: str):
+    """Tìm thửa đất theo mã (ví dụ "a1", "LO-309")."""
+    if not plot_code:
+        return None
+    return (
+        db.query(Plot)
+        .filter(func.lower(Plot.code) == str(plot_code).strip().lower())
+        .first()
+    )
 
 
 def create(db: Session, data: PlotCreate):

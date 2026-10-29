@@ -331,35 +331,52 @@ Compose hiện mount `farm.db` để lưu database SQLite cục bộ. Hãy sao l
 
 ## 10. Dữ liệu mẫu (Seed)
 
-Repository có script sinh dữ liệu giả lập quy mô lớn tại `scripts/seed_data.py`. Script tạo 50 user, 30 giống cây, 80 vật tư, 40 lô đất, 120 mẻ trồng và mặc định 8.000 nhật ký trong 90 ngày. Vai trò Worker được lưu là `STAFF` theo enum hiện có của backend.
+Để demo sản phẩm, dùng `scripts/demo_data.py`. Bộ dữ liệu gồm đủ vai trò Admin/Manager/Technician/Staff, lô đất và giống cây, lô đang canh tác cùng các vụ đã thu hoạch, nhật ký chăm sóc, vật tư và lịch sử nhập kho, cảnh báo tồn thấp, thu hoạch, bán hàng, thông báo, gợi ý AI mẫu và mã QR truy xuất. Hoạt động được phân bổ đều trên 12 tháng gần nhất tính từ ngày chạy seed: mỗi tháng có 4 nhật ký, một lượt thu hoạch và một giao dịch bán; các đợt nhập kho và gợi ý chăm sóc cũng có ngày tháng phù hợp. Mọi ngày nghiệp vụ đều không nằm trong tương lai. Chạy lại script sẽ thay thế các bản ghi demo, không xóa dữ liệu khác và không tạo bản ghi trùng.
 
-Cài dependency seed:
+Chạy ở thư mục gốc trên Windows:
 
-```bash
+```powershell
+python scripts\demo_data.py
+```
+
+Tài khoản demo dùng chung mật khẩu `GreenFarmDemo2026!`:
+
+| Vai trò | Tài khoản |
+|---|---|
+| Admin | `demo_admin@greenfarm.local` |
+| Manager | `demo_manager@greenfarm.local` |
+| Technician | `demo_technician@greenfarm.local` |
+| Staff | `demo_staff@greenfarm.local` |
+
+Mã QR mẫu: `DEMO-QR-001` và `DEMO-QR-002`. Các endpoint AI cần `GEMINI_API_KEY` để gọi mô hình thật; gợi ý đã seed chỉ là dữ liệu minh họa.
+
+Reset toàn bộ dữ liệu ứng dụng về trắng, giữ nguyên cấu trúc bảng và lịch sử migration:
+
+```powershell
+python scripts\demo_data.py --reset
+```
+
+Lệnh reset sẽ yêu cầu nhập `RESET`. Khi chạy trong script/terminal không tương tác, dùng:
+
+```powershell
+python scripts\demo_data.py --reset --yes
+```
+
+Mặc định seed/reset dùng SQLite `farm.db` của ứng dụng. Có thể chỉ định database khác; hãy kiểm tra URL trước khi reset:
+
+```powershell
+python scripts\demo_data.py --database-url "sqlite:///./farm_demo_test.db"
+python scripts\demo_data.py --database-url "sqlite:///./farm_demo_test.db" --reset --yes
+```
+
+Để sinh dữ liệu tải kiểm thử quy mô lớn (50 user, 30 giống, 80 vật tư, 40 lô đất, 120 mẻ trồng và ít nhất 5.000 nhật ký), dùng script riêng:
+
+```powershell
 pip install -r requirements-seed.txt
+python scripts\seed_data.py
 ```
 
-Chạy trên database mặc định của ứng dụng:
-
-```bash
-python scripts/seed_data.py
-```
-
-Chạy với số nhật ký khác trong khoảng 5.000–10.000:
-
-```bash
-python scripts/seed_data.py --log-count 5000
-```
-
-Có thể truyền SQLAlchemy URL trực tiếp để chạy trên database thử nghiệm riêng:
-
-```bash
-python scripts/seed_data.py --database-url "sqlite:///./farm_seed_test.db"
-```
-
-Hoặc dùng biến môi trường `DATABASE_URL`. Nếu sử dụng PostgreSQL, cần cài driver PostgreSQL và truyền URL phù hợp; dependency seed có khai báo `psycopg[binary]`. Hãy chạy seed trước trên database thử nghiệm, không chạy dữ liệu giả lập lên production.
-
-Script dùng email sentinel để phát hiện dữ liệu seed đã tồn tại và tránh tạo trùng ở lần chạy tiếp theo. Các tài khoản mẫu dùng chung mật khẩu `password123`; chỉ sử dụng trong môi trường demo/test và đổi/xóa chúng trước khi triển khai thật.
+Script tải kiểm thử hỗ trợ `--database-url` và biến môi trường `DATABASE_URL`. Không dùng seed demo hoặc seed tải kiểm thử trên production.
 
 ## 11. Kiểm thử và kiểm tra chất lượng
 
@@ -405,7 +422,8 @@ Các lệnh trên kiểm tra lint/build/kiểu và cú pháp Python; chúng khô
 │   ├── lib/                     # API client, navigation, types, permissions
 │   └── package.json             # Dependencies và scripts frontend
 ├── scripts/
-│   └── seed_data.py             # Sinh dữ liệu nông trại giả lập
+│   ├── demo_data.py             # Tạo/reset bộ dữ liệu demo
+│   └── seed_data.py             # Sinh dữ liệu tải kiểm thử quy mô lớn
 ├── docker-compose.yml
 ├── requirements.txt
 └── requirements-seed.txt

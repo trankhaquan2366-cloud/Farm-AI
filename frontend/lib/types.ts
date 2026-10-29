@@ -94,10 +94,13 @@ export interface AiAlertOut {
 }
 
 export interface AiSummaryOut {
+  batch_id?: number
   batch_code: string
   log_count: number
   summary: string
   issues_detected: string[]
+  key_issues?: string[]
+  recommendations?: string[]
   referenced_log_ids: number[]
   disclaimer: string
   created_at: string

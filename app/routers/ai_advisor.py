@@ -9,6 +9,8 @@ from app.core.ai_client import call_gemini_structured, DISCLAIMER_TEXT
 from app.models.user import UserRole
 from app.models.crop_batch import CropBatch
 from app.models.care_log import CareLog
+from app.schemas.ai_summary import AiSummaryOut, BatchSummaryRequest
+from app.services import ai_summary as summary_service
 
 router = APIRouter(
     prefix="/api/v1/ai-advisor",
@@ -110,6 +112,20 @@ def build_system_context(
             context_lines.append("- Hiện chưa có dữ liệu lô trồng trong hệ thống.")
 
     return "\n".join(context_lines)
+
+@router.post("/summary", response_model=AiSummaryOut, summary="Tóm tắt nhật ký chăm sóc bằng AI")
+def summarize_with_advisor(
+    request: BatchSummaryRequest,
+    db: Session = Depends(get_db),
+):
+    """Alias tương thích Frontend: POST /api/v1/ai-advisor/summary."""
+    identifier = request.lot_id
+    if identifier is None or str(identifier).strip() == "":
+        identifier = request.crop_batch_id
+    if identifier is None or str(identifier).strip() == "":
+        identifier = request.batch_id
+    return summary_service.summarize_batch(db, identifier if identifier is not None else "")
+
 
 @router.post("/chat")
 def chat_with_advisor(

@@ -23,6 +23,24 @@ ANTI_HALLUCINATION_INSTRUCTIONS = (
 )
 
 
+def sanitize_schema_for_gemini(schema: dict) -> dict:
+    """Remove fields unsupported by Gemini's response schema format."""
+    forbidden_keys = {"additionalProperties", "additional_properties", "title", "$schema"}
+
+    def sanitize_value(value: Any) -> Any:
+        if isinstance(value, dict):
+            return sanitize_schema_for_gemini(value)
+        if isinstance(value, list):
+            return [sanitize_value(item) for item in value]
+        return value
+
+    return {
+        key: sanitize_value(value)
+        for key, value in schema.items()
+        if key not in forbidden_keys
+    }
+
+
 def _get_client() -> genai.Client:
     """Hàm bổ trợ lấy SDK Client và kiểm tra API Key."""
     if not settings.GEMINI_API_KEY:
@@ -117,6 +135,12 @@ def call_gemini_structured(system_prompt: str, user_prompt: str, response_schema
     - response_schema: Class Pydantic mô tả cấu trúc JSON mong muốn.
     """
     client = _get_client()
+    schema_for_gemini = response_schema
+    model_json_schema = getattr(response_schema, "model_json_schema", None)
+    if callable(model_json_schema):
+        schema_for_gemini = model_json_schema()
+    if isinstance(schema_for_gemini, dict):
+        schema_for_gemini = sanitize_schema_for_gemini(schema_for_gemini)
 
     try:
         response = client.models.generate_content(
@@ -127,7 +151,7 @@ def call_gemini_structured(system_prompt: str, user_prompt: str, response_schema
                     f"{system_prompt}\n\n{ANTI_HALLUCINATION_INSTRUCTIONS}"
                 ),
                 response_mime_type="application/json",
-                response_schema=response_schema,
+                response_schema=schema_for_gemini,
                 temperature=0.3,
             ),
         )

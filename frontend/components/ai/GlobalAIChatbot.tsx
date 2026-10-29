@@ -9,6 +9,8 @@ import {
   Bot,
   CalendarDays,
   Check,
+  Copy,
+  Download,
   LoaderCircle,
   MessageCircle,
   NotebookPen,
@@ -19,7 +21,7 @@ import {
 } from 'lucide-react'
 
 import { ThoughtLine } from '@/components/effects/greenfarm-motion'
-import { ApiError, api, fetcher } from '@/lib/api'
+import { ApiError, API_BASE_URL, api, fetcher } from '@/lib/api'
 import { isNavItemActive, NAV_ITEMS } from '@/lib/nav'
 import { normalizeRole, ROLES } from '@/lib/auth/permissions'
 import type { AiAlertOut, AiScheduleOut, AiSummaryOut, CropBatch } from '@/lib/types'
@@ -59,7 +61,7 @@ const QUICK_SUGGESTIONS: Record<string, string[]> = {
 
 const TOOL_TITLES: Record<Exclude<ChatTab, 'chat'>, string> = {
   schedule: 'Đang xây dựng lịch chăm sóc',
-  summary: 'Đang tổng hợp nhật ký',
+  summary: 'Gemini AI đang tổng hợp nhật ký...',
   alerts: 'Đang rà soát cảnh báo',
 }
 
@@ -81,6 +83,43 @@ function getSuggestions(pathname: string) {
   return QUICK_SUGGESTIONS[route?.href ?? '/'] ?? QUICK_SUGGESTIONS['/']
 }
 
+/**
+ * Gọi API tóm tắt nhật ký AI.
+ * Gửi cả lot_id và batch_id để backend tự phân giải (ID số, mã lô, tên lô, mã thửa đất).
+ * Log rõ status + body khi lỗi để dễ chẩn đoán thay vì chỉ hiện thông báo chung chung.
+ */
+async function fetchSummary(lotId: string): Promise<AiSummaryOut> {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  const token = typeof window !== 'undefined'
+    ? localStorage.getItem('token')
+      || localStorage.getItem('access_token')
+      || sessionStorage.getItem('token')
+      || sessionStorage.getItem('access_token')
+    : null
+  if (token) headers.Authorization = `Bearer ${token}`
+
+  const res = await fetch(`${API_BASE_URL}/ai-summary/summary`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ lot_id: lotId, batch_id: lotId }),
+  })
+
+  if (!res.ok) {
+    const errorBody = await res.text()
+    console.error('Summary API Error:', res.status, errorBody)
+    let message = 'Không thể tải phân tích AI. Vui lòng thử lại.'
+    try {
+      const parsed = JSON.parse(errorBody) as { message?: string; detail?: string }
+      message = parsed.message || parsed.detail || message
+    } catch {
+      // Body không phải JSON (ví dụ trang HTML lỗi 404) -> dùng thông báo mặc định.
+    }
+    throw new Error(message)
+  }
+
+  return (await res.json()) as AiSummaryOut
+}
+
 export function GlobalAIChatbot() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
@@ -90,6 +129,8 @@ export function GlobalAIChatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [copiedTarget, setCopiedTarget] = useState<number | 'conversation' | null>(null)
+  const [clipboardError, setClipboardError] = useState('')
   const [toolResult, setToolResult] = useState<ToolResult | null>(null)
   const [toolError, setToolError] = useState('')
   const [isToolLoading, setIsToolLoading] = useState(false)
@@ -100,6 +141,8 @@ export function GlobalAIChatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
+  const downloadLinkRef = useRef<HTMLAnchorElement>(null)
+  const copyFeedbackTimeoutRef = useRef<number | null>(null)
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
   const wasOpen = useRef(false)
   const { data: batches = [] } = useSWR<CropBatch[]>(
@@ -178,15 +221,21 @@ export function GlobalAIChatbot() {
         const result = activeTab === 'schedule'
           ? await api<AiScheduleOut>(`/ai-schedule/batches/${batchId}/schedule`, { method: 'POST' })
           : activeTab === 'summary'
-            ? await api<AiSummaryOut>(`/ai-summary/batches/${batchId}/summary`, { method: 'POST' })
+            ? await fetchSummary(selectedBatchId)
             : await api<AiAlertOut>('/ai-alert/alerts', { method: 'POST' })
-        if (!cancelled) setToolResult(result)
+        if (!cancelled) {
+          setToolResult(result)
+          // Chỉ bật lỗi khi thực sự không có nội dung để hiển thị.
+          setToolError('')
+        }
       } catch (error) {
         if (!cancelled) {
           setToolError(
             error instanceof ApiError
               ? error.message
-              : 'Không thể tải phân tích AI. Vui lòng thử lại.',
+              : error instanceof Error && error.message
+                ? error.message
+                : 'Không thể tải phân tích AI. Vui lòng thử lại.',
           )
         }
       } finally {
@@ -215,6 +264,12 @@ export function GlobalAIChatbot() {
     document.addEventListener('keydown', closeOnEscape)
     return () => document.removeEventListener('keydown', closeOnEscape)
   }, [isOpen])
+
+  useEffect(() => () => {
+    if (copyFeedbackTimeoutRef.current !== null) {
+      window.clearTimeout(copyFeedbackTimeoutRef.current)
+    }
+  }, [])
 
   async function sendMessage(text: string) {
     const message = text.trim()
@@ -250,6 +305,72 @@ export function GlobalAIChatbot() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  async function copyText(text: string, target: number | 'conversation') {
+    try {
+      await navigator.clipboard.writeText(text)
+      setClipboardError('')
+      setCopiedTarget(target)
+      if (copyFeedbackTimeoutRef.current !== null) {
+        window.clearTimeout(copyFeedbackTimeoutRef.current)
+      }
+      copyFeedbackTimeoutRef.current = window.setTimeout(() => {
+        setCopiedTarget(null)
+        copyFeedbackTimeoutRef.current = null
+      }, 2000)
+    } catch (error) {
+      console.error('Không thể sao chép nội dung chat:', error)
+      setCopiedTarget(null)
+      setClipboardError('Không thể sao chép. Hãy kiểm tra quyền clipboard của trình duyệt.')
+    }
+  }
+
+  function copyConversation() {
+    const transcript = messages
+      .map((message) => `**${message.role === 'user' ? 'Người dùng' : 'Cố vấn AI'}:** ${message.text}`)
+      .join('\n\n')
+    void copyText(transcript, 'conversation')
+  }
+
+  function downloadConversation() {
+    if (messages.length === 0) return
+
+    const now = new Date()
+    const contextName = selectedBatch?.batch_name
+      || selectedBatch?.batch_code
+      || (selectedBatchId ? `Lô ${selectedBatchId}` : 'Không chọn lô')
+    const filenameContext = (selectedBatch?.batch_code || selectedBatch?.batch_name || selectedBatchId || 'khong_chon_lo')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-zA-Z0-9_-]+/g, '_')
+      .replace(/^_+|_+$/g, '') || 'khong_chon_lo'
+    const date = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, '0'),
+      String(now.getDate()).padStart(2, '0'),
+    ].join('-')
+    const transcript = messages
+      .map((message) => `**${message.role === 'user' ? 'Người dùng' : 'Cố vấn AI'}:** ${message.text}`)
+      .join('\n\n')
+    const report = [
+      '# BÁO CÁO TƯ VẤN AI GREENFARM',
+      `- Ngữ cảnh lô: ${contextName}`,
+      `- Thời gian xuất: ${now.toLocaleString('vi-VN')}`,
+      '---',
+      transcript,
+    ].join('\n\n')
+    const downloadLink = downloadLinkRef.current
+    if (!downloadLink) return
+
+    const objectUrl = URL.createObjectURL(new Blob([report], { type: 'text/markdown;charset=utf-8' }))
+    downloadLink.href = objectUrl
+    downloadLink.download = `AI_Chat_Lo_${filenameContext}_${date}.md`
+    downloadLink.click()
+    window.setTimeout(() => {
+      URL.revokeObjectURL(objectUrl)
+      downloadLink.removeAttribute('href')
+    }, 0)
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -385,6 +506,43 @@ export function GlobalAIChatbot() {
           >
             {activeTab === 'chat' ? (
               <>
+                <div className="mb-3 flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                  <p className="text-xs font-semibold text-slate-700">Cuộc hội thoại</p>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={copyConversation}
+                      disabled={messages.length === 0}
+                      aria-label="Sao chép cuộc hội thoại"
+                      className="inline-flex min-h-8 items-center gap-1.5 rounded-lg px-2 text-[11px] font-medium text-emerald-900 transition-colors hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 disabled:cursor-not-allowed disabled:opacity-45"
+                    >
+                      {copiedTarget === 'conversation'
+                        ? <Check className="size-3.5" aria-hidden="true" />
+                        : <Copy className="size-3.5" aria-hidden="true" />}
+                      <span className="hidden sm:inline">
+                        {copiedTarget === 'conversation' ? 'Đã sao chép' : 'Sao chép cuộc hội thoại'}
+                      </span>
+                      <span className="sm:hidden">
+                        {copiedTarget === 'conversation' ? 'Đã chép' : 'Sao chép'}
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={downloadConversation}
+                      disabled={messages.length === 0}
+                      className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-emerald-900/15 px-2 text-[11px] font-medium text-emerald-900 transition-colors hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 disabled:cursor-not-allowed disabled:opacity-45"
+                    >
+                      <Download className="size-3.5" aria-hidden="true" />
+                      Tải về
+                    </button>
+                    <a ref={downloadLinkRef} hidden aria-hidden="true" />
+                  </div>
+                </div>
+                {clipboardError && (
+                  <p role="alert" className="mb-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs leading-5 text-rose-800">
+                    {clipboardError}
+                  </p>
+                )}
                 <div className="min-h-0 flex-1 overflow-y-auto">
                   {messages.length === 0 ? (
                     <div className="flex min-h-full flex-col justify-center">
@@ -415,15 +573,31 @@ export function GlobalAIChatbot() {
                           key={message.id}
                           className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
-                          <p
-                            className={`max-w-[88%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-5 ${
-                              message.role === 'user'
-                                ? 'rounded-br-md bg-emerald-800 text-white'
-                                : 'rounded-bl-md bg-slate-100 text-slate-800'
-                            }`}
-                          >
-                            {message.text}
-                          </p>
+                          <div className="flex max-w-[88%] flex-col">
+                            <p
+                              className={`whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-5 ${
+                                message.role === 'user'
+                                  ? 'rounded-br-md bg-emerald-800 text-white'
+                                  : 'rounded-bl-md bg-slate-100 text-slate-800'
+                              }`}
+                            >
+                              {message.text}
+                            </p>
+                            {message.role === 'assistant' && (
+                              <button
+                                type="button"
+                                onClick={() => void copyText(message.text, message.id)}
+                                aria-label={copiedTarget === message.id ? 'Đã sao chép câu trả lời' : 'Sao chép câu trả lời'}
+                                title={copiedTarget === message.id ? 'Đã sao chép' : 'Sao chép câu trả lời'}
+                                className="mt-1 inline-flex min-h-8 w-fit items-center gap-1.5 rounded-md px-2 text-[11px] text-slate-500 transition-colors hover:bg-emerald-50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700"
+                              >
+                                {copiedTarget === message.id
+                                  ? <Check className="size-3.5" aria-hidden="true" />
+                                  : <Copy className="size-3.5" aria-hidden="true" />}
+                                {copiedTarget === message.id ? 'Đã sao chép' : 'Sao chép'}
+                              </button>
+                            )}
+                          </div>
                         </div>
                       ))}
                       {isLoading && (
@@ -549,7 +723,7 @@ function ToolPanel({
 
       {isLoading && (
         <ThoughtLine
-          working
+          working={isLoading}
           label={TOOL_TITLES[tab]}
           steps={[
             `Đọc dữ liệu của ${batchLabel}`,
@@ -560,9 +734,18 @@ function ToolPanel({
       )}
 
       {error && (
-        <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-xs leading-5 text-rose-800">
-          {error}
-        </p>
+        <div role="alert" className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-xs leading-5 text-rose-800">
+          <p>{error}</p>
+          <button
+            type="button"
+            onClick={onRefresh}
+            disabled={isLoading}
+            className="mt-2 inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-rose-300 bg-white px-2.5 font-semibold text-rose-900 hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 disabled:opacity-50"
+          >
+            <RefreshCw className={`size-3.5 ${isLoading ? 'animate-spin' : ''}`} aria-hidden="true" />
+            Thử lại
+          </button>
+        </div>
       )}
 
       {!isLoading && result && tab === 'schedule' && 'schedule' in result && (
@@ -594,17 +777,36 @@ function ToolPanel({
         <article className="space-y-3 rounded-xl border border-slate-200 p-3.5">
           <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
             <Check className="size-4 text-emerald-700" aria-hidden="true" />
-            {result.log_count} ghi chép · {result.batch_code}
+            {result.log_count ?? 0} ghi chép · {result.batch_code || batchLabel}
           </div>
-          <p className="whitespace-pre-wrap text-sm leading-6 text-slate-800">{result.summary}</p>
-          {result.issues_detected.length > 0 && (
-            <div>
-              <p className="mb-1.5 text-xs font-semibold text-amber-900">Điểm cần lưu ý</p>
-              <ul className="list-inside list-disc space-y-1 text-xs leading-5 text-slate-700">
-                {result.issues_detected.map((issue, index) => <li key={`${issue}-${index}`}>{issue}</li>)}
+          <section className="rounded-xl bg-emerald-50 px-3.5 py-3">
+            <h3 className="text-xs font-semibold text-emerald-950">Tóm tắt</h3>
+            <p className="mt-1 whitespace-pre-wrap text-sm leading-6 text-slate-800">
+              {result.summary?.trim() || 'Chưa có nội dung tóm tắt từ AI cho lô này.'}
+            </p>
+          </section>
+          <section className="rounded-xl bg-amber-50 px-3.5 py-3">
+            <h3 className="text-xs font-semibold text-amber-950">Vấn đề ghi nhận</h3>
+            {(result.key_issues ?? result.issues_detected ?? []).length > 0 ? (
+              <ul className="mt-1 list-inside list-disc space-y-1 text-xs leading-5 text-slate-700">
+                {(result.key_issues ?? result.issues_detected ?? []).map((issue, index) => <li key={`${issue}-${index}`}>{issue}</li>)}
               </ul>
-            </div>
-          )}
+            ) : (
+              <p className="mt-1 text-xs leading-5 text-slate-600">Chưa ghi nhận vấn đề nổi bật.</p>
+            )}
+          </section>
+          <section className="rounded-xl bg-emerald-50 px-3.5 py-3">
+            <h3 className="text-xs font-semibold text-emerald-950">Đề xuất</h3>
+            {result.recommendations?.length ? (
+              <ul className="mt-1 list-inside list-disc space-y-1 text-xs leading-5 text-slate-700">
+                {result.recommendations.map((recommendation, index) => (
+                  <li key={`${recommendation}-${index}`}>{recommendation}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-1 text-xs leading-5 text-slate-600">Chưa có đề xuất bổ sung.</p>
+            )}
+          </section>
           <p className="border-t border-slate-100 pt-2 text-[11px] leading-5 text-slate-500">{result.disclaimer}</p>
         </article>
       )}

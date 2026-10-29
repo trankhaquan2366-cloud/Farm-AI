@@ -1,5 +1,4 @@
 from typing import Optional, Union
-from sqlalchemy import or_
 from sqlalchemy.orm import Session
 from app.models.care_log import CareLog
 from app.schemas.care_log import CareLogCreate
@@ -7,16 +6,16 @@ from app.schemas.care_log import CareLogCreate
 def get_all(db: Session, batch_id: Optional[int] = None):
     query = db.query(CareLog)
     if batch_id:
-        query = query.filter(
-            or_(CareLog.batch_id == batch_id, CareLog.crop_batch_id == batch_id)
-        )
+        # Cột legacy "batch_id" tồn tại trong SQLite nhưng KHÔNG được map ở ORM,
+        # nên chỉ lọc theo crop_batch_id để tránh AttributeError -> HTTP 500.
+        query = query.filter(CareLog.crop_batch_id == batch_id)
     return query.order_by(CareLog.id.desc()).all()
 
 
 def get_by_batch(db: Session, batch_id: int):
     return (
         db.query(CareLog)
-        .filter(or_(CareLog.batch_id == batch_id, CareLog.crop_batch_id == batch_id))
+        .filter(CareLog.crop_batch_id == batch_id)
         .order_by(CareLog.id.asc())
         .all()
     )

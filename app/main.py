@@ -82,6 +82,8 @@ app.include_router(ai_advisor.router)
 app.include_router(ai_alert.router)
 app.include_router(ai_schedule.router)
 app.include_router(ai_summary.router)
+if hasattr(ai_summary, "router_v1"):
+    app.include_router(ai_summary.router_v1)
 app.include_router(traceability.router)
 app.include_router(supply.router)
 app.include_router(dashboard.router)
