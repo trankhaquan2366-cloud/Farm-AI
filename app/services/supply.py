@@ -58,8 +58,12 @@ def import_supply(db: Session, supply_id: int, data: SupplyImportCreate, user_id
 
 
 def get_alerts(db: Session):
+    from sqlalchemy.orm import selectinload
+
     alerts = []
-    for supply in db.query(Supply).all():
+    # selectinload gom toàn bộ lô nhập kho trong 1 truy vấn thay vì N+1 theo từng vật tư.
+    supplies = db.query(Supply).options(selectinload(Supply.imports)).all()
+    for supply in supplies:
         if (supply.stock_quantity or 0) <= (supply.min_threshold or 0):
             alerts.append({
                 "supply_id": supply.id,

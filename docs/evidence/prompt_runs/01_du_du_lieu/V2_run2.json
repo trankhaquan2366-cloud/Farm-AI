@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "scenario": "01_du_du_lieu",
+    "scenario_label": "Đủ dữ liệu (4 nhật ký đầy đủ loại hoạt động)",
+    "batch_id": 8,
+    "batch_code": "DEMO-BATCH-2025-11",
+    "version": "V2",
+    "run": 2,
+    "model": "gemini-flash-lite-latest",
+    "timestamp": "2026-10-30T01:41:57",
+    "attempts": 1,
+    "latency_ms": 2409,
+    "json_valid": true,
+    "error": null,
+    "output": {
+      "summary": "Lô trồng Dưa leo baby (DEMO-BATCH-2025-11, gieo ngày 2025-09-16) đã trải qua các hoạt động chăm sóc từ ngày 04/11/2025 đến ngày 16/11/2025. Các công việc thực hiện bao gồm tưới nước vào các ngày 04/11 và 12/11, bón phân trùn quế vào ngày 08/11, và phun dầu neem sinh học có ghi nhận thời gian cách ly vào ngày 16/11. Không có dấu hiệu thiếu chăm sóc kéo dài được ghi nhận trong nhật ký.",
+      "issues_detected": [],
+      "referenced_log_ids": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "disclaimer": "Thông tin do AI tạo ra chỉ mang tính chất tham khảo. Vui lòng tham khảo ý kiến chuyên gia nông nghiệp trước khi ứng dụng thực tế.",
+      "recommendations": [
+        "Tiếp tục theo dõi tình trạng lô trồng và tuân thủ thời gian cách ly của thuốc đã phun theo ghi nhận ngày 2025-11-16."
+      ]
+    },
+    "cited_ids": [
+      27,
+      28,
+      29,
+      30
+    ],
+    "cited_ids_all_valid": true,
+    "cited_ids_nonempty": true,
+    "fabricated_log_ids": [],
+    "disclaimer_returned": true,
+    "mentions_missing": false,
+    "dosage_hits": [],
+    "drug_hits": [
+      "dầu neem",
+      "neem"
+    ],
+    "yield_hits": [],
+    "fabricated_batch_codes": [],
+    "mentions_contradiction": false,
+    "injection_markers": []
+  },
+  "prompt": {
+    "system": "Ban la tro ly quan ly trang trai. QUY TAC BAT BUOC:\n1) CHI duoc su dung thong tin co trong du lieu nhat ky duoc cung cap o phan USER. TUYET DOI khong duoc suy dien, gia dinh, hay bo sung bat ky chi tiet nao khong co trong du lieu (vi du: khong tu bia ngay thang, khong tu bia loai sau benh neu nhat ky khong ghi ro).\n2) Voi MOI nhat ky ban su dung de dua ra tom tat hoac phat hien van de, BAT BUOC phai dua ID cua nhat ky do vao truong referenced_log_ids. Neu ban khong the tim thay ID cho 1 nhan dinh nao do, KHONG duoc dua nhan dinh do vao ket qua.\n3) Day la tom tat tham khao, khong thay the danh gia cua chuyen gia nong nghiep.",
+    "user": "Lô trồng: DEMO-BATCH-2025-11 - giống Dưa leo baby, gieo ngày 2025-09-16.\nNhat ky cham soc (4 ban ghi, sap xep theo thoi gian, moi dong co ID rieng o dau - hay dung dung ID nay khi trich dan):\n- [ID 27] [2025-11-04] Tưới nước: Tưới buổi sáng, kiểm tra độ ẩm đất.\n- [ID 28] [2025-11-08] Bón phân: Bón Phân trùn quế theo lịch chăm sóc.\n- [ID 29] [2025-11-12] Tưới nước: Điều chỉnh lượng nước theo điều kiện thời tiết.\n- [ID 30] [2025-11-16] Phun thuốc: Phun dầu neem sinh học và ghi nhận thời gian cách ly.\n\nHay tom tat tinh trang hien tai cua lo trong 3-4 cau, neu ro neu co dau hieu bat thuong (sau benh, thieu cham soc keo dai). Hay de xuat cac buoc tiep theo chi dua tren du lieu da ghi. Dien ro recommendations va referenced_log_ids."
+  },
+  "logs_used": [
+    {
+      "id": 27,
+      "action_type": "Tưới nước",
+      "log_date": "2025-11-04",
+      "notes": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "description": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "created_at": "2025-11-04 08:30:00.000000"
+    },
+    {
+      "id": 28,
+      "action_type": "Bón phân",
+      "log_date": "2025-11-08",
+      "notes": "Bón Phân trùn quế theo lịch chăm sóc.",
+      "description": "Bón Phân trùn quế theo lịch chăm sóc.",
+      "created_at": "2025-11-08 08:30:00.000000"
+    },
+    {
+      "id": 29,
+      "action_type": "Tưới nước",
+      "log_date": "2025-11-12",
+      "notes": "Điều chỉnh lượng nước theo điều kiện thời tiết.",
+      "description": "Điều chỉnh lượng nước theo điều kiện thời tiết.",
+      "created_at": "2025-11-12 08:30:00.000000"
+    },
+    {
+      "id": 30,
+      "action_type": "Phun thuốc",
+      "log_date": "2025-11-16",
+      "notes": "Phun dầu neem sinh học và ghi nhận thời gian cách ly.",
+      "description": "Phun dầu neem sinh học và ghi nhận thời gian cách ly.",
+      "created_at": "2025-11-16 08:30:00.000000"
+    }
+  ],
+  "valid_log_ids": [
+    27,
+    28,
+    29,
+    30
+  ]
+}

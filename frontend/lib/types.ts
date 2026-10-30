@@ -91,6 +91,7 @@ export interface AiAlertOut {
   priority_batches: AiAlertBatchItem[]
   disclaimer: string
   created_at: string
+  ai_available?: boolean
 }
 
 export interface AiSummaryOut {
@@ -104,6 +105,7 @@ export interface AiSummaryOut {
   referenced_log_ids: number[]
   disclaimer: string
   created_at: string
+  ai_available?: boolean
 }
 
 export interface AiScheduleItem {
@@ -141,8 +143,11 @@ export interface FarmingLog {
 
 export interface AiAdvisorResponse {
   answer: string
+  reply?: string
+  response?: string
   disclaimer: string
   generated_at: string
+  ai_available?: boolean
 }
 // ============================================================
 // BỔ SUNG: Truy xuất nguồn gốc — khớp 1-1 với app/schemas/traceability.py

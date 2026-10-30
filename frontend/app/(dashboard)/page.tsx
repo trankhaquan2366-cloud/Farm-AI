@@ -3,40 +3,107 @@
 import useSWR from 'swr'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Sprout, Layers, PackageCheck, Ruler, QrCode } from 'lucide-react'
+import { memo, useEffect, useMemo, useState } from 'react'
+import { AlertCircle, Sprout, Layers, PackageCheck, Ruler, QrCode, ShieldAlert } from 'lucide-react'
 import { fetcher } from '@/lib/api'
+import { hasPermission, PERMISSIONS } from '@/lib/auth/permissions'
 import type { Plot, CropBatch, Harvest } from '@/lib/types'
 import { HarvestYieldChart } from '@/components/dashboard/harvest-yield-chart'
 import { CountUp, SplitText, StarBorder } from '@/components/effects/greenfarm-motion'
 
+// Icon tĩnh dùng lại -> giữ nguyên tham chiếu React element, giúp DashboardStat memo hiệu quả.
+const AREA_ICON = <Ruler className="size-5" />
+const LAYERS_ICON = <Layers className="size-5" />
+const SPROUT_ICON = <Sprout className="size-5" />
+const PACKAGE_ICON = <PackageCheck className="size-5" />
+
 export default function DashboardPage() {
   const router = useRouter()
-  const { data: plots, isLoading: loadingPlots } = useSWR<Plot[]>('/api/plots', fetcher)
-  const { data: batches, isLoading: loadingBatches } = useSWR<CropBatch[]>(
+  const [userRole, setUserRole] = useState('')
+  const [forbidden, setForbidden] = useState(false)
+  const { data: plots, error: plotsError, isLoading: loadingPlots } = useSWR<Plot[]>(
+    '/api/plots',
+    fetcher,
+  )
+  const { data: batches, error: batchesError, isLoading: loadingBatches } = useSWR<CropBatch[]>(
     '/api/batches',
     fetcher,
   )
-  const { data: harvests, isLoading: loadingHarvests } = useSWR<Harvest[]>(
+  const { data: harvests, error: harvestsError, isLoading: loadingHarvests } = useSWR<Harvest[]>(
     '/api/harvests',
     fetcher,
     { shouldRetryOnError: false },
   )
 
-  const totalArea = plots?.reduce(
-    (total, plot) => total + Number(plot.area_m2 ?? ('area' in plot ? plot.area : 0) ?? 0),
-    0,
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem('user')
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser)
+        setUserRole(parsedUser.role?.toLowerCase() || '')
+      } catch (error) {
+        console.error('Lỗi đọc dữ liệu người dùng:', error)
+      }
+    }
+    setForbidden(new URLSearchParams(window.location.search).get('forbidden') === '1')
+  }, [])
+
+  const canCreateBatch = hasPermission(userRole, PERMISSIONS.BATCH_CREATE)
+  const loadError = plotsError || batchesError || harvestsError
+
+  const totalArea = useMemo(
+    () =>
+      plots?.reduce(
+        (total, plot) => total + Number(plot.area_m2 ?? ('area' in plot ? plot.area : 0) ?? 0),
+        0,
+      ),
+    [plots],
   )
-  const totalProduction = harvests?.reduce(
-    (total, harvest) => total + Number(harvest.quantity_kg ?? ('quantity' in harvest ? harvest.quantity : 0) ?? 0),
-    0,
+  const totalProduction = useMemo(
+    () =>
+      harvests?.reduce(
+        (total, harvest) =>
+          total + Number(harvest.quantity_kg ?? ('quantity' in harvest ? harvest.quantity : 0) ?? 0),
+        0,
+      ),
+    [harvests],
   )
-  const growingCount =
-    batches?.filter((batch) =>
-      ['growing', 'planting', 'đang trồng'].includes(String(batch.status).toLowerCase()),
-    ).length ?? 0
+  const growingCount = useMemo(
+    () =>
+      batches?.filter((batch) =>
+        ['growing', 'planting', 'đang trồng', 'đang sinh trưởng'].includes(String(batch.status).toLowerCase()),
+      ).length ?? 0,
+    [batches],
+  )
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 pb-10">
+      {forbidden && (
+        <div
+          role="alert"
+          className="flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950"
+        >
+          <ShieldAlert className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+          <p>Bạn không có quyền truy cập trang này.</p>
+        </div>
+      )}
+
+      {loadError && (
+        <div
+          role="alert"
+          className="flex items-start gap-3 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-900"
+        >
+          <AlertCircle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+          <div>
+            <p className="font-semibold">Không tải được dữ liệu trang tổng quan.</p>
+            <p className="mt-1">
+              Một số chỉ số có thể chưa chính xác. Vui lòng kiểm tra kết nối tới máy chủ
+              và tải lại trang.
+            </p>
+          </div>
+        </div>
+      )}
+
       <section className="dashboard-hero">
         <div className="max-w-3xl">
           <p className="mb-3 text-sm font-medium text-white/70">
@@ -54,14 +121,16 @@ export default function DashboardPage() {
             trong một nơi.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-4">
-            <StarBorder
-              type="button"
-              className="dashboard-hero__action"
-              onClick={() => router.push('/batches?create=1')}
-            >
-              <Sprout className="size-4" />
-              Tạo Lô trồng mới
-            </StarBorder>
+            {canCreateBatch && (
+              <StarBorder
+                type="button"
+                className="dashboard-hero__action"
+                onClick={() => router.push('/batches?create=1')}
+              >
+                <Sprout className="size-4" />
+                Tạo Lô trồng mới
+              </StarBorder>
+            )}
             <Link
               href="/traceability"
               className="inline-flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-white/80 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -89,19 +158,19 @@ export default function DashboardPage() {
             label="Tổng diện tích"
             value={totalArea}
             suffix="m²"
-            icon={<Ruler className="size-5" />}
+            icon={AREA_ICON}
             loading={loadingPlots}
           />
           <DashboardStat
             label="Số lô trồng"
             value={batches?.length}
-            icon={<Layers className="size-5" />}
+            icon={LAYERS_ICON}
             loading={loadingBatches}
           />
           <DashboardStat
             label="Đang sinh trưởng"
             value={growingCount}
-            icon={<Sprout className="size-5" />}
+            icon={SPROUT_ICON}
             loading={loadingBatches}
             accent
           />
@@ -109,7 +178,7 @@ export default function DashboardPage() {
             label="Sản lượng đã ghi nhận"
             value={totalProduction}
             suffix="kg"
-            icon={<PackageCheck className="size-5" />}
+            icon={PACKAGE_ICON}
             loading={loadingHarvests}
             unavailable={!loadingHarvests && !harvests}
           />
@@ -123,7 +192,7 @@ export default function DashboardPage() {
   )
 }
 
-function DashboardStat({
+const DashboardStat = memo(function DashboardStat({
   label,
   value,
   suffix,
@@ -157,4 +226,4 @@ function DashboardStat({
       </div>
     </div>
   )
-}
+})

@@ -1,0 +1,14 @@
+D:\Project AI SChoool\farm_backend\venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+DATABASE_URL=sqlite:///./farm_demo.db
+BATCH_CODE=DEMO-BATCH-2025-11
+/api/plots -> 200 median=4.1ms min=3.4 max=6.8 sql=2 (warm=200)
+/api/batches -> 200 median=7.8ms min=7.0 max=9.2 sql=4 (warm=200)
+/api/varieties -> 200 median=3.8ms min=3.5 max=7.0 sql=2 (warm=200)
+/api/care-logs -> 200 median=6.3ms min=5.5 max=6.4 sql=2 (warm=200)
+/api/supplies -> 200 median=4.0ms min=3.4 max=7.2 sql=2 (warm=200)
+/api/supplies/alerts -> 200 median=5.3ms min=4.0 max=5.5 sql=3 (warm=200)
+/api/harvests -> 200 median=3.3ms min=3.1 max=4.6 sql=2 (warm=200)
+/api/dashboard/harvest-chart?view=month -> 200 median=5.9ms min=5.0 max=7.0 sql=3 (warm=200)
+/api/batches/code/DEMO-BATCH-2025-11/trace -> 200 median=4.8ms min=4.4 max=6.5 sql=3 (warm=200)
+/api/crop-batches/trace/DEMO-BATCH-2025-11 -> 200 median=6.9ms min=5.8 max=13.0 sql=3 (warm=200)

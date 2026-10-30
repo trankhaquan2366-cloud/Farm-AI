@@ -8,8 +8,8 @@ class SupplyUsage(Base):
     __tablename__ = "supply_usage"
 
     id = Column(Integer, primary_key=True, index=True)
-    care_log_id = Column(Integer, ForeignKey("care_logs.id"), nullable=False)
-    supply_id = Column(Integer, ForeignKey("supplies.id"), nullable=False)
+    care_log_id = Column(Integer, ForeignKey("care_logs.id"), nullable=False, index=True)
+    supply_id = Column(Integer, ForeignKey("supplies.id"), nullable=False, index=True)
     quantity_used = Column(Float, nullable=False)
     used_at = Column(DateTime, nullable=False, server_default=func.now())
     notes = Column(String(255), nullable=True)

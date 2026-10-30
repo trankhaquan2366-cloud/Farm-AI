@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.core.deps import require_roles
+from app.core.deps import get_current_user, require_roles
 from app.models.user import UserRole
 from app.schemas.ai_summary import AiSummaryOut, BatchSummaryRequest
 from app.services import ai_summary as service
@@ -27,16 +27,18 @@ def _extract_identifier(request: BatchSummaryRequest):
 def summarize_by_path(
     batch_id: str,
     db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
 ) -> AiSummaryOut:
     """Nhận ID số (2) hoặc mã/tên lô ("a1", "LO-309", "CB-1789654127")."""
-    return service.summarize_batch(db, batch_id)
+    return service.summarize_batch(db, batch_id, current_user)
 
 
 def summarize_by_body(
     request: BatchSummaryRequest,
     db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
 ) -> AiSummaryOut:
-    return service.summarize_batch(db, _extract_identifier(request))
+    return service.summarize_batch(db, _extract_identifier(request), current_user)
 
 
 def _register_routes(target: APIRouter) -> APIRouter:

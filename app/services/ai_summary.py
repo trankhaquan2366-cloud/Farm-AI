@@ -1,6 +1,7 @@
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from datetime import datetime
+from fastapi import HTTPException
 import json
 import logging
 
@@ -11,6 +12,7 @@ from app.repositories import care_log as care_log_repo
 from app.repositories import plot as plot_repo
 from app.repositories import ai_suggestion as ai_repo
 from app.core.ai_client import call_gemini_structured, DISCLAIMER_TEXT
+from app.core import ai_guard
 from app.schemas.ai_summary import SummaryAIRaw, AiSummaryOut
 
 logger = logging.getLogger(__name__)
@@ -37,17 +39,18 @@ ACTIVE_STATUS_KEYWORDS = (
 )
 
 SYSTEM_PROMPT = (
-    "Ban la tro ly quan ly trang trai. QUY TAC BAT BUOC:\n"
-    "1) CHI duoc su dung thong tin co trong du lieu nhat ky duoc cung cap o "
-    "phan USER. TUYET DOI khong duoc suy dien, gia dinh, hay bo sung bat ky "
-    "chi tiet nao khong co trong du lieu (vi du: khong tu bia ngay thang, "
-    "khong tu bia loai sau benh neu nhat ky khong ghi ro).\n"
-    "2) Voi MOI nhat ky ban su dung de dua ra tom tat hoac phat hien van de, "
-    "BAT BUOC phai dua ID cua nhat ky do vao truong referenced_log_ids. "
-    "Neu ban khong the tim thay ID cho 1 nhan dinh nao do, KHONG duoc dua "
-    "nhan dinh do vao ket qua.\n"
-    "3) Day la tom tat tham khao, khong thay the danh gia cua chuyen gia "
-    "nong nghiep."
+    "Bạn là trợ lý quản lý trang trại. QUY TẮC BẮT BUỘC:\n"
+    "1) CHỈ được sử dụng thông tin có trong dữ liệu nhật ký được cung cấp ở "
+    "phần USER. TUYỆT ĐỐI không được suy diễn, giả định, hay bổ sung bất kỳ "
+    "chi tiết nào không có trong dữ liệu (ví dụ: không tự bịa ngày tháng, "
+    "không tự bịa loại sâu bệnh nếu nhật ký không ghi rõ).\n"
+    "2) Với MỌI nhật ký bạn sử dụng để đưa ra tóm tắt hoặc phát hiện vấn đề, "
+    "BẮT BUỘC phải đưa ID của nhật ký đó vào trường referenced_log_ids. "
+    "Nếu bạn không thể tìm thấy ID cho một nhận định nào đó, KHÔNG được đưa "
+    "nhận định đó vào kết quả.\n"
+    "3) Đây là tóm tắt tham khảo, không thay thế đánh giá của chuyên gia "
+    "nông nghiệp.\n"
+    f"{ai_guard.SAFETY_RULES}"
 )
 
 
@@ -146,6 +149,10 @@ def _build_result(
     log_count: int = 0,
     referenced_log_ids=(),
     created_at: datetime | None = None,
+    ai_available: bool = True,
+    missing_data=(),
+    contradictions=(),
+    guard_triggered: bool = False,
 ) -> AiSummaryOut:
     """Tạo response ĐẦY ĐỦ mọi trường để không bao giờ lỗi ResponseValidationError."""
     issues_list = list(issues or [])
@@ -160,6 +167,10 @@ def _build_result(
         referenced_log_ids=list(referenced_log_ids or []),
         disclaimer=DISCLAIMER_TEXT,
         created_at=created_at or datetime.now(),
+        missing_data=list(missing_data or []),
+        contradictions=list(contradictions or []),
+        guard_triggered=guard_triggered,
+        ai_available=ai_available,
     )
 
 
@@ -186,10 +197,18 @@ def _fallback_summary(
         issues=issues,
         recommendations=recommendations,
         log_count=log_count,
+        ai_available=False,
     )
 
 
-def summarize_batch(db: Session, batch_id: str | int) -> AiSummaryOut:
+def _is_plot_scoped_user(current_user) -> bool:
+    role = (current_user or {}).get("role") if isinstance(current_user, dict) else None
+    return str(role or "").strip().lower() in {"staff", "worker"}
+
+
+def summarize_batch(
+    db: Session, batch_id: str | int, current_user=None
+) -> AiSummaryOut:
     identifier = "" if batch_id is None else str(batch_id).strip()
 
     try:
@@ -201,6 +220,15 @@ def summarize_batch(db: Session, batch_id: str | int) -> AiSummaryOut:
     if batch is None:
         logger.warning("AI summary requested for unknown crop batch: %s", identifier)
         return _fallback_summary(identifier, unavailable_batch=True)
+
+    # STAFF chỉ được tóm tắt lô thuộc thửa đất mình phụ trách.
+    if _is_plot_scoped_user(current_user) and getattr(batch, "plot_id", None) != current_user.get(
+        "plot_id"
+    ):
+        raise HTTPException(
+            status_code=403,
+            detail="Tài khoản không được phân công lô trồng này",
+        )
 
     try:
         return _summarize_resolved_batch(db, batch)
@@ -216,10 +244,15 @@ def _summarize_resolved_batch(db: Session, batch: CropBatch) -> AiSummaryOut:
     now = datetime.now()
 
     if len(logs) == 0:
+        missing_data = []
+        summary_text = "Lô đất hiện chưa ghi nhận nhật ký chăm sóc nào."
+        if batch.sow_date is None:
+            missing_data.append(ai_guard.MISSING_SOW_DATE_NOTE)
+            summary_text = f"{ai_guard.MISSING_SOW_DATE_NOTE} {summary_text}"
         return _build_result(
             batch_id=batch.id,
             batch_code=batch.batch_code,
-            summary="Lô đất hiện chưa ghi nhận nhật ký chăm sóc nào.",
+            summary=summary_text,
             issues=["Chưa có dữ liệu nhật ký chăm sóc"],
             recommendations=[
                 "Hãy thêm nhật ký tưới nước, bón phân hoặc kiểm tra sâu bệnh cho lô này "
@@ -227,6 +260,7 @@ def _summarize_resolved_batch(db: Session, batch: CropBatch) -> AiSummaryOut:
             ],
             log_count=0,
             created_at=now,
+            missing_data=missing_data,
         )
 
     logs = logs[-MAX_LOGS_FOR_SUMMARY:]
@@ -238,9 +272,10 @@ def _summarize_resolved_batch(db: Session, batch: CropBatch) -> AiSummaryOut:
         f"Nhat ky cham soc ({len(logs)} ban ghi, sap xep theo thoi gian, moi dong co ID rieng "
         f"o dau - hay dung dung ID nay khi trich dan):\n"
         f"{_format_logs_for_prompt(logs)}\n\n"
-        "Hay tom tat tinh trang hien tai cua lo trong 3-4 cau, neu ro neu co dau hieu "
-        "bat thuong (sau benh, thieu cham soc keo dai). Hay de xuat cac buoc tiep theo "
-        "chi dua tren du lieu da ghi. Dien ro recommendations va referenced_log_ids."
+        "Hãy tóm tắt tình trạng hiện tại của lô trong 3-4 câu, nêu rõ nếu có dấu hiệu "
+        "bất thường (sâu bệnh, thiếu chăm sóc kéo dài). Hãy đề xuất các bước tiếp theo "
+        "chỉ dựa trên dữ liệu đã ghi. Điền rõ recommendations, referenced_log_ids, "
+        "missing_data và contradictions (để trống nếu không có)."
     )
 
     try:
@@ -258,16 +293,78 @@ def _summarize_resolved_batch(db: Session, batch: CropBatch) -> AiSummaryOut:
         logger.exception("Gemini summary generation failed for crop batch %s", batch.id)
         return _fallback_summary(batch.batch_code, batch_id=batch.id, log_count=len(logs))
 
-    result = _build_result(
-        batch_id=batch.id,
-        batch_code=batch.batch_code,
-        summary=ai_result.summary,
-        issues=ai_result.issues_detected,
-        recommendations=ai_result.recommendations,
-        log_count=len(logs),
-        referenced_log_ids=sorted(cited_ids),
-        created_at=now,
+    # ===== HẬU KIỂM NỘI DUNG (app/core/ai_guard.py) =====
+    allowed_years = ai_guard.allowed_years_for_batch(batch, logs)
+    summary_text, summary_reasons = ai_guard.sanitize_text(ai_result.summary, allowed_years)
+    issues, issue_reasons = ai_guard.sanitize_list(ai_result.issues_detected, allowed_years)
+    recommendations, recommendation_reasons = ai_guard.sanitize_list(
+        ai_result.recommendations, allowed_years
     )
+    reasons = sorted({*summary_reasons, *issue_reasons, *recommendation_reasons})
+
+    missing_data = [
+        str(item).strip() for item in (ai_result.missing_data or []) if str(item).strip()
+    ]
+    contradictions = [
+        str(item).strip() for item in (ai_result.contradictions or []) if str(item).strip()
+    ]
+    for note in ai_guard.detect_log_contradictions(logs):
+        if note not in contradictions:
+            contradictions.append(note)
+    for note in contradictions:
+        if note not in issues:
+            issues.append(note)
+
+    # AI bỏ sót ngày gieo: backend tự bổ sung để người dùng không hiểu sai.
+    if batch.sow_date is None and not ai_guard.has_missing_data_mention(
+        " ".join([summary_text, *missing_data])
+    ):
+        missing_data.insert(0, ai_guard.MISSING_SOW_DATE_NOTE)
+        summary_text = f"{ai_guard.MISSING_SOW_DATE_NOTE} {summary_text}".strip()
+
+    # Sai năm là lỗi nghiêm trọng (có thể khiến người dùng hiểu sai thời vụ):
+    # loại bỏ toàn bộ nội dung AI, trả kết quả dự phòng thay vì cố sửa câu chữ.
+    if "nam_khong_khop" in reasons:
+        logger.warning(
+            "AI summary chứa năm không khớp dữ liệu (lô %s): %s",
+            batch.id,
+            ai_guard.find_years(summary_text),
+        )
+        result = _build_result(
+            batch_id=batch.id,
+            batch_code=batch.batch_code,
+            summary=(
+                "Chưa đủ dữ liệu: nội dung AI không khớp năm trong dữ liệu gốc nên "
+                "đã bị loại bỏ để tránh sai lệch thời vụ."
+            ),
+            issues=[ai_guard.GUARD_ISSUE, *issues],
+            recommendations=recommendations,
+            log_count=len(logs),
+            referenced_log_ids=sorted(cited_ids),
+            created_at=now,
+            missing_data=missing_data,
+            contradictions=contradictions,
+            guard_triggered=True,
+            ai_available=False,
+        )
+    else:
+        guard_triggered = bool(reasons)
+        if guard_triggered:
+            issues = [ai_guard.GUARD_ISSUE, *issues]
+
+        result = _build_result(
+            batch_id=batch.id,
+            batch_code=batch.batch_code,
+            summary=summary_text,
+            issues=issues,
+            recommendations=recommendations,
+            log_count=len(logs),
+            referenced_log_ids=sorted(cited_ids),
+            created_at=now,
+            missing_data=missing_data,
+            contradictions=contradictions,
+            guard_triggered=guard_triggered,
+        )
 
     try:
         ai_repo.create(
@@ -278,6 +375,9 @@ def _summarize_resolved_batch(db: Session, batch: CropBatch) -> AiSummaryOut:
             json.dumps(result.model_dump(mode="json")),
             DISCLAIMER_TEXT,
             now,
+            description=getattr(result, "summary", None)
+            or getattr(result, "recommendations", None)
+            or "Tóm tắt AI cho lô trồng.",
         )
     except Exception:
         # Lưu lịch sử gợi ý là phụ, không được làm hỏng kết quả trả về.

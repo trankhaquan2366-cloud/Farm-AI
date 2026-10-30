@@ -8,8 +8,45 @@ from pydantic import (
     Field,
     StrictInt,
     StrictStr,
+    field_validator,
     model_validator,
 )
+
+# Danh sách loại hoạt động được phép ghi nhật ký.
+# Chấp nhận cả nhãn tiếng Việt đang dùng trên giao diện và khóa tiếng Anh chuẩn.
+ALLOWED_ACTION_TYPES = {
+    # Tiếng Việt (giao diện hiện tại)
+    "tưới nước",
+    "bón phân",
+    "phun thuốc",
+    "kiểm tra sâu bệnh",
+    "bệnh hại",
+    "thu hoạch",
+    "khác",
+    # Khóa chuẩn tiếng Anh / không dấu
+    "watering",
+    "fertilizing",
+    "fertilising",
+    "pest_check",
+    "pest check",
+    "harvest",
+    "other",
+    "tuoi",
+    "bon_phan",
+    "kiem_tra_sau_benh",
+    "thu_hoach",
+    "khac",
+}
+
+
+def validate_action_type(value: str) -> str:
+    cleaned = value.strip()
+    if cleaned.lower() not in ALLOWED_ACTION_TYPES:
+        raise ValueError(
+            "action_type không hợp lệ. Chỉ chấp nhận: tưới nước, bón phân, "
+            "phun thuốc/kiểm tra sâu bệnh, thu hoạch, khác."
+        )
+    return cleaned
 
 
 class CareLogSupplyUsage(BaseModel):
@@ -67,6 +104,11 @@ class CareLogCreate(BaseModel):
         normalized.pop("date", None)
         return normalized
 
+    @field_validator("action_type")
+    @classmethod
+    def check_action_type(cls, value: str) -> str:
+        return validate_action_type(value)
+
 
 class CareLogUpdate(BaseModel):
     batch_id: Optional[int] = Field(
@@ -86,6 +128,13 @@ class CareLogUpdate(BaseModel):
     image_url: Optional[str] = Field(default=None, max_length=255)
 
     model_config = ConfigDict(strict=True, extra="forbid")
+
+    @field_validator("action_type")
+    @classmethod
+    def check_action_type(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        return validate_action_type(value)
 
 
 class CareLogResponse(BaseModel):

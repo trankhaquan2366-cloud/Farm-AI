@@ -2,12 +2,16 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from fastapi import HTTPException, status
 import json
+import logging
 
 from app.repositories import crop_batch as batch_repo
 from app.repositories import care_log as care_log_repo
 from app.repositories import ai_suggestion as ai_repo
 from app.core.ai_client import call_gemini_structured, DISCLAIMER_TEXT
-from app.schemas.ai_alert import AlertAIRaw, AiAlertOut
+from app.core import ai_guard
+from app.schemas.ai_alert import AlertAIRaw, AiAlertOut, BatchAlertItemRaw
+
+logger = logging.getLogger(__name__)
 
 PEST_LOOKBACK_DAYS = 14  # ngưỡng "gần đây" để tính cảnh báo sâu bệnh
 PEST_KEYWORDS = ("sâu", "bệnh", "rệp", "nấm", "héo", "vàng lá", "bọ trĩ")
@@ -22,7 +26,8 @@ SYSTEM_PROMPT = (
     "3) Xep hang toi da 5 lo uu tien nhat, priority_score tu 1 (khan cap "
     "nhat) den 5 (it khan cap nhat trong danh sach duoc chon).\n"
     "4) Day chi la goi y tham khao dua tren du lieu he thong, khong phai "
-    "chan doan chuyen mon ve sau benh hay cay trong."
+    "chan doan chuyen mon ve sau benh hay cay trong.\n"
+    f"{ai_guard.SAFETY_RULES}"
 )
 
 
@@ -64,6 +69,62 @@ def _compute_batch_facts(db: Session, batch) -> dict:
     }
 
 
+def _fallback_alert(facts: list[dict], now: datetime) -> AiAlertOut:
+    """Xếp hạng dự phòng không dùng AI: ưu tiên sâu bệnh rồi số ngày chưa ghi nhật ký."""
+
+    def sort_key(fact: dict) -> tuple[int, int]:
+        days = fact["days_since_last_log"]
+        days_for_sort = 10**6 if days is None else days
+        return (0 if fact["has_recent_pest"] else 1, -days_for_sort)
+
+    priority_batches = []
+    for index, fact in enumerate(sorted(facts, key=sort_key)[:5], start=1):
+        days = fact["days_since_last_log"]
+        if days is None:
+            reason = "Chưa có nhật ký chăm sóc nào"
+        elif days <= 0:
+            reason = "Đã có nhật ký chăm sóc hôm nay"
+        else:
+            reason = f"{days} ngày chưa ghi nhật ký chăm sóc"
+        if fact["has_recent_pest"]:
+            reason += "; có dấu hiệu sâu bệnh trong 14 ngày gần đây"
+        priority_batches.append(
+            BatchAlertItemRaw(
+                batch_code=fact["batch_code"],
+                priority_score=index,
+                reason=reason,
+            )
+        )
+
+    return AiAlertOut(
+        total_growing_batches=len(facts),
+        priority_batches=priority_batches,
+        disclaimer=DISCLAIMER_TEXT,
+        created_at=now,
+        ai_available=False,
+    )
+
+
+def _persist_alert(db: Session, facts: list[dict], result: AiAlertOut, now: datetime) -> None:
+    try:
+        ai_repo.create(
+            db,
+            "alert",
+            None,
+            json.dumps({"facts": facts}),
+            json.dumps(result.model_dump(mode="json")),
+            DISCLAIMER_TEXT,
+            now,
+            description=(
+                "Cảnh báo AI cho các lô cần kiểm tra ưu tiên."
+                if result.priority_batches
+                else "Không có lô nào cần cảnh báo theo AI."
+            ),
+        )
+    except Exception:
+        logger.exception("Không lưu được lịch sử cảnh báo AI")
+
+
 def suggest_batches_to_check(db: Session) -> AiAlertOut:
     growing_batches = batch_repo.get_growing_batches(db)
     now = datetime.now()
@@ -74,8 +135,7 @@ def suggest_batches_to_check(db: Session) -> AiAlertOut:
             total_growing_batches=0, priority_batches=[],
             disclaimer=DISCLAIMER_TEXT, created_at=now,
         )
-        ai_repo.create(db, "alert", None, json.dumps({"total": 0}),
-                        json.dumps(result.model_dump(mode="json")), DISCLAIMER_TEXT, now)
+        _persist_alert(db, [], result, now)
         return result
 
     facts = [_compute_batch_facts(db, b) for b in growing_batches]
@@ -97,9 +157,16 @@ def suggest_batches_to_check(db: Session) -> AiAlertOut:
         "dua tren 2 chi so da cho."
     )
 
-    ai_result: AlertAIRaw = call_gemini_structured(SYSTEM_PROMPT, user_prompt, AlertAIRaw)
+    try:
+        ai_result: AlertAIRaw = call_gemini_structured(SYSTEM_PROMPT, user_prompt, AlertAIRaw)
+    except Exception as exc:  # noqa: BLE001 - AI lỗi thì trả kết quả dự phòng, không 5xx
+        logger.warning("AI alert không khả dụng, dùng xếp hạng dự phòng: %s", exc)
+        result = _fallback_alert(facts, now)
+        _persist_alert(db, facts, result, now)
+        return result
 
     # ===== KIỂM CHỨNG chống hallucination =====
+    # Lỗi AI bịa mã lô vẫn phải trả 502 để không che giấu hành vi sai.
     cited_codes = {item.batch_code for item in ai_result.priority_batches}
     invalid_codes = cited_codes - valid_batch_codes
     if invalid_codes:
@@ -114,14 +181,47 @@ def suggest_batches_to_check(db: Session) -> AiAlertOut:
         )
     # ===== KẾT THÚC KIỂM CHỨNG =====
 
+    # Hậu kiểm nội dung lý do: chặn liều lượng, tên thuốc, cam kết năng suất.
+    allowed_years = {now.year}
+    reasons: list[str] = []
+    cleaned_items = []
+    for item in ai_result.priority_batches:
+        safe_reason, item_reasons = ai_guard.sanitize_text(item.reason, allowed_years)
+        reasons.extend(item_reasons)
+        cleaned_items.append(
+            BatchAlertItemRaw(
+                batch_code=item.batch_code,
+                priority_score=item.priority_score,
+                reason=safe_reason,
+            )
+        )
+    if "nam_khong_khop" in reasons:
+        logger.warning("AI alert chứa năm không khớp dữ liệu, dùng xếp hạng dự phòng")
+        result = _fallback_alert(facts, now).model_copy(
+            update={"guard_triggered": True}
+        )
+        _persist_alert(db, facts, result, now)
+        return result
+
+    missing_data = [
+        str(item).strip() for item in (ai_result.missing_data or []) if str(item).strip()
+    ]
+    contradictions = [
+        str(item).strip()
+        for item in (ai_result.contradictions or [])
+        if str(item).strip()
+    ]
+
     result = AiAlertOut(
         total_growing_batches=len(growing_batches),
-        priority_batches=ai_result.priority_batches,
+        priority_batches=cleaned_items,
         disclaimer=DISCLAIMER_TEXT,
         created_at=now,
+        missing_data=missing_data,
+        contradictions=contradictions,
+        guard_triggered=bool(reasons),
+        ai_available=True,
     )
 
-    ai_repo.create(db, "alert", None, json.dumps({"facts": facts}),
-                    json.dumps(result.model_dump(mode="json")), DISCLAIMER_TEXT, now)
-
+    _persist_alert(db, facts, result, now)
     return result

@@ -1,14 +1,52 @@
 import os
+import sys
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Any, Dict
 
 import jwt
+from dotenv import load_dotenv
 from passlib.context import CryptContext
 
+load_dotenv()
+
+
+def _print_safe(message: str) -> None:
+    """In thông báo mà không vỡ trên console Windows dùng bảng mã cp1252."""
+    try:
+        print(message)
+    except UnicodeEncodeError:
+        stream = getattr(sys.stderr, "buffer", None)
+        if stream is not None:
+            stream.write(message.encode("utf-8") + b"\n")
+            stream.flush()
+        else:  # pragma: no cover - môi trường không có buffer nhị phân
+            sys.stderr.write(message.encode("ascii", "replace").decode("ascii") + "\n")
+
+
 # 1. Cấu hình Secret Key & Thuật toán mã hóa từ Environment
-SECRET_KEY = os.getenv("SECRET_KEY", "your-super-secret-key-change-this-in-production")
+# Không còn giá trị mặc định dùng được ở production: thiếu SECRET_KEY thì
+# ứng dụng từ chối khởi động (DEBUG=False). Chỉ khi DEBUG=True mới dùng
+# khóa tạm để chạy thử trên máy cá nhân.
+DEBUG = os.getenv("DEBUG", "false").strip().lower() in {"1", "true", "yes", "on"}
+_DEV_ONLY_SECRET = "dev-only-insecure-secret-key-do-not-deploy"
+
+SECRET_KEY = os.getenv("SECRET_KEY", "").strip()
+if not SECRET_KEY:
+    if DEBUG:
+        SECRET_KEY = _DEV_ONLY_SECRET
+        _print_safe(
+            "[CẢNH BÁO] DEBUG=True và chưa có SECRET_KEY: đang dùng khóa tạm chỉ "
+            "cho phát triển cục bộ. Không dùng cấu hình này khi triển khai."
+        )
+    else:
+        raise RuntimeError(
+            "Thiếu SECRET_KEY. Hãy đặt SECRET_KEY trong biến môi trường hoặc .env "
+            "trước khi khởi động (xem .env.example). Chỉ đặt DEBUG=True khi chạy "
+            "thử cục bộ."
+        )
+
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1440))  # Mặc định 24 giờ
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))  # Mặc định 60 phút
 
 # Hỗ trợ xác minh hash bcrypt cũ, nhưng dùng PBKDF2-SHA256 cho hash mới để
 # tránh lỗi tương thích bcrypt trên các phiên bản Python/bcrypt mới.

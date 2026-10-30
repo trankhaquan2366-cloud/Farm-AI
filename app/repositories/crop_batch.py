@@ -1,6 +1,6 @@
 from typing import Optional, Union
-from sqlalchemy import or_
 from sqlalchemy.orm import Session
+from app.core.status import is_growing_status
 from app.models.crop_batch import CropBatch
 from app.schemas.crop_batch import CropBatchCreate
 
@@ -19,13 +19,9 @@ def get_by_code(db: Session, batch_code: str) -> Optional[CropBatch]:
 
 
 def get_growing_batches(db: Session):
-    growing_statuses = ["growing", "planting", "đang trồng", "đang canh tác"]
-    return (
-        db.query(CropBatch)
-        .filter(or_(*[CropBatch.status.ilike(status) for status in growing_statuses]))
-        .order_by(CropBatch.id.asc())
-        .all()
-    )
+    """Lọc lô đang canh tác ở Python để xử lý đúng chữ "Đ" của tiếng Việt."""
+    batches = db.query(CropBatch).order_by(CropBatch.id.asc()).all()
+    return [batch for batch in batches if is_growing_status(batch.status)]
 
 
 def create(db: Session, data: Union[CropBatchCreate, dict]):

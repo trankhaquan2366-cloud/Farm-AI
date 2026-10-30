@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from fastapi import FastAPI, Request, status
@@ -57,9 +58,16 @@ upload_dir.mkdir(parents=True, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
 
 # 3. Cấu hình CORS Middleware
+# Đọc danh sách origin được phép từ CORS_ORIGINS (phân tách bằng dấu phẩy).
+# Không dùng "*" kèm allow_credentials=True.
+_cors_origins = [
+    origin.strip()
+    for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
+    if origin.strip()
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -133,7 +141,24 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
             "message": exc.detail or "Tài nguyên không tồn tại hoặc không có quyền truy cập.",
             "path": str(request.url.path),
         },
+        headers=getattr(exc, "headers", None),
     )
+
+def _safe_validation_errors(exc: RequestValidationError) -> list[dict]:
+    """Chuyển lỗi validate thành JSON được.
+
+    Với validator tự viết, Pydantic đặt ngoại lệ gốc vào ``ctx['error']``;
+    đối tượng này không serialize được nên phải chuyển thành chuỗi.
+    """
+    safe_errors = []
+    for error in exc.errors():
+        item = {key: value for key, value in error.items() if key != "ctx"}
+        context = error.get("ctx")
+        if context:
+            item["ctx"] = {key: str(value) for key, value in context.items()}
+        safe_errors.append(item)
+    return safe_errors
+
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -142,7 +167,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content={
             "status": "fail",
             "message": "Dữ liệu gửi lên không hợp lệ. Vui lòng kiểm tra lại các trường thông tin.",
-            "errors": exc.errors(),
+            "errors": _safe_validation_errors(exc),
         },
     )
 

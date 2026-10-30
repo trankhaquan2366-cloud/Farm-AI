@@ -6,9 +6,14 @@ services:
     ports:
       - "8000:8000"
     environment:
-      SECRET_KEY: ${SECRET_KEY:-replace-this-secret-before-deployment}
+      # Bắt buộc đặt SECRET_KEY trong .env/shell; không dùng khóa mặc định.
+      SECRET_KEY: ${SECRET_KEY:?Dat SECRET_KEY trong .env hoac bien moi truong}
+      DEBUG: "false"
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
-      SQLALCHEMY_DATABASE_URL: sqlite:///./farm.db
+      # app/core/database.py đọc DATABASE_URL (không phải SQLALCHEMY_DATABASE_URL).
+      DATABASE_URL: sqlite:///./farm.db
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-}
     volumes:
       - ./farm.db:/app/farm.db
     networks:
@@ -29,11 +34,12 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+        # frontend/lib/api.ts tự thêm "/api"; đặt /api/v1 ở đây sẽ thành /api/v1/api.
+        NEXT_PUBLIC_API_URL: http://localhost:8000
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+      NEXT_PUBLIC_API_URL: http://localhost:8000
     depends_on:
       backend:
         condition: service_healthy

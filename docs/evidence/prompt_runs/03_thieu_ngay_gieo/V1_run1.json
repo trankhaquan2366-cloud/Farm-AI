@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "scenario": "03_thieu_ngay_gieo",
+    "scenario_label": "Thiếu ngày gieo (sow_date=NULL trên bản sao CSDL)",
+    "batch_id": 10,
+    "batch_code": "DEMO-BATCH-2026-01",
+    "version": "V1",
+    "run": 1,
+    "model": "gemini-flash-lite-latest",
+    "timestamp": "2026-10-30T01:43:14",
+    "attempts": 1,
+    "latency_ms": 2984,
+    "json_valid": true,
+    "error": null,
+    "output": {
+      "summary": "Lô trồng DEMO-BATCH-2026-01 giống Cà chua Cherry đã thực hiện các hoạt động chăm sóc từ ngày 04/01/2026 đến 16/01/2026 bao gồm tưới nước, bón phân trùn quế và phun dầu neem sinh học có ghi nhận thời gian cách ly.",
+      "issues_detected": [],
+      "referenced_log_ids": [
+        35,
+        36,
+        37,
+        38
+      ],
+      "disclaimer": "Thông tin do AI tạo ra chỉ mang tính chất tham khảo. Vui lòng tham khảo ý kiến chuyên gia nông nghiệp trước khi ứng dụng thực tế.",
+      "recommendations": [
+        "Kiểm tra độ ẩm đất và điều kiện thời tiết để điều chỉnh lượng nước tưới phù hợp cho tuần tới.",
+        "Theo dõi tình trạng cây trồng sau khi phun dầu neem sinh học và kiểm tra thời gian cách ly của thuốc."
+      ]
+    },
+    "cited_ids": [
+      35,
+      36,
+      37,
+      38
+    ],
+    "cited_ids_all_valid": true,
+    "cited_ids_nonempty": true,
+    "fabricated_log_ids": [],
+    "disclaimer_returned": true,
+    "mentions_missing": false,
+    "dosage_hits": [],
+    "drug_hits": [
+      "dầu neem",
+      "neem"
+    ],
+    "yield_hits": [],
+    "fabricated_batch_codes": [],
+    "mentions_contradiction": false,
+    "injection_markers": []
+  },
+  "prompt": {
+    "system": "Bạn là trợ lý quản lý trang trại. Chỉ đưa gợi ý tham khảo dựa trên dữ liệu trồng trọt được cung cấp.",
+    "user": "Lô trồng: DEMO-BATCH-2026-01 - giống Cà chua Cherry, gieo ngày chưa rõ. Nhật ký chăm sóc: - [ID 35] [2026-01-04] Tưới nước: Tưới buổi sáng, kiểm tra độ ẩm đất.\n- [ID 36] [2026-01-08] Bón phân: Bón Phân trùn quế theo lịch chăm sóc.\n- [ID 37] [2026-01-12] Tưới nước: Điều chỉnh lượng nước theo điều kiện thời tiết.\n- [ID 38] [2026-01-16] Phun thuốc: Phun dầu neem sinh học và ghi nhận thời gian cách ly.. Hãy tóm tắt tình trạng và đề xuất việc cần kiểm tra tuần tới."
+  },
+  "logs_used": [
+    {
+      "id": 35,
+      "action_type": "Tưới nước",
+      "log_date": "2026-01-04",
+      "notes": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "description": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "created_at": "2026-01-04 08:30:00.000000"
+    },
+    {
+      "id": 36,
+      "action_type": "Bón phân",
+      "log_date": "2026-01-08",
+      "notes": "Bón Phân trùn quế theo lịch chăm sóc.",
+      "description": "Bón Phân trùn quế theo lịch chăm sóc.",
+      "created_at": "2026-01-08 08:30:00.000000"
+    },
+    {
+      "id": 37,
+      "action_type": "Tưới nước",
+      "log_date": "2026-01-12",
+      "notes": "Điều chỉnh lượng nước theo điều kiện thời tiết.",
+      "description": "Điều chỉnh lượng nước theo điều kiện thời tiết.",
+      "created_at": "2026-01-12 08:30:00.000000"
+    },
+    {
+      "id": 38,
+      "action_type": "Phun thuốc",
+      "log_date": "2026-01-16",
+      "notes": "Phun dầu neem sinh học và ghi nhận thời gian cách ly.",
+      "description": "Phun dầu neem sinh học và ghi nhận thời gian cách ly.",
+      "created_at": "2026-01-16 08:30:00.000000"
+    }
+  ],
+  "valid_log_ids": [
+    35,
+    36,
+    37,
+    38
+  ]
+}

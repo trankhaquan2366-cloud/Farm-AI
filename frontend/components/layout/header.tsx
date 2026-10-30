@@ -21,13 +21,20 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 
-import { api, ApiError, checkHealth } from '@/lib/api'
+import { api, ApiError, API_BASE_URL, checkHealth } from '@/lib/api'
 import { isNavItemActive, NAV_ITEMS } from '@/lib/nav'
 import { cn } from '@/lib/utils'
 import { StaggeredMenu } from '@/components/effects/greenfarm-motion'
 import { inputClass } from '@/components/ui/field'
 
 type Status = 'checking' | 'online' | 'offline'
+
+interface SearchItem {
+  id: number
+  type: string
+  title: string
+  batch_code?: string | null
+}
 
 interface UserProfile {
   id?: number
@@ -95,7 +102,7 @@ export const Header = memo(function Header() {
   }
 
   const [searchTerm, setSearchTerm] = useState('')
-  const [results, setResults] = useState<any>(null)
+  const [results, setResults] = useState<SearchItem[] | null>(null)
   const [isSearching, setIsSearching] = useState(false)
 
   // --- STATE THÔNG BÁO ---
@@ -135,7 +142,7 @@ export const Header = memo(function Header() {
       isFetchingNotifications = true
 
       try {
-        const response = await fetch('http://localhost:8000/api/notifications', {
+        const response = await fetch(`${API_BASE_URL}/notifications`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -199,7 +206,7 @@ export const Header = memo(function Header() {
   const markAllAsRead = async () => {
     setNotifications((prev) => prev.map((notif) => ({ ...notif, unread: false })))
     try {
-      await fetch('http://localhost:8000/api/notifications/read-all', {
+      await fetch(`${API_BASE_URL}/notifications/read-all`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       })
@@ -244,23 +251,21 @@ export const Header = memo(function Header() {
     if (e.key === 'Enter' && searchTerm.trim() !== '') {
       setIsSearching(true)
       try {
-        const response = await fetch(`http://localhost:8000/api/search?q=${encodeURIComponent(searchTerm)}`)
+        const token = localStorage.getItem('token') || localStorage.getItem('access_token')
+        const response = await fetch(
+          `${API_BASE_URL}/search?q=${encodeURIComponent(searchTerm)}`,
+          { headers: token ? { Authorization: `Bearer ${token}` } : {} },
+        )
         if (response.ok) {
           const data = await response.json()
-          setResults(data)
+          setResults(Array.isArray(data.results) ? data.results : [])
         }
       } catch (error) {} 
       finally { setIsSearching(false) }
     }
   }
 
-  const totalResults = results
-    ? (results.crop_batches?.length || 0) +
-      (results.crop_varieties?.length || 0) +
-      (results.plots?.length || 0) +
-      (results.logs?.length || 0) +
-      (results.harvests?.length || 0)
-    : 0
+  const totalResults = results?.length ?? 0
 
   const formatRole = (role?: string) => {
     switch (role?.toUpperCase()) {
@@ -332,48 +337,26 @@ export const Header = memo(function Header() {
                <p className="text-sm text-muted-foreground text-center py-4">Không tìm thấy kết quả nào.</p>
              ) : (
                <div className="space-y-4">
-                 {results.crop_varieties?.length > 0 && (
-                   <div>
-                     <h4 className="px-2 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Giống cây</h4>
-                     <ul className="space-y-1">
-                       {results.crop_varieties.map((item: any) => (
-                         <li key={`variety-${item.id}`}>
-                           <Link href={item.url} prefetch={false} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
-                             {item.name}
-                           </Link>
-                         </li>
-                       ))}
-                     </ul>
-                   </div>
-                 )}
-                 {results.plots?.length > 0 && (
-                   <div>
-                     <h4 className="px-2 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Lô đất</h4>
-                     <ul className="space-y-1">
-                       {results.plots.map((item: any) => (
-                         <li key={`plot-${item.id}`}>
-                           <Link href={item.url} prefetch={false} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
-                             {item.name}
-                           </Link>
-                         </li>
-                       ))}
-                     </ul>
-                   </div>
-                 )}
-                 {results.crop_batches?.length > 0 && (
-                   <div>
-                     <h4 className="px-2 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Lô trồng</h4>
-                     <ul className="space-y-1">
-                       {results.crop_batches.map((item: any) => (
-                         <li key={`batch-${item.id}`}>
-                           <Link href={item.url} prefetch={false} onClick={() => setResults(null)} className="block w-full rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 truncate">
-                             {item.name}
-                           </Link>
-                         </li>
-                       ))}
-                     </ul>
-                   </div>
-                 )}
+                 <div>
+                   <h4 className="px-2 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Thu hoạch</h4>
+                   <ul className="space-y-1">
+                     {results?.map((item) => (
+                       <li key={`${item.type}-${item.id}`}>
+                         <Link
+                           href={item.batch_code ? `/trace/${encodeURIComponent(item.batch_code)}` : '/traceability'}
+                           prefetch={false}
+                           onClick={() => setResults(null)}
+                           className="flex w-full items-center justify-between gap-2 rounded-md px-2 py-2 text-sm text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
+                         >
+                           <span className="truncate">{item.title}</span>
+                           {item.batch_code && (
+                             <span className="shrink-0 font-mono text-xs text-muted-foreground">{item.batch_code}</span>
+                           )}
+                         </Link>
+                       </li>
+                     ))}
+                   </ul>
+                 </div>
                </div>
              )}
            </div>

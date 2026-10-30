@@ -8,7 +8,7 @@ class Sale(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     # Sửa "harvests.id" thành "harvest_logs.id" cho khớp với tên bảng trong file harvest.py
-    harvest_id = Column(Integer, ForeignKey("harvest_logs.id", ondelete="CASCADE"), nullable=False)
+    harvest_id = Column(Integer, ForeignKey("harvest_logs.id", ondelete="CASCADE"), nullable=False, index=True)
     
     customer_name = Column(String, nullable=True)
     quantity_kg = Column(Float, nullable=False)

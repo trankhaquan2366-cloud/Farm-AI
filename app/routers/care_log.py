@@ -220,6 +220,24 @@ def create_care_log(
             detail="Bạn chỉ có thể ghi nhật ký cho lô trồng được phân công.",
         )
 
+    from app.core.status import is_harvested_status
+
+    if is_harvested_status(getattr(batch, "status", None)):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Lô trồng đã thu hoạch, không thể ghi thêm nhật ký chăm sóc.",
+        )
+
+    sow_date = getattr(batch, "sow_date", None)
+    if sow_date is not None and final_date_obj < sow_date:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=(
+                f"Ngày ghi nhật ký ({final_date_obj.isoformat()}) không được trước "
+                f"ngày gieo ({sow_date.isoformat()})."
+            ),
+        )
+
     resolved_batch_id = batch.id
 
     # Lọc danh sách cột thực tế của bảng CareLog trong CSDL
@@ -287,7 +305,10 @@ def create_care_log(
                     db_log.id,
                     usage.notes,
                 )
-                db.refresh(supply)
+                # Không gọi db.refresh(supply) ở đây: refresh phát SELECT và ghi đè
+                # phần tồn kho vừa trừ trong bộ nhớ trước khi commit, khiến cảnh báo
+                # ngưỡng và số liệu trả về bị sai. Object supply trong session đã
+                # phản ánh giá trị mới sau deduct_supply_stock.
 
                 minimum_stock = getattr(supply, "min_threshold", None)
                 remaining_stock = float(supply.stock_quantity or 0)

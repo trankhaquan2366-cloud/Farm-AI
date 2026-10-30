@@ -18,7 +18,7 @@ class Supply(Base):
     location = Column(String(150), nullable=True)
     usage_notes = Column(String(2000), nullable=True)
     storage_notes = Column(String(2000), nullable=True)
-    status = Column(String(30), nullable=False, default="active")
+    status = Column(String(30), nullable=False, default="active", index=True)
 
     imports = relationship("SupplyImport", back_populates="supply", cascade="all, delete-orphan")
     usages = relationship("SupplyUsage", back_populates="supply")
@@ -32,13 +32,13 @@ class SupplyImport(Base):
     __tablename__ = "supply_imports"
 
     id = Column(Integer, primary_key=True, index=True)
-    supply_id = Column(Integer, ForeignKey("supplies.id", ondelete="CASCADE"), nullable=False)
+    supply_id = Column(Integer, ForeignKey("supplies.id", ondelete="CASCADE"), nullable=False, index=True)
     quantity_imported = Column(Float, nullable=False)
     unit_price = Column(Float, nullable=False, default=0)
     supplier_name = Column(String(150), nullable=True)
     batch_number = Column(String(100), nullable=True)
     manufacture_date = Column(Date, nullable=True)
-    expiry_date = Column(Date, nullable=True)
+    expiry_date = Column(Date, nullable=True, index=True)
     imported_at = Column(DateTime, nullable=False, server_default=func.now())
     created_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
 

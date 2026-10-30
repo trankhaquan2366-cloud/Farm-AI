@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.core.database import get_db
 from app.core.deps import get_current_user
 from app.models.crop_batch import CropBatch
@@ -74,6 +75,20 @@ def _care_log_quantity(log: CareLog) -> float:
     return float(match.group(1).replace(",", ".")) if match else 0.0
 
 
+def _view_datetime_range(view: ViewMode, reference_date: date) -> tuple[datetime, datetime]:
+    """Trả về khoảng thời gian tương ứng với view để lọc ngay trong SQL."""
+    if view == "day":
+        start = datetime(reference_date.year, reference_date.month, 1)
+        if reference_date.month == 12:
+            end = datetime(reference_date.year + 1, 1, 1)
+        else:
+            end = datetime(reference_date.year, reference_date.month + 1, 1)
+        return start, end
+    if view == "month":
+        return datetime(reference_date.year, 1, 1), datetime(reference_date.year + 1, 1, 1)
+    return datetime(reference_date.year - 4, 1, 1), datetime(reference_date.year + 1, 1, 1)
+
+
 @router.get("/harvest-chart", response_model=HarvestChartResponse)
 def get_harvest_chart(
     view: ViewMode = Query("month"),
@@ -84,13 +99,20 @@ def get_harvest_chart(
     points = _empty_points(view, reference_date)
     points_by_label = {str(point["label"]): point for point in points}
     variety_names = set()
+    range_start, range_end = _view_datetime_range(view, reference_date)
 
+    # Lọc theo khoảng thời gian của view ngay trong SQL -> chỉ đọc đúng số bản ghi cần dùng.
     rows = (
         db.query(HarvestLog, CropBatch, PlantVariety)
         .join(CropBatch, HarvestLog.batch_id == CropBatch.id)
         .join(PlantVariety, CropBatch.variety_id == PlantVariety.id)
+        .filter(HarvestLog.harvest_time >= range_start, HarvestLog.harvest_time < range_end)
         .all()
     )
+
+    # Một lô có thể vừa có harvest_logs vừa có nhật ký "Thu hoạch" cho cùng ngày.
+    # harvest_logs là nguồn chuẩn; nhật ký trùng ngày bị bỏ qua để không cộng hai lần.
+    harvest_seen: set[tuple[int, date]] = set()
 
     for harvest, _batch, variety in rows:
         harvested_at = harvest.harvest_time.date() if harvest.harvest_time else None
@@ -103,6 +125,7 @@ def get_harvest_chart(
         if view == "year" and not reference_date.year - 4 <= harvested_at.year <= reference_date.year:
             continue
 
+        harvest_seen.add((harvest.batch_id, harvested_at))
         variety_name = variety.name.strip() if variety.name else "Chưa phân loại"
         variety_names.add(variety_name)
         label = _point_key(view, harvested_at)
@@ -128,6 +151,14 @@ def get_harvest_chart(
         if view == "month" and harvested_at.year != reference_date.year:
             continue
         if view == "year" and not reference_date.year - 4 <= harvested_at.year <= reference_date.year:
+            continue
+
+        batch_id = getattr(log, "crop_batch_id", None)
+        if (
+            settings.DASHBOARD_DEDUPE_HARVEST
+            and batch_id is not None
+            and (batch_id, harvested_at) in harvest_seen
+        ):
             continue
 
         quantity = _care_log_quantity(log)

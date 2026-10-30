@@ -21,6 +21,9 @@ class SummaryAIRaw(BaseModel):
     referenced_log_ids: List[int]
     disclaimer: str  # AI tự trả, nhưng Service sẽ GHI ĐÈ bằng câu cố định
     recommendations: List[str] = Field(default_factory=list)
+    # Trường tương thích ngược: model cũ không trả về vẫn parse được.
+    missing_data: List[str] = Field(default_factory=list)
+    contradictions: List[str] = Field(default_factory=list)
 
 
 class AiSummaryOut(BaseModel):
@@ -38,3 +41,7 @@ class AiSummaryOut(BaseModel):
     created_at: datetime = Field(default_factory=datetime.now)
     key_issues: List[str] = Field(default_factory=list)
     recommendations: List[str] = Field(default_factory=list)
+    missing_data: List[str] = Field(default_factory=list)
+    contradictions: List[str] = Field(default_factory=list)
+    guard_triggered: bool = False
+    ai_available: bool = True

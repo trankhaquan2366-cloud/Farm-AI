@@ -1,7 +1,7 @@
 import re
 import unicodedata
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy import or_
@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import hash_password, verify_password, create_access_token
+from app.core.rate_limit import enforce_login_rate_limit
 from app.core.deps import get_current_user, RequireRole
 from app.models.user import User, UserRole
 from app.models.plot import Plot
@@ -69,7 +70,12 @@ def _next_employee_code(db: Session, role: UserRole) -> str:
 
 # 1. API ĐĂNG NHẬP (Trả về Token + Object user có chứa role)
 @router.post("/login")
-def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(
+    request: Request,
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db),
+):
+    enforce_login_rate_limit(request)
     login_value = form_data.username.strip()
     user = db.query(User).filter(
         or_(

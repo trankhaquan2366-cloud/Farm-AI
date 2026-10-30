@@ -144,7 +144,7 @@ export function HarvestYieldChart() {
           </div>
           <div>
             <h2 className="text-base font-bold text-foreground">Sản lượng thu hoạch</h2>
-            <p className="text-xs text-muted-foreground">{subtitle}</p>
+            <p className="text-xs text-muted-foreground">{subtitle}{usingMock && <span className="ml-2 rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-800">Dữ liệu minh họa (API lỗi)</span>}</p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">

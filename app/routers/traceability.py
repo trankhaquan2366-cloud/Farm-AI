@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload, selectinload
 from datetime import datetime
 
 from app.core.database import get_db
@@ -17,7 +17,13 @@ router = APIRouter(prefix="/api/traceability", tags=["Traceability"])
 
 @router.get("/{batch_code}", status_code=status.HTTP_200_OK)
 def get_traceability_by_code(batch_code: str, db: Session = Depends(get_db)):
-    query = db.query(CropBatch)
+    # Eager-load toàn bộ quan hệ trong 1 lượt: tránh N+1 (variety, plot, care_logs, harvest_logs)
+    query = db.query(CropBatch).options(
+        joinedload(CropBatch.variety),
+        joinedload(CropBatch.plot),
+        selectinload(CropBatch.care_logs),
+        selectinload(CropBatch.harvest_logs),
+    )
     if batch_code.isdigit():
         batch = query.filter((CropBatch.batch_code == batch_code) | (CropBatch.id == int(batch_code))).first()
     else:
@@ -28,24 +34,21 @@ def get_traceability_by_code(batch_code: str, db: Session = Depends(get_db)):
 
     # 1. Lấy Tên Giống Cây
     variety_name = None
-    if batch.variety_id:
-        variety = db.query(PlantVariety).filter(PlantVariety.id == batch.variety_id).first()
-        if variety:
-            for attr in ["name", "variety_name", "title", "crop_name"]:
-                val = getattr(variety, attr, None)
-                if val:
-                    variety_name = val
-                    break
+    variety = batch.variety
+    if variety:
+        for attr in ["name", "variety_name", "title", "crop_name"]:
+            val = getattr(variety, attr, None)
+            if val:
+                variety_name = val
+                break
 
     if not variety_name:
         variety_name = batch.name or "Chưa cập nhật giống"
 
     # 2. Lấy Tên Lô Đất
     plot_name = "Chưa xác định"
-    if batch.plot_id:
-        plot = db.query(Plot).filter(Plot.id == batch.plot_id).first()
-        if plot:
-            plot_name = getattr(plot, "name", "Chưa xác định")
+    if batch.plot is not None:
+        plot_name = getattr(batch.plot, "name", "Chưa xác định")
 
     # 3. Lấy Ngày Gieo Trồng (Nếu sow_date NULL sẽ tự động lấy ngày tạo lô)
     seeding_date = None
@@ -55,23 +58,31 @@ def get_traceability_by_code(batch_code: str, db: Session = Depends(get_db)):
         c_val = getattr(batch, "created_at")
         seeding_date = str(c_val.date()) if hasattr(c_val, "date") else str(c_val)
 
-    # 4. Lấy Nhật ký chăm sóc
+    # 4. Nhật ký chăm sóc: chỉ công bố trường an toàn (whitelist).
+    # Không trả notes/description/conditions/supplies_used vì đây là API công khai.
     care_logs = []
-    logs = batch.care_logs if hasattr(batch, "care_logs") and batch.care_logs else db.query(CareLog).filter(CareLog.crop_batch_id == batch.id).all()
+    logs = batch.care_logs or []
     for log in logs:
+        action_type = (
+            getattr(log, "action_type", None)
+            or getattr(log, "log_type", None)
+            or "Chăm sóc"
+        )
+        logged_at = (
+            getattr(log, "log_date", None)
+            or getattr(log, "created_at", None)
+            or datetime.now()
+        )
         care_logs.append({
-            "log_type": getattr(log, "action_type", None) or getattr(log, "activity_type", None) or "Chăm sóc",
-            "performed_at": str(getattr(log, "log_date", getattr(log, "created_at", datetime.now()))),
-            "description": getattr(log, "notes", None) or getattr(log, "description", ""),
-            "conditions": getattr(log, "conditions", ""),
-            "supplies_used": getattr(log, "supplies_used", []) or []
+            "id": log.id,
+            "action_type": action_type,
+            "summary": f"Hoạt động: {action_type}",
+            "logged_at": logged_at,
         })
 
-    # 5. Lấy Đợt Thu Hoạch & Tìm Ngày Thu Hoạch Thực Tế từ Nhật Ký
+    # 5. Lấy Đợt Thu Hoạch & Tìm Ngày Thu Hoạch Thực Tế từ Nhật Ký (đã eager-load)
     harvests = []
-    harvest_list = batch.harvest_logs if hasattr(batch, "harvest_logs") and batch.harvest_logs else []
-    if not harvest_list and HarvestLog:
-        harvest_list = db.query(HarvestLog).filter(HarvestLog.crop_batch_id == batch.id).all()
+    harvest_list = batch.harvest_logs or []
 
     actual_harvest_date = None
     for h in harvest_list:
@@ -88,9 +99,9 @@ def get_traceability_by_code(batch_code: str, db: Session = Depends(get_db)):
     # Nếu chưa có trong HarvestLog, kiểm tra ngày ở nhật ký ghi nhận "HARVEST"
     if not actual_harvest_date:
         for log in care_logs:
-            l_type = str(log.get("log_type", "")).upper()
+            l_type = str(log.get("action_type", "")).upper()
             if "HARVEST" in l_type or "THU HOẠCH" in l_type:
-                actual_harvest_date = log.get("performed_at")
+                actual_harvest_date = str(log.get("logged_at"))
                 break
 
     return {

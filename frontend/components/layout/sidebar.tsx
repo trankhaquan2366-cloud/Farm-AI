@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Leaf, PanelLeftClose, PanelLeftOpen, X } from 'lucide-react'
@@ -31,15 +31,19 @@ export const Sidebar = memo(function Sidebar({
     setRole(getUserRole())
   }, [])
 
-  // Lọc các item menu hiển thị theo quyền (role)
-  const visibleNavItems = NAV_ITEMS.filter((item) => {
-    // Nếu item không yêu cầu roles cụ thể -> Ai cũng xem được
-    if (!('roles' in item) || !item.roles || (item.roles as string[]).length === 0) {
-      return true
-    }
-    // Nếu có danh sách roles -> Chỉ hiển thị khi role của user nằm trong danh sách này
-    return role ? (item.roles as string[]).includes(role) : false
-  })
+  // Lọc các item menu hiển thị theo quyền (role) - chỉ tính lại khi role thay đổi
+  const visibleNavItems = useMemo(
+    () =>
+      NAV_ITEMS.filter((item) => {
+        // Nếu item không yêu cầu roles cụ thể -> Ai cũng xem được
+        if (!('roles' in item) || !item.roles || (item.roles as string[]).length === 0) {
+          return true
+        }
+        // Nếu có danh sách roles -> Chỉ hiển thị khi role của user nằm trong danh sách này
+        return role ? (item.roles as string[]).includes(role) : false
+      }),
+    [role],
+  )
 
   return (
     <>
@@ -146,7 +150,7 @@ const NavLink = memo(function NavLink({
   return (
     <Link
       href={item.href}
-      prefetch={false}
+      prefetch
       replace={false}
       onClick={onNavigate}
       title={collapsed ? item.label : undefined}

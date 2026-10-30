@@ -185,6 +185,36 @@ def test_worker_is_scoped_to_assigned_plot(
     assert logs_response.status_code == 200
     assert all(log["batch_id"] == assigned_batch.id for log in logs_response.json())
 
+    # Thu hoạch của lô ngoài phân công không được lộ cho STAFF.
+    admin_login = client.post(
+        "/api/auth/login",
+        data={"username": "admin@test.local", "password": "AdminPass123!"},
+    )
+    admin_headers = {"Authorization": f"Bearer {admin_login.json()['access_token']}"}
+    other_harvest = client.post(
+        "/api/harvests",
+        headers=admin_headers,
+        json={"batch_id": other_batch.id, "quantity": 2.0},
+    )
+    assert other_harvest.status_code == 201, other_harvest.text
+
+    harvests_response = client.get("/api/harvests", headers=headers)
+    assert harvests_response.status_code == 200
+    harvest_batch_ids = {item["batch_id"] for item in harvests_response.json()}
+    assert harvest_batch_ids == {assigned_batch.id}
+
+    forbidden_harvests = client.get(
+        f"/api/harvests/batch/{other_batch.id}", headers=headers
+    )
+    assert forbidden_harvests.status_code == 403
+
+    forbidden_summary = client.post(
+        "/api/ai-summary/summary",
+        headers=headers,
+        json={"lot_id": other_batch.id},
+    )
+    assert forbidden_summary.status_code == 403
+
     from app.routers.ai_advisor import build_system_context
 
     ai_context = build_system_context(db_session, assigned_plot_id=assigned_plot.id)

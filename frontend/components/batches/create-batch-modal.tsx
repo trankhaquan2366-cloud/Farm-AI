@@ -19,11 +19,18 @@ type ExtendedVariety = PlantVariety & {
   growth_days?: number | null
 }
 
+type CreatedBatch = {
+  id?: number
+  batch_code?: string | null
+  batch_name?: string | null
+}
+
 type CreateBatchModalProps = {
   isOpen: boolean
   onClose: () => void
   plots: Plot[]
   varieties: ExtendedVariety[]
+  onCreated?: (batch: CreatedBatch) => void
 }
 
 const FIELD_CLASS =
@@ -69,6 +76,7 @@ export function CreateBatchModal({
   onClose,
   plots,
   varieties,
+  onCreated,
 }: CreateBatchModalProps) {
   const [batchName, setBatchName] = useState('')
   const [plotId, setPlotId] = useState('')
@@ -206,7 +214,7 @@ export function CreateBatchModal({
 
     setSaving(true)
     try {
-      await api('/api/batches', {
+      const created = await api<CreatedBatch>('/api/batches', {
         method: 'POST',
         body: JSON.stringify({
           batch_name: batchName.trim(),
@@ -223,6 +231,7 @@ export function CreateBatchModal({
       })
 
       await Promise.all([mutate('/api/batches'), mutate('/api/varieties')])
+      onCreated?.(created ?? {})
       resetForm()
       onClose()
     } catch (requestError) {

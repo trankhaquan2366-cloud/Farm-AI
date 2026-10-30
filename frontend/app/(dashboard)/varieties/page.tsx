@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import useSWR from 'swr'
@@ -460,7 +460,7 @@ export default function VarietiesPage() {
     }
   }
 
-  const filteredVarieties = varieties.filter((v) => {
+  const filteredVarieties = useMemo(() => varieties.filter((v) => {
     const matchesSearch =
       v.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       v.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -470,7 +470,7 @@ export default function VarietiesPage() {
     const matchesStatus = statusFilter === 'all' || currentStatus === statusFilter
 
     return matchesSearch && matchesStatus
-  })
+  }), [varieties, searchTerm, statusFilter])
 
   const renderStatusBadge = (status?: string) => {
     switch (status) {

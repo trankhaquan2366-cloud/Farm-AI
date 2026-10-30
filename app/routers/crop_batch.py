@@ -73,28 +73,32 @@ def normalize_batch(batch: Any, db: Session) -> Dict[str, Any]:
     d.pop("_sa_instance_state", None)
 
     # 1. Thông tin Giống cây & Lô đất
+    # Ưu tiên dùng quan hệ đã được eager-load (xem selectinload ở get_batches) để
+    # tránh N+1. Dùng __dict__ thay vì getattr để không kích hoạt lazy-load ngoài ý muốn.
     variety_id = getattr(batch, "variety_id", None) or getattr(batch, "plant_variety_id", None)
     variety_name = ""
     growth_days = 30
 
-    if variety_id:
-        v = db.query(PlantVariety).filter(PlantVariety.id == variety_id).first()
-        if v:
-            variety_name = getattr(v, "name", None) or getattr(v, "variety_name", None) or ""
-            growth_days = (
-                getattr(v, "growth_period", None) or 
-                getattr(v, "days_to_harvest", None) or 
-                getattr(v, "growth_days", None) or 
-                getattr(v, "duration", None) or 
-                getattr(v, "cycle_days", None) or 30
-            )
+    variety = batch.__dict__.get("variety") if hasattr(batch, "__dict__") else None
+    if variety is None and variety_id:
+        variety = db.query(PlantVariety).filter(PlantVariety.id == variety_id).first()
+    if variety is not None:
+        variety_name = getattr(variety, "name", None) or getattr(variety, "variety_name", None) or ""
+        growth_days = (
+            getattr(variety, "growth_period", None) or 
+            getattr(variety, "days_to_harvest", None) or 
+            getattr(variety, "growth_days", None) or 
+            getattr(variety, "duration", None) or 
+            getattr(variety, "cycle_days", None) or 30
+        )
 
     plot_id = getattr(batch, "plot_id", None)
     plot_name = ""
-    if plot_id:
-        p = db.query(Plot).filter(Plot.id == plot_id).first()
-        if p:
-            plot_name = getattr(p, "name", None) or getattr(p, "plot_name", None) or ""
+    plot = batch.__dict__.get("plot") if hasattr(batch, "__dict__") else None
+    if plot is None and plot_id:
+        plot = db.query(Plot).filter(Plot.id == plot_id).first()
+    if plot is not None:
+        plot_name = getattr(plot, "name", None) or getattr(plot, "plot_name", None) or ""
 
     d["plot_name"] = plot_name or "Mặc định"
     d["plotName"] = plot_name or "Mặc định"
@@ -184,7 +188,12 @@ def get_batches(
     current_user: dict = Depends(get_current_user)
 ):
     CropBatch, _, _ = get_models()
-    query = db.query(CropBatch)
+    from sqlalchemy.orm import selectinload
+
+    query = db.query(CropBatch).options(
+        selectinload(CropBatch.variety),
+        selectinload(CropBatch.plot),
+    )
     if str(current_user.get("role", "")).strip().lower() in {"staff", "worker"}:
         query = query.filter(CropBatch.plot_id == current_user.get("plot_id"))
     batches = query.all()
@@ -259,20 +268,23 @@ def get_batch_trace(batch_code: str, db: Session = Depends(get_db)):
             detail=f"Không tìm thấy lô trồng với mã: {batch_code}",
         )
 
-    batch = db.query(CropBatch).filter(batch_code_column == batch_code).first()
+    from sqlalchemy.orm import joinedload
+
+    batch = (
+        db.query(CropBatch)
+        .options(joinedload(CropBatch.variety), joinedload(CropBatch.plot))
+        .filter(batch_code_column == batch_code)
+        .first()
+    )
     if batch is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Không tìm thấy lô trồng với mã: {batch_code}",
         )
 
-    plot = db.query(Plot).filter(Plot.id == batch.plot_id).first()
+    plot = batch.plot
     variety_id = getattr(batch, "variety_id", None) or getattr(batch, "plant_variety_id", None)
-    variety = (
-        db.query(PlantVariety).filter(PlantVariety.id == variety_id).first()
-        if variety_id is not None
-        else None
-    )
+    variety = batch.variety if variety_id is not None else None
 
     from app.models.care_log import CareLog
 
@@ -371,16 +383,19 @@ def get_batch_trace(batch_code: str, db: Session = Depends(get_db)):
             or getattr(variety, "variety_name", None),
             "growth_duration_days": growth_duration_days,
         },
-        "safety_certifications": ["VietGAP", "Cảnh báo dư lượng"],
+        # Chưa có bảng chứng nhận thật -> trả rỗng thay vì gắn nhãn không căn cứ.
+        # Giao diện công khai sẽ hiển thị "Chưa có dữ liệu chứng nhận".
+        "safety_certifications": [],
+        # Chỉ công bố loại hoạt động + ngày + mô tả ngắn an toàn. Không trả ghi chú
+        # tự do (notes) hay ảnh nội bộ của nhật ký.
         "care_history": [
             {
                 "id": care_log.id,
                 "action_type": care_log.action_type,
-                "notes": care_log.notes or care_log.description,
+                "summary": f"Hoạt động: {care_log.action_type}",
                 "logged_at": getattr(care_log, "logged_at", None)
                 or care_log.log_date
                 or care_log.created_at,
-                "image_url": care_log.image_url,
             }
             for care_log in care_logs
         ],
@@ -392,14 +407,24 @@ def get_batch_trace(batch_code: str, db: Session = Depends(get_db)):
 @router.get("/code/{code}/trace", status_code=status.HTTP_200_OK)
 def get_batch_trace_by_code(code: str, db: Session = Depends(get_db)):
     CropBatch, PlantVariety, Plot = get_models()
+    from sqlalchemy.orm import joinedload
+
+    trace_query = db.query(CropBatch).options(
+        joinedload(CropBatch.variety),
+        joinedload(CropBatch.plot),
+    )
 
     batch = None
     if hasattr(CropBatch, "batch_code"):
-        batch = db.query(CropBatch).filter(CropBatch.batch_code == code).first()
+        batch = trace_query.filter(CropBatch.batch_code == code).first()
     if not batch and hasattr(CropBatch, "code"):
-        batch = db.query(CropBatch).filter(CropBatch.code == code).first()
+        batch = db.query(CropBatch).options(
+            joinedload(CropBatch.variety), joinedload(CropBatch.plot)
+        ).filter(CropBatch.code == code).first()
     if not batch and code.isdigit():
-        batch = db.query(CropBatch).filter(CropBatch.id == int(code)).first()
+        batch = db.query(CropBatch).options(
+            joinedload(CropBatch.variety), joinedload(CropBatch.plot)
+        ).filter(CropBatch.id == int(code)).first()
 
     if not batch:
         raise HTTPException(
@@ -410,14 +435,14 @@ def get_batch_trace_by_code(code: str, db: Session = Depends(get_db)):
     variety_name = "Nông sản"
     variety_id = getattr(batch, "variety_id", None) or getattr(batch, "plant_variety_id", None)
     if variety_id:
-        v = db.query(PlantVariety).filter(PlantVariety.id == variety_id).first()
+        v = batch.variety
         if v:
             variety_name = getattr(v, "name", None) or getattr(v, "variety_name", None) or variety_name
 
     plot_name = "Khu vực canh tác"
     plot_id = getattr(batch, "plot_id", None)
     if plot_id:
-        p = db.query(Plot).filter(Plot.id == plot_id).first()
+        p = batch.plot
         if p:
             plot_name = getattr(p, "name", None) or getattr(p, "plot_name", None) or plot_name
 

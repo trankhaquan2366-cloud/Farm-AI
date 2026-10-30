@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.core.deps import get_current_user
 from app.models.notification import Notification
 from app.models.plot import Plot
 
@@ -11,7 +12,10 @@ router = APIRouter(prefix="/api/notifications", tags=["Notifications"])
 
 @router.get("")
 @router.get("/")
-def get_notifications(db: Session = Depends(get_db)):
+def get_notifications(
+    db: Session = Depends(get_db),
+    _current_user: dict = Depends(get_current_user),
+):
     notifications = db.query(Notification).order_by(Notification.created_at.desc()).limit(20).all()
     
     result = []

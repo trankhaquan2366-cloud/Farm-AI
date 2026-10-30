@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { ChevronDown, Menu, X } from 'lucide-react'
 
 type SplitTextProps = {
@@ -12,7 +12,8 @@ type SplitTextProps = {
   className?: string
 }
 
-export function SplitText({
+// memo: chặn re-render khi props không đổi -> hiệu ứng chữ chỉ chạy 1 lần lúc mount.
+export const SplitText = memo(function SplitText({
   text,
   effect = 'rise',
   hoverEffect = 'none',
@@ -41,7 +42,7 @@ export function SplitText({
       </span>
     </span>
   )
-}
+})
 
 type CountUpProps = {
   to: number
@@ -51,7 +52,7 @@ type CountUpProps = {
   className?: string
 }
 
-export function CountUp({
+export const CountUp = memo(function CountUp({
   to,
   mode = 'roll',
   suffix = '',
@@ -96,19 +97,19 @@ export function CountUp({
       {suffix && <span className="ml-1 text-sm font-medium">{suffix}</span>}
     </motion.span>
   )
-}
+})
 
 type StarBorderProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode
 }
 
-export function StarBorder({ children, className = '', ...props }: StarBorderProps) {
+export const StarBorder = memo(function StarBorder({ children, className = '', ...props }: StarBorderProps) {
   return (
     <button className={`star-border ${className}`} {...props}>
       <span className="star-border__content">{children}</span>
     </button>
   )
-}
+})
 
 type ThoughtLineProps = {
   working: boolean
@@ -116,7 +117,7 @@ type ThoughtLineProps = {
   label?: string
 }
 
-export function ThoughtLine({
+export const ThoughtLine = memo(function ThoughtLine({
   working,
   steps,
   label = 'Đang phân tích dữ liệu canh tác',
@@ -166,7 +167,7 @@ export function ThoughtLine({
       )}
     </section>
   )
-}
+})
 
 type SegmentItem = { value: string; label: string }
 
@@ -177,7 +178,7 @@ type RubberSegmentProps = {
   label: string
 }
 
-export function RubberSegment({ items, value, onChange, label }: RubberSegmentProps) {
+export const RubberSegment = memo(function RubberSegment({ items, value, onChange, label }: RubberSegmentProps) {
   const index = Math.max(0, items.findIndex((item) => item.value === value))
   return (
     <div
@@ -206,7 +207,7 @@ export function RubberSegment({ items, value, onChange, label }: RubberSegmentPr
       ))}
     </div>
   )
-}
+})
 
 type GlideSelectProps = {
   options: { value: string; label: string }[]
@@ -216,7 +217,7 @@ type GlideSelectProps = {
   className?: string
 }
 
-export function GlideSelect({
+export const GlideSelect = memo(function GlideSelect({
   options,
   value,
   onChange,
@@ -239,11 +240,11 @@ export function GlideSelect({
       <ChevronDown className="glide-select__icon" aria-hidden="true" />
     </span>
   )
-}
+})
 
 type MenuItem = { href: string; label: string; description: string }
 
-export function StaggeredMenu({ items }: { items: MenuItem[] }) {
+export const StaggeredMenu = memo(function StaggeredMenu({ items }: { items: MenuItem[] }) {
   const [open, setOpen] = useState(false)
   const reduceMotion = useReducedMotion()
 
@@ -326,4 +327,4 @@ export function StaggeredMenu({ items }: { items: MenuItem[] }) {
       </AnimatePresence>
     </>
   )
-}
+})

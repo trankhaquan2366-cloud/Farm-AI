@@ -32,9 +32,8 @@ type TracePayload = {
   care_history: {
     id: number
     action_type: string
-    notes: string | null
+    summary: string | null
     logged_at: string | null
-    image_url: string | null
   }[]
   harvest_history: {
     id: number
@@ -97,7 +96,7 @@ export default function PublicTracePage() {
       key: `care-${log.id}`,
       date: log.logged_at,
       title: log.action_type,
-      detail: log.notes,
+      detail: log.summary,
       type: 'care' as const,
     })),
     ...data.harvest_history.map((harvest) => ({
@@ -220,14 +219,18 @@ export default function PublicTracePage() {
 
         <div className="rounded-2xl border border-[#183a32]/10 bg-white p-5 sm:p-6">
           <h2 className="text-lg font-semibold text-[#183a32]">Chứng nhận và thu hoạch</h2>
-          <ul className="mt-4 space-y-2">
-            {data.safety_certifications.map((certification) => (
-              <li key={certification} className="flex items-center gap-2 text-sm text-[#315d43]">
-                <CheckCircle2 className="size-4 shrink-0" />
-                {certification}
-              </li>
-            ))}
-          </ul>
+          {data.safety_certifications.length === 0 ? (
+            <p className="mt-4 text-sm text-[#52675a]">Chưa có dữ liệu chứng nhận.</p>
+          ) : (
+            <ul className="mt-4 space-y-2">
+              {data.safety_certifications.map((certification) => (
+                <li key={certification} className="flex items-center gap-2 text-sm text-[#315d43]">
+                  <CheckCircle2 className="size-4 shrink-0" />
+                  {certification}
+                </li>
+              ))}
+            </ul>
+          )}
           <p className="mt-4 rounded-lg bg-[#f3f7f1] p-3 text-xs leading-5 text-[#52675a]">
             Thời gian cách ly không được suy diễn nếu chưa có ghi nhận thực tế trong hồ sơ.
           </p>

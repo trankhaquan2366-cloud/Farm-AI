@@ -4,6 +4,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    // Tree-shake theo từng icon/component thay vì nạp cả thư viện -> bundle nhỏ hơn, vào trang nhanh hơn.
+    optimizePackageImports: ['lucide-react', 'motion', '@base-ui/react', 'recharts'],
+  },
 };
 
 export default nextConfig;

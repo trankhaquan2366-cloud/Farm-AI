@@ -2,15 +2,24 @@
 
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import useSWR, { mutate } from 'swr'
-import { Plus, Search, Sprout, Trash2, Sparkles, Calendar, Loader2, X, Eye, Pencil } from 'lucide-react'
+import { AlertCircle, CheckCircle2, Plus, Search, Sprout, Trash2, Sparkles, Calendar, Loader2, X, Eye, Pencil } from 'lucide-react'
 import Link from 'next/link'
 import { api, fetcher, ApiError } from '@/lib/api'
 import type { CropBatch, Plot, PlantVariety } from '@/lib/types'
 import { StatusBadge } from '@/components/batches/status-badge'
-import { CreateBatchModal } from '@/components/batches/create-batch-modal'
+import dynamic from 'next/dynamic'
 import { GlideSelect } from '@/components/effects/greenfarm-motion'
 import { ActionMenu } from '@/components/ui/action-menu'
 import { hasPermission, PERMISSIONS } from '@/lib/auth/permissions'
+
+// Tách modal tạo lô khỏi bundle chính: chỉ tải khi người dùng thực sự cần.
+const CreateBatchModal = dynamic(
+  () =>
+    import('@/components/batches/create-batch-modal').then((mod) => ({
+      default: mod.CreateBatchModal,
+    })),
+  { ssr: false },
+)
 
 // 1. Định dạng ngày hiển thị theo chuẩn Việt Nam
 function formatDate(dateStr?: string | null): string {
@@ -93,6 +102,9 @@ export default function BatchesPage() {
   const [updatingId, setUpdatingId] = useState<number | string | null>(null)
   const [editingBatchId, setEditingBatchId] = useState<number | string | null>(null)
   const [viewingBatch, setViewingBatch] = useState<Record<string, any> | null>(null)
+  const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(
+    null,
+  )
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user')
@@ -199,10 +211,15 @@ export default function BatchesPage() {
         body: JSON.stringify({ status: newStatus }),
       })
       await mutate('/api/batches')
+      setFeedback({ type: 'success', message: 'Đã cập nhật trạng thái lô trồng.' })
     } catch (err) {
       // Revert lại nếu có lỗi
       mutate('/api/batches', previousBatches, false)
-      alert(err instanceof ApiError ? err.message : 'Không thể thay đổi trạng thái lô trồng.')
+      setFeedback({
+        type: 'error',
+        message:
+          err instanceof ApiError ? err.message : 'Không thể thay đổi trạng thái lô trồng.',
+      })
     } finally {
       setUpdatingId(null)
     }
@@ -224,15 +241,19 @@ export default function BatchesPage() {
         body: JSON.stringify({ [field]: trimmedVal }),
       })
       await mutate('/api/batches')
+      setFeedback({ type: 'success', message: 'Đã cập nhật thông tin lô trồng.' })
     } catch (err) {
-      alert(err instanceof ApiError ? err.message : 'Không thể cập nhật thông tin.')
+      setFeedback({
+        type: 'error',
+        message: err instanceof ApiError ? err.message : 'Không thể cập nhật thông tin.',
+      })
     }
   }
 
   // Xóa lô trồng
   async function handleDeleteBatch(batch: CropBatch) {
     if (!canDelete) {
-      alert('Bạn không có quyền xóa dữ liệu lô trồng.')
+      setFeedback({ type: 'error', message: 'Bạn không có quyền xóa dữ liệu lô trồng.' })
       return
     }
     const displayName =
@@ -245,13 +266,43 @@ export default function BatchesPage() {
     try {
       await api(`/api/batches/${batch.id}`, { method: 'DELETE' })
       await mutate('/api/batches')
+      setFeedback({ type: 'success', message: `Đã xóa lô trồng "${displayName}".` })
     } catch (err) {
-      alert(err instanceof ApiError ? err.message : 'Không thể xóa lô trồng.')
+      setFeedback({
+        type: 'error',
+        message: err instanceof ApiError ? err.message : 'Không thể xóa lô trồng.',
+      })
     }
   }
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 pb-10">
+      {feedback && (
+        <div
+          role={feedback.type === 'error' ? 'alert' : 'status'}
+          className={`flex items-start gap-3 rounded-xl border p-4 text-sm ${
+            feedback.type === 'error'
+              ? 'border-red-300 bg-red-50 text-red-900'
+              : 'border-emerald-300 bg-emerald-50 text-emerald-950'
+          }`}
+        >
+          {feedback.type === 'error' ? (
+            <AlertCircle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+          ) : (
+            <CheckCircle2 className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+          )}
+          <p className="flex-1">{feedback.message}</p>
+          <button
+            type="button"
+            onClick={() => setFeedback(null)}
+            className="rounded p-1 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            aria-label="Đóng thông báo"
+          >
+            <X className="size-4" aria-hidden="true" />
+          </button>
+        </div>
+      )}
+
       {/* Thanh công cụ */}
       <div className="surface-glass flex flex-col gap-3 rounded-2xl border border-border/50 p-4 shadow-sm xl:flex-row xl:items-center xl:justify-between">
         <div className="flex min-w-0 flex-1 flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center">
@@ -538,6 +589,15 @@ export default function BatchesPage() {
           onClose={() => setCreateOpen(false)}
           plots={plots ?? []}
           varieties={varieties ?? []}
+          onCreated={(created) => {
+            const label = created.batch_name || created.batch_code
+            setFeedback({
+              type: 'success',
+              message: label
+                ? `Đã tạo lô trồng "${label}"${created.batch_code ? ` (${created.batch_code})` : ''}.`
+                : 'Đã tạo lô trồng mới.',
+            })
+          }}
         />
       )}
     </div>

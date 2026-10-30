@@ -1,14 +1,39 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, declarative_base
+import os
 
-# SQLite lưu vào 1 file duy nhất trong thư mục dự án -> dễ nộp bài, dễ demo trên máy khác
-SQLALCHEMY_DATABASE_URL = "sqlite:///./farm.db"
+from dotenv import load_dotenv
+
+# Đọc .env trước khi lấy DATABASE_URL để cấu hình trong .env cũng có hiệu lực.
+load_dotenv()
+
+# Cho phép trỏ sang CSDL khác (ví dụ bản demo sạch farm_demo.db) mà không sửa code.
+# Mặc định vẫn là farm.db để không thay đổi hành vi cũ.
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./farm.db")
 
 # check_same_thread=False: SQLite mặc định chỉ cho 1 thread dùng chung 1 connection.
 # FastAPI xử lý mỗi request trên 1 thread khác nhau -> bắt buộc phải tắt giới hạn này.
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
+
+
+@event.listens_for(engine, "connect")
+def _apply_sqlite_pragmas(dbapi_connection, _connection_record):
+    """Tăng tốc đọc/ghi của SQLite mà không thay đổi dữ liệu trả về API."""
+    cursor = dbapi_connection.cursor()
+    try:
+        # SQLite mặc định TẮT kiểm tra khóa ngoại; bật cho mọi kết nối để dữ liệu
+        # không thể trỏ tới lô/vật tư/giống không tồn tại.
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.execute("PRAGMA journal_mode=WAL")
+        cursor.execute("PRAGMA synchronous=NORMAL")
+        cursor.execute("PRAGMA cache_size=-20000")  # ~20MB page cache
+        cursor.execute("PRAGMA temp_store=MEMORY")
+        cursor.execute("PRAGMA mmap_size=134217728")  # 128MB memory-mapped I/O
+    finally:
+        cursor.close()
+
 
 # SessionLocal là "nhà máy" tạo ra 1 phiên làm việc (session) với DB mỗi khi có request.
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -125,6 +150,61 @@ def ensure_legacy_schema():
             connection.exec_driver_sql(
                 "ALTER TABLE care_logs ADD COLUMN quality_percent FLOAT"
             )
+
+        ai_suggestion_columns = connection.exec_driver_sql(
+            "PRAGMA table_info(ai_suggestions)"
+        ).fetchall()
+        ai_suggestion_column_names = {row[1] for row in ai_suggestion_columns}
+        if ai_suggestion_columns and "description" not in ai_suggestion_column_names:
+            connection.exec_driver_sql(
+                "ALTER TABLE ai_suggestions ADD COLUMN description TEXT"
+            )
+
+        _ensure_indexes(connection)
+
+
+# Các cột được lọc / JOIN / ORDER BY thường xuyên. SQLite không tự tạo index cho
+# khóa ngoại nên phải bổ sung thủ công cho CSDL đã tồn tại (create_all chỉ tạo
+# index cho bảng mới). Dùng IF NOT EXISTS để chạy nhiều lần vẫn an toàn.
+LEGACY_INDEXES = (
+    ("ix_crop_batches_plot_id", "crop_batches", "plot_id"),
+    ("ix_crop_batches_variety_id", "crop_batches", "variety_id"),
+    ("ix_crop_batches_status", "crop_batches", "status"),
+    ("ix_care_logs_crop_batch_id", "care_logs", "crop_batch_id"),
+    ("ix_care_logs_action_type", "care_logs", "action_type"),
+    ("ix_care_logs_log_date", "care_logs", "log_date"),
+    ("ix_care_logs_created_at", "care_logs", "created_at"),
+    ("ix_harvest_logs_batch_id", "harvest_logs", "batch_id"),
+    ("ix_harvest_logs_harvest_time", "harvest_logs", "harvest_time"),
+    ("ix_harvest_logs_qr_trace_code", "harvest_logs", "qr_trace_code"),
+    ("ix_supplies_status", "supplies", "status"),
+    ("ix_supply_imports_supply_id", "supply_imports", "supply_id"),
+    ("ix_supply_imports_expiry_date", "supply_imports", "expiry_date"),
+    ("ix_supply_usage_supply_id", "supply_usage", "supply_id"),
+    ("ix_supply_usage_care_log_id", "supply_usage", "care_log_id"),
+    ("ix_users_plot_id", "users", "plot_id"),
+    ("ix_notifications_user_id", "notifications", "user_id"),
+    ("ix_ai_suggestions_batch_id", "ai_suggestions", "batch_id"),
+    ("ix_sales_harvest_id", "sales", "harvest_id"),
+    ("ix_plots_status", "plots", "status"),
+)
+
+
+def _ensure_indexes(connection):
+    for index_name, table_name, column_name in LEGACY_INDEXES:
+        exists = connection.exec_driver_sql(
+            "SELECT 1 FROM sqlite_master WHERE type='index' AND name=?", (index_name,)
+        ).fetchone()
+        if exists:
+            continue
+        table_info = connection.exec_driver_sql(f"PRAGMA table_info({table_name})").fetchall()
+        if not table_info:
+            continue
+        if column_name not in {row[1] for row in table_info}:
+            continue
+        connection.exec_driver_sql(
+            f"CREATE INDEX IF NOT EXISTS {index_name} ON {table_name} ({column_name})"
+        )
 
 
 def get_db():

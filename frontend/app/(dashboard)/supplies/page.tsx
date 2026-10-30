@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useState } from 'react'
 import useSWR from 'swr'
 import { AlertTriangle, CalendarDays, Loader2, Package, Plus, WandSparkles } from 'lucide-react'
 import { api, ApiError, fetcher } from '@/lib/api'
@@ -44,6 +44,12 @@ const units = [
   ['cai', 'Cái'],
 ]
 
+// Tránh hiển thị sai số dấu phẩy động sau khi trừ tồn kho (vd. 0.6000000000000005).
+function formatQuantity(value: number) {
+  const rounded = Math.round(Number(value) * 100) / 100
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2)
+}
+
 const FIELD_CLASS =
   'w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/15'
 const LABEL_CLASS = 'mb-1.5 block text-sm font-medium text-slate-700'
@@ -62,7 +68,7 @@ const EMPTY_FORM = {
 
 export default function SuppliesPage() {
   const [userRole, setUserRole] = useState('')
-  const { data: supplies, mutate } = useSWR<Supply[]>('/api/supplies', fetcher)
+  const { data: supplies, error: suppliesError, mutate } = useSWR<Supply[]>('/api/supplies', fetcher)
   const { data: alerts } = useSWR<AlertItem[]>('/api/supplies/alerts', fetcher)
   const [showCreate, setShowCreate] = useState(false)
   const [selectedSupply, setSelectedSupply] = useState<Supply | null>(null)
@@ -132,13 +138,19 @@ export default function SuppliesPage() {
   async function importSupply(event: FormEvent) {
     event.preventDefault(); if (!selectedSupply) return; setSaving(true); setError(null)
     try {
-      await api(`/api/supplies/${selectedSupply.id}/import`, { method: 'POST', body: { ...importForm, quantity_imported: Number(importForm.quantity_imported), unit_price: Number(importForm.unit_price) } })
+      await api(`/api/supplies/${selectedSupply.id}/import`, { method: 'POST', body: { ...importForm, quantity_imported: Number(importForm.quantity_imported), unit_price: Number(importForm.unit_price), expiry_date: importForm.expiry_date || null } })
       setSelectedSupply(null); setImportForm({ quantity_imported: '', unit_price: '0', supplier_name: '', batch_number: '', expiry_date: '' }); await mutate(); setMessage('Đã nhập kho thành công.')
     } catch (err) { setError(err instanceof ApiError ? err.message : 'Không thể nhập kho.') } finally { setSaving(false) }
   }
 
-  const lowStockCount = supplies?.filter((item) => item.quantity <= item.min_threshold).length ?? 0
-  const expiryCount = alerts?.filter((item) => item.alert_type === 'expiry').length ?? 0
+  const lowStockCount = useMemo(
+    () => supplies?.filter((item) => item.quantity <= item.min_threshold).length ?? 0,
+    [supplies],
+  )
+  const expiryCount = useMemo(
+    () => alerts?.filter((item) => item.alert_type === 'expiry').length ?? 0,
+    [alerts],
+  )
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 pb-12">
@@ -146,7 +158,7 @@ export default function SuppliesPage() {
       {message && <p className="rounded-xl bg-emerald-50 p-3 text-sm text-emerald-700">{message}</p>}{error && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
       <div className="grid gap-4 sm:grid-cols-3"><div className="surface-glass rounded-2xl p-4"><p className="text-xs text-muted-foreground">Tổng loại vật tư</p><p className="mt-1 text-2xl font-bold">{supplies?.length ?? 0}</p></div><div className="surface-glass rounded-2xl p-4"><p className="text-xs text-muted-foreground">Tồn kho thấp</p><p className="mt-1 text-2xl font-bold text-amber-600">{lowStockCount}</p></div><div className="surface-glass rounded-2xl p-4"><p className="text-xs text-muted-foreground">Sắp hết hạn</p><p className="mt-1 text-2xl font-bold text-red-600">{expiryCount}</p></div></div>
       {alerts && alerts.length > 0 && <div className="surface-glass rounded-2xl p-4"><h2 className="mb-2 flex items-center gap-2 font-bold"><AlertTriangle className="size-4 text-amber-600" /> Cảnh báo vật tư</h2><div className="grid gap-2 md:grid-cols-2">{alerts.map((item, index) => <p key={`${item.supply_id}-${item.alert_type}-${index}`} className="rounded-lg bg-amber-50 p-2 text-sm text-amber-800">{item.name}: {item.message}</p>)}</div></div>}
-      <section className="surface-glass overflow-hidden rounded-3xl p-5"><div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left text-sm"><thead className="border-b border-border text-xs text-muted-foreground"><tr><th className="px-3 py-3">Mã</th><th className="px-3 py-3">Vật tư</th><th className="px-3 py-3">Loại</th><th className="px-3 py-3">Tồn kho</th><th className="px-3 py-3">Vị trí</th><th className="px-3 py-3 text-right">Thao tác</th></tr></thead><tbody className="divide-y divide-border/60">{!supplies ? <tr><td colSpan={6} className="px-3 py-10 text-center"><Loader2 className="mx-auto size-5 animate-spin" /></td></tr> : supplies.map((item) => { const ratio = item.min_threshold > 0 ? Math.min(item.quantity / item.min_threshold, 2) * 50 : 100; return <tr key={item.id}><td className="px-3 py-3 font-mono text-xs">{item.code || '-'}</td><td className="px-3 py-3 font-semibold">{item.name}<div className="mt-1 h-1.5 w-32 rounded-full bg-muted"><div className={`h-1.5 rounded-full ${item.quantity <= item.min_threshold ? 'bg-amber-500' : 'bg-emerald-500'}`} style={{ width: `${Math.min(ratio, 100)}%` }} /></div></td><td className="px-3 py-3">{categories.find(([value]) => value === item.category)?.[1] || item.category || 'Chưa phân loại'}</td><td className="px-3 py-3">{item.quantity} {item.unit}<div className="text-xs text-muted-foreground">Tối thiểu: {item.min_threshold}</div></td><td className="px-3 py-3">{item.location || '-'}</td><td className="px-3 py-3 text-right">{canManageSupplies && <button onClick={() => setSelectedSupply(item)} className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">Nhập kho</button>}</td></tr> })}</tbody></table></div></section>
+      <section className="surface-glass overflow-hidden rounded-3xl p-5"><div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left text-sm"><thead className="border-b border-border text-xs text-muted-foreground"><tr><th className="px-3 py-3">Mã</th><th className="px-3 py-3">Vật tư</th><th className="px-3 py-3">Loại</th><th className="px-3 py-3">Tồn kho</th><th className="px-3 py-3">Vị trí</th><th className="px-3 py-3 text-right">Thao tác</th></tr></thead><tbody className="divide-y divide-border/60">{!supplies ? <tr><td colSpan={6} className="px-3 py-10 text-center">{suppliesError ? <p className="text-sm text-red-700">Không tải được danh sách vật tư. Vui lòng thử lại.</p> : <Loader2 className="mx-auto size-5 animate-spin" />}</td></tr> : supplies.map((item) => { const ratio = item.min_threshold > 0 ? Math.min(item.quantity / item.min_threshold, 2) * 50 : 100; return <tr key={item.id}><td className="px-3 py-3 font-mono text-xs">{item.code || '-'}</td><td className="px-3 py-3 font-semibold">{item.name}<div className="mt-1 h-1.5 w-32 rounded-full bg-muted"><div className={`h-1.5 rounded-full ${item.quantity <= item.min_threshold ? 'bg-amber-500' : 'bg-emerald-500'}`} style={{ width: `${Math.min(ratio, 100)}%` }} /></div></td><td className="px-3 py-3">{categories.find(([value]) => value === item.category)?.[1] || item.category || 'Chưa phân loại'}</td><td className="px-3 py-3">{formatQuantity(item.quantity)} {item.unit}<div className="text-xs text-muted-foreground">Tối thiểu: {formatQuantity(item.min_threshold)}</div></td><td className="px-3 py-3">{item.location || '-'}</td><td className="px-3 py-3 text-right">{canManageSupplies && <button onClick={() => setSelectedSupply(item)} className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">Nhập kho</button>}</td></tr> })}</tbody></table></div></section>
       {canManageSupplies && showCreate && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/45 p-4 backdrop-blur-[2px]"

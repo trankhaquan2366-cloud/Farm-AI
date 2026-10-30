@@ -12,8 +12,9 @@ class HarvestLog(Base):
         Integer,
         ForeignKey("crop_batches.id", ondelete="CASCADE"),
         nullable=False,
+        index=True,
     )
-    harvest_time = Column(DateTime, nullable=False, default=datetime.utcnow)
+    harvest_time = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
 
     # Chuẩn hóa: Tách riêng số và đơn vị tính
     quantity = Column(Float, nullable=False)

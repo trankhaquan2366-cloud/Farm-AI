@@ -22,6 +22,7 @@ import {
 
 import { ThoughtLine } from '@/components/effects/greenfarm-motion'
 import { ApiError, API_BASE_URL, api, fetcher } from '@/lib/api'
+import { AI_FALLBACK_LABEL, describeAiError } from '@/lib/ai'
 import { isNavItemActive, NAV_ITEMS } from '@/lib/nav'
 import { normalizeRole, ROLES } from '@/lib/auth/permissions'
 import type { AiAlertOut, AiScheduleOut, AiSummaryOut, CropBatch } from '@/lib/types'
@@ -30,6 +31,8 @@ type ChatMessage = {
   id: number
   role: 'user' | 'assistant'
   text: string
+  disclaimer?: string
+  isFallback?: boolean
 }
 
 type ChatResponse = {
@@ -37,6 +40,7 @@ type ChatResponse = {
   response?: string
   answer?: string
   disclaimer?: string
+  ai_available?: boolean
 }
 
 type ChatTab = 'chat' | 'schedule' | 'summary' | 'alerts'
@@ -108,13 +112,16 @@ async function fetchSummary(lotId: string): Promise<AiSummaryOut> {
     const errorBody = await res.text()
     console.error('Summary API Error:', res.status, errorBody)
     let message = 'Không thể tải phân tích AI. Vui lòng thử lại.'
+    let data: unknown = undefined
     try {
       const parsed = JSON.parse(errorBody) as { message?: string; detail?: string }
       message = parsed.message || parsed.detail || message
+      data = parsed
     } catch {
       // Body không phải JSON (ví dụ trang HTML lỗi 404) -> dùng thông báo mặc định.
     }
-    throw new Error(message)
+    // Giữ nguyên mã HTTP để giao diện phân biệt 429 (hết hạn mức) với lỗi mạng/5xx.
+    throw new ApiError(message, res.status, data)
   }
 
   return (await res.json()) as AiSummaryOut
@@ -230,13 +237,7 @@ export function GlobalAIChatbot() {
         }
       } catch (error) {
         if (!cancelled) {
-          setToolError(
-            error instanceof ApiError
-              ? error.message
-              : error instanceof Error && error.message
-                ? error.message
-                : 'Không thể tải phân tích AI. Vui lòng thử lại.',
-          )
+          setToolError(describeAiError(error))
         }
       } finally {
         if (!cancelled) setIsToolLoading(false)
@@ -294,14 +295,16 @@ export function GlobalAIChatbot() {
         response.reply || response.response || response.answer || 'Chưa có câu trả lời phù hợp.'
       setMessages((current) => [
         ...current,
-        { id: ++messageId.current, role: 'assistant', text: answer },
+        {
+          id: ++messageId.current,
+          role: 'assistant',
+          text: answer,
+          disclaimer: response.disclaimer,
+          isFallback: response.ai_available === false,
+        },
       ])
     } catch (error) {
-      setErrorMessage(
-        error instanceof ApiError
-          ? error.message
-          : 'Không thể kết nối với Cố vấn AI. Vui lòng thử lại.',
-      )
+      setErrorMessage(describeAiError(error))
     } finally {
       setIsLoading(false)
     }
@@ -574,6 +577,12 @@ export function GlobalAIChatbot() {
                           className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
                           <div className="flex max-w-[88%] flex-col">
+                            {message.role === 'assistant' && message.isFallback && (
+                              <span className="mb-1 inline-flex w-fit items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-900">
+                                <AlertTriangle className="size-3" aria-hidden="true" />
+                                {AI_FALLBACK_LABEL}
+                              </span>
+                            )}
                             <p
                               className={`whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-5 ${
                                 message.role === 'user'
@@ -583,6 +592,11 @@ export function GlobalAIChatbot() {
                             >
                               {message.text}
                             </p>
+                            {message.role === 'assistant' && message.disclaimer && (
+                              <p className="mt-1 max-w-[88%] text-[11px] leading-4 text-slate-500">
+                                {message.disclaimer}
+                              </p>
+                            )}
                             {message.role === 'assistant' && (
                               <button
                                 type="button"
@@ -720,6 +734,13 @@ function ToolPanel({
           {actionLabel}
         </button>
       </div>
+
+      {result && 'ai_available' in result && result.ai_available === false && (
+        <p role="status" className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-900">
+          <AlertTriangle className="size-3.5" aria-hidden="true" />
+          {AI_FALLBACK_LABEL}
+        </p>
+      )}
 
       {isLoading && (
         <ThoughtLine

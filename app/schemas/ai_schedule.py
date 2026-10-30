@@ -21,6 +21,9 @@ class ScheduleAIRaw(BaseModel):
     chỉ có day_offset - Service sẽ tự suy ra ngày thật, không tin AI tính."""
     schedule: List[ScheduleItemRaw]
     disclaimer: str
+    # Trường tương thích ngược: model cũ không trả về vẫn parse được.
+    missing_data: List[str] = Field(default_factory=list)
+    contradictions: List[str] = Field(default_factory=list)
 
 
 class ScheduleItemOut(BaseModel):
@@ -37,3 +40,6 @@ class AiScheduleOut(BaseModel):
     schedule: List[ScheduleItemOut]
     disclaimer: str
     created_at: datetime
+    missing_data: List[str] = Field(default_factory=list)
+    contradictions: List[str] = Field(default_factory=list)
+    guard_triggered: bool = False

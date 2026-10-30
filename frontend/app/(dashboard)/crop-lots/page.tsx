@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import { Tabs } from '@base-ui/react/tabs'
@@ -353,7 +353,7 @@ export default function CropLotsPage() {
     }
   }
 
-  const filteredLots = lots.filter((lot) => {
+  const filteredLots = useMemo(() => lots.filter((lot) => {
     const matchSearch =
       lot.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       lot.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -367,10 +367,25 @@ export default function CropLotsPage() {
       filterSoil === 'all' || (lot.soil_type || lot.crop_type || '') === filterSoil
 
     return matchSearch && matchStatus && matchSoil
-  })
+  }), [lots, searchTerm, filterStatus, filterSoil])
 
-  const totalArea = lots.reduce((acc, lot) => acc + (Number(lot.area) || 0), 0)
-  const activeLotsCount = lots.filter((l) => l.status === 'Đang canh tác').length
+  const totalArea = useMemo(
+    () => lots.reduce((acc, lot) => acc + (Number(lot.area) || 0), 0),
+    [lots],
+  )
+  const activeLotsCount = useMemo(
+    () => lots.filter((l) => l.status === 'Đang canh tác').length,
+    [lots],
+  )
+  const soilOptions = useMemo(
+    () => [
+      { value: 'all', label: 'Tất cả loại đất' },
+      ...Array.from(
+        new Set(lots.map((lot) => lot.soil_type || lot.crop_type).filter(Boolean)),
+      ).map((soil) => ({ value: soil as string, label: soil as string })),
+    ],
+    [lots],
+  )
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 pb-12">
@@ -428,12 +443,7 @@ export default function CropLotsPage() {
             className="w-full sm:w-44"
             value={filterSoil}
             onChange={setFilterSoil}
-            options={[
-              { value: 'all', label: 'Tất cả loại đất' },
-              ...Array.from(
-                new Set(lots.map((lot) => lot.soil_type || lot.crop_type).filter(Boolean)),
-              ).map((soil) => ({ value: soil as string, label: soil as string })),
-            ]}
+            options={soilOptions}
           />
         </div>
 

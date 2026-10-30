@@ -1,18 +1,40 @@
-# Frontend
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Biến môi trường (không commit giá trị thật)
 .env
+.env.*
+!.env.example
+
+# Cơ sở dữ liệu SQLite (dữ liệu cục bộ, không commit)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3
+
+# Tệp tải lên của người dùng
+app/uploads/
+
+# Node / Next.js
+node_modules/
 frontend/node_modules/
 frontend/.next/
-frontend/.env*
-!frontend/.env.example
+frontend/out/
+frontend/tsconfig.tsbuildinfo
 
-# Backend
-farm_backend/__pycache__/
-farm_backend/*.pyc
-farm_backend/venv/
-farm_backend/.venv/
-farm_backend/.env
+# Thư mục build lặp (bản sao .next cũ)
+farm_backend/
 
-# System
-.DS_Store
+# Log và hệ điều hành
 *.log
-node_modules
+.DS_Store
+Thumbs.db

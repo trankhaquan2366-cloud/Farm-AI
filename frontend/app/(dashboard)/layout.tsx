@@ -1,10 +1,14 @@
 import { AppShell } from '@/components/layout/app-shell'
-import GlobalSearch from '@/components/GlobalSearch';
+import { SWRProvider } from '@/components/providers/swr-provider'
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return <AppShell>{children}</AppShell>
+  return (
+    <SWRProvider>
+      <AppShell>{children}</AppShell>
+    </SWRProvider>
+  )
 }

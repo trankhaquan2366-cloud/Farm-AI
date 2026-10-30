@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "scenario": "02_nhat_ky_thua",
+    "scenario_label": "Nhật ký thưa (2 nhật ký, lô đang sinh trưởng)",
+    "batch_id": 20,
+    "batch_code": "DEMO-BATCH-CHERRY-ACTIVE",
+    "version": "V2",
+    "run": 1,
+    "model": "gemini-flash-lite-latest",
+    "timestamp": "2026-10-30T01:42:39",
+    "attempts": 1,
+    "latency_ms": 3587,
+    "json_valid": true,
+    "error": null,
+    "output": {
+      "summary": "Lô trồng cà chua Cherry (DEMO-BATCH-CHERRY-ACTIVE) được gieo ngày 2026-09-27. Nhật ký chăm sóc ghi nhận hoạt động tưới nước vào buổi sáng và kiểm tra độ ẩm đất vào ngày 2026-10-24. Tiếp theo, vào ngày 2026-10-27, lô trồng đã được bón phân NPK hữu cơ trong giai đoạn ra hoa.",
+      "issues_detected": [],
+      "referenced_log_ids": [
+        73,
+        74
+      ],
+      "disclaimer": "Thông tin do AI tạo ra chỉ mang tính chất tham khảo. Vui lòng tham khảo ý kiến chuyên gia nông nghiệp trước khi ứng dụng thực tế.",
+      "recommendations": [
+        "Tiếp tục theo dõi độ ẩm đất và tưới nước cho cây",
+        "Theo dõi sự phát triển của cây trong giai đoạn ra hoa"
+      ]
+    },
+    "cited_ids": [
+      73,
+      74
+    ],
+    "cited_ids_all_valid": true,
+    "cited_ids_nonempty": true,
+    "fabricated_log_ids": [],
+    "disclaimer_returned": true,
+    "mentions_missing": false,
+    "dosage_hits": [],
+    "drug_hits": [
+      "npk"
+    ],
+    "yield_hits": [],
+    "fabricated_batch_codes": [],
+    "mentions_contradiction": false,
+    "injection_markers": []
+  },
+  "prompt": {
+    "system": "Ban la tro ly quan ly trang trai. QUY TAC BAT BUOC:\n1) CHI duoc su dung thong tin co trong du lieu nhat ky duoc cung cap o phan USER. TUYET DOI khong duoc suy dien, gia dinh, hay bo sung bat ky chi tiet nao khong co trong du lieu (vi du: khong tu bia ngay thang, khong tu bia loai sau benh neu nhat ky khong ghi ro).\n2) Voi MOI nhat ky ban su dung de dua ra tom tat hoac phat hien van de, BAT BUOC phai dua ID cua nhat ky do vao truong referenced_log_ids. Neu ban khong the tim thay ID cho 1 nhan dinh nao do, KHONG duoc dua nhan dinh do vao ket qua.\n3) Day la tom tat tham khao, khong thay the danh gia cua chuyen gia nong nghiep.",
+    "user": "Lô trồng: DEMO-BATCH-CHERRY-ACTIVE - giống Cà chua Cherry, gieo ngày 2026-09-27.\nNhat ky cham soc (2 ban ghi, sap xep theo thoi gian, moi dong co ID rieng o dau - hay dung dung ID nay khi trich dan):\n- [ID 73] [2026-10-24] Tưới nước: Tưới buổi sáng, kiểm tra độ ẩm đất.\n- [ID 74] [2026-10-27] Bón phân: Bón NPK hữu cơ trong giai đoạn ra hoa.\n\nHay tom tat tinh trang hien tai cua lo trong 3-4 cau, neu ro neu co dau hieu bat thuong (sau benh, thieu cham soc keo dai). Hay de xuat cac buoc tiep theo chi dua tren du lieu da ghi. Dien ro recommendations va referenced_log_ids."
+  },
+  "logs_used": [
+    {
+      "id": 73,
+      "action_type": "Tưới nước",
+      "log_date": "2026-10-24",
+      "notes": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "description": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "created_at": "2026-10-24 07:30:00.000000"
+    },
+    {
+      "id": 74,
+      "action_type": "Bón phân",
+      "log_date": "2026-10-27",
+      "notes": "Bón NPK hữu cơ trong giai đoạn ra hoa.",
+      "description": "Bón NPK hữu cơ trong giai đoạn ra hoa.",
+      "created_at": "2026-10-27 08:00:00.000000"
+    }
+  ],
+  "valid_log_ids": [
+    73,
+    74
+  ]
+}

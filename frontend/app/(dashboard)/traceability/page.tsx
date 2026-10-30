@@ -3,7 +3,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import useSWR from 'swr'
-import { QRCodeCanvas, QRCodeSVG } from 'qrcode.react'
+import dynamic from 'next/dynamic'
+// Tách qrcode.react khỏi bundle đầu trang: chỉ tải khi khu vực tem truy xuất được render.
+const QRCodeSVG = dynamic(
+  () => import('qrcode.react').then((mod) => ({ default: mod.QRCodeSVG })),
+  { ssr: false },
+)
+const QRCodeCanvas = dynamic(
+  () => import('qrcode.react').then((mod) => ({ default: mod.QRCodeCanvas })),
+  { ssr: false },
+)
 import {
   AlertCircle,
   CalendarDays,

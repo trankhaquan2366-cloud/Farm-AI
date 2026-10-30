@@ -1,5 +1,10 @@
+import os
 from collections.abc import Generator
 from datetime import date
+
+# Cấu hình tối thiểu cho môi trường test, phải đặt trước khi import app.
+os.environ.setdefault("SECRET_KEY", "test-only-secret-key-not-for-production")
+os.environ.setdefault("DEBUG", "true")
 
 import pytest
 from fastapi.testclient import TestClient
@@ -20,6 +25,16 @@ from app.models import (
     User,
     UserRole,
 )
+
+
+@pytest.fixture(autouse=True)
+def _reset_login_rate_limit() -> Generator[None, None, None]:
+    """Mỗi test bắt đầu với bộ đếm đăng nhập trống."""
+    from app.core.rate_limit import reset_login_rate_limit
+
+    reset_login_rate_limit()
+    yield
+    reset_login_rate_limit()
 
 
 @pytest.fixture()

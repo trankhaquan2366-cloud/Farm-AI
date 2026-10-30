@@ -11,16 +11,17 @@ class CareLog(Base):
         Integer,
         ForeignKey("crop_batches.id", ondelete="CASCADE"),
         nullable=True,
+        index=True,
     )
-    action_type = Column(String(100), nullable=False)  # Ví dụ: Tưới nước, Bón phân...
-    log_date = Column(String(50), nullable=True)  
+    action_type = Column(String(100), nullable=False, index=True)  # Ví dụ: Tưới nước, Bón phân...
+    log_date = Column(String(50), nullable=True, index=True)  
     description = Column(Text, nullable=True)    
     notes = Column(Text, nullable=True)                
     image_url = Column(String(255), nullable=True)
     quantity = Column(Float, nullable=True, default=0.0)
     quality_percent = Column(Float, nullable=True)
     created_by = Column(String, nullable=True)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
 
     crop_batch = relationship(
         "CropBatch", 

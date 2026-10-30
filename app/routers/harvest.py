@@ -34,7 +34,7 @@ def list_all_harvests(
     """
     Lấy toàn bộ danh sách các lượt thu hoạch trong hệ thống (Dùng cho biểu đồ Dashboard).
     """
-    return service.list_all(db)
+    return service.list_all(db, current_user)
 
 
 @router.get(
@@ -52,7 +52,7 @@ def list_by_batch(
     """
     Lấy thông tin các lượt thu hoạch thuộc về một Lô trồng (Batch) cụ thể.
     """
-    return service.list_by_batch(db, batch_id)
+    return service.list_by_batch(db, batch_id, current_user)
 
 
 @router.post(
@@ -101,8 +101,20 @@ def trace_harvest_by_code(
             status_code=status.HTTP_404_NOT_FOUND, 
             detail=f"Không tìm thấy thông tin truy xuất nguồn gốc cho mã: '{clean_code}'"
         )
+
+    # Trang truy xuất là công khai: chỉ trả các trường được phép công bố,
+    # không trả ghi chú tự do (notes) hay dữ liệu nội bộ khác.
+    public_data = {
+        "batch_id": trace_data.batch_id,
+        "quantity": trace_data.quantity,
+        "unit": getattr(trace_data, "unit", None) or "kg",
+        "grade": getattr(trace_data, "grade", None),
+        "harvest_date": getattr(trace_data, "harvest_date", None)
+        or getattr(trace_data, "harvest_time", None),
+        "qr_trace_code": getattr(trace_data, "qr_trace_code", None),
+    }
         
     return {
         "status": "success",
-        "data": trace_data
+        "data": public_data
     }

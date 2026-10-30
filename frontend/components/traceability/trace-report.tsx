@@ -174,9 +174,10 @@ export function TraceReport({ data, publicUrl }: TraceReportProps) {
         ) : (
           <ol className="space-y-4">
             {careLogs.map((log, i) => {
-              const logType = log.action ?? log.log_type ?? log.logType ?? 'Chăm sóc'
-              const performedAt = log.date ?? log.performed_at ?? log.created_at
-              const description = log.notes ?? log.description ?? ''
+              // API công khai chỉ trả whitelist: id, action_type, summary, logged_at.
+              const logType = log.action_type ?? log.action ?? log.log_type ?? log.logType ?? 'Chăm sóc'
+              const performedAt = log.logged_at ?? log.date ?? log.performed_at ?? log.created_at
+              const description = log.summary ?? log.notes ?? log.description ?? ''
               const supplies = log.supplies_used ?? []
 
               return (

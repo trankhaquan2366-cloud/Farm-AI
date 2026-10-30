@@ -8,7 +8,7 @@ class Notification(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     # Liên kết với user nhận thông báo (để trống nếu là thông báo chung cho toàn trang trại)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=True) 
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True) 
     
     type = Column(String(50))      # Ví dụ: "ai_warning", "warning", "info"
     title = Column(String(255))    # Tiêu đề thông báo

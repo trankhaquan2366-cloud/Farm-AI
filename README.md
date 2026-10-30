@@ -100,7 +100,7 @@ Frontend chịu trách nhiệm hiển thị giao diện và gọi API. Backend x
 
 Các mô hình SQLAlchemy hiện mô tả dữ liệu quan hệ như `User`, `Plot`, `PlantVariety`, `CropBatch`, `CareLog`, `Supply`, `SupplyUsage`, `HarvestLog`, `Sale`, `Notification` và dữ liệu AI. Khóa ngoại được sử dụng để liên kết hoạt động canh tác với lô trồng, giống cây, lô đất và vật tư.
 
-**Lưu ý quan trọng:** backend trong repository hiện khởi tạo SQLite tại `farm.db`; `docker-compose.yml` cũng mount tệp SQLite. PostgreSQL là lựa chọn phù hợp cho môi trường triển khai mục tiêu, nhưng để sử dụng cần cấu hình URL kết nối, driver PostgreSQL, schema/migration, backup và biến môi trường phù hợp. Không nên mô tả PostgreSQL là database đang chạy mặc định nếu chưa thực hiện cấu hình và kiểm thử chuyển đổi.
+**Lưu ý quan trọng:** backend đọc `DATABASE_URL` trong `app/core/database.py` (mặc định `sqlite:///./farm.db`); `docker-compose.yml` cũng mount tệp SQLite. Đổi sang file SQLite khác (ví dụ `farm_demo.db`) chỉ cần đặt biến môi trường. PostgreSQL **chưa được cấu hình/kiểm thử** trong đợt này: muốn dùng phải thêm driver, chạy migration và cấu hình backup; không nên mô tả PostgreSQL là database đang chạy mặc định.
 
 ### 4.4. Mục tiêu triển khai
 
@@ -108,7 +108,7 @@ Các mô hình SQLAlchemy hiện mô tả dữ liệu quan hệ như `User`, `Pl
 - **Render:** Nền tảng có thể dùng để triển khai backend FastAPI.
 - **PostgreSQL managed:** Lựa chọn database production được khuyến nghị khi chuyển từ SQLite.
 
-Repository hiện chưa có `vercel.json` hoặc `render.yaml`; do đó cần hoàn thiện biến môi trường, cấu hình build/start, CORS, domain, database production, logging và health checks trước khi kết luận các dịch vụ đã được triển khai trên những nền tảng này.
+Repository hiện có `vercel.json` cấu hình Vercel Services cho cả FastAPI và Next.js. Cấu hình này **chưa được kiểm chứng bằng một lần deploy thật**; trước khi kết luận “đã triển khai”, cần làm theo `docs/evidence/DEPLOY.md`, kiểm tra biến môi trường, CORS, database production và health check.
 
 ## 5. Chức năng cốt lõi
 
@@ -235,30 +235,55 @@ FastAPI cung cấp tài liệu OpenAPI tự động. Khi backend đang chạy c�
 ### 9.1. Yêu cầu môi trường
 
 - Git.
-- Python 3.12 khuyến nghị theo Dockerfile backend.
-- Node.js 22 khuyến nghị theo Dockerfile frontend.
+- Python 3.12 (đã kiểm chứng với 3.12.10).
+- Node.js 22 trở lên (Dockerfile dùng Node 22; lần build gần nhất dùng Node 24.18.1).
 - npm.
 - Docker Desktop nếu chạy bằng Docker Compose.
 
 ### 9.2. Cấu hình môi trường
 
-Tạo file `.env` ở thư mục gốc khi cần dùng chức năng AI:
+Sao chép mẫu, **không sửa trực tiếp `.env.example`**:
 
-```dotenv
-GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL=gemini-flash-lite-latest
-GEMINI_MAX_PROMPT_CHARS=24000
+```bash
+cp .env.example .env
 ```
 
-Không commit giá trị thật của API key. Có thể bỏ qua `GEMINI_API_KEY` khi chỉ muốn chạy các chức năng không phụ thuộc AI; ứng dụng sẽ cảnh báo và các endpoint AI cần khóa sẽ không hoạt động đầy đủ.
+Các biến quan trọng trong `.env` (xem đầy đủ tại `.env.example`):
+
+```dotenv
+# Bắt buộc: sinh bằng `openssl rand -hex 32`
+# DEBUG=False mà thiếu SECRET_KEY thì backend từ chối khởi động.
+SECRET_KEY=your_super_secret_key_change_me_in_production
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+DEBUG=False
+
+# Bắt buộc nếu dùng chức năng AI
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Tùy chọn
+DATABASE_URL=sqlite:///./farm.db
+CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+LOGIN_RATE_LIMIT_PER_MINUTE=5
+
+# Chỉ cần khi tạo tài khoản demo; script không tự đặt lại mật khẩu khi DEBUG=False
+DEMO_PASSWORD=
+```
+
+Không commit giá trị thật của API key hoặc `SECRET_KEY`. Có thể bỏ qua `GEMINI_API_KEY` khi chỉ muốn chạy các chức năng không phụ thuộc AI; ứng dụng sẽ cảnh báo và các endpoint AI cần khóa sẽ không hoạt động đầy đủ.
+
+Đăng nhập bị giới hạn **5 lần/phút/IP** (đổi bằng `LOGIN_RATE_LIMIT_PER_MINUTE`); vượt giới hạn trả HTTP 429 kèm header `Retry-After`. Bộ đếm nằm trong bộ nhớ từng tiến trình, nên khi chạy nhiều worker cần backend dùng chung (Redis) nếu muốn giới hạn chính xác toàn hệ thống.
+
+**Lưu ý về model AI:** `app/core/ai_client.py` đọc `GEMINI_MODEL` từ `app/core/config.py` (mặc định `gemini-flash-lite-latest`), có timeout và retry giới hạn cho 429/5xx.
 
 Frontend có thể cấu hình file `frontend/.env.local`:
 
 ```dotenv
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+NEXT_PUBLIC_API_URL=http://localhost:8000
+# Hoặc dùng tên biến đang có trong frontend/.env.local.example:
+# NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
-`NEXT_PUBLIC_*` được đưa vào bundle phía trình duyệt; chỉ đặt URL/API endpoint công khai tại đây, không đặt mật khẩu, khóa bí mật hoặc thông tin kết nối database.
+Mã nguồn frontend đọc cả `NEXT_PUBLIC_API_URL` và `NEXT_PUBLIC_API_BASE_URL`. `NEXT_PUBLIC_*` được đưa vào bundle phía trình duyệt; chỉ đặt URL/API endpoint công khai tại đây, không đặt mật khẩu, khóa bí mật hoặc thông tin kết nối database.
 
 ### 9.3. Chạy backend cục bộ
 
@@ -287,7 +312,14 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Backend hiện tạo/sử dụng SQLite `farm.db` theo cấu hình trong `app/core/database.py`. Khi chạy lần đầu, hãy để ứng dụng tạo schema hoặc khởi tạo theo hướng dẫn của nhóm. Không dùng chung tệp database development với production.
+Nếu cần chạy test hoặc các script kiểm tra:
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest -q
+```
+
+Backend hiện tạo/sử dụng SQLite `farm.db` theo cấu hình trong `app/core/database.py`; khi khởi động, `Base.metadata.create_all` tạo bảng còn thiếu. Thư mục `alembic/versions` có 7 migration nhưng luồng chạy mặc định **không** tự chạy Alembic. Với dữ liệu production, nên dùng `alembic upgrade head` sau khi cấu hình `sqlalchemy.url` và kiểm thử trên bản sao CSDL. Không dùng chung tệp database development với production.
 
 Kiểm tra:
 
@@ -327,7 +359,15 @@ docker compose up --build -d
 docker compose down
 ```
 
-Compose hiện mount `farm.db` để lưu database SQLite cục bộ. Hãy sao lưu dữ liệu cần thiết trước khi thay đổi hoặc xóa file này. Không xem cấu hình Compose hiện tại là cấu hình PostgreSQL production.
+Compose đọc `DATABASE_URL`, `CORS_ORIGINS` và bắt buộc có `SECRET_KEY` trong `.env`/biến môi trường (không còn khóa mặc định). Backend chạy bằng người dùng `appuser` (UID 10001), không phải root. `NEXT_PUBLIC_API_URL` phải là `http://localhost:8000` (không thêm `/api` hay `/api/v1` vì `frontend/lib/api.ts` tự thêm một lần).
+
+Compose hiện mount `farm.db` để lưu database SQLite cục bộ. Trên Linux, file do người dùng host tạo có thể không cho UID 10001 ghi; hãy cấp quyền hoặc dùng named volume nếu gặp lỗi “readonly database”. Hãy sao lưu dữ liệu cần thiết trước khi thay đổi hoặc xóa file này. Không xem cấu hình Compose hiện tại là cấu hình PostgreSQL production.
+
+### 9.6. Kiểm chứng cài đặt sạch
+
+Ngày 2026-10-30, nhóm đã tạo một virtualenv hoàn toàn mới, cài `requirements.txt` + `requirements-dev.txt`, import `app.main` và chạy lại toàn bộ test: **exit code 0, 47 passed, 15 xfailed**. Chi tiết lệnh và đầu ra trong `docs/evidence/INSTALL_VERIFY.md`.
+
+Hướng dẫn triển khai Vercel nằm trong `docs/evidence/DEPLOY.md`. Cấu hình `vercel.json` đã có nhưng **chưa được deploy thật** trong đợt này.
 
 ## 10. Dữ liệu mẫu (Seed)
 
@@ -347,6 +387,8 @@ Tài khoản demo dùng chung mật khẩu `GreenFarmDemo2026!`:
 | Manager | `demo_manager@greenfarm.local` |
 | Technician | `demo_technician@greenfarm.local` |
 | Staff | `demo_staff@greenfarm.local` |
+
+Ngoài ra, `create_admin.py` tạo bộ tài khoản dev cũ với mật khẩu cố định: `admin@farm.com` / `admin123`, `kythuat@farm.com` / `tech123`, `nhanvien@farm.com` / `staff123`. **Không dùng các tài khoản này ở môi trường công khai**; script này còn đặt lại mật khẩu mỗi lần chạy.
 
 Mã QR mẫu: `DEMO-QR-001` và `DEMO-QR-002`. Các endpoint AI cần `GEMINI_API_KEY` để gọi mô hình thật; gợi ý đã seed chỉ là dữ liệu minh họa.
 
@@ -369,6 +411,28 @@ python scripts\demo_data.py --database-url "sqlite:///./farm_demo_test.db"
 python scripts\demo_data.py --database-url "sqlite:///./farm_demo_test.db" --reset --yes
 ```
 
+### CSDL demo sạch để chấm bài
+
+`farm.db` có thể đã lẫn các lô thử tạo tay ("al", "lol", "1", "chì chì") và lô đất thử ("66", "chì"). Để có CSDL demo chỉ gồm dữ liệu chuẩn, dựng file riêng `farm_demo.db`:
+
+```powershell
+python scripts\seed_clean_demo.py
+# Ghi đè file demo đã có:
+python scripts\seed_clean_demo.py --force
+```
+
+Script tạo mới file từ `scripts/demo_data.py`, kiểm tra lại không còn lô/lô đất thử, không mở hay sửa `farm.db`, và từ chối ghi vào `farm.db`. Sau đó trỏ backend sang file demo bằng biến môi trường (hoặc sửa `DATABASE_URL` trong `.env`):
+
+```powershell
+set DATABASE_URL=sqlite:///./farm_demo.db
+uvicorn app.main:app --reload
+```
+
+```bash
+export DATABASE_URL=sqlite:///./farm_demo.db
+uvicorn app.main:app --reload
+```
+
 Để sinh dữ liệu tải kiểm thử quy mô lớn (50 user, 30 giống, 80 vật tư, 40 lô đất, 120 mẻ trồng và ít nhất 5.000 nhật ký), dùng script riêng:
 
 ```powershell
@@ -380,29 +444,40 @@ Script tải kiểm thử hỗ trợ `--database-url` và biến môi trường 
 
 ## 11. Kiểm thử và kiểm tra chất lượng
 
+Backend (đã cấu hình `pytest.ini` để chỉ gom thư mục `tests/`):
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest -q
+```
+
+Kết quả chạy ngày 2026-10-30: **47 passed, 15 xfailed trong 13,88 giây** (62 test). 15 ca `xfail` là các lỗi thật đã được ghi nhận, không phải test đạt; xem chi tiết trong `docs/evidence/TEST_EVIDENCE.md`.
+
 Frontend:
 
 ```bash
 cd frontend
-npm run lint
+npx tsc --noEmit
 npm run build
-npm exec tsc -- --noEmit
 ```
 
-Backend:
+Kết quả ngày 2026-10-30: TypeScript không báo lỗi; `next build` thành công, tạo 15 route tĩnh/động.
 
-```bash
-python -m compileall app scripts
-```
+Các lệnh trên không thay thế kiểm thử tích hợp với Gemini thật. Hành vi AI được đo riêng trong `docs/evidence/COMPARISON.md`; các ca gọi API thật cần `GEMINI_API_KEY` và còn phụ thuộc quota.
 
-Các lệnh trên kiểm tra lint/build/kiểu và cú pháp Python; chúng không thay thế kiểm thử tích hợp với database, xác thực, phân quyền hoặc dịch vụ Gemini. Trước khi phát hành, cần bổ sung/chạy test tự động cho:
+Bộ bằng chứng chi tiết nằm trong `docs/evidence/`:
 
-- Đăng nhập, token hết hạn và quyền truy cập theo role.
-- Tạo/cập nhật/xóa danh mục và ràng buộc dữ liệu.
-- Nhật ký chăm sóc, ghi nhận sử dụng vật tư và tính đúng tồn kho.
-- Tạo/đọc lô trồng và dữ liệu truy xuất công khai.
-- Nhập file sai định dạng, thiếu cột hoặc giá trị không hợp lệ.
-- Hành vi lỗi khi AI/database/API bên ngoài không khả dụng.
+- `COMPARISON.md` — so sánh prompt V1/V2 trên 5 lô thật, 3 lần chạy.
+- `TEST_EVIDENCE.md` — ma trận kiểm thử và các lỗi thật phát hiện qua test.
+- `SECURITY_SCAN.md` — quét khóa/mật khẩu, Git history và cấu hình.
+- `INSTALL_VERIFY.md` — cài lại từ đầu trong virtualenv sạch.
+- `DEPLOY.md` — kế hoạch triển khai và các điểm chặn.
+- `UI_REVIEW.md` — rà giao diện theo vai trò, 5 lỗi đã sửa và các vấn đề còn tồn tại.
+- `SCREENSHOT_LIST.md` — danh mục 26 ảnh chụp thật kèm tài khoản và thao tác.
+- `GIT_HISTORY.md` — lịch sử commit và mức độ đóng góp.
+- `AI_LOG.md` — nhật ký sử dụng AI trong quá trình làm đồ án.
+
+Lưu ý: trên giao diện, các tab AI đang bị lỗi 429 do hạn mức model `gemini-2.5-flash`; không có ảnh AI trả lời thành công. Chi tiết trong `UI_REVIEW.md` mục 4.6.
 
 ## 12. Cấu trúc repository
 
@@ -476,7 +551,7 @@ Không nên ghi nhận số liệu hiệu năng, tỷ lệ chính xác AI, chứ
 
 - Database mặc định hiện là SQLite; PostgreSQL cần được cấu hình và kiểm thử riêng trước khi sử dụng production.
 - Compose hiện chạy frontend và backend, không khởi tạo dịch vụ PostgreSQL.
-- Vercel và Render là mục tiêu triển khai có thể lựa chọn; repository hiện không chứa cấu hình triển khai riêng cho hai nền tảng.
+- Vercel và Render là mục tiêu triển khai có thể lựa chọn; repository có `vercel.json` cho Vercel Services nhưng **chưa deploy thật**, và chưa có cấu hình triển khai Render. Chi tiết và các điểm chặn nằm trong `docs/evidence/DEPLOY.md`.
 - AI phụ thuộc API key, hạn mức, khả năng truy cập dịch vụ bên ngoài và chất lượng dữ liệu đầu vào.
 - QR chỉ giúp mở trang tra cứu; độ tin cậy của nội dung phụ thuộc dữ liệu được ghi nhận và quy trình kiểm chứng.
 - Quan hệ phân công hiện tại không đồng nghĩa đã có mô hình quản lý nhân sự nhiều cấp.

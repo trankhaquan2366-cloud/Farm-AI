@@ -22,6 +22,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
 
 from app.core.database import SQLALCHEMY_DATABASE_URL, Base
 from app.core.security import hash_password
@@ -41,13 +42,16 @@ from app.models import (
     UserRole,
 )
 
-DEMO_PASSWORD = "GreenFarmDemo2026!"
 DEMO_USERS = (
     ("demo_admin", "demo_admin@greenfarm.local", "Nguyễn Minh Anh", UserRole.ADMIN, None),
     ("demo_manager", "demo_manager@greenfarm.local", "Trần Quốc Bảo", UserRole.MANAGER, None),
     ("demo_technician", "demo_technician@greenfarm.local", "Lê Thu Hà", UserRole.TECHNICIAN, "DEMO-PLOT-01"),
     ("demo_staff", "demo_staff@greenfarm.local", "Phạm Văn Nam", UserRole.STAFF, "DEMO-PLOT-01"),
 )
+
+
+def _debug_enabled() -> bool:
+    return os.getenv("DEBUG", "false").strip().lower() in {"1", "true", "yes", "on"}
 
 
 def build_engine(database_url: str) -> Engine:
@@ -96,10 +100,33 @@ def month_date(reference_date: date, months_ago: int, day: int) -> date:
 def seed_demo_data(session_factory: sessionmaker) -> None:
     today = date.today()
     operating_months = list(range(11, -1, -1))
-    password_hash = hash_password(DEMO_PASSWORD)
+    allow_password_reset = _debug_enabled()
 
     with session_factory() as session:
         try:
+            demo_emails = [item[1] for item in DEMO_USERS]
+            existing_hashes = dict(
+                session.query(User.email, User.hashed_password)
+                .filter(User.email.in_(demo_emails))
+                .all()
+            )
+            fresh_hash = None
+
+            def password_for(email: str) -> str:
+                """Giữ mật khẩu cũ khi DEBUG=False; chỉ hash mới khi cần."""
+                nonlocal fresh_hash
+                if not allow_password_reset and email in existing_hashes:
+                    return existing_hashes[email]
+                if fresh_hash is None:
+                    password = os.getenv("DEMO_PASSWORD", "").strip()
+                    if not password:
+                        raise SystemExit(
+                            "Thiếu DEMO_PASSWORD. Đặt biến môi trường DEMO_PASSWORD "
+                            "trước khi tạo tài khoản demo (xem .env.example)."
+                        )
+                    fresh_hash = hash_password(password)
+                return fresh_hash
+
             clear_demo_data(session)
 
             plots = [
@@ -155,7 +182,7 @@ def seed_demo_data(session_factory: sessionmaker) -> None:
                     role=role,
                     plot_id=plots_by_code[plot_code].id if plot_code else None,
                     employee_code=f"DEMO-{role.value.upper()}",
-                    hashed_password=password_hash,
+                    hashed_password=password_for(email),
                     is_active=True,
                 )
                 for username, email, full_name, role, plot_code in DEMO_USERS
@@ -560,7 +587,7 @@ def seed_demo_data(session_factory: sessionmaker) -> None:
         f"  Hoạt động trải đều 12 tháng gần nhất: "
         f"{month_date(today, 11, 1):%m/%Y} – {today:%m/%Y}"
     )
-    print(f"  Mật khẩu chung: {DEMO_PASSWORD}")
+    print("  Mật khẩu: lấy từ biến môi trường DEMO_PASSWORD (không in ra log).")
     print("  Mã truy xuất QR: DEMO-QR-001, DEMO-QR-002")
 
 

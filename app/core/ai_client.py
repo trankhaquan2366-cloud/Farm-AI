@@ -1,5 +1,6 @@
 import json
 import logging
+import time
 from typing import Optional, Any
 from google import genai
 from google.genai import types
@@ -13,7 +14,10 @@ DISCLAIMER_TEXT = (
     "Lưu ý: Thông tin do AI tạo ra chỉ mang tính chất tham khảo. "
     "Vui lòng tham khảo ý kiến chuyên gia nông nghiệp trước khi ứng dụng thực tế."
 )
-GEMINI_MODEL = "gemini-2.5-flash"
+# Đọc từ cấu hình thay vì ghim cứng; giữ tên biến để mã cũ/test cũ không gãy.
+GEMINI_MODEL = settings.GEMINI_MODEL
+MAX_RETRIES = 2  # tổng cộng tối đa 3 lần gọi cho một yêu cầu
+RETRY_BASE_DELAY_SECONDS = 1.0
 ANTI_HALLUCINATION_INSTRUCTIONS = (
     "Chỉ phân tích dữ liệu thực tế được cung cấp từ cơ sở dữ liệu SQLite trong ngữ cảnh. "
     "Không suy đoán, không tạo dữ liệu, mã lô, ID hoặc lịch sử không có trong dữ liệu. "
@@ -48,7 +52,11 @@ def _get_client() -> genai.Client:
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Chưa cấu hình GEMINI_API_KEY - không thể gọi chức năng AI.",
         )
-    return genai.Client(api_key=settings.GEMINI_API_KEY)
+    timeout_ms = max(1, int(settings.GEMINI_TIMEOUT_SECONDS)) * 1000
+    return genai.Client(
+        api_key=settings.GEMINI_API_KEY,
+        http_options=types.HttpOptions(timeout=timeout_ms),
+    )
 
 
 def _bounded_prompt(prompt: str) -> str:
@@ -83,6 +91,77 @@ def _raise_gemini_error(exc: Exception) -> None:
     ) from exc
 
 
+def _exception_status_code(exc: Exception) -> Optional[int]:
+    for attribute in ("status_code", "code"):
+        value = getattr(exc, attribute, None)
+        if isinstance(value, int) and not isinstance(value, bool):
+            return value
+    return None
+
+
+def _is_retryable_exception(exc: Exception) -> bool:
+    """Chỉ thử lại khi lỗi tạm thời: 429, 5xx hoặc timeout.
+
+    Các lỗi 4xx khác (sai key, sai tham số, model không tồn tại) không được
+    thử lại vì chạy lại chỉ tốn quota mà không thể thành công.
+    """
+    status_code = _exception_status_code(exc)
+    if status_code == 429 or (status_code is not None and 500 <= status_code < 600):
+        return True
+
+    if isinstance(exc, TimeoutError):
+        return True
+
+    error_text = str(exc).lower()
+    timeout_markers = ("timeout", "timed out", "deadline exceeded")
+    if any(marker in error_text for marker in timeout_markers):
+        return True
+    if "timeouterror" in type(exc).__name__.lower():
+        return True
+
+    retryable_markers = (
+        "429",
+        "rate limit",
+        "resource exhausted",
+        "500",
+        "502",
+        "503",
+        "504",
+        "unavailable",
+        "internal server error",
+        "bad gateway",
+        "gateway timeout",
+    )
+    return any(marker in error_text for marker in retryable_markers)
+
+
+def _generate_with_retry(*, client: genai.Client, contents: Any, config: types.GenerateContentConfig):
+    """Gọi Gemini với tối đa 2 lần thử lại, chờ tăng dần 1s rồi 2s."""
+    last_error: Optional[Exception] = None
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            return client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=contents,
+                config=config,
+            )
+        except Exception as exc:  # noqa: BLE001 - cần phân loại lỗi của SDK
+            last_error = exc
+            if attempt >= MAX_RETRIES or not _is_retryable_exception(exc):
+                raise
+            delay = RETRY_BASE_DELAY_SECONDS * (2 ** attempt)
+            logger.warning(
+                "Gemini tạm thời lỗi (%s), thử lại lần %s/%s sau %.1fs",
+                type(exc).__name__,
+                attempt + 1,
+                MAX_RETRIES,
+                delay,
+            )
+            time.sleep(delay)
+    assert last_error is not None
+    raise last_error
+
+
 def call_gemini(
     system_prompt: str, 
     user_prompt: str, 
@@ -106,8 +185,8 @@ def call_gemini(
     contents.append(_bounded_prompt(user_prompt))
 
     try:
-        response = client.models.generate_content(
-            model=GEMINI_MODEL,
+        response = _generate_with_retry(
+            client=client,
             contents=contents,
             config=types.GenerateContentConfig(
                 system_instruction=(
@@ -143,8 +222,8 @@ def call_gemini_structured(system_prompt: str, user_prompt: str, response_schema
         schema_for_gemini = sanitize_schema_for_gemini(schema_for_gemini)
 
     try:
-        response = client.models.generate_content(
-            model=GEMINI_MODEL,
+        response = _generate_with_retry(
+            client=client,
             contents=_bounded_prompt(user_prompt),
             config=types.GenerateContentConfig(
                 system_instruction=(

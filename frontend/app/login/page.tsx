@@ -268,16 +268,22 @@ export default function LoginPage() {
 
         <dl className="relative z-10 grid grid-cols-3 gap-4 border-t border-white/15 pt-6">
           <div>
-            <dt className="text-xs leading-5 text-slate-400">Lô đất quản lý</dt>
-            <dd className="mt-1 text-xl font-semibold text-white sm:text-2xl">100+</dd>
+            <dt className="text-xs leading-5 text-slate-400">Quản lý lô trồng</dt>
+            <dd className="mt-1 text-sm font-semibold leading-6 text-white">
+              Diện tích, mùa vụ và trạng thái
+            </dd>
           </div>
           <div>
-            <dt className="text-xs leading-5 text-slate-400">Độ chính xác AI</dt>
-            <dd className="mt-1 text-xl font-semibold text-white sm:text-2xl">99.8%</dd>
+            <dt className="text-xs leading-5 text-slate-400">Gợi ý AI tham khảo</dt>
+            <dd className="mt-1 text-sm font-semibold leading-6 text-white">
+              Tóm tắt nhật ký, lịch chăm sóc
+            </dd>
           </div>
           <div>
-            <dt className="text-xs leading-5 text-slate-400">Tiêu chuẩn canh tác</dt>
-            <dd className="mt-1 text-base font-semibold text-white sm:text-lg">GlobalGAP</dd>
+            <dt className="text-xs leading-5 text-slate-400">Truy xuất QR</dt>
+            <dd className="mt-1 text-sm font-semibold leading-6 text-white">
+              Hồ sơ canh tác công khai
+            </dd>
           </div>
         </dl>
       </aside>

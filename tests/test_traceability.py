@@ -16,6 +16,12 @@ def test_public_batch_trace_contains_related_data(
     assert payload["variety_info"]["name"] == "Xà lách Romaine"
     assert payload["variety_info"]["growth_duration_days"] == 60
     assert payload["care_history"]
-    assert payload["care_history"][0]["action_type"] == "Tưới nước"
+    first_care = payload["care_history"][0]
+    assert first_care["action_type"] == "Tưới nước"
+    assert first_care["summary"] == "Hoạt động: Tưới nước"
+    # Trang công khai không được lộ ghi chú tự do hay ảnh nội bộ.
+    assert "notes" not in first_care
+    assert "image_url" not in first_care
     assert payload["harvest_history"]
-    assert payload["safety_certifications"]
+    # Chưa có bảng chứng nhận thật -> trả rỗng, không gắn nhãn tự động.
+    assert payload["safety_certifications"] == []

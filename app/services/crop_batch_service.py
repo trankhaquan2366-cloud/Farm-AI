@@ -1,3 +1,4 @@
+from datetime import date
 from typing import Any, Dict, Optional, Set
 from uuid import uuid4
 
@@ -98,6 +99,12 @@ def create_crop_batch(
 ) -> CropBatch:
     """Tạo lô và cập nhật tồn kho giống trong cùng transaction."""
     try:
+        if payload.sow_date is not None and payload.sow_date > date.today():
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Ngày gieo không được ở tương lai.",
+            )
+
         columns = _column_names(CropBatch)
         if db.query(Plot).filter(Plot.id == payload.plot_id).first() is None:
             raise HTTPException(

@@ -7,6 +7,7 @@ from app.repositories import crop_batch as batch_repo
 from app.repositories import plant_variety as variety_repo
 from app.repositories import ai_suggestion as ai_repo
 from app.core.ai_client import call_gemini_structured, DISCLAIMER_TEXT
+from app.core import ai_guard
 from app.schemas.ai_schedule import ScheduleAIRaw, AiScheduleOut, ScheduleItemOut
 
 SYSTEM_PROMPT = (
@@ -23,7 +24,8 @@ SYSTEM_PROMPT = (
     "số ngày sinh trưởng tối đa được cung cấp. Không tự tính hoặc trả về trường date.\n"
     "5) Lịch phải có ít nhất một lần tưới nước, hai lần bón phân và hai lần kiểm "
     "tra sâu bệnh. Chỉ dựa trên dữ liệu được cung cấp, không tự bịa thông tin.\n"
-    "6) Đây là lịch tham khảo, không thay thế đánh giá của chuyên gia nông nghiệp."
+    "6) Đây là lịch tham khảo, không thay thế đánh giá của chuyên gia nông nghiệp.\n"
+    f"{ai_guard.SAFETY_RULES}"
 )
 
 VIETNAMESE_DIACRITICS = (
@@ -100,18 +102,37 @@ def generate_schedule(db: Session, batch_id: int) -> AiScheduleOut:
                 "- kết quả bị từ chối."
             ),
         )
-        invalid_descriptions = [
-            item for item in ai_result.schedule
-            if not _has_vietnamese_diacritics(item.description)
-        ]
-        if invalid_descriptions:
-            raise HTTPException(
-                status_code=status.HTTP_502_BAD_GATEWAY,
-                detail="AI trả về mô tả lịch chăm sóc chưa có dấu tiếng Việt hoặc không đúng yêu cầu.",
-            )
+
+    # 3) Mô tả phải là tiếng Việt có dấu. Kiểm tra trên nội dung AI trả về
+    # (trước hậu kiểm) để không vô tình chấp nhận mô tả không dấu.
+    invalid_descriptions = [
+        item for item in ai_result.schedule
+        if not _has_vietnamese_diacritics(item.description)
+    ]
+    if invalid_descriptions:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="AI trả về mô tả lịch chăm sóc chưa có dấu tiếng Việt hoặc không đúng yêu cầu.",
+        )
+
+    # 4) Hậu kiểm liều lượng/tên thuốc/cam kết năng suất/năm sai.
+    allowed_years = {now.year, seeding_date.year}
+    reasons: list[str] = []
+    cleaned_items = []
+    for item in ai_result.schedule:
+        safe_description, item_reasons = ai_guard.sanitize_text(
+            item.description, allowed_years
+        )
+        reasons.extend(item_reasons)
+        cleaned_items.append((item, safe_description))
+    if "nam_khong_khop" in reasons:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="AI trả về năm không khớp dữ liệu đầu vào - kết quả bị từ chối.",
+        )
     # ===== KẾT THÚC KIỂM CHỨNG =====
 
-    # 3) TỰ TÍNH ngày thật từ day_offset - không dùng bất kỳ phép tính ngày
+    # 5) TỰ TÍNH ngày thật từ day_offset - không dùng bất kỳ phép tính ngày
     # tháng nào do AI đưa ra, loại bỏ hẳn rủi ro AI tính sai lịch.
     schedule_out = sorted(
         [
@@ -119,9 +140,9 @@ def generate_schedule(db: Session, batch_id: int) -> AiScheduleOut:
                 day_offset=item.day_offset,
                 date=seeding_date + timedelta(days=item.day_offset),
                 task_type=item.task_type,
-                description=item.description,
+                description=safe_description,
             )
-            for item in ai_result.schedule
+            for item, safe_description in cleaned_items
         ],
         key=lambda x: x.day_offset,
     )
@@ -133,9 +154,31 @@ def generate_schedule(db: Session, batch_id: int) -> AiScheduleOut:
         schedule=schedule_out,
         disclaimer=DISCLAIMER_TEXT,
         created_at=now,
+        missing_data=[
+            str(item).strip()
+            for item in (ai_result.missing_data or [])
+            if str(item).strip()
+        ],
+        contradictions=[
+            str(item).strip()
+            for item in (ai_result.contradictions or [])
+            if str(item).strip()
+        ],
+        guard_triggered=bool(reasons),
     )
 
-    ai_repo.create(db, "schedule", batch_id, json.dumps({"user_prompt": user_prompt}),
-                    json.dumps(result.model_dump(mode="json")), DISCLAIMER_TEXT, now)
+    ai_repo.create(
+        db,
+        "schedule",
+        batch_id,
+        json.dumps({"user_prompt": user_prompt}),
+        json.dumps(result.model_dump(mode="json")),
+        DISCLAIMER_TEXT,
+        now,
+        description=(
+            str(getattr(result, "schedule", "") or "")
+            or "Lịch chăm sóc được đề xuất bởi AI."
+        ),
+    )
 
     return result

@@ -4,7 +4,7 @@ import { ChangeEvent, DragEvent, useEffect, useMemo, useRef, useState } from 're
 import { Tabs } from '@base-ui/react/tabs'
 import { Select } from '@base-ui/react/select'
 import useSWR from 'swr'
-import ExcelJS from 'exceljs'
+import type ExcelJS from 'exceljs'
 import {
   AlertCircle,
   ArrowDownToLine,
@@ -268,6 +268,18 @@ function mapImportPayload(kind: Exclude<ImportKind, 'devices'>, row: Record<stri
   }
 }
 
+type ExcelJSDefault = typeof ExcelJS
+
+/**
+ * Nạp thư viện ExcelJS theo nhu cầu (dynamic import).
+ * ExcelJS rất nặng nên chỉ tải khi người dùng thực sự đọc/xuất tệp Excel,
+ * nhờ đó trang Báo cáo mở nhanh hơn hẳn mà không đổi hành vi.
+ */
+async function loadExcelJS(): Promise<ExcelJSDefault> {
+  const mod = await import('exceljs')
+  return ((mod as unknown as { default?: ExcelJSDefault }).default ?? mod) as ExcelJSDefault
+}
+
 function cellToString(value: ExcelJS.CellValue | undefined): string {
   if (value === undefined || value === null) return ''
   if (value instanceof Date) return value.toISOString().slice(0, 10)
@@ -467,6 +479,7 @@ export default function DataReportsPage() {
         const text = await file.text()
         rawRows = parseCsv(text.replace(/^\uFEFF/, ''))
       } else {
+        const ExcelJS = await loadExcelJS()
         const workbook = new ExcelJS.Workbook()
         await workbook.xlsx.load(await file.arrayBuffer())
         const sheet = workbook.worksheets[0]
@@ -505,6 +518,7 @@ export default function DataReportsPage() {
   }
 
   async function downloadTemplate() {
+    const ExcelJS = await loadExcelJS()
     const workbook = new ExcelJS.Workbook()
     const sheet = workbook.addWorksheet('Mau nhap')
     sheet.addRow(TEMPLATE_HEADERS[importKind])
@@ -618,6 +632,7 @@ export default function DataReportsPage() {
         setExportMessage('Không có dữ liệu phù hợp để xuất trong khoảng thời gian này.')
         return
       }
+      const ExcelJS = await loadExcelJS()
       const workbook = new ExcelJS.Workbook()
       const sheet = workbook.addWorksheet('Bao cao')
       const headers = Object.keys(data[0])

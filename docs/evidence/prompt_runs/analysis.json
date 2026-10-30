@@ -1,0 +1,471 @@
+[
+  {
+    "file": "01_du_du_lieu\\V1_run1.json",
+    "scenario": "01_du_du_lieu",
+    "version": "V1",
+    "run": 1,
+    "chars": 477,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-09-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "01_du_du_lieu\\V1_run2.json",
+    "scenario": "01_du_du_lieu",
+    "version": "V1",
+    "run": 2,
+    "chars": 402,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-09-16",
+      "2025-11-04",
+      "2025-11-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "01_du_du_lieu\\V1_run3.json",
+    "scenario": "01_du_du_lieu",
+    "version": "V1",
+    "run": 3,
+    "chars": 521,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-09-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "01_du_du_lieu\\V2_run1.json",
+    "scenario": "01_du_du_lieu",
+    "version": "V2",
+    "run": 1,
+    "chars": 425,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-09-16",
+      "2025-11-04",
+      "2025-11-08",
+      "2025-11-12",
+      "2025-11-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "01_du_du_lieu\\V2_run2.json",
+    "scenario": "01_du_du_lieu",
+    "version": "V2",
+    "run": 2,
+    "chars": 503,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-09-16",
+      "2025-11-04",
+      "2025-11-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "01_du_du_lieu\\V2_run3.json",
+    "scenario": "01_du_du_lieu",
+    "version": "V2",
+    "run": 3,
+    "chars": 449,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-09-16",
+      "2025-11-04",
+      "2025-11-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "02_nhat_ky_thua\\V1_run1.json",
+    "scenario": "02_nhat_ky_thua",
+    "version": "V1",
+    "run": 1,
+    "chars": 343,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-27",
+      "2026-10-24",
+      "2026-10-27"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "02_nhat_ky_thua\\V1_run2.json",
+    "scenario": "02_nhat_ky_thua",
+    "version": "V1",
+    "run": 2,
+    "chars": 353,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-27",
+      "2026-10-24",
+      "2026-10-27"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "02_nhat_ky_thua\\V1_run3.json",
+    "scenario": "02_nhat_ky_thua",
+    "version": "V1",
+    "run": 3,
+    "chars": 278,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-27",
+      "2026-10-24",
+      "2026-10-27"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "02_nhat_ky_thua\\V2_run1.json",
+    "scenario": "02_nhat_ky_thua",
+    "version": "V2",
+    "run": 1,
+    "chars": 376,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-27",
+      "2026-10-24",
+      "2026-10-27"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "02_nhat_ky_thua\\V2_run2.json",
+    "scenario": "02_nhat_ky_thua",
+    "version": "V2",
+    "run": 2,
+    "chars": 546,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2024-10-24",
+      "2026-09-27",
+      "2026-10-27"
+    ],
+    "unknown_dates": [
+      "2024-10-24"
+    ],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "02_nhat_ky_thua\\V2_run3.json",
+    "scenario": "02_nhat_ky_thua",
+    "version": "V2",
+    "run": 3,
+    "chars": 356,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-27",
+      "2026-10-24",
+      "2026-10-27"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "03_thieu_ngay_gieo\\V1_run1.json",
+    "scenario": "03_thieu_ngay_gieo",
+    "version": "V1",
+    "run": 1,
+    "chars": 408,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-01-04",
+      "2026-01-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "03_thieu_ngay_gieo\\V1_run2.json",
+    "scenario": "03_thieu_ngay_gieo",
+    "version": "V1",
+    "run": 2,
+    "chars": 462,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-01-04",
+      "2026-01-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "03_thieu_ngay_gieo\\V1_run3.json",
+    "scenario": "03_thieu_ngay_gieo",
+    "version": "V1",
+    "run": 3,
+    "chars": 400,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-01-04",
+      "2026-01-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "03_thieu_ngay_gieo\\V2_run1.json",
+    "scenario": "03_thieu_ngay_gieo",
+    "version": "V2",
+    "run": 1,
+    "chars": 628,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-01-04",
+      "2026-01-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "03_thieu_ngay_gieo\\V2_run2.json",
+    "scenario": "03_thieu_ngay_gieo",
+    "version": "V2",
+    "run": 2,
+    "chars": 526,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-01-04",
+      "2026-01-08",
+      "2026-01-12",
+      "2026-01-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "03_thieu_ngay_gieo\\V2_run3.json",
+    "scenario": "03_thieu_ngay_gieo",
+    "version": "V2",
+    "run": 3,
+    "chars": 484,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-01-04",
+      "2026-01-16"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "04_chen_lenh\\V1_run1.json",
+    "scenario": "04_chen_lenh",
+    "version": "V1",
+    "run": 1,
+    "chars": 399,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-10-21"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "04_chen_lenh\\V1_run2.json",
+    "scenario": "04_chen_lenh",
+    "version": "V1",
+    "run": 2,
+    "chars": 405,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-10-21"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "04_chen_lenh\\V1_run3.json",
+    "scenario": "04_chen_lenh",
+    "version": "V1",
+    "run": 3,
+    "chars": 460,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-10-21"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "04_chen_lenh\\V2_run1.json",
+    "scenario": "04_chen_lenh",
+    "version": "V2",
+    "run": 1,
+    "chars": 683,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-10-21",
+      "2025-12-04",
+      "2025-12-16",
+      "2025-12-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "04_chen_lenh\\V2_run2.json",
+    "scenario": "04_chen_lenh",
+    "version": "V2",
+    "run": 2,
+    "chars": 730,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-10-21",
+      "2025-12-04",
+      "2025-12-16",
+      "2025-12-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "04_chen_lenh\\V2_run3.json",
+    "scenario": "04_chen_lenh",
+    "version": "V2",
+    "run": 3,
+    "chars": 499,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2025-10-21",
+      "2025-12-04",
+      "2025-12-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "05_mau_thuan\\V1_run1.json",
+    "scenario": "05_mau_thuan",
+    "version": "V1",
+    "run": 1,
+    "chars": 291,
+    "vietnamese_diacritics": false,
+    "dates": [
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "05_mau_thuan\\V1_run2.json",
+    "scenario": "05_mau_thuan",
+    "version": "V1",
+    "run": 2,
+    "chars": 475,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-17",
+      "2026-09-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "05_mau_thuan\\V1_run3.json",
+    "scenario": "05_mau_thuan",
+    "version": "V1",
+    "run": 3,
+    "chars": 409,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "05_mau_thuan\\V2_run1.json",
+    "scenario": "05_mau_thuan",
+    "version": "V2",
+    "run": 1,
+    "chars": 493,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "05_mau_thuan\\V2_run2.json",
+    "scenario": "05_mau_thuan",
+    "version": "V2",
+    "run": 2,
+    "chars": 422,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-17",
+      "2026-09-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  },
+  {
+    "file": "05_mau_thuan\\V2_run3.json",
+    "scenario": "05_mau_thuan",
+    "version": "V2",
+    "run": 3,
+    "chars": 443,
+    "vietnamese_diacritics": true,
+    "dates": [
+      "2026-09-17",
+      "2026-09-20"
+    ],
+    "unknown_dates": [],
+    "has_10t": false,
+    "has_50kg": false
+  }
+]

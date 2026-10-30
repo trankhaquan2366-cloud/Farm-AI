@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "scenario": "03_thieu_ngay_gieo",
+    "scenario_label": "Thiếu ngày gieo (sow_date=NULL trên bản sao CSDL)",
+    "batch_id": 10,
+    "batch_code": "DEMO-BATCH-2026-01",
+    "version": "V2",
+    "run": 3,
+    "model": "gemini-flash-lite-latest",
+    "timestamp": "2026-10-30T01:44:05",
+    "attempts": 1,
+    "latency_ms": 2429,
+    "json_valid": true,
+    "error": null,
+    "output": {
+      "summary": "Lô trồng cà chua cherry DEMO-BATCH-2026-01 đã trải qua 4 lần ghi nhận chăm sóc từ ngày 2026-01-04 đến 2026-01-16. Các hoạt động chăm sóc bao gồm tưới nước, bón phân trùn quế và phun dầu neem sinh học theo lịch định kỳ. Hiện tại không có dấu hiệu sâu bệnh hay thiếu chăm sóc kéo dài nào được ghi nhận trong nhật ký.",
+      "issues_detected": [],
+      "referenced_log_ids": [
+        35,
+        36,
+        37,
+        38
+      ],
+      "disclaimer": "Thông tin do AI tạo ra chỉ mang tính chất tham khảo. Vui lòng tham khảo ý kiến chuyên gia nông nghiệp trước khi ứng dụng thực tế.",
+      "recommendations": [
+        "Tiếp tục theo dõi tình trạng của lô trồng và ghi chép nhật ký chăm sóc tiếp theo.",
+        "Tuân thủ thời gian cách ly khi đã phun dầu neem sinh học theo ghi nhận ngày 2026-01-16."
+      ]
+    },
+    "cited_ids": [
+      35,
+      36,
+      37,
+      38
+    ],
+    "cited_ids_all_valid": true,
+    "cited_ids_nonempty": true,
+    "fabricated_log_ids": [],
+    "disclaimer_returned": true,
+    "mentions_missing": false,
+    "dosage_hits": [],
+    "drug_hits": [
+      "dầu neem",
+      "neem"
+    ],
+    "yield_hits": [],
+    "fabricated_batch_codes": [],
+    "mentions_contradiction": false,
+    "injection_markers": []
+  },
+  "prompt": {
+    "system": "Ban la tro ly quan ly trang trai. QUY TAC BAT BUOC:\n1) CHI duoc su dung thong tin co trong du lieu nhat ky duoc cung cap o phan USER. TUYET DOI khong duoc suy dien, gia dinh, hay bo sung bat ky chi tiet nao khong co trong du lieu (vi du: khong tu bia ngay thang, khong tu bia loai sau benh neu nhat ky khong ghi ro).\n2) Voi MOI nhat ky ban su dung de dua ra tom tat hoac phat hien van de, BAT BUOC phai dua ID cua nhat ky do vao truong referenced_log_ids. Neu ban khong the tim thay ID cho 1 nhan dinh nao do, KHONG duoc dua nhan dinh do vao ket qua.\n3) Day la tom tat tham khao, khong thay the danh gia cua chuyen gia nong nghiep.",
+    "user": "Lô trồng: DEMO-BATCH-2026-01 - giống Cà chua Cherry, gieo ngày chưa rõ.\nNhat ky cham soc (4 ban ghi, sap xep theo thoi gian, moi dong co ID rieng o dau - hay dung dung ID nay khi trich dan):\n- [ID 35] [2026-01-04] Tưới nước: Tưới buổi sáng, kiểm tra độ ẩm đất.\n- [ID 36] [2026-01-08] Bón phân: Bón Phân trùn quế theo lịch chăm sóc.\n- [ID 37] [2026-01-12] Tưới nước: Điều chỉnh lượng nước theo điều kiện thời tiết.\n- [ID 38] [2026-01-16] Phun thuốc: Phun dầu neem sinh học và ghi nhận thời gian cách ly.\n\nHay tom tat tinh trang hien tai cua lo trong 3-4 cau, neu ro neu co dau hieu bat thuong (sau benh, thieu cham soc keo dai). Hay de xuat cac buoc tiep theo chi dua tren du lieu da ghi. Dien ro recommendations va referenced_log_ids."
+  },
+  "logs_used": [
+    {
+      "id": 35,
+      "action_type": "Tưới nước",
+      "log_date": "2026-01-04",
+      "notes": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "description": "Tưới buổi sáng, kiểm tra độ ẩm đất.",
+      "created_at": "2026-01-04 08:30:00.000000"
+    },
+    {
+      "id": 36,
+      "action_type": "Bón phân",
+      "log_date": "2026-01-08",
+      "notes": "Bón Phân trùn quế theo lịch chăm sóc.",
+      "description": "Bón Phân trùn quế theo lịch chăm sóc.",
+      "created_at": "2026-01-08 08:30:00.000000"
+    },
+    {
+      "id": 37,
+      "action_type": "Tưới nước",
+      "log_date": "2026-01-12",
+      "notes": "Điều chỉnh lượng nước theo điều kiện thời tiết.",
+      "description": "Điều chỉnh lượng nước theo điều kiện thời tiết.",
+      "created_at": "2026-01-12 08:30:00.000000"
+    },
+    {
+      "id": 38,
+      "action_type": "Phun thuốc",
+      "log_date": "2026-01-16",
+      "notes": "Phun dầu neem sinh học và ghi nhận thời gian cách ly.",
+      "description": "Phun dầu neem sinh học và ghi nhận thời gian cách ly.",
+      "created_at": "2026-01-16 08:30:00.000000"
+    }
+  ],
+  "valid_log_ids": [
+    35,
+    36,
+    37,
+    38
+  ]
+}

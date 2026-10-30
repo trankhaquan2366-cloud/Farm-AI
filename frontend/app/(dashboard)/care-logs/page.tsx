@@ -25,6 +25,7 @@ import {
   X,
 } from 'lucide-react'
 import { api, fetcher, ApiError, RAW_BASE_URL } from '@/lib/api'
+import { AI_FALLBACK_LABEL, describeAiError } from '@/lib/ai'
 import { PERMISSIONS, checkPermission } from '@/lib/permissions'
 import type { AiScheduleOut, CropBatch, FarmingLog, FarmingLogActivity } from '@/lib/types'
 
@@ -81,6 +82,7 @@ type AiAdvisorResponse = {
   answer?: string
   response?: string
   disclaimer?: string
+  ai_available?: boolean
 }
 
 type UploadResponse = { image_url: string }
@@ -173,6 +175,7 @@ export default function CareLogsPage() {
   const [schedule, setSchedule] = useState<AiScheduleOut | null>(null)
   const [scheduleLoading, setScheduleLoading] = useState(false)
   const [scheduleError, setScheduleError] = useState('')
+  const [harvestNotice, setHarvestNotice] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user')
@@ -415,6 +418,34 @@ export default function CareLogsPage() {
         },
       })
 
+      // Ghi lượt thu hoạch thật để sinh mã truy xuất QR, tách khỏi nhật ký chăm sóc.
+      if (isHarvest) {
+        try {
+          const harvest = await api<{ qr_trace_code?: string }>('/api/harvests', {
+            method: 'POST',
+            body: {
+              batch_id: Number(selectedBatchId),
+              quantity: numericQuantity,
+              grade: quality !== null ? `Đạt chuẩn ${quality}%` : undefined,
+              notes: description.trim() || undefined,
+            },
+          })
+          setHarvestNotice({
+            type: 'success',
+            text: harvest.qr_trace_code
+              ? `Đã lưu lượt thu hoạch ${numericQuantity} kg. Mã truy xuất: ${harvest.qr_trace_code}.`
+              : `Đã lưu lượt thu hoạch ${numericQuantity} kg.`,
+          })
+        } catch (error) {
+          setHarvestNotice({
+            type: 'error',
+            text: `Nhật ký đã lưu nhưng chưa ghi được lượt thu hoạch: ${
+              error instanceof ApiError ? error.message : 'lỗi không xác định'
+            }`,
+          })
+        }
+      }
+
       await Promise.all([mutateLogs(), mutateBatches(), mutateSupplies()])
       const lowerDescription = description.toLocaleLowerCase('vi-VN')
       if (
@@ -498,7 +529,7 @@ export default function CareLogsPage() {
         { method: 'POST' },
       ))
     } catch (error) {
-      setScheduleError(error instanceof ApiError ? error.message : 'Không thể tạo lịch chăm sóc lúc này.')
+      setScheduleError(describeAiError(error))
     } finally {
       setScheduleLoading(false)
     }
@@ -566,6 +597,7 @@ export default function CareLogsPage() {
       setLogAnalysis((current) => ({
         ...current,
         [log.id]: [
+          result.ai_available === false ? AI_FALLBACK_LABEL : '',
           result.reply || result.response || result.answer || 'Chưa có nội dung phân tích.',
           result.disclaimer,
         ].filter(Boolean).join('\n\n'),
@@ -573,7 +605,7 @@ export default function CareLogsPage() {
     } catch (error) {
       setLogAnalysis((current) => ({
         ...current,
-        [log.id]: error instanceof ApiError ? error.message : 'Không thể phân tích nhật ký lúc này.',
+        [log.id]: describeAiError(error),
       }))
     } finally {
       setAnalysisLoadingId(null)
@@ -593,11 +625,14 @@ export default function CareLogsPage() {
         method: 'POST',
         body: { batch_id: Number(selectedBatchId), message },
       })
-      setChatAnswer(result.reply || result.response || result.answer || '')
+      setChatAnswer([
+        result.ai_available === false ? AI_FALLBACK_LABEL : '',
+        result.reply || result.response || result.answer || '',
+      ].filter(Boolean).join('\n\n'))
       setChatDisclaimer(result.disclaimer || 'Thông tin AI mang tính tham khảo; hãy đối chiếu với điều kiện thực tế tại vườn.')
       setChatInput('')
     } catch (error) {
-      setChatError(error instanceof ApiError ? error.message : 'Không thể kết nối cố vấn AI lúc này.')
+      setChatError(describeAiError(error))
     } finally {
       setChatLoading(false)
     }
@@ -639,6 +674,27 @@ export default function CareLogsPage() {
           </span>
         )}
       </header>
+
+      {harvestNotice && (
+        <div
+          role={harvestNotice.type === 'error' ? 'alert' : 'status'}
+          className={`flex items-start justify-between gap-3 rounded-xl border px-4 py-3 text-sm leading-6 ${
+            harvestNotice.type === 'error'
+              ? 'border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-200'
+              : 'border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'
+          }`}
+        >
+          <p>{harvestNotice.text}</p>
+          <button
+            type="button"
+            onClick={() => setHarvestNotice(null)}
+            aria-label="Đóng thông báo thu hoạch"
+            className="shrink-0 rounded-md p-1 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current"
+          >
+            <X className="size-4" aria-hidden="true" />
+          </button>
+        </div>
+      )}
 
       <section className="rounded-2xl border border-slate-200/80 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900 sm:p-5">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
